@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Ölçekmatik v4.3.0</title>
+<link rel="manifest" href="manifest.json">
+
+<style>
+    /* --- DİNAMİK DEĞİŞKENLER --- */
+    :root {
+        --arkaplan: #F2E8DC; 
+        --ana-renk: #8C6A54; 
+        --yazi-renk: #3E2C22; 
+        --kutu-bg: rgba(196, 176, 163, 0.95); 
+        --input-bg: #FFFDF9; 
+        --input-border: #D9C6B8; 
+        --input-yazi: #3E2C22; 
+        --sekme-aktif: #ffffff; 
+        --sekme-pasif: rgba(62, 44, 34, 0.15); 
+    }
+
+    body {
+        font-family: 'Courier New', Courier, monospace; 
+        margin: 0; padding: 20px;
+        display: flex; flex-direction: column; align-items: center;
+        min-height: 100vh;
+        color: var(--yazi-renk);
+        background-color: var(--arkaplan);
+        background-size: cover;
+        background-position: center;
+        background-attachment: fixed;
+        transition: background 0.5s ease, color 0.5s ease;
+        overscroll-behavior: none; 
+    }
+
+    .kutu {
+        background-color: var(--kutu-bg);
+        backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+        width: 100%; max-width: 420px;
+        border-radius: 16px; 
+        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
+        border-top: 6px solid var(--ana-renk);
+        overflow: visible; padding-bottom: 35px;
+        position: relative; transition: all 0.5s ease;
+        margin-bottom: 20px; z-index: 10;
+    }
+
+    /* ÜST AYARLAR (SAĞ ÜST) */
+    .ayarlar { 
+        position: absolute; top: 15px; right: 15px; 
+        display: flex; gap: 8px; z-index: 20; 
+        align-items: center;
+    }
+    .ayar-btn {
+        background: rgba(255,255,255,0.3); border: 1px solid var(--yazi-renk);
+        border-radius: 12px; width: 38px; height: 38px; cursor: pointer;
+        font-size: 20px; display: flex; align-items: center; justify-content: center;
+        transition: 0.3s; color: var(--yazi-renk); 
+    }
+    .ayar-btn:hover { background: var(--yazi-renk); color: var(--ana-renk); }
+    
+    #langSelect {
+        height: 38px; border-radius: 10px; border: 1px solid var(--yazi-renk);
+        background: rgba(255,255,255,0.3); color: var(--yazi-renk);
+        font-weight: bold; font-family: 'Courier New', monospace; padding: 0 5px; cursor: pointer;
+    }
+
+    /* BAŞLIK */
+    h2 { 
+        text-align: center; color: var(--yazi-renk); 
+        margin-top: 80px; 
+        margin-bottom: 5px; 
+        font-size: 34px; font-weight: 900; letter-spacing: -1px; 
+        text-shadow: 2px 2px 0px var(--ana-renk); 
+        border-bottom: 3px solid var(--ana-renk); 
+        display: inline-block; position: relative; 
+        left: 50%; transform: translateX(-50%); 
+        padding-bottom: 5px; 
+        width: 90%;
+    }
+    .imza { text-align: center; font-size: 13px; opacity: 0.9; margin-bottom: 25px; font-weight: bold; letter-spacing: 2px; color: var(--yazi-renk); }
+
+    .menu-container { overflow-x: auto; white-space: nowrap; margin: 0 15px 15px 15px; padding-bottom: 5px; }
+    .menu-container::-webkit-scrollbar { height: 0; }
+    .menu { display: inline-flex; gap: 8px; }
+    .menu button { padding: 12px 16px; border: 1px solid transparent; border-radius: 10px; background: var(--sekme-pasif); font-weight: 900; cursor: pointer; font-family: 'Courier New', Courier, monospace; font-size: 14px; color: var(--yazi-renk); transition: 0.3s; flex-shrink: 0; }
+    .menu button.aktif { background: var(--ana-renk); color: #fff; border-color: rgba(255,255,255,0.5); box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-shadow: 0 1px 1px rgba(0,0,0,0.2); }
+
+    .mod { padding: 0 25px; display: none; animation: fadeIn 0.4s; }
+    @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+    label { display: block; font-weight: 900; font-size: 13px; margin-top: 15px; opacity: 1; text-transform: uppercase; }
+    input, select { width: 100%; padding: 14px; margin-top: 5px; border: 2px solid var(--input-border); border-radius: 10px; font-size: 16px; font-family: 'Courier New', Courier, monospace; box-sizing: border-box; background: var(--input-bg); color: var(--input-yazi) !important; font-weight: bold; transition: 0.3s; }
+    input:focus, select:focus { border-color: var(--ana-renk); outline: none; }
+    
+    button.hesapla { width: 100%; padding: 16px; background: var(--ana-renk); color: #fff; border: none; border-radius: 10px; font-weight: 900; cursor: pointer; font-family: 'Courier New', Courier, monospace; font-size: 18px; margin-top: 20px; transition: 0.2s; box-shadow: 0 5px 15px rgba(0,0,0,0.15); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
+    button.hesapla:active { transform: scale(0.98); }
+
+    .sonuc { background: #fff; padding: 15px; text-align: center; border-radius: 10px; border: 3px solid var(--ana-renk); margin-top: 20px; display: none; font-weight: bold; color: #000; font-size: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+    .sayac-alani { margin-top: 20px; padding: 10px; border-top: 2px dashed var(--ana-renk); text-align: center; font-family: 'Courier New', monospace; font-weight: 900; color: var(--yazi-renk); font-size: 16px; }
+    .versiyon { position: absolute; bottom: 5px; right: 10px; font-size: 11px; font-weight: bold; opacity: 0.6; font-family: sans-serif; color: var(--yazi-renk); }
+    #resimYukleyici, #planYukleyici { display: none; }
+    
+    /* OYUN STILLERI */
+    .game-menu { display: flex; gap: 5px; justify-content: center; margin-bottom: 15px; border-bottom: 2px dashed var(--ana-renk); padding-bottom: 10px; }
+    .gm-btn { padding: 8px 12px; border: none; border-radius: 6px; background: rgba(255,255,255,0.4); color: var(--yazi-renk); font-weight: bold; cursor: pointer; font-family: inherit; font-size: 12px; }
+    .gm-btn.aktif { background: var(--ana-renk); color: #fff; transform: scale(1.05); }
+    .game-wrapper { display:none; position:relative; }
+    .game-wrapper.active { display:block; }
+    .oyun-header { display: flex; justify-content: space-between; margin-bottom: 10px; align-items: center; }
+    .oyun-skor { font-weight: bold; font-size: 18px; color: var(--ana-renk); }
+    .oyun-btn { padding: 8px 15px; border: 2px solid var(--ana-renk); background: #fff; border-radius: 6px; cursor: pointer; font-weight: bold; font-family: 'Courier New', monospace; color: var(--ana-renk); transition: 0.2s; }
+    .oyun-btn.aktif-mod { background: var(--ana-renk); color: #fff; }
+    
+    .mayin-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; background: transparent; padding: 5px; border-radius: 8px; user-select: none; }
+    .hucre { aspect-ratio: 1; background: var(--ana-renk); opacity: 0.85; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; cursor: pointer; box-shadow: inset 0 2px 5px rgba(255,255,255,0.3); }
+    .hucre.acik { background: #fdfdfd; opacity: 1; color: #333; }
+    .hucre.bayrak { background: #ddd; opacity: 1; }
+    .hucre.bom { background: #d32f2f; color: white; opacity: 1; }
+    .c1 { color: #1976D2; } .c2 { color: #388E3C; } .c3 { color: #D32F2F; } .c4 { color: #7B1FA2; }
+
+    /* HESAP MAKİNESİ */
+    .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
+    .calc-btn { padding: 15px; border-radius: 8px; border: none; font-size: 18px; font-weight: bold; cursor: pointer; background: rgba(255,255,255,0.5); color: var(--yazi-renk); }
+    .calc-btn:active { background: var(--ana-renk); color: #fff; }
+    .calc-btn.op { background: var(--ana-renk); color: #fff; }
+    .calc-btn.c { background: #d32f2f; color: #fff; }
+    #calc-screen { width: 100%; padding: 15px; font-size: 24px; text-align: right; background: var(--input-bg); border: 2px solid var(--ana-renk); border-radius: 8px; margin-bottom: 5px; color: var(--input-yazi); font-weight: bold; box-sizing: border-box; }
+
+    /* BLACKJACK */
+    .bj-masa { background: rgba(0,0,0,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 2px solid var(--ana-renk); }
+    .bj-alan { margin-bottom: 15px; min-height: 100px; }
+    .bj-isim { font-weight: bold; font-size: 14px; margin-bottom: 5px; text-transform: uppercase; }
+    .bj-el { display: flex; justify-content: center; gap: 5px; flex-wrap: wrap; }
+    .kart { width: 45px; height: 65px; background: #fff; border-radius: 5px; border: 1px solid #999; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; box-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
+    .kart.kirmizi { color: #d32f2f; } .kart.siyah { color: #222; }
+    .kart-arka { background: repeating-linear-gradient(45deg, #8C6A54, #8C6A54 5px, #fff 5px, #fff 10px); border: 2px solid #fff; }
+    .bj-mesaj { font-weight: bold; margin: 10px 0; min-height: 20px; color: var(--yazi-renk); }
+    .bj-btn-grup { display: flex; gap: 10px; justify-content: center; }
+    .bj-btn { padding: 10px 15px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; flex: 1; background: var(--yazi-renk); color: #fff; }
+    .bj-btn:disabled { opacity: 0.5; }
+
+    /* YILAN */
+    canvas { background: rgba(255,255,255,0.5); border-radius: 8px; border: 2px solid var(--ana-renk); display: block; margin: 0 auto; touch-action: none; }
+    .game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); border-radius: 8px; z-index: 5; color: #fff; font-weight: bold; }
+    .start-btn { padding: 10px 20px; background: var(--ana-renk); color: #fff; border: 2px solid #fff; border-radius: 8px; font-size: 18px; cursor: pointer; margin-top: 10px; }
+
+    /* PLAN MASASI */
+    .plan-masasi { background-color: var(--kutu-bg); backdrop-filter: blur(12px); width: 100%; max-width: 420px; border-radius: 16px; border: 2px dashed var(--ana-renk); padding: 10px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; position: relative; margin-bottom: 50px; }
+    .plan-baslik { font-weight: 900; font-size: 14px; margin-bottom: 10px; color: var(--ana-renk); text-transform: uppercase; letter-spacing: 1px; }
+    .plan-sahne { width: 100%; height: 350px; background: #fff; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--input-border); touch-action: none; cursor: grab; }
+    .plan-sahne:active { cursor: grabbing; }
+    #planGorsel { max-width: 100%; transform-origin: center center; transition: transform 0.1s ease-out; pointer-events: none; }
+    .plan-kontroller { display: flex; gap: 10px; margin-top: 10px; width: 100%; }
+    .plan-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; background: var(--yazi-renk); color: var(--arkaplan); font-weight: bold; cursor: pointer; font-family: 'Courier New', monospace; font-size: 16px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+
+    .ipucu-kutusu {
+        position: absolute; top: 50px; right: 0px; width: 180px;
+        background-color: var(--ana-renk); color: #fff;
+        padding: 10px; border-radius: 8px; font-size: 11px; font-weight: bold;
+        text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        border: 1px solid rgba(255,255,255,0.3); display: none;
+        animation: zipla 2s infinite ease-in-out; z-index: 20;
+    }
+    .ipucu-kutusu::after { content: ''; position: absolute; bottom: 100%; right: 45px; border-width: 6px; border-style: solid; border-color: transparent transparent var(--ana-renk) transparent; }
+    @keyframes zipla { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
+
+    /* --- YENİ EKLENEN: ARKAPLAN MODAL EKRANI --- */
+    .bg-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:999; align-items:center; justify-content:center; backdrop-filter:blur(5px); }
+    .bg-modal-content { background:var(--kutu-bg); padding:20px; border-radius:15px; width:90%; max-width:350px; border:2px solid var(--ana-renk); box-shadow:0 10px 30px rgba(0,0,0,0.3); color: var(--yazi-renk); }
+    .bg-modal-header { display:flex; justify-content:space-between; margin-bottom:15px; font-size:18px; align-items: center; border-bottom: 2px dashed var(--ana-renk); padding-bottom: 10px;}
+    .bg-close { background:none; border:none; color:var(--yazi-renk); font-size:24px; cursor:pointer; font-weight:bold; transition: 0.2s;}
+    .bg-close:hover { color: #d32f2f; }
+    .bg-btn { width:100%; padding:15px; margin-bottom:10px; border-radius:10px; border:2px solid var(--ana-renk); background:var(--input-bg); color:var(--input-yazi); font-weight:bold; font-size:16px; cursor:pointer; font-family:inherit; transition:0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .bg-btn:hover { background:var(--ana-renk); color:#fff; }
+    .bg-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; max-height: 350px; overflow-y: auto; padding-right: 5px; }
+    .bg-thumb { width:100%; aspect-ratio:1; object-fit:cover; border-radius:8px; cursor:pointer; border:3px solid transparent; transition:0.3s; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+    .bg-thumb:hover { border-color:var(--ana-renk); transform:scale(1.05); }
+    .bg-geri { background:none; border:none; color:var(--yazi-renk); font-weight:bold; cursor:pointer; padding:5px 0; font-family:inherit; font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;}
+</style>
+</head>
+<body>
+
+<div id="bgModal" class="bg-modal">
+    <div class="bg-modal-content">
+        <div class="bg-modal-header">
+            <span style="font-weight:900;">🎨 Arkaplan Seçimi</span>
+            <button class="bg-close" onclick="bgModalKapat()">✖</button>
+        </div>
+        
+        <div id="bgSecenekler">
+            <button class="bg-btn" onclick="hazirGorselGoster()">🖼️ Hazır Görseller</button>
+            <button class="bg-btn" onclick="galeridenYukle()">📂 Galeriden Yükle</button>
+        </div>
+
+        <div id="bgHazirlar" style="display:none;">
+            <button class="bg-geri" onclick="bgGeri()">⬅ Geri Dön</button>
+            <div class="bg-grid" id="bgGridContainer">
+                </div>
+        </div>
+    </div>
+</div>
+
+<div class="kutu">
+    <div class="ayarlar">
+        <select id="langSelect" onchange="degisDil(this.value)">
+            <option value="tr">TR</option>
+            <option value="en">EN</option>
+            <option value="ku">KU</option>
+        </select>
+        <button class="ayar-btn" onclick="bgModalAc()">📷</button>
+        <button class="ayar-btn" onclick="sifirla()">↺</button>
+        <div id="bedirIpucu" class="ipucu-kutusu">📸 Kendi fotoğrafını yükle, tema rengi otomatik değişsin!</div>
+    </div>
+    
+    <input type="file" id="resimYukleyici" accept="image/*" onchange="arkaplanDegistir(this)">
+
+    <h2 id="lbl_title">ÖLÇEKMATİK</h2>
+    <div class="imza">BEDIR DESIGN</div>
+
+    <div class="menu-container">
+        <div class="menu">
+            <button id="btn1" onclick="modDegis(1)" class="aktif">PROJE</button>
+            <button id="btn2" onclick="modDegis(2)">GERÇEK</button>
+            <button id="btn9" onclick="modDegis(9)">HESAP</button>
+            <button id="btn3" onclick="modDegis(3)">EĞİM</button>
+            <button id="btn5" onclick="modDegis(5)">MERDİVEN</button>
+            <button id="btn6" onclick="modDegis(6)">MALZEME</button>
+            <button id="btn7" onclick="modDegis(7)">ALTIN ORAN</button>
+            <button id="btn8" onclick="modDegis(8)">ÇEVİR</button>
+            <button id="btn4" onclick="modDegis(4)">OYUN</button>
+        </div>
+    </div>
+
+    <div id="mod1" class="mod" style="display:block;">
+        <label id="lbl_real">Gerçek Ölçü:</label>
+        <div style="display:flex; gap:5px;"><input type="text" inputmode="decimal" id="g_sayi" placeholder="300"><select id="g_birim" style="width:100px;"><option value="cm">CM</option><option value="m">M</option><option value="mm">MM</option></select></div>
+        <label id="lbl_scale_sel">Ölçek Seçimi:</label>
+        <select id="g_olcek">
+            <option value="2">1/2</option><option value="5">1/5</option><option value="10">1/10</option><option value="20">1/20</option>
+            <option value="50" selected>1/50</option><option value="100">1/100</option><option value="200">1/200</option><option value="500">1/500</option>
+        </select>
+        <button id="btn_calc1" class="hesapla" onclick="hesaplaCizim()">HESAPLA >></button><div id="sonuc1" class="sonuc"></div>
+    </div>
+
+    <div id="mod2" class="mod">
+        <label id="lbl_ruler">Cetvel Ölçüsü (CM):</label><input type="text" inputmode="decimal" id="c_sayi" placeholder="4.5">
+        <label id="lbl_p_scale">Proje Ölçeği:</label><select id="c_olcek"><option value="2">1/2</option><option value="5">1/5</option><option value="10">1/10</option><option value="20">1/20</option><option value="50" selected>1/50</option><option value="100">1/100</option><option value="200">1/200</option><option value="500">1/500</option></select>
+        <button id="btn_conv1" class="hesapla" onclick="hesaplaGercek()">ÇEVİR >></button><div id="sonuc2" class="sonuc"></div>
+    </div>
+
+    <div id="mod3" class="mod">
+        <label id="lbl_kot">Kot Farkı (h):</label><input type="text" id="e_h" placeholder="20">
+        <label id="lbl_dist">Mesafe (L):</label><input type="text" id="e_l" placeholder="200">
+        <button id="btn_analyse" class="hesapla" onclick="hesaplaEgim()">ANALİZ ET >></button><div id="sonuc3" class="sonuc"></div>
+    </div>
+
+    <div id="mod5" class="mod">
+        <label id="lbl_h">Kat Yüksekliği (h):</label><input type="text" inputmode="decimal" id="m_h" placeholder="300">
+        <label id="lbl_b">Basamak Derinliği (b):</label><input type="text" inputmode="decimal" id="m_b" placeholder="">
+        <button id="btn_calc2" class="hesapla" onclick="hesaplaMerdiven()">HESAPLA >></button><div id="sonuc5" class="sonuc"></div>
+    </div>
+
+    <div id="mod6" class="mod">
+        <label id="lbl_area">Oda / Alan (cm):</label><div style="display:flex; gap:10px; align-items:center;"><input type="text" inputmode="decimal" id="mal_en" placeholder="En"><span style="font-weight:bold">x</span><input type="text" inputmode="decimal" id="mal_boy" placeholder="Boy"></div>
+        <label id="lbl_mat">Malzeme Ölçüsü (cm):</label><div style="display:flex; gap:10px; align-items:center;"><input type="text" inputmode="decimal" id="mz_en" placeholder="En"><span style="font-weight:bold">x</span><input type="text" inputmode="decimal" id="mz_boy" placeholder="Boy"></div>
+        <button id="btn_quant" class="hesapla" onclick="hesaplaMalzeme()">METRAJ ÇIKAR >></button><div id="sonuc6" class="sonuc"></div>
+    </div>
+
+    <div id="mod7" class="mod">
+        <label id="lbl_edge">Bilinen Kenar (cm):</label><input type="text" id="ao_val" placeholder="100">
+        <button id="btn_ratio" class="hesapla" onclick="hesaplaAltinOran()">ORANLA >></button><div id="sonuc7" class="sonuc"></div>
+    </div>
+
+    <div id="mod8" class="mod">
+        <label id="lbl_val">Değer Gir:</label><div style="display:flex; gap:5px;"><input type="text" id="cv_val" placeholder="5"><select id="cv_tip" style="width:100px;"><option value="ft">Feet</option><option value="in">Inch</option></select></div>
+        <button id="btn_conv2" class="hesapla" onclick="cevirBirim()">ÇEVİR (CM) >></button><div id="sonuc8" class="sonuc"></div>
+    </div>
+
+    <div id="mod9" class="mod">
+        <input type="text" id="calc-screen" readonly value="">
+        <div class="calc-grid">
+            <button class="calc-btn c" onclick="calcClear()">C</button><button class="calc-btn op" onclick="calcPercent()">%</button><button class="calc-btn op" onclick="calcAppend('/')">÷</button><button class="calc-btn op" onclick="calcAppend('*')">x</button>
+            <button class="calc-btn" onclick="calcAppend('7')">7</button><button class="calc-btn" onclick="calcAppend('8')">8</button><button class="calc-btn" onclick="calcAppend('9')">9</button><button class="calc-btn op" onclick="calcAppend('-')">-</button>
+            <button class="calc-btn" onclick="calcAppend('4')">4</button><button class="calc-btn" onclick="calcAppend('5')">5</button><button class="calc-btn" onclick="calcAppend('6')">6</button><button class="calc-btn op" onclick="calcAppend('+')">+</button>
+            <button class="calc-btn" onclick="calcAppend('1')">1</button><button class="calc-btn" onclick="calcAppend('2')">2</button><button class="calc-btn" onclick="calcAppend('3')">3</button><button class="calc-btn op" style="grid-row: span 2;" onclick="calcResult()">=</button>
+            <button class="calc-btn" onclick="calcAppend('0')" style="grid-column: span 2;">0</button><button class="calc-btn" onclick="calcAppend('.')">.</button>
+        </div>
+    </div>
+
+    <div id="mod4" class="mod">
+        <div class="game-menu">
+            <button id="gm-btn-mine" class="gm-btn aktif" onclick="switchGame('mine')">💣</button>
+            <button id="gm-btn-snake" class="gm-btn" onclick="switchGame('snake')">🐍</button>
+            <button id="gm-btn-bj" class="gm-btn" onclick="switchGame('bj')">🃏 21</button>
+        </div>
+
+        <div id="game-mine" class="game-wrapper active">
+            <div class="oyun-header">
+                <div class="oyun-skor">💣 <span id="mayinSayac">15</span></div>
+                <div style="text-align:center;">
+                    <button id="btnKaz" style="padding:5px 10px; font-size:12px;" class="oyun-btn aktif-mod" onclick="modDegistirOyun(true)">⛏️</button>
+                    <button id="btnBayrak" style="padding:5px 10px; font-size:12px;" class="oyun-btn" onclick="modDegistirOyun(false)">🚩</button>
+                </div>
+                <button class="oyun-btn" style="padding:5px 10px; font-size:12px;" onclick="oyunuBaslat()">🔄</button>
+            </div>
+            <div id="mayinTarlasi" class="mayin-grid"></div>
+            <div id="oyunSonuc" class="sonuc"></div>
+        </div>
+
+        <div id="game-snake" class="game-wrapper">
+            <div class="game-score"><span id="lbl_score">SKOR</span>: <span id="snakeScore">0</span></div>
+            <div style="position:relative;">
+                <canvas id="snakeCanvas" width="300" height="300"></canvas>
+                <div id="snakeOverlay" class="game-overlay">
+                    <div id="lbl_snake_title">YILAN</div>
+                    <button id="btn_start_snake" class="start-btn" onclick="startSnake()">BAŞLA</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="game-bj" class="game-wrapper">
+            <div class="bj-masa">
+                <div class="bj-alan">
+                    <div class="bj-isim"><span id="lbl_dealer">KASA</span>: <span id="dealerScore">0</span></div>
+                    <div id="dealerHand" class="bj-el"></div>
+                </div>
+                <div class="bj-mesaj" id="bjMessage">...</div>
+                <div class="bj-alan">
+                    <div class="bj-isim"><span id="lbl_player">SEN</span>: <span id="playerHandScore">0</span></div>
+                    <div id="playerHand" class="bj-el"></div>
+                </div>
+                <div class="bj-btn-grup">
+                    <button id="bjHit" class="bj-btn hit" onclick="bjHit()" disabled>➕</button>
+                    <button id="bjStand" class="bj-btn stand" onclick="bjStand()" disabled>✋</button>
+                    <button id="bjNew" class="bj-btn" onclick="startBJ()">🔄</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
+    <div class="versiyon">v4.3.0</div>
+</div>
+
+<div class="plan-masasi">
+    <div class="plan-baslik" id="lbl_plan_table">📐 PLAN MASASI</div>
+    <div class="plan-sahne" id="sahneContainer">
+        <div id="planGorsel" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#888;">...</div>
+    </div>
+    <div class="plan-kontroller">
+        <button id="btn_load" class="plan-btn" onclick="planSec()">📂</button><button class="plan-btn" onclick="planZoom(0.1)">➕</button><button class="plan-btn" onclick="planZoom(-0.1)">➖</button><button id="btn_reset" class="plan-btn" onclick="planReset()">↺</button>
+    </div>
+    <input type="file" id="planYukleyici" accept="image/*" onchange="planYukle(this)">
+</div>
+
+<script>
+    // --- DİL VERİTABANI ---
+    var curLang = 'tr';
+    const t = {
+        tr: {
+            btn1: "PROJE", btn2: "GERÇEK", btn3: "EĞİM", btn4: "OYUN", btn5: "MERDİVEN", btn6: "MALZEME", btn7: "ALTIN ORAN", btn8: "ÇEVİR", btn9: "HESAP",
+            lbl_real: "Gerçek Ölçü:", lbl_scale_sel: "Ölçek Seçimi:", btn_calc1: "HESAPLA >>",
+            lbl_ruler: "Cetvel Ölçüsü (CM):", lbl_p_scale: "Proje Ölçeği:", btn_conv1: "ÇEVİR >>",
+            lbl_kot: "Kot Farkı (h):", lbl_dist: "Mesafe (L):", btn_analyse: "ANALİZ ET >>",
+            lbl_h: "Kat Yüksekliği (h):", lbl_b: "Basamak (b) [Opsiyonel]:", btn_calc2: "HESAPLA >>",
+            lbl_area: "Oda / Alan (cm):", lbl_mat: "Malzeme (cm):", btn_quant: "METRAJ ÇIKAR >>",
+            lbl_edge: "Bilinen Kenar (cm):", btn_ratio: "ORANLA >>",
+            lbl_val: "Değer Gir:", btn_conv2: "ÇEVİR (CM) >>",
+            lbl_score: "SKOR", lbl_snake_title: "YILAN", btn_start: "BAŞLA",
+            lbl_dealer: "KASA", lbl_player: "SEN", bj_start_msg: "BAŞLAMAK İÇİN OYNA",
+            lbl_plan_table: "📐 PLAN MASASI",
+            res_drawn: "ÇİZİLECEK", res_real: "GERÇEK", res_slope: "EĞİM", res_riser: "RIHT", res_count: "ADET", res_step: "Basamak", res_warn_steep: "ÇOK DİK!", res_warn_low: "ALÇAK RIHT", res_warn_foot: "AYAK SIĞMAZ",
+            res_area: "ALAN", res_need: "GEREKEN", res_fire: "%10 Fire Dahil",
+            res_long: "UZUN", res_short: "KISA", res_result: "SONUÇ",
+            gm_win: "KAZANDIN!", gm_lose: "KAYBETTİN!", gm_draw: "BERABERE", gm_bust: "PATLADIN!", gm_dealer_bust: "KASA PATLADI!"
+        },
+        en: {
+            btn1: "PROJECT", btn2: "REAL", btn3: "SLOPE", btn4: "GAME", btn5: "STAIRS", btn6: "MATERIAL", btn7: "GOLDEN RATIO", btn8: "CONVERT", btn9: "CALC",
+            lbl_real: "Real Size:", lbl_scale_sel: "Select Scale:", btn_calc1: "CALCULATE >>",
+            lbl_ruler: "Ruler Size (CM):", lbl_p_scale: "Project Scale:", btn_conv1: "CONVERT >>",
+            lbl_kot: "Height Diff (h):", lbl_dist: "Distance (L):", btn_analyse: "ANALYZE >>",
+            lbl_h: "Floor Height (h):", lbl_b: "Tread (b) [Optional]:", btn_calc2: "CALCULATE >>",
+            lbl_area: "Area / Room (cm):", lbl_mat: "Material (cm):", btn_quant: "CALCULATE QTY >>",
+            lbl_edge: "Known Edge (cm):", btn_ratio: "RATIO >>",
+            lbl_val: "Enter Value:", btn_conv2: "CONVERT (CM) >>",
+            lbl_score: "SCORE", lbl_snake_title: "SNAKE", btn_start: "START",
+            lbl_dealer: "DEALER", lbl_player: "YOU", bj_start_msg: "PRESS PLAY TO START",
+            lbl_plan_table: "📐 PLAN TABLE",
+            res_drawn: "DRAW", res_real: "REAL", res_slope: "SLOPE", res_riser: "RISER", res_count: "COUNT", res_step: "Tread", res_warn_steep: "TOO STEEP!", res_warn_low: "LOW RISER", res_warn_foot: "TOO NARROW",
+            res_area: "AREA", res_need: "NEEDED", res_fire: "Incl. 10% Waste",
+            res_long: "LONG", res_short: "SHORT", res_result: "RESULT",
+            gm_win: "YOU WON!", gm_lose: "GAME OVER!", gm_draw: "PUSH", gm_bust: "BUSTED!", gm_dealer_bust: "DEALER BUSTED!"
+        },
+        ku: {
+            btn1: "PROJE", btn2: "RASTÎ", btn3: "ŞÎV", btn4: "LÎSTIK", btn5: "PÊLIK", btn6: "KELÛPEL", btn7: "RÊJEYA ZÊRÎN", btn8: "VEGERÎNE", btn9: "HESAB",
+            lbl_real: "Pîvana Rastî:", lbl_scale_sel: "Pîvan Hilbijêre:", btn_calc1: "BIJIMÊRE >>",
+            lbl_ruler: "Pîvana Rastekê (CM):", lbl_p_scale: "Pîvana Projeyê:", btn_conv1: "VEGERÎNE >>",
+            lbl_kot: "Cûdahîya Kotê (h):", lbl_dist: "Mesafe (L):", btn_analyse: "ANALÎZ KE >>",
+            lbl_h: "Bilindahiya Qatê (h):", lbl_b: "Pêlik (b) [Opsiyonel]:", btn_calc2: "BIJIMÊRE >>",
+            lbl_area: "Ode / Qad (cm):", lbl_mat: "Materyal (cm):", btn_quant: "METRAJ >>",
+            lbl_edge: "Aliyê Zanîn (cm):", btn_ratio: "RÊJE >>",
+            lbl_val: "Nirx Binivîse:", btn_conv2: "VEGERÎNE (CM) >>",
+            lbl_score: "SKOR", lbl_snake_title: "MAR", btn_start: "DESTPÊKE",
+            lbl_dealer: "KASA", lbl_player: "TU", bj_start_msg: "JI BO DESTPÊKÊ BİLÎZE",
+            lbl_plan_table: "📐 MASA PLANÊ",
+            res_drawn: "TÊ XÊZKIRIN", res_real: "RASTÎ", res_slope: "ŞÎV", res_riser: "BILINDAHÎ", res_count: "HEJMAR", res_step: "Pêlik", res_warn_steep: "ZEF TÎK E!", res_warn_low: "NIZM E", res_warn_foot: "PIYÊ MROV NAÇÊ",
+            res_area: "QAD", res_need: "PÊWÎST E", res_fire: "%10 Zêde",
+            res_long: "DIRÊJ", res_short: "KIN", res_result: "ENCAM",
+            gm_win: "TE QEZENC KIR!", gm_lose: "TE WNDA KIR!", gm_draw: "WEKHEV", gm_bust: "TEQÎYA!", gm_dealer_bust: "KASA TEQÎYA!"
+        }
+    };
+
+    // --- YENİ EKLENEN: SENİN GÖRSELLERİN ---
+    const hazirGorsellerListesi = [
+        "Aslan.jpg",
+        "Atakoy Ustgecit.jpeg",
+        "KEDI2.jpeg",
+        "Kedisi.jpeg",
+        "SANAT ESERI.jpeg"
+    ];
+
+    var planScale = 1; var planX = 0; var planY = 0; var isDragging = false; var startX, startY;
+    var activeGameLoop = null;
+
+    window.onload = function() {
+        var kayitli = localStorage.getItem('bedir_arkaplan_v410'); 
+        if(kayitli) resmiUygula(kayitli);
+        
+        var savedLang = localStorage.getItem('bedir_lang');
+        if(savedLang) { curLang = savedLang; document.getElementById('langSelect').value = curLang; }
+        updateLanguageUI();
+
+        sayaciCalistir();
+        var sahne = document.getElementById('sahneContainer');
+        sahne.addEventListener('mousedown', baslaSurukle); sahne.addEventListener('touchstart', baslaSurukle, {passive: false});
+        window.addEventListener('mousemove', surukle); window.addEventListener('touchmove', surukle, {passive: false});
+        window.addEventListener('mouseup', bitirSurukle); window.addEventListener('touchend', bitirSurukle);
+        
+        setupEnterKeys();
+        oyunuBaslat(); setupSnakeControls(); setupCalcKeys();
+    };
+
+    function degisDil(val) {
+        curLang = val;
+        localStorage.setItem('bedir_lang', val);
+        updateLanguageUI();
+    }
+
+    function updateLanguageUI() {
+        var d = t[curLang];
+        for (const [key, value] of Object.entries(d)) {
+            var el = document.getElementById(key);
+            if(el) { if(el.tagName === 'INPUT') el.placeholder = value; else el.innerText = value; }
+        }
+        document.getElementById('btn_start_snake').innerText = d.btn_start;
+        document.getElementById('bjMessage').innerText = d.bj_start_msg;
+    }
+
+    // --- YENİ EKLENEN: MODAL FONKSİYONLARI ---
+    function bgModalAc() {
+        document.getElementById('bgModal').style.display = 'flex';
+        document.getElementById('bgSecenekler').style.display = 'block';
+        document.getElementById('bgHazirlar').style.display = 'none';
+        
+        document.getElementById('bedirIpucu').style.display = 'none';
+        localStorage.setItem('bedir_ipucu_okundu', 'true');
+    }
+
+    function bgModalKapat() { document.getElementById('bgModal').style.display = 'none'; }
+    
+    function galeridenYukle() {
+        bgModalKapat();
+        document.getElementById('resimYukleyici').click();
+    }
+
+    function hazirGorselGoster() {
+        document.getElementById('bgSecenekler').style.display = 'none';
+        document.getElementById('bgHazirlar').style.display = 'block';
+        
+        let grid = document.getElementById('bgGridContainer');
+        grid.innerHTML = '';
+        
+        hazirGorsellerListesi.forEach(src => {
+            let img = document.createElement('img');
+            img.src = src;
+            img.className = 'bg-thumb';
+            // Eğer görsel bulunamazsa kırık ikon çıkmasın diye fallback eklenebilir ama şu an direk basıyoruz.
+            img.onclick = () => hazirGorselSec(src);
+            grid.appendChild(img);
+        });
+    }
+
+    function bgGeri() {
+        document.getElementById('bgSecenekler').style.display = 'block';
+        document.getElementById('bgHazirlar').style.display = 'none';
+    }
+
+    function hazirGorselSec(src) {
+        bgModalKapat();
+        resmiUygula(src);
+        localStorage.setItem('bedir_arkaplan_v410', src); // Tekrar açıldığında hatırlaması için
+    }
+
+    function setupEnterKeys() {
+        const bind = (inIds, btnId) => {
+            if(!Array.isArray(inIds)) inIds = [inIds];
+            inIds.forEach(id => {
+                let el = document.getElementById(id);
+                if(el) {
+                    el.addEventListener("keyup", function(e) {
+                        if(e.key === "Enter") document.getElementById(btnId).click();
+                    });
+                }
+            });
+        };
+        bind("g_sayi", "btn_calc1");
+        bind("c_sayi", "btn_conv1");
+        bind(["e_h", "e_l"], "btn_analyse");
+        bind(["m_h", "m_b"], "btn_calc2");
+        bind(["mal_en", "mal_boy", "mz_en", "mz_boy"], "btn_quant");
+        bind("ao_val", "btn_ratio");
+        bind("cv_val", "btn_conv2");
+    }
+
+    function setupCalcKeys() {
+        document.addEventListener('keydown', function(event) {
+            if(document.getElementById('mod9').style.display === 'block') {
+                const key = event.key;
+                if(/[0-9]/.test(key)) calcAppend(key);
+                if(['+', '-', '*', '/'].includes(key)) calcAppend(key);
+                if(key === '.' || key === ',') calcAppend('.');
+                if(key === 'Enter' || key === '=') calcResult();
+                if(key === 'Backspace' || key === 'Escape' || key.toLowerCase() === 'c') calcClear();
+            }
+        });
+    }
+
+    // --- OYUN YÖNETİMİ ---
+    function switchGame(game) {
+        if(activeGameLoop) { cancelAnimationFrame(activeGameLoop); activeGameLoop = null; }
+        document.querySelectorAll('.game-wrapper').forEach(el => el.classList.remove('active'));
+        document.querySelectorAll('.gm-btn').forEach(el => el.classList.remove('aktif'));
+        document.getElementById('game-'+game).classList.add('active');
+        document.getElementById('gm-btn-'+game).classList.add('aktif');
+        if(game === 'mine') oyunuBaslat();
+        if(game === 'snake') document.getElementById('snakeOverlay').style.display = 'flex';
+    }
+
+    // --- SNAKE OYUNU ---
+    const sc = document.getElementById('snakeCanvas');
+    const sCtx = sc.getContext('2d');
+    let snake = [], food = {}, dir = 'RIGHT', nextDir = 'RIGHT', snakeScore = 0;
+    const box = 15;
+
+    function startSnake() {
+        document.getElementById('snakeOverlay').style.display = 'none';
+        snake = [{x: 9*box, y: 10*box}]; dir = 'RIGHT'; nextDir = 'RIGHT'; snakeScore = 0;
+        document.getElementById('snakeScore').innerText = 0;
+        placeFood();
+        if(activeGameLoop) cancelAnimationFrame(activeGameLoop);
+        snakeLoop();
+    }
+    function placeFood() { food = { x: Math.floor(Math.random() * (sc.width/box)) * box, y: Math.floor(Math.random() * (sc.height/box)) * box } }
+    let lastTime = 0;
+    function snakeLoop(timestamp) {
+        if (!document.getElementById('game-snake').classList.contains('active')) return;
+        activeGameLoop = requestAnimationFrame(snakeLoop);
+        if (timestamp - lastTime < 100) return; 
+        lastTime = timestamp;
+        sCtx.fillStyle = '#fff'; sCtx.fillRect(0,0,sc.width,sc.height);
+        dir = nextDir;
+        let snakeX = snake[0].x; let snakeY = snake[0].y;
+        if(dir == 'LEFT') snakeX -= box; if(dir == 'UP') snakeY -= box;
+        if(dir == 'RIGHT') snakeX += box; if(dir == 'DOWN') snakeY += box;
+        if(snakeX < 0 || snakeX >= sc.width || snakeY < 0 || snakeY >= sc.height || collision(snakeX, snakeY, snake)) {
+            cancelAnimationFrame(activeGameLoop);
+            document.getElementById('snakeOverlay').style.display = 'flex';
+            document.querySelector('#snakeOverlay div').innerText = t[curLang].gm_lose + " " + t[curLang].lbl_score + ": " + snakeScore;
+            return;
+        }
+        if(snakeX == food.x && snakeY == food.y) { snakeScore++; document.getElementById('snakeScore').innerText = snakeScore; placeFood(); } else { snake.pop(); }
+        let newHead = {x: snakeX, y: snakeY}; snake.unshift(newHead);
+        for(let i=0; i<snake.length; i++) {
+            sCtx.fillStyle = (i==0) ? getComputedStyle(document.documentElement).getPropertyValue('--ana-renk').trim() : "#aaa";
+            sCtx.fillRect(snake[i].x, snake[i].y, box, box);
+            sCtx.strokeStyle = "#fff"; sCtx.strokeRect(snake[i].x, snake[i].y, box, box);
+        }
+        sCtx.fillStyle = "red"; sCtx.fillRect(food.x, food.y, box, box);
+    }
+    function collision(x, y, array) { for(let i=0; i<array.length; i++) { if(x == array[i].x && y == array[i].y) return true; } return false; }
+    
+    function setupSnakeControls() {
+        window.addEventListener('keydown', function(e) {
+            if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
+                if(document.getElementById('game-snake').classList.contains('active')) { e.preventDefault(); }
+            }
+        }, false);
+        document.addEventListener('keydown', function(event) {
+            let key = event.keyCode;
+            if((key==37 || key==65) && dir!='RIGHT') nextDir='LEFT';
+            else if((key==38 || key==87) && dir!='DOWN') nextDir='UP';
+            else if((key==39 || key==68) && dir!='LEFT') nextDir='RIGHT';
+            else if((key==40 || key==83) && dir!='UP') nextDir='DOWN';
+        });
+        let tsX, tsY;
+        sc.addEventListener('touchstart', function(e) { tsX = e.touches[0].clientX; tsY = e.touches[0].clientY; e.preventDefault(); }, {passive: false});
+        sc.addEventListener('touchmove', function(e) { e.preventDefault(); }, {passive: false});
+        sc.addEventListener('touchend', function(e) {
+            let teX = e.changedTouches[0].clientX; let teY = e.changedTouches[0].clientY;
+            let dx = teX - tsX; let dy = teY - tsY;
+            if(Math.abs(dx) > Math.abs(dy)) { if(dx > 0 && dir!='LEFT') nextDir='RIGHT'; else if(dx < 0 && dir!='RIGHT') nextDir='LEFT'; } 
+            else { if(dy > 0 && dir!='UP') nextDir='DOWN'; else if(dy < 0 && dir!='DOWN') nextDir='UP'; }
+        });
+    }
+
+    // --- BLACKJACK (21) ---
+    const suits = ['♥', '♦', '♣', '♠'];
+    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    let deck = [], playerHand = [], dealerHand = [], bjGameActive = false;
+
+    function createDeck() {
+        deck = [];
+        for (let s of suits) { for (let v of values) { deck.push({ suit: s, value: v }); } }
+        for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; }
+    }
+    function getCardValue(card) { if (['J', 'Q', 'K'].includes(card.value)) return 10; if (card.value === 'A') return 11; return parseInt(card.value); }
+    function getHandScore(hand) { let score = 0; let aces = 0; for (let c of hand) { score += getCardValue(c); if (c.value === 'A') aces++; } while (score > 21 && aces > 0) { score -= 10; aces--; } return score; }
+    function renderCard(card, hidden=false) {
+        if (hidden) return `<div class="kart kart-arka"></div>`;
+        let colorClass = (card.suit === '♥' || card.suit === '♦') ? 'kirmizi' : 'siyah';
+        return `<div class="kart ${colorClass}"><div>${card.value}</div><div>${card.suit}</div></div>`;
+    }
+    function updateBJUI(showDealer = false) {
+        let dhHTML = "";
+        dealerHand.forEach((c, i) => { if (i === 0 && !showDealer) dhHTML += renderCard(c, true); else dhHTML += renderCard(c); });
+        document.getElementById('dealerHand').innerHTML = dhHTML;
+        let phHTML = ""; playerHand.forEach(c => phHTML += renderCard(c)); document.getElementById('playerHand').innerHTML = phHTML;
+        document.getElementById('playerHandScore').innerText = getHandScore(playerHand);
+        if (showDealer) document.getElementById('dealerScore').innerText = getHandScore(dealerHand); else document.getElementById('dealerScore').innerText = "?";
+    }
+    function startBJ() {
+        createDeck(); playerHand = [deck.pop(), deck.pop()]; dealerHand = [deck.pop(), deck.pop()];
+        bjGameActive = true; document.getElementById('bjMessage').innerText = "";
+        document.getElementById('bjHit').disabled = false; document.getElementById('bjStand').disabled = false; document.getElementById('bjNew').disabled = true;
+        updateBJUI(false);
+        if (getHandScore(playerHand) === 21) bjEnd(true, "BLACKJACK! " + t[curLang].gm_win);
+    }
+    function bjHit() { if (!bjGameActive) return; playerHand.push(deck.pop()); updateBJUI(false); if (getHandScore(playerHand) > 21) bjEnd(false, t[curLang].gm_bust); }
+    function bjStand() {
+        if (!bjGameActive) return;
+        let dScore = getHandScore(dealerHand);
+        while (dScore < 17) { dealerHand.push(deck.pop()); dScore = getHandScore(dealerHand); }
+        updateBJUI(true);
+        let pScore = getHandScore(playerHand);
+        if (dScore > 21) bjEnd(true, t[curLang].gm_dealer_bust + " " + t[curLang].gm_win);
+        else if (pScore > dScore) bjEnd(true, t[curLang].gm_win);
+        else if (pScore < dScore) bjEnd(false, t[curLang].gm_lose);
+        else bjEnd(true, t[curLang].gm_draw);
+    }
+    function bjEnd(win, msg) {
+        bjGameActive = false; document.getElementById('bjHit').disabled = true; document.getElementById('bjStand').disabled = true; document.getElementById('bjNew').disabled = false;
+        updateBJUI(true);
+        let color = win ? "green" : "red"; if(msg.includes(t[curLang].gm_draw)) color = "orange";
+        document.getElementById('bjMessage').innerHTML = `<span style='color:${color}'>${msg}</span>`;
+    }
+
+    // --- MAYIN ---
+    const SATIR=10, SUTUN=10, MAYIN_SAYISI=15; let oyunGrid=[], oyunAktif=false, kazmaModu=true;
+    function modDegistirOyun(kaz) { kazmaModu=kaz; document.getElementById('btnKaz').className=kaz?'oyun-btn aktif-mod':'oyun-btn'; document.getElementById('btnBayrak').className=!kaz?'oyun-btn aktif-mod':'oyun-btn'; }
+    function oyunuBaslat() { const g=document.getElementById('mayinTarlasi'); g.innerHTML=''; oyunGrid=[]; oyunAktif=true; document.getElementById('mayinSayac').innerText=MAYIN_SAYISI; document.getElementById('oyunSonuc').style.display='none'; for(let i=0;i<SATIR;i++){ let rArr=[]; for(let j=0;j<SUTUN;j++){ let h=document.createElement('div'); h.className='hucre'; h.onclick=()=>hucreTikla(i,j); g.appendChild(h); rArr.push({el:h,mayin:false,acik:false,bayrak:false,sayi:0}); } oyunGrid.push(rArr); } let m=0; while(m<MAYIN_SAYISI){ let r=Math.floor(Math.random()*SATIR), c=Math.floor(Math.random()*SUTUN); if(!oyunGrid[r][c].mayin){ oyunGrid[r][c].mayin=true; m++; } } for(let i=0;i<SATIR;i++){ for(let j=0;j<SUTUN;j++){ if(!oyunGrid[i][j].mayin){ let c=0; for(let x=-1;x<=1;x++){ for(let y=-1;y<=1;y++){ let ni=i+x, nj=j+y; if(ni>=0&&ni<SATIR&&nj>=0&&nj<SUTUN&&oyunGrid[ni][nj].mayin) c++; } } oyunGrid[i][j].sayi=c; } } } }
+    function hucreTikla(r,c){ if(!oyunAktif)return; let h=oyunGrid[r][c]; if(!kazmaModu){ if(h.acik)return; h.bayrak=!h.bayrak; h.el.className=h.bayrak?'hucre bayrak':'hucre'; h.el.innerText=h.bayrak?'🚩':''; return; } if(h.bayrak||h.acik)return; if(h.mayin){ oyunBitir(false); h.el.className='hucre bom'; h.el.innerText='💣'; }else{ acHucre(r,c); kazanmaKontrol(); } }
+    function acHucre(r,c){ if(r<0||r>=SATIR||c<0||c>=SUTUN||oyunGrid[r][c].acik||oyunGrid[r][c].bayrak)return; let h=oyunGrid[r][c]; h.acik=true; h.el.className='hucre acik'; if(h.sayi>0){ h.el.innerText=h.sayi; h.el.classList.add('c'+Math.min(h.sayi,4)); }else{ for(let x=-1;x<=1;x++)for(let y=-1;y<=1;y++)acHucre(r+x,c+y); } }
+    function oyunBitir(k){ oyunAktif=false; let s=document.getElementById('oyunSonuc'); s.style.display='block'; if(k)s.innerHTML="<span style='color:green'>"+t[curLang].gm_win+" 🎉</span>"; else{ s.innerHTML="<span style='color:red'>"+t[curLang].gm_lose+" 💥</span>"; for(let i=0;i<SATIR;i++)for(let j=0;j<SUTUN;j++)if(oyunGrid[i][j].mayin){ oyunGrid[i][j].el.innerText='💣'; if(!oyunGrid[i][j].bayrak)oyunGrid[i][j].el.style.color='white'; } } }
+    function kazanmaKontrol(){ let k=0; for(let i=0;i<SATIR;i++)for(let j=0;j<SUTUN;j++)if(!oyunGrid[i][j].acik)k++; if(k===MAYIN_SAYISI)oyunBitir(true); }
+
+    // HESAP MAKİNESİ
+    var currentCalc=""; function calcAppend(v){currentCalc+=v;document.getElementById('calc-screen').value=currentCalc;} function calcClear(){currentCalc="";document.getElementById('calc-screen').value="";} function calcResult(){try{var r=new Function('return '+currentCalc)();if(!isFinite(r))r="Hata";document.getElementById('calc-screen').value=r;currentCalc=r.toString();}catch(e){document.getElementById('calc-screen').value="Hata";currentCalc="";}} function calcPercent(){try{var v=parseFloat(currentCalc);if(!isNaN(v)){v=v/100;currentCalc=v.toString();document.getElementById('calc-screen').value=currentCalc;}}catch(e){}}
+
+    // DİĞER FONKSİYONLAR
+    function sayaciCalistir(){ let s=0; setInterval(function(){ s++; let sa=Math.floor(s/3600); let dk=Math.floor((s%3600)/60); let sn=s%60; document.getElementById('oturumSayaci').innerText=(sa<10?"0"+sa:sa)+":"+(dk<10?"0"+dk:dk)+":"+(sn<10?"0"+sn:sn); },1000); }
+    
+    // GÜNCELLENDİ: Artık modal içerisinden veya doğrudan src ile arkaplan uygulanıyor
+    function arkaplanDegistir(input){ if(input.files&&input.files[0]){ var r=new FileReader(); r.onload=function(e){ try{localStorage.setItem('bedir_arkaplan_v410',e.target.result);}catch(e){} resmiUygula(e.target.result); }; r.readAsDataURL(input.files[0]); } }
+    
+    function resmiUygula(url){ 
+        document.body.style.backgroundImage='url("'+url+'")'; 
+        var i=new Image(); 
+        i.src=url; 
+        i.onload=function(){ temaGuncelle(renkAnaliz(i)); } 
+    }
+    
+    // GÜNCELLENDİ: Local'de çalışırken (CORS) patlamaması için try-catch eklendi
+    function renkAnaliz(i){ 
+        var c=document.createElement('canvas'); var x=c.getContext('2d'); c.width=50; c.height=50; x.drawImage(i,0,0,50,50); 
+        try {
+            var d=x.getImageData(0,0,50,50).data; 
+            var r=0,g=0,b=0,k=0; for(var j=0;j<d.length;j+=4){ r+=d[j]; g+=d[j+1]; b+=d[j+2]; k++; } 
+            return {r:Math.floor(r/k),g:Math.floor(g/k),b:Math.floor(b/k)}; 
+        } catch(e) {
+            // Tarayıcı güvenlik (CORS) nedeniyle yerel resmi okuyamazsa varsayılan kahverengi tonlarını kullan.
+            return {r:140, g:106, b:84};
+        }
+    }
+    
+    function temaGuncelle(rgb){ var root=document.documentElement.style; var ana=`rgb(${rgb.r},${rgb.g},${rgb.b})`; root.setProperty('--ana-renk',ana); var p=(rgb.r*299+rgb.g*587+rgb.b*114)/1000; if(p>140){ root.setProperty('--yazi-renk','#000'); root.setProperty('--kutu-bg','rgba(255,255,255,0.85)'); root.setProperty('--sekme-pasif','rgba(0,0,0,0.1)'); }else{ root.setProperty('--yazi-renk','#fff'); root.setProperty('--kutu-bg','rgba(0,0,0,0.5)'); root.setProperty('--sekme-pasif','rgba(255,255,255,0.2)'); if(p<40)root.setProperty('--ana-renk',`rgb(${rgb.r+50},${rgb.g+50},${rgb.b+50})`); } }
+    function sifirla(){ localStorage.removeItem('bedir_arkaplan_v410'); localStorage.removeItem('bedir_ipucu_okundu'); localStorage.removeItem('bedir_lang'); location.reload(); }
+    
+    function modDegis(no){ 
+        for(let i=1;i<=9;i++){ if(document.getElementById('mod'+i)){ document.getElementById('mod'+i).style.display='none'; if(document.getElementById('btn'+i))document.getElementById('btn'+i).className=''; } } 
+        document.getElementById('mod'+no).style.display='block'; 
+        if(document.getElementById('btn'+no))document.getElementById('btn'+no).className='aktif'; 
+        var s=document.getElementsByClassName('sonuc'); for(let k of s)k.style.display='none'; 
+        if(no!==4) { oyunAktif=false; if(activeGameLoop){cancelAnimationFrame(activeGameLoop); activeGameLoop=null;} } 
+    }
+    function temizle(v){ return parseFloat(v.replace(',','.')); }
+    function goster(id,t){ var k=document.getElementById(id); k.style.display='block'; k.innerHTML=t; }
+
+    function hesaplaCizim(){ var v=temizle(document.getElementById('g_sayi').value); var o=parseInt(document.getElementById('g_olcek').value); var cm=(document.getElementById('g_birim').value=='m')?v*100:((document.getElementById('g_birim').value=='mm')?v/10:v); goster('sonuc1',`${t[curLang].res_drawn}: ${(cm/o).toFixed(2)} CM`); }
+    function hesaplaGercek(){ var v=temizle(document.getElementById('c_sayi').value); var o=parseInt(document.getElementById('c_olcek').value); goster('sonuc2',`${t[curLang].res_real}: ${((v*o)/100).toFixed(2)} M`); }
+    function hesaplaEgim(){ var h=temizle(document.getElementById('e_h').value); var l=temizle(document.getElementById('e_l').value); var e=(h/l)*100; goster('sonuc3',`${t[curLang].res_slope}: %${e.toFixed(1)}`); }
+    function hesaplaMerdiven() { 
+        var h=temizle(document.getElementById('m_h').value); var b_input=document.getElementById('m_b').value; var b=temizle(b_input); 
+        if(isNaN(h)) return; var idealRiht, basamakEni, gercekRiht, adet; 
+        if (!isNaN(b) && b > 0) { idealRiht=(63-b)/2; adet=Math.round(h/idealRiht); if(adet<1)adet=1; gercekRiht=h/adet; basamakEni=b; } else { idealRiht=17.5; adet=Math.round(h/idealRiht); if(adet<1)adet=1; gercekRiht=h/adet; basamakEni=63-(2*gercekRiht); } 
+        var d=t[curLang];
+        var txt = `${d.res_riser}: <span style='font-size:24px'>${gercekRiht.toFixed(2)}</span> cm<br>${d.res_count}: <span style='font-size:24px'>${adet}</span> ${d.res_step}<br><small>${d.res_step}: ${basamakEni.toFixed(1)} cm</small>`; 
+        if(gercekRiht>18.5)txt+=`<br><span style='color:red'>[${d.res_warn_steep}]</span>`; if(gercekRiht<15)txt+=`<br><span style='color:orange'>[${d.res_warn_low}]</span>`; if(basamakEni<25)txt+=`<br><span style='color:red'>[${d.res_warn_foot}]</span>`; goster('sonuc5',txt); 
+    }
+    function hesaplaMalzeme() { 
+        var en=temizle(document.getElementById('mal_en').value); var boy=temizle(document.getElementById('mal_boy').value); var men=temizle(document.getElementById('mz_en').value); var mboy=temizle(document.getElementById('mz_boy').value); 
+        if(isNaN(en)||isNaN(boy)||isNaN(men)||isNaN(mboy)) return; 
+        var alan=en*boy; var mal=men*mboy; var adet=alan/mal; var fire=Math.ceil(adet*1.1); 
+        var d=t[curLang];
+        goster('sonuc6', `${d.res_area}: ${(alan/10000).toFixed(2)} m²<br>${d.res_need}: ${fire} ${d.res_count}<br><small>(${d.res_fire})</small>`); 
+    }
+    function hesaplaAltinOran(){ var v=temizle(document.getElementById('ao_val').value); goster('sonuc7',`${t[curLang].res_long}: ${(v*1.618).toFixed(1)} cm`); }
+    function cevirBirim(){ var v=temizle(document.getElementById('cv_val').value); var r=(document.getElementById('cv_tip').value=='ft')?v*30.48:v*2.54; goster('sonuc8',`${t[curLang].res_result}: ${r.toFixed(2)} cm`); }
+    
+    function planSec(){document.getElementById('planYukleyici').click();} function planYukle(input){if(input.files&&input.files[0]){var r=new FileReader();r.onload=function(e){var h='<img id="gercekPlan" src="'+e.target.result+'" style="max-width:100%; transform: scale(1) translate(0px, 0px);">';document.getElementById('planGorsel').innerHTML=h;planReset();} ;r.readAsDataURL(input.files[0]);}} function gorselGuncelle(){var i=document.getElementById('gercekPlan');if(i)i.style.transform=`translate(${planX}px, ${planY}px) scale(${planScale})`;} function planZoom(v){planScale+=v;if(planScale<0.5)planScale=0.5;gorselGuncelle();} function planReset(){planScale=1;planX=0;planY=0;gorselGuncelle();} function baslaSurukle(e){if(!document.getElementById('gercekPlan'))return;isDragging=true;var cx=e.clientX||e.touches[0].clientX;var cy=e.clientY||e.touches[0].clientY;startX=cx-planX;startY=cy-planY;e.preventDefault();} function surukle(e){if(!isDragging)return;var cx=e.clientX||e.touches[0].clientX;var cy=e.clientY||e.touches[0].clientY;planX=cx-startX;planY=cy-startY;gorselGuncelle();e.preventDefault();} function bitirSurukle(){isDragging=false;}
+</script>
+
+</body>
+</html>
