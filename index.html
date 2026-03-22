@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Ölçekmatik v4.5.0</title>
+<title>Ölçekmatik v4.6.0</title>
 <link rel="manifest" href="manifest.json">
 
 <style>
@@ -152,7 +152,7 @@
     .bg-btn { width:100%; padding:15px; margin-bottom:10px; border-radius:10px; border:2px solid var(--ana-renk); background:var(--input-bg); color:var(--input-yazi); font-weight:bold; font-size:16px; cursor:pointer; font-family:inherit; transition:0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
     .bg-btn:hover { background:var(--ana-renk); color:#fff; }
     .bg-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; max-height: 350px; overflow-y: auto; padding-right: 5px; }
-    .bg-thumb { width:100%; aspect-ratio:1; object-fit:cover; border-radius:8px; cursor:pointer; border:3px solid transparent; transition:0.3s; box-shadow: 0 4px 8px rgba(0,0,0,0.2); background-color: #eee; }
+    .bg-thumb { width:100%; aspect-ratio:1; object-fit:cover; border-radius:8px; cursor:pointer; border:3px solid transparent; transition:0.3s; box-shadow: 0 4px 8px rgba(0,0,0,0.2); background-color: #eee; font-size: 10px; display: flex; align-items: center; justify-content: center; text-align: center; color: var(--yazi-renk); overflow: hidden;}
     .bg-thumb:hover { border-color:var(--ana-renk); transform:scale(1.05); }
     .bg-geri { background:none; border:none; color:var(--yazi-renk); font-weight:bold; cursor:pointer; padding:5px 0; font-family:inherit; font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;}
     
@@ -334,7 +334,7 @@
     </div>
 
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.5.0</div>
+    <div class="versiyon">v4.6.0</div>
 </div>
 
 <div class="plan-masasi">
@@ -461,8 +461,11 @@
         grid.innerHTML = '';
         hazirGorsellerListesi.forEach(src => {
             let img = document.createElement('img');
-            // Boşluklar içeren isimlerin sorunsuz yüklenmesi için encodeURI kullanıldı
-            img.src = encodeURI(src); 
+            // DÜZELTME: Doğrudan dosya ismini verdik, tarayıcı hatasını önledik
+            img.src = src; 
+            // DÜZELTME: Görsel yüklenmezse en azından aradığı dosya ismini kutunun içinde göstersin
+            img.alt = src;
+            img.title = src;
             img.className = 'bg-thumb';
             img.onclick = () => hazirGorselSec(src);
             grid.appendChild(img);
@@ -533,12 +536,10 @@
     function arkaplanDegistir(input){ if(input.files&&input.files[0]){ var r=new FileReader(); r.onload=function(e){ try{localStorage.setItem('bedir_arkaplan_v410',e.target.result);}catch(e){} resmiUygula(e.target.result); }; r.readAsDataURL(input.files[0]); } }
     
     function resmiUygula(url){ 
-        // Boşluklar içeren isimlerin sorunsuz css background olması için encodeURI kullanıldı
-        var temizUrl = url.startsWith('data:') ? url : encodeURI(url);
-        document.body.style.backgroundImage='url("'+temizUrl+'")'; 
-        
+        // DÜZELTME: Doğrudan dosya ismini CSS formatına yerleştirdik
+        document.body.style.backgroundImage = "url('" + url + "')"; 
         var i=new Image(); 
-        i.src = temizUrl; 
+        i.src = url; 
         i.onload=function(){ temaGuncelle(renkAnaliz(i)); } 
     }
     
