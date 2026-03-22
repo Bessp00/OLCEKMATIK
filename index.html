@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Ölçekmatik v4.4.0</title>
+<title>Ölçekmatik v4.5.0</title>
 <link rel="manifest" href="manifest.json">
 
 <style>
@@ -34,6 +34,18 @@
         overscroll-behavior: none; 
     }
 
+    /* INSTAGRAM BUTONU */
+    .ig-link {
+        position: fixed; bottom: 20px; left: 20px; z-index: 50;
+        background: var(--kutu-bg); padding: 10px; border-radius: 50%;
+        display: flex; align-items: center; justify-content: center;
+        box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: all 0.3s ease;
+        border: 2px solid var(--ana-renk); color: var(--ana-renk);
+        backdrop-filter: blur(5px);
+    }
+    .ig-link:hover { transform: scale(1.15) rotate(5deg); background: var(--ana-renk); color: #fff; }
+    .ig-link svg { width: 28px; height: 28px; fill: currentColor; }
+
     .kutu {
         background-color: var(--kutu-bg);
         backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
@@ -46,39 +58,13 @@
         margin-bottom: 20px; z-index: 10;
     }
 
-    /* ÜST AYARLAR (SAĞ ÜST) */
-    .ayarlar { 
-        position: absolute; top: 15px; right: 15px; 
-        display: flex; gap: 8px; z-index: 20; 
-        align-items: center;
-    }
-    .ayar-btn {
-        background: rgba(255,255,255,0.3); border: 1px solid var(--yazi-renk);
-        border-radius: 12px; width: 38px; height: 38px; cursor: pointer;
-        font-size: 20px; display: flex; align-items: center; justify-content: center;
-        transition: 0.3s; color: var(--yazi-renk); 
-    }
+    .ayarlar { position: absolute; top: 15px; right: 15px; display: flex; gap: 8px; z-index: 20; align-items: center; }
+    .ayar-btn { background: rgba(255,255,255,0.3); border: 1px solid var(--yazi-renk); border-radius: 12px; width: 38px; height: 38px; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; transition: 0.3s; color: var(--yazi-renk); }
     .ayar-btn:hover { background: var(--yazi-renk); color: var(--ana-renk); }
     
-    #langSelect {
-        height: 38px; border-radius: 10px; border: 1px solid var(--yazi-renk);
-        background: rgba(255,255,255,0.3); color: var(--yazi-renk);
-        font-weight: bold; font-family: 'Courier New', monospace; padding: 0 5px; cursor: pointer;
-    }
+    #langSelect { height: 38px; border-radius: 10px; border: 1px solid var(--yazi-renk); background: rgba(255,255,255,0.3); color: var(--yazi-renk); font-weight: bold; font-family: 'Courier New', monospace; padding: 0 5px; cursor: pointer; }
 
-    /* BAŞLIK */
-    h2 { 
-        text-align: center; color: var(--yazi-renk); 
-        margin-top: 80px; 
-        margin-bottom: 5px; 
-        font-size: 34px; font-weight: 900; letter-spacing: -1px; 
-        text-shadow: 2px 2px 0px var(--ana-renk); 
-        border-bottom: 3px solid var(--ana-renk); 
-        display: inline-block; position: relative; 
-        left: 50%; transform: translateX(-50%); 
-        padding-bottom: 5px; 
-        width: 90%;
-    }
+    h2 { text-align: center; color: var(--yazi-renk); margin-top: 80px; margin-bottom: 5px; font-size: 34px; font-weight: 900; letter-spacing: -1px; text-shadow: 2px 2px 0px var(--ana-renk); border-bottom: 3px solid var(--ana-renk); display: inline-block; position: relative; left: 50%; transform: translateX(-50%); padding-bottom: 5px; width: 90%; }
     .imza { text-align: center; font-size: 13px; opacity: 0.9; margin-bottom: 25px; font-weight: bold; letter-spacing: 2px; color: var(--yazi-renk); }
 
     .menu-container { overflow-x: auto; white-space: nowrap; margin: 0 15px 15px 15px; padding-bottom: 5px; }
@@ -128,7 +114,7 @@
     .calc-btn.c { background: #d32f2f; color: #fff; }
     #calc-screen { width: 100%; padding: 15px; font-size: 24px; text-align: right; background: var(--input-bg); border: 2px solid var(--ana-renk); border-radius: 8px; margin-bottom: 5px; color: var(--input-yazi); font-weight: bold; box-sizing: border-box; }
 
-    /* BLACKJACK */
+    /* BLACKJACK & YILAN */
     .bj-masa { background: rgba(0,0,0,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 2px solid var(--ana-renk); }
     .bj-alan { margin-bottom: 15px; min-height: 100px; }
     .bj-isim { font-weight: bold; font-size: 14px; margin-bottom: 5px; text-transform: uppercase; }
@@ -140,8 +126,6 @@
     .bj-btn-grup { display: flex; gap: 10px; justify-content: center; }
     .bj-btn { padding: 10px 15px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; flex: 1; background: var(--yazi-renk); color: #fff; }
     .bj-btn:disabled { opacity: 0.5; }
-
-    /* YILAN */
     canvas { background: rgba(255,255,255,0.5); border-radius: 8px; border: 2px solid var(--ana-renk); display: block; margin: 0 auto; touch-action: none; }
     .game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); border-radius: 8px; z-index: 5; color: #fff; font-weight: bold; }
     .start-btn { padding: 10px 20px; background: var(--ana-renk); color: #fff; border: 2px solid #fff; border-radius: 8px; font-size: 18px; cursor: pointer; margin-top: 10px; }
@@ -155,14 +139,7 @@
     .plan-kontroller { display: flex; gap: 10px; margin-top: 10px; width: 100%; }
     .plan-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; background: var(--yazi-renk); color: var(--arkaplan); font-weight: bold; cursor: pointer; font-family: 'Courier New', monospace; font-size: 16px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
-    .ipucu-kutusu {
-        position: absolute; top: 50px; right: 0px; width: 180px;
-        background-color: var(--ana-renk); color: #fff;
-        padding: 10px; border-radius: 8px; font-size: 11px; font-weight: bold;
-        text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        border: 1px solid rgba(255,255,255,0.3); display: none;
-        animation: zipla 2s infinite ease-in-out; z-index: 20;
-    }
+    .ipucu-kutusu { position: absolute; top: 50px; right: 0px; width: 180px; background-color: var(--ana-renk); color: #fff; padding: 10px; border-radius: 8px; font-size: 11px; font-weight: bold; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.3); display: none; animation: zipla 2s infinite ease-in-out; z-index: 20; }
     .ipucu-kutusu::after { content: ''; position: absolute; bottom: 100%; right: 45px; border-width: 6px; border-style: solid; border-color: transparent transparent var(--ana-renk) transparent; }
     @keyframes zipla { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
@@ -175,30 +152,25 @@
     .bg-btn { width:100%; padding:15px; margin-bottom:10px; border-radius:10px; border:2px solid var(--ana-renk); background:var(--input-bg); color:var(--input-yazi); font-weight:bold; font-size:16px; cursor:pointer; font-family:inherit; transition:0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
     .bg-btn:hover { background:var(--ana-renk); color:#fff; }
     .bg-grid { display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-top:10px; max-height: 350px; overflow-y: auto; padding-right: 5px; }
-    .bg-thumb { width:100%; aspect-ratio:1; object-fit:cover; border-radius:8px; cursor:pointer; border:3px solid transparent; transition:0.3s; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
+    .bg-thumb { width:100%; aspect-ratio:1; object-fit:cover; border-radius:8px; cursor:pointer; border:3px solid transparent; transition:0.3s; box-shadow: 0 4px 8px rgba(0,0,0,0.2); background-color: #eee; }
     .bg-thumb:hover { border-color:var(--ana-renk); transform:scale(1.05); }
     .bg-geri { background:none; border:none; color:var(--yazi-renk); font-weight:bold; cursor:pointer; padding:5px 0; font-family:inherit; font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;}
     
-    /* YENİ EKLENEN: POMODORO TOAST BİLDİRİMİ */
-    #pomodoroToast {
-        display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
-        background: var(--ana-renk); color: #fff; padding: 20px 30px; border-radius: 15px;
-        font-weight: 900; box-shadow: 0 10px 40px rgba(0,0,0,0.5); z-index: 9999;
-        text-align: center; font-family: 'Courier New', Courier, monospace;
-        border: 3px solid #fff; animation: asagiKay 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-    }
+    /* POMODORO TOAST BİLDİRİMİ */
+    #pomodoroToast { display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: var(--ana-renk); color: #fff; padding: 20px 30px; border-radius: 15px; font-weight: 900; box-shadow: 0 10px 40px rgba(0,0,0,0.5); z-index: 9999; text-align: center; font-family: 'Courier New', Courier, monospace; border: 3px solid #fff; animation: asagiKay 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     #pomodoroToast h3 { margin: 0 0 10px 0; font-size: 22px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
-    #pomodoroToast button {
-        display: block; margin: 15px auto 0 auto; background: #fff; color: var(--ana-renk);
-        border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer;
-        font-weight: 900; font-family: inherit; font-size: 16px; transition: 0.2s;
-    }
+    #pomodoroToast button { display: block; margin: 15px auto 0 auto; background: #fff; color: var(--ana-renk); border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-weight: 900; font-family: inherit; font-size: 16px; transition: 0.2s; }
     #pomodoroToast button:hover { transform: scale(1.05); background: #f0f0f0; }
     @keyframes asagiKay { from { top: -100px; opacity: 0; } to { top: 20px; opacity: 1; } }
-
 </style>
 </head>
 <body>
+
+<a href="https://www.instagram.com/ergul.bedirhan/" target="_blank" class="ig-link" title="Instagram Profilim">
+    <svg viewBox="0 0 24 24">
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+    </svg>
+</a>
 
 <div id="pomodoroToast">
     <h3>⏱️ MOLA ZAMANI!</h3>
@@ -362,7 +334,7 @@
     </div>
 
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.4.0</div>
+    <div class="versiyon">v4.5.0</div>
 </div>
 
 <div class="plan-masasi">
@@ -377,7 +349,6 @@
 </div>
 
 <script>
-    // --- DİL VERİTABANI ---
     var curLang = 'tr';
     const t = {
         tr: {
@@ -459,16 +430,10 @@
         window.addEventListener('mousemove', surukle); window.addEventListener('touchmove', surukle, {passive: false});
         window.addEventListener('mouseup', bitirSurukle); window.addEventListener('touchend', bitirSurukle);
         
-        setupEnterKeys();
-        oyunuBaslat(); setupSnakeControls(); setupCalcKeys();
+        setupEnterKeys(); oyunuBaslat(); setupSnakeControls(); setupCalcKeys();
     };
 
-    function degisDil(val) {
-        curLang = val;
-        localStorage.setItem('bedir_lang', val);
-        updateLanguageUI();
-    }
-
+    function degisDil(val) { curLang = val; localStorage.setItem('bedir_lang', val); updateLanguageUI(); }
     function updateLanguageUI() {
         var d = t[curLang];
         for (const [key, value] of Object.entries(d)) {
@@ -486,13 +451,8 @@
         document.getElementById('bedirIpucu').style.display = 'none';
         localStorage.setItem('bedir_ipucu_okundu', 'true');
     }
-
     function bgModalKapat() { document.getElementById('bgModal').style.display = 'none'; }
-    
-    function galeridenYukle() {
-        bgModalKapat();
-        document.getElementById('resimYukleyici').click();
-    }
+    function galeridenYukle() { bgModalKapat(); document.getElementById('resimYukleyici').click(); }
 
     function hazirGorselGoster() {
         document.getElementById('bgSecenekler').style.display = 'none';
@@ -501,51 +461,24 @@
         grid.innerHTML = '';
         hazirGorsellerListesi.forEach(src => {
             let img = document.createElement('img');
-            img.src = src; img.className = 'bg-thumb';
+            // Boşluklar içeren isimlerin sorunsuz yüklenmesi için encodeURI kullanıldı
+            img.src = encodeURI(src); 
+            img.className = 'bg-thumb';
             img.onclick = () => hazirGorselSec(src);
             grid.appendChild(img);
         });
     }
 
-    function bgGeri() {
-        document.getElementById('bgSecenekler').style.display = 'block';
-        document.getElementById('bgHazirlar').style.display = 'none';
-    }
-
-    function hazirGorselSec(src) {
-        bgModalKapat();
-        resmiUygula(src);
-        localStorage.setItem('bedir_arkaplan_v410', src);
-    }
+    function bgGeri() { document.getElementById('bgSecenekler').style.display = 'block'; document.getElementById('bgHazirlar').style.display = 'none'; }
+    function hazirGorselSec(src) { bgModalKapat(); resmiUygula(src); localStorage.setItem('bedir_arkaplan_v410', src); }
 
     function setupEnterKeys() {
-        const bind = (inIds, btnId) => {
-            if(!Array.isArray(inIds)) inIds = [inIds];
-            inIds.forEach(id => {
-                let el = document.getElementById(id);
-                if(el) {
-                    el.addEventListener("keyup", function(e) {
-                        if(e.key === "Enter") document.getElementById(btnId).click();
-                    });
-                }
-            });
-        };
-        bind("g_sayi", "btn_calc1"); bind("c_sayi", "btn_conv1"); bind(["e_h", "e_l"], "btn_analyse");
-        bind(["m_h", "m_b"], "btn_calc2"); bind(["mal_en", "mal_boy", "mz_en", "mz_boy"], "btn_quant");
-        bind("ao_val", "btn_ratio"); bind("cv_val", "btn_conv2");
+        const bind = (inIds, btnId) => { if(!Array.isArray(inIds)) inIds = [inIds]; inIds.forEach(id => { let el = document.getElementById(id); if(el) { el.addEventListener("keyup", function(e) { if(e.key === "Enter") document.getElementById(btnId).click(); }); } }); };
+        bind("g_sayi", "btn_calc1"); bind("c_sayi", "btn_conv1"); bind(["e_h", "e_l"], "btn_analyse"); bind(["m_h", "m_b"], "btn_calc2"); bind(["mal_en", "mal_boy", "mz_en", "mz_boy"], "btn_quant"); bind("ao_val", "btn_ratio"); bind("cv_val", "btn_conv2");
     }
 
     function setupCalcKeys() {
-        document.addEventListener('keydown', function(event) {
-            if(document.getElementById('mod9').style.display === 'block') {
-                const key = event.key;
-                if(/[0-9]/.test(key)) calcAppend(key);
-                if(['+', '-', '*', '/'].includes(key)) calcAppend(key);
-                if(key === '.' || key === ',') calcAppend('.');
-                if(key === 'Enter' || key === '=') calcResult();
-                if(key === 'Backspace' || key === 'Escape' || key.toLowerCase() === 'c') calcClear();
-            }
-        });
+        document.addEventListener('keydown', function(event) { if(document.getElementById('mod9').style.display === 'block') { const key = event.key; if(/[0-9]/.test(key)) calcAppend(key); if(['+', '-', '*', '/'].includes(key)) calcAppend(key); if(key === '.' || key === ',') calcAppend('.'); if(key === 'Enter' || key === '=') calcResult(); if(key === 'Backspace' || key === 'Escape' || key.toLowerCase() === 'c') calcClear(); } });
     }
 
     function switchGame(game) {
@@ -558,48 +491,15 @@
         if(game === 'snake') document.getElementById('snakeOverlay').style.display = 'flex';
     }
 
-    const sc = document.getElementById('snakeCanvas'); const sCtx = sc.getContext('2d');
-    let snake = [], food = {}, dir = 'RIGHT', nextDir = 'RIGHT', snakeScore = 0; const box = 15;
-    function startSnake() {
-        document.getElementById('snakeOverlay').style.display = 'none';
-        snake = [{x: 9*box, y: 10*box}]; dir = 'RIGHT'; nextDir = 'RIGHT'; snakeScore = 0;
-        document.getElementById('snakeScore').innerText = 0; placeFood();
-        if(activeGameLoop) cancelAnimationFrame(activeGameLoop); snakeLoop();
-    }
-    function placeFood() { food = { x: Math.floor(Math.random() * (sc.width/box)) * box, y: Math.floor(Math.random() * (sc.height/box)) * box } }
-    let lastTime = 0;
-    function snakeLoop(timestamp) {
-        if (!document.getElementById('game-snake').classList.contains('active')) return;
-        activeGameLoop = requestAnimationFrame(snakeLoop);
-        if (timestamp - lastTime < 100) return; lastTime = timestamp;
-        sCtx.fillStyle = '#fff'; sCtx.fillRect(0,0,sc.width,sc.height); dir = nextDir;
-        let snakeX = snake[0].x; let snakeY = snake[0].y;
-        if(dir == 'LEFT') snakeX -= box; if(dir == 'UP') snakeY -= box;
-        if(dir == 'RIGHT') snakeX += box; if(dir == 'DOWN') snakeY += box;
-        if(snakeX < 0 || snakeX >= sc.width || snakeY < 0 || snakeY >= sc.height || collision(snakeX, snakeY, snake)) {
-            cancelAnimationFrame(activeGameLoop); document.getElementById('snakeOverlay').style.display = 'flex';
-            document.querySelector('#snakeOverlay div').innerText = t[curLang].gm_lose + " " + t[curLang].lbl_score + ": " + snakeScore; return;
-        }
-        if(snakeX == food.x && snakeY == food.y) { snakeScore++; document.getElementById('snakeScore').innerText = snakeScore; placeFood(); } else { snake.pop(); }
-        let newHead = {x: snakeX, y: snakeY}; snake.unshift(newHead);
-        for(let i=0; i<snake.length; i++) {
-            sCtx.fillStyle = (i==0) ? getComputedStyle(document.documentElement).getPropertyValue('--ana-renk').trim() : "#aaa";
-            sCtx.fillRect(snake[i].x, snake[i].y, box, box); sCtx.strokeStyle = "#fff"; sCtx.strokeRect(snake[i].x, snake[i].y, box, box);
-        }
-        sCtx.fillStyle = "red"; sCtx.fillRect(food.x, food.y, box, box);
-    }
+    // OYUN KODLARI
+    const sc = document.getElementById('snakeCanvas'); const sCtx = sc.getContext('2d'); let snake = [], food = {}, dir = 'RIGHT', nextDir = 'RIGHT', snakeScore = 0; const box = 15;
+    function startSnake() { document.getElementById('snakeOverlay').style.display = 'none'; snake = [{x: 9*box, y: 10*box}]; dir = 'RIGHT'; nextDir = 'RIGHT'; snakeScore = 0; document.getElementById('snakeScore').innerText = 0; placeFood(); if(activeGameLoop) cancelAnimationFrame(activeGameLoop); snakeLoop(); }
+    function placeFood() { food = { x: Math.floor(Math.random() * (sc.width/box)) * box, y: Math.floor(Math.random() * (sc.height/box)) * box } } let lastTime = 0;
+    function snakeLoop(timestamp) { if (!document.getElementById('game-snake').classList.contains('active')) return; activeGameLoop = requestAnimationFrame(snakeLoop); if (timestamp - lastTime < 100) return; lastTime = timestamp; sCtx.fillStyle = '#fff'; sCtx.fillRect(0,0,sc.width,sc.height); dir = nextDir; let snakeX = snake[0].x; let snakeY = snake[0].y; if(dir == 'LEFT') snakeX -= box; if(dir == 'UP') snakeY -= box; if(dir == 'RIGHT') snakeX += box; if(dir == 'DOWN') snakeY += box; if(snakeX < 0 || snakeX >= sc.width || snakeY < 0 || snakeY >= sc.height || collision(snakeX, snakeY, snake)) { cancelAnimationFrame(activeGameLoop); document.getElementById('snakeOverlay').style.display = 'flex'; document.querySelector('#snakeOverlay div').innerText = t[curLang].gm_lose + " " + t[curLang].lbl_score + ": " + snakeScore; return; } if(snakeX == food.x && snakeY == food.y) { snakeScore++; document.getElementById('snakeScore').innerText = snakeScore; placeFood(); } else { snake.pop(); } let newHead = {x: snakeX, y: snakeY}; snake.unshift(newHead); for(let i=0; i<snake.length; i++) { sCtx.fillStyle = (i==0) ? getComputedStyle(document.documentElement).getPropertyValue('--ana-renk').trim() : "#aaa"; sCtx.fillRect(snake[i].x, snake[i].y, box, box); sCtx.strokeStyle = "#fff"; sCtx.strokeRect(snake[i].x, snake[i].y, box, box); } sCtx.fillStyle = "red"; sCtx.fillRect(food.x, food.y, box, box); }
     function collision(x, y, array) { for(let i=0; i<array.length; i++) { if(x == array[i].x && y == array[i].y) return true; } return false; }
-    function setupSnakeControls() {
-        window.addEventListener('keydown', function(e) { if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) { if(document.getElementById('game-snake').classList.contains('active')) { e.preventDefault(); } } }, false);
-        document.addEventListener('keydown', function(event) { let key = event.keyCode; if((key==37 || key==65) && dir!='RIGHT') nextDir='LEFT'; else if((key==38 || key==87) && dir!='DOWN') nextDir='UP'; else if((key==39 || key==68) && dir!='LEFT') nextDir='RIGHT'; else if((key==40 || key==83) && dir!='UP') nextDir='DOWN'; });
-        let tsX, tsY;
-        sc.addEventListener('touchstart', function(e) { tsX = e.touches[0].clientX; tsY = e.touches[0].clientY; e.preventDefault(); }, {passive: false});
-        sc.addEventListener('touchmove', function(e) { e.preventDefault(); }, {passive: false});
-        sc.addEventListener('touchend', function(e) { let teX = e.changedTouches[0].clientX; let teY = e.changedTouches[0].clientY; let dx = teX - tsX; let dy = teY - tsY; if(Math.abs(dx) > Math.abs(dy)) { if(dx > 0 && dir!='LEFT') nextDir='RIGHT'; else if(dx < 0 && dir!='RIGHT') nextDir='LEFT'; } else { if(dy > 0 && dir!='UP') nextDir='DOWN'; else if(dy < 0 && dir!='DOWN') nextDir='UP'; } });
-    }
+    function setupSnakeControls() { window.addEventListener('keydown', function(e) { if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) { if(document.getElementById('game-snake').classList.contains('active')) { e.preventDefault(); } } }, false); document.addEventListener('keydown', function(event) { let key = event.keyCode; if((key==37 || key==65) && dir!='RIGHT') nextDir='LEFT'; else if((key==38 || key==87) && dir!='DOWN') nextDir='UP'; else if((key==39 || key==68) && dir!='LEFT') nextDir='RIGHT'; else if((key==40 || key==83) && dir!='UP') nextDir='DOWN'; }); let tsX, tsY; sc.addEventListener('touchstart', function(e) { tsX = e.touches[0].clientX; tsY = e.touches[0].clientY; e.preventDefault(); }, {passive: false}); sc.addEventListener('touchmove', function(e) { e.preventDefault(); }, {passive: false}); sc.addEventListener('touchend', function(e) { let teX = e.changedTouches[0].clientX; let teY = e.changedTouches[0].clientY; let dx = teX - tsX; let dy = teY - tsY; if(Math.abs(dx) > Math.abs(dy)) { if(dx > 0 && dir!='LEFT') nextDir='RIGHT'; else if(dx < 0 && dir!='RIGHT') nextDir='LEFT'; } else { if(dy > 0 && dir!='UP') nextDir='DOWN'; else if(dy < 0 && dir!='DOWN') nextDir='UP'; } }); }
 
-    const suits = ['♥', '♦', '♣', '♠']; const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
-    let deck = [], playerHand = [], dealerHand = [], bjGameActive = false;
+    const suits = ['♥', '♦', '♣', '♠']; const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']; let deck = [], playerHand = [], dealerHand = [], bjGameActive = false;
     function createDeck() { deck = []; for (let s of suits) { for (let v of values) { deck.push({ suit: s, value: v }); } } for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; } }
     function getCardValue(card) { if (['J', 'Q', 'K'].includes(card.value)) return 10; if (card.value === 'A') return 11; return parseInt(card.value); }
     function getHandScore(hand) { let score = 0; let aces = 0; for (let c of hand) { score += getCardValue(c); if (c.value === 'A') aces++; } while (score > 21 && aces > 0) { score -= 10; aces--; } return score; }
@@ -620,23 +520,28 @@
 
     var currentCalc=""; function calcAppend(v){currentCalc+=v;document.getElementById('calc-screen').value=currentCalc;} function calcClear(){currentCalc="";document.getElementById('calc-screen').value="";} function calcResult(){try{var r=new Function('return '+currentCalc)();if(!isFinite(r))r="Hata";document.getElementById('calc-screen').value=r;currentCalc=r.toString();}catch(e){document.getElementById('calc-screen').value="Hata";currentCalc="";}} function calcPercent(){try{var v=parseFloat(currentCalc);if(!isNaN(v)){v=v/100;currentCalc=v.toString();document.getElementById('calc-screen').value=currentCalc;}}catch(e){}}
 
-    // --- GÜNCELLENEN KISIM: SAYACIN İÇİNE POMODORO MANTIĞI EKLENDİ ---
     function sayaciCalistir(){ 
         let s=0; 
         setInterval(function(){ 
             s++; 
             let sa=Math.floor(s/3600); let dk=Math.floor((s%3600)/60); let sn=s%60; 
             document.getElementById('oturumSayaci').innerText=(sa<10?"0"+sa:sa)+":"+(dk<10?"0"+dk:dk)+":"+(sn<10?"0"+sn:sn); 
-            
-            // Pomodoro Kontrolü (Her 1500 saniyede bir, yani 25 dakikada bir çalışır)
-            if (s > 0 && s % 1500 === 0) {
-                document.getElementById('pomodoroToast').style.display = 'block';
-            }
+            if (s > 0 && s % 1500 === 0) { document.getElementById('pomodoroToast').style.display = 'block'; }
         },1000); 
     }
     
     function arkaplanDegistir(input){ if(input.files&&input.files[0]){ var r=new FileReader(); r.onload=function(e){ try{localStorage.setItem('bedir_arkaplan_v410',e.target.result);}catch(e){} resmiUygula(e.target.result); }; r.readAsDataURL(input.files[0]); } }
-    function resmiUygula(url){ document.body.style.backgroundImage='url("'+url+'")'; var i=new Image(); i.src=url; i.onload=function(){ temaGuncelle(renkAnaliz(i)); } }
+    
+    function resmiUygula(url){ 
+        // Boşluklar içeren isimlerin sorunsuz css background olması için encodeURI kullanıldı
+        var temizUrl = url.startsWith('data:') ? url : encodeURI(url);
+        document.body.style.backgroundImage='url("'+temizUrl+'")'; 
+        
+        var i=new Image(); 
+        i.src = temizUrl; 
+        i.onload=function(){ temaGuncelle(renkAnaliz(i)); } 
+    }
+    
     function renkAnaliz(i){ var c=document.createElement('canvas'); var x=c.getContext('2d'); c.width=50; c.height=50; x.drawImage(i,0,0,50,50); try { var d=x.getImageData(0,0,50,50).data; var r=0,g=0,b=0,k=0; for(var j=0;j<d.length;j+=4){ r+=d[j]; g+=d[j+1]; b+=d[j+2]; k++; } return {r:Math.floor(r/k),g:Math.floor(g/k),b:Math.floor(b/k)}; } catch(e) { return {r:140, g:106, b:84}; } }
     function temaGuncelle(rgb){ var root=document.documentElement.style; var ana=`rgb(${rgb.r},${rgb.g},${rgb.b})`; root.setProperty('--ana-renk',ana); var p=(rgb.r*299+rgb.g*587+rgb.b*114)/1000; if(p>140){ root.setProperty('--yazi-renk','#000'); root.setProperty('--kutu-bg','rgba(255,255,255,0.85)'); root.setProperty('--sekme-pasif','rgba(0,0,0,0.1)'); }else{ root.setProperty('--yazi-renk','#fff'); root.setProperty('--kutu-bg','rgba(0,0,0,0.5)'); root.setProperty('--sekme-pasif','rgba(255,255,255,0.2)'); if(p<40)root.setProperty('--ana-renk',`rgb(${rgb.r+50},${rgb.g+50},${rgb.b+50})`); } }
     function sifirla(){ localStorage.removeItem('bedir_arkaplan_v410'); localStorage.removeItem('bedir_ipucu_okundu'); localStorage.removeItem('bedir_lang'); location.reload(); }
