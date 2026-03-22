@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Ölçekmatik v4.3.0</title>
+<title>Ölçekmatik v4.4.0</title>
 <link rel="manifest" href="manifest.json">
 
 <style>
@@ -166,7 +166,7 @@
     .ipucu-kutusu::after { content: ''; position: absolute; bottom: 100%; right: 45px; border-width: 6px; border-style: solid; border-color: transparent transparent var(--ana-renk) transparent; }
     @keyframes zipla { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
 
-    /* --- YENİ EKLENEN: ARKAPLAN MODAL EKRANI --- */
+    /* ARKAPLAN MODAL EKRANI */
     .bg-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:999; align-items:center; justify-content:center; backdrop-filter:blur(5px); }
     .bg-modal-content { background:var(--kutu-bg); padding:20px; border-radius:15px; width:90%; max-width:350px; border:2px solid var(--ana-renk); box-shadow:0 10px 30px rgba(0,0,0,0.3); color: var(--yazi-renk); }
     .bg-modal-header { display:flex; justify-content:space-between; margin-bottom:15px; font-size:18px; align-items: center; border-bottom: 2px dashed var(--ana-renk); padding-bottom: 10px;}
@@ -178,9 +178,33 @@
     .bg-thumb { width:100%; aspect-ratio:1; object-fit:cover; border-radius:8px; cursor:pointer; border:3px solid transparent; transition:0.3s; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
     .bg-thumb:hover { border-color:var(--ana-renk); transform:scale(1.05); }
     .bg-geri { background:none; border:none; color:var(--yazi-renk); font-weight:bold; cursor:pointer; padding:5px 0; font-family:inherit; font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;}
+    
+    /* YENİ EKLENEN: POMODORO TOAST BİLDİRİMİ */
+    #pomodoroToast {
+        display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
+        background: var(--ana-renk); color: #fff; padding: 20px 30px; border-radius: 15px;
+        font-weight: 900; box-shadow: 0 10px 40px rgba(0,0,0,0.5); z-index: 9999;
+        text-align: center; font-family: 'Courier New', Courier, monospace;
+        border: 3px solid #fff; animation: asagiKay 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+    #pomodoroToast h3 { margin: 0 0 10px 0; font-size: 22px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
+    #pomodoroToast button {
+        display: block; margin: 15px auto 0 auto; background: #fff; color: var(--ana-renk);
+        border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer;
+        font-weight: 900; font-family: inherit; font-size: 16px; transition: 0.2s;
+    }
+    #pomodoroToast button:hover { transform: scale(1.05); background: #f0f0f0; }
+    @keyframes asagiKay { from { top: -100px; opacity: 0; } to { top: 20px; opacity: 1; } }
+
 </style>
 </head>
 <body>
+
+<div id="pomodoroToast">
+    <h3>⏱️ MOLA ZAMANI!</h3>
+    25 dakika boyunca aralıksız çalıştın.<br>Verimini korumak için şimdi 5 dakika gözlerini dinlendir.
+    <button onclick="document.getElementById('pomodoroToast').style.display='none'">TAMAM</button>
+</div>
 
 <div id="bgModal" class="bg-modal">
     <div class="bg-modal-content">
@@ -188,16 +212,13 @@
             <span style="font-weight:900;">🎨 Arkaplan Seçimi</span>
             <button class="bg-close" onclick="bgModalKapat()">✖</button>
         </div>
-        
         <div id="bgSecenekler">
             <button class="bg-btn" onclick="hazirGorselGoster()">🖼️ Hazır Görseller</button>
             <button class="bg-btn" onclick="galeridenYukle()">📂 Galeriden Yükle</button>
         </div>
-
         <div id="bgHazirlar" style="display:none;">
             <button class="bg-geri" onclick="bgGeri()">⬅ Geri Dön</button>
-            <div class="bg-grid" id="bgGridContainer">
-                </div>
+            <div class="bg-grid" id="bgGridContainer"></div>
         </div>
     </div>
 </div>
@@ -341,7 +362,7 @@
     </div>
 
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.3.0</div>
+    <div class="versiyon">v4.4.0</div>
 </div>
 
 <div class="plan-masasi">
@@ -412,13 +433,13 @@
         }
     };
 
-    // --- YENİ EKLENEN: SENİN GÖRSELLERİN ---
     const hazirGorsellerListesi = [
-        "Aslan.jpg",
-        "Atakoy Ustgecit.jpeg",
-        "KEDI2.jpeg",
-        "Kedisi.jpeg",
-        "SANAT ESERI.jpeg"
+        "WIN_20260204_05_16_26_Pro.jpg",
+        "WhatsApp Image 2026-03-08 at 01.43.30.jpeg",
+        "WhatsApp Image 2026-03-08 at 01.48.49.jpg",
+        "WhatsApp Image 2026-03-08 at 01.52.44.jpeg",
+        "WhatsApp Image 2026-03-08 at 01.56.22 (1).jpeg",
+        "WhatsApp Image 2026-03-08 at 01.56.22.jpeg"
     ];
 
     var planScale = 1; var planX = 0; var planY = 0; var isDragging = false; var startX, startY;
@@ -458,12 +479,10 @@
         document.getElementById('bjMessage').innerText = d.bj_start_msg;
     }
 
-    // --- YENİ EKLENEN: MODAL FONKSİYONLARI ---
     function bgModalAc() {
         document.getElementById('bgModal').style.display = 'flex';
         document.getElementById('bgSecenekler').style.display = 'block';
         document.getElementById('bgHazirlar').style.display = 'none';
-        
         document.getElementById('bedirIpucu').style.display = 'none';
         localStorage.setItem('bedir_ipucu_okundu', 'true');
     }
@@ -478,15 +497,11 @@
     function hazirGorselGoster() {
         document.getElementById('bgSecenekler').style.display = 'none';
         document.getElementById('bgHazirlar').style.display = 'block';
-        
         let grid = document.getElementById('bgGridContainer');
         grid.innerHTML = '';
-        
         hazirGorsellerListesi.forEach(src => {
             let img = document.createElement('img');
-            img.src = src;
-            img.className = 'bg-thumb';
-            // Eğer görsel bulunamazsa kırık ikon çıkmasın diye fallback eklenebilir ama şu an direk basıyoruz.
+            img.src = src; img.className = 'bg-thumb';
             img.onclick = () => hazirGorselSec(src);
             grid.appendChild(img);
         });
@@ -500,7 +515,7 @@
     function hazirGorselSec(src) {
         bgModalKapat();
         resmiUygula(src);
-        localStorage.setItem('bedir_arkaplan_v410', src); // Tekrar açıldığında hatırlaması için
+        localStorage.setItem('bedir_arkaplan_v410', src);
     }
 
     function setupEnterKeys() {
@@ -515,13 +530,9 @@
                 }
             });
         };
-        bind("g_sayi", "btn_calc1");
-        bind("c_sayi", "btn_conv1");
-        bind(["e_h", "e_l"], "btn_analyse");
-        bind(["m_h", "m_b"], "btn_calc2");
-        bind(["mal_en", "mal_boy", "mz_en", "mz_boy"], "btn_quant");
-        bind("ao_val", "btn_ratio");
-        bind("cv_val", "btn_conv2");
+        bind("g_sayi", "btn_calc1"); bind("c_sayi", "btn_conv1"); bind(["e_h", "e_l"], "btn_analyse");
+        bind(["m_h", "m_b"], "btn_calc2"); bind(["mal_en", "mal_boy", "mz_en", "mz_boy"], "btn_quant");
+        bind("ao_val", "btn_ratio"); bind("cv_val", "btn_conv2");
     }
 
     function setupCalcKeys() {
@@ -537,7 +548,6 @@
         });
     }
 
-    // --- OYUN YÖNETİMİ ---
     function switchGame(game) {
         if(activeGameLoop) { cancelAnimationFrame(activeGameLoop); activeGameLoop = null; }
         document.querySelectorAll('.game-wrapper').forEach(el => el.classList.remove('active'));
@@ -548,125 +558,58 @@
         if(game === 'snake') document.getElementById('snakeOverlay').style.display = 'flex';
     }
 
-    // --- SNAKE OYUNU ---
-    const sc = document.getElementById('snakeCanvas');
-    const sCtx = sc.getContext('2d');
-    let snake = [], food = {}, dir = 'RIGHT', nextDir = 'RIGHT', snakeScore = 0;
-    const box = 15;
-
+    const sc = document.getElementById('snakeCanvas'); const sCtx = sc.getContext('2d');
+    let snake = [], food = {}, dir = 'RIGHT', nextDir = 'RIGHT', snakeScore = 0; const box = 15;
     function startSnake() {
         document.getElementById('snakeOverlay').style.display = 'none';
         snake = [{x: 9*box, y: 10*box}]; dir = 'RIGHT'; nextDir = 'RIGHT'; snakeScore = 0;
-        document.getElementById('snakeScore').innerText = 0;
-        placeFood();
-        if(activeGameLoop) cancelAnimationFrame(activeGameLoop);
-        snakeLoop();
+        document.getElementById('snakeScore').innerText = 0; placeFood();
+        if(activeGameLoop) cancelAnimationFrame(activeGameLoop); snakeLoop();
     }
     function placeFood() { food = { x: Math.floor(Math.random() * (sc.width/box)) * box, y: Math.floor(Math.random() * (sc.height/box)) * box } }
     let lastTime = 0;
     function snakeLoop(timestamp) {
         if (!document.getElementById('game-snake').classList.contains('active')) return;
         activeGameLoop = requestAnimationFrame(snakeLoop);
-        if (timestamp - lastTime < 100) return; 
-        lastTime = timestamp;
-        sCtx.fillStyle = '#fff'; sCtx.fillRect(0,0,sc.width,sc.height);
-        dir = nextDir;
+        if (timestamp - lastTime < 100) return; lastTime = timestamp;
+        sCtx.fillStyle = '#fff'; sCtx.fillRect(0,0,sc.width,sc.height); dir = nextDir;
         let snakeX = snake[0].x; let snakeY = snake[0].y;
         if(dir == 'LEFT') snakeX -= box; if(dir == 'UP') snakeY -= box;
         if(dir == 'RIGHT') snakeX += box; if(dir == 'DOWN') snakeY += box;
         if(snakeX < 0 || snakeX >= sc.width || snakeY < 0 || snakeY >= sc.height || collision(snakeX, snakeY, snake)) {
-            cancelAnimationFrame(activeGameLoop);
-            document.getElementById('snakeOverlay').style.display = 'flex';
-            document.querySelector('#snakeOverlay div').innerText = t[curLang].gm_lose + " " + t[curLang].lbl_score + ": " + snakeScore;
-            return;
+            cancelAnimationFrame(activeGameLoop); document.getElementById('snakeOverlay').style.display = 'flex';
+            document.querySelector('#snakeOverlay div').innerText = t[curLang].gm_lose + " " + t[curLang].lbl_score + ": " + snakeScore; return;
         }
         if(snakeX == food.x && snakeY == food.y) { snakeScore++; document.getElementById('snakeScore').innerText = snakeScore; placeFood(); } else { snake.pop(); }
         let newHead = {x: snakeX, y: snakeY}; snake.unshift(newHead);
         for(let i=0; i<snake.length; i++) {
             sCtx.fillStyle = (i==0) ? getComputedStyle(document.documentElement).getPropertyValue('--ana-renk').trim() : "#aaa";
-            sCtx.fillRect(snake[i].x, snake[i].y, box, box);
-            sCtx.strokeStyle = "#fff"; sCtx.strokeRect(snake[i].x, snake[i].y, box, box);
+            sCtx.fillRect(snake[i].x, snake[i].y, box, box); sCtx.strokeStyle = "#fff"; sCtx.strokeRect(snake[i].x, snake[i].y, box, box);
         }
         sCtx.fillStyle = "red"; sCtx.fillRect(food.x, food.y, box, box);
     }
     function collision(x, y, array) { for(let i=0; i<array.length; i++) { if(x == array[i].x && y == array[i].y) return true; } return false; }
-    
     function setupSnakeControls() {
-        window.addEventListener('keydown', function(e) {
-            if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) {
-                if(document.getElementById('game-snake').classList.contains('active')) { e.preventDefault(); }
-            }
-        }, false);
-        document.addEventListener('keydown', function(event) {
-            let key = event.keyCode;
-            if((key==37 || key==65) && dir!='RIGHT') nextDir='LEFT';
-            else if((key==38 || key==87) && dir!='DOWN') nextDir='UP';
-            else if((key==39 || key==68) && dir!='LEFT') nextDir='RIGHT';
-            else if((key==40 || key==83) && dir!='UP') nextDir='DOWN';
-        });
+        window.addEventListener('keydown', function(e) { if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) { if(document.getElementById('game-snake').classList.contains('active')) { e.preventDefault(); } } }, false);
+        document.addEventListener('keydown', function(event) { let key = event.keyCode; if((key==37 || key==65) && dir!='RIGHT') nextDir='LEFT'; else if((key==38 || key==87) && dir!='DOWN') nextDir='UP'; else if((key==39 || key==68) && dir!='LEFT') nextDir='RIGHT'; else if((key==40 || key==83) && dir!='UP') nextDir='DOWN'; });
         let tsX, tsY;
         sc.addEventListener('touchstart', function(e) { tsX = e.touches[0].clientX; tsY = e.touches[0].clientY; e.preventDefault(); }, {passive: false});
         sc.addEventListener('touchmove', function(e) { e.preventDefault(); }, {passive: false});
-        sc.addEventListener('touchend', function(e) {
-            let teX = e.changedTouches[0].clientX; let teY = e.changedTouches[0].clientY;
-            let dx = teX - tsX; let dy = teY - tsY;
-            if(Math.abs(dx) > Math.abs(dy)) { if(dx > 0 && dir!='LEFT') nextDir='RIGHT'; else if(dx < 0 && dir!='RIGHT') nextDir='LEFT'; } 
-            else { if(dy > 0 && dir!='UP') nextDir='DOWN'; else if(dy < 0 && dir!='DOWN') nextDir='UP'; }
-        });
+        sc.addEventListener('touchend', function(e) { let teX = e.changedTouches[0].clientX; let teY = e.changedTouches[0].clientY; let dx = teX - tsX; let dy = teY - tsY; if(Math.abs(dx) > Math.abs(dy)) { if(dx > 0 && dir!='LEFT') nextDir='RIGHT'; else if(dx < 0 && dir!='RIGHT') nextDir='LEFT'; } else { if(dy > 0 && dir!='UP') nextDir='DOWN'; else if(dy < 0 && dir!='DOWN') nextDir='UP'; } });
     }
 
-    // --- BLACKJACK (21) ---
-    const suits = ['♥', '♦', '♣', '♠'];
-    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
+    const suits = ['♥', '♦', '♣', '♠']; const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A'];
     let deck = [], playerHand = [], dealerHand = [], bjGameActive = false;
-
-    function createDeck() {
-        deck = [];
-        for (let s of suits) { for (let v of values) { deck.push({ suit: s, value: v }); } }
-        for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; }
-    }
+    function createDeck() { deck = []; for (let s of suits) { for (let v of values) { deck.push({ suit: s, value: v }); } } for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; } }
     function getCardValue(card) { if (['J', 'Q', 'K'].includes(card.value)) return 10; if (card.value === 'A') return 11; return parseInt(card.value); }
     function getHandScore(hand) { let score = 0; let aces = 0; for (let c of hand) { score += getCardValue(c); if (c.value === 'A') aces++; } while (score > 21 && aces > 0) { score -= 10; aces--; } return score; }
-    function renderCard(card, hidden=false) {
-        if (hidden) return `<div class="kart kart-arka"></div>`;
-        let colorClass = (card.suit === '♥' || card.suit === '♦') ? 'kirmizi' : 'siyah';
-        return `<div class="kart ${colorClass}"><div>${card.value}</div><div>${card.suit}</div></div>`;
-    }
-    function updateBJUI(showDealer = false) {
-        let dhHTML = "";
-        dealerHand.forEach((c, i) => { if (i === 0 && !showDealer) dhHTML += renderCard(c, true); else dhHTML += renderCard(c); });
-        document.getElementById('dealerHand').innerHTML = dhHTML;
-        let phHTML = ""; playerHand.forEach(c => phHTML += renderCard(c)); document.getElementById('playerHand').innerHTML = phHTML;
-        document.getElementById('playerHandScore').innerText = getHandScore(playerHand);
-        if (showDealer) document.getElementById('dealerScore').innerText = getHandScore(dealerHand); else document.getElementById('dealerScore').innerText = "?";
-    }
-    function startBJ() {
-        createDeck(); playerHand = [deck.pop(), deck.pop()]; dealerHand = [deck.pop(), deck.pop()];
-        bjGameActive = true; document.getElementById('bjMessage').innerText = "";
-        document.getElementById('bjHit').disabled = false; document.getElementById('bjStand').disabled = false; document.getElementById('bjNew').disabled = true;
-        updateBJUI(false);
-        if (getHandScore(playerHand) === 21) bjEnd(true, "BLACKJACK! " + t[curLang].gm_win);
-    }
+    function renderCard(card, hidden=false) { if (hidden) return `<div class="kart kart-arka"></div>`; let colorClass = (card.suit === '♥' || card.suit === '♦') ? 'kirmizi' : 'siyah'; return `<div class="kart ${colorClass}"><div>${card.value}</div><div>${card.suit}</div></div>`; }
+    function updateBJUI(showDealer = false) { let dhHTML = ""; dealerHand.forEach((c, i) => { if (i === 0 && !showDealer) dhHTML += renderCard(c, true); else dhHTML += renderCard(c); }); document.getElementById('dealerHand').innerHTML = dhHTML; let phHTML = ""; playerHand.forEach(c => phHTML += renderCard(c)); document.getElementById('playerHand').innerHTML = phHTML; document.getElementById('playerHandScore').innerText = getHandScore(playerHand); if (showDealer) document.getElementById('dealerScore').innerText = getHandScore(dealerHand); else document.getElementById('dealerScore').innerText = "?"; }
+    function startBJ() { createDeck(); playerHand = [deck.pop(), deck.pop()]; dealerHand = [deck.pop(), deck.pop()]; bjGameActive = true; document.getElementById('bjMessage').innerText = ""; document.getElementById('bjHit').disabled = false; document.getElementById('bjStand').disabled = false; document.getElementById('bjNew').disabled = true; updateBJUI(false); if (getHandScore(playerHand) === 21) bjEnd(true, "BLACKJACK! " + t[curLang].gm_win); }
     function bjHit() { if (!bjGameActive) return; playerHand.push(deck.pop()); updateBJUI(false); if (getHandScore(playerHand) > 21) bjEnd(false, t[curLang].gm_bust); }
-    function bjStand() {
-        if (!bjGameActive) return;
-        let dScore = getHandScore(dealerHand);
-        while (dScore < 17) { dealerHand.push(deck.pop()); dScore = getHandScore(dealerHand); }
-        updateBJUI(true);
-        let pScore = getHandScore(playerHand);
-        if (dScore > 21) bjEnd(true, t[curLang].gm_dealer_bust + " " + t[curLang].gm_win);
-        else if (pScore > dScore) bjEnd(true, t[curLang].gm_win);
-        else if (pScore < dScore) bjEnd(false, t[curLang].gm_lose);
-        else bjEnd(true, t[curLang].gm_draw);
-    }
-    function bjEnd(win, msg) {
-        bjGameActive = false; document.getElementById('bjHit').disabled = true; document.getElementById('bjStand').disabled = true; document.getElementById('bjNew').disabled = false;
-        updateBJUI(true);
-        let color = win ? "green" : "red"; if(msg.includes(t[curLang].gm_draw)) color = "orange";
-        document.getElementById('bjMessage').innerHTML = `<span style='color:${color}'>${msg}</span>`;
-    }
+    function bjStand() { if (!bjGameActive) return; let dScore = getHandScore(dealerHand); while (dScore < 17) { dealerHand.push(deck.pop()); dScore = getHandScore(dealerHand); } updateBJUI(true); let pScore = getHandScore(playerHand); if (dScore > 21) bjEnd(true, t[curLang].gm_dealer_bust + " " + t[curLang].gm_win); else if (pScore > dScore) bjEnd(true, t[curLang].gm_win); else if (pScore < dScore) bjEnd(false, t[curLang].gm_lose); else bjEnd(true, t[curLang].gm_draw); }
+    function bjEnd(win, msg) { bjGameActive = false; document.getElementById('bjHit').disabled = true; document.getElementById('bjStand').disabled = true; document.getElementById('bjNew').disabled = false; updateBJUI(true); let color = win ? "green" : "red"; if(msg.includes(t[curLang].gm_draw)) color = "orange"; document.getElementById('bjMessage').innerHTML = `<span style='color:${color}'>${msg}</span>`; }
 
-    // --- MAYIN ---
     const SATIR=10, SUTUN=10, MAYIN_SAYISI=15; let oyunGrid=[], oyunAktif=false, kazmaModu=true;
     function modDegistirOyun(kaz) { kazmaModu=kaz; document.getElementById('btnKaz').className=kaz?'oyun-btn aktif-mod':'oyun-btn'; document.getElementById('btnBayrak').className=!kaz?'oyun-btn aktif-mod':'oyun-btn'; }
     function oyunuBaslat() { const g=document.getElementById('mayinTarlasi'); g.innerHTML=''; oyunGrid=[]; oyunAktif=true; document.getElementById('mayinSayac').innerText=MAYIN_SAYISI; document.getElementById('oyunSonuc').style.display='none'; for(let i=0;i<SATIR;i++){ let rArr=[]; for(let j=0;j<SUTUN;j++){ let h=document.createElement('div'); h.className='hucre'; h.onclick=()=>hucreTikla(i,j); g.appendChild(h); rArr.push({el:h,mayin:false,acik:false,bayrak:false,sayi:0}); } oyunGrid.push(rArr); } let m=0; while(m<MAYIN_SAYISI){ let r=Math.floor(Math.random()*SATIR), c=Math.floor(Math.random()*SUTUN); if(!oyunGrid[r][c].mayin){ oyunGrid[r][c].mayin=true; m++; } } for(let i=0;i<SATIR;i++){ for(let j=0;j<SUTUN;j++){ if(!oyunGrid[i][j].mayin){ let c=0; for(let x=-1;x<=1;x++){ for(let y=-1;y<=1;y++){ let ni=i+x, nj=j+y; if(ni>=0&&ni<SATIR&&nj>=0&&nj<SUTUN&&oyunGrid[ni][nj].mayin) c++; } } oyunGrid[i][j].sayi=c; } } } }
@@ -675,66 +618,38 @@
     function oyunBitir(k){ oyunAktif=false; let s=document.getElementById('oyunSonuc'); s.style.display='block'; if(k)s.innerHTML="<span style='color:green'>"+t[curLang].gm_win+" 🎉</span>"; else{ s.innerHTML="<span style='color:red'>"+t[curLang].gm_lose+" 💥</span>"; for(let i=0;i<SATIR;i++)for(let j=0;j<SUTUN;j++)if(oyunGrid[i][j].mayin){ oyunGrid[i][j].el.innerText='💣'; if(!oyunGrid[i][j].bayrak)oyunGrid[i][j].el.style.color='white'; } } }
     function kazanmaKontrol(){ let k=0; for(let i=0;i<SATIR;i++)for(let j=0;j<SUTUN;j++)if(!oyunGrid[i][j].acik)k++; if(k===MAYIN_SAYISI)oyunBitir(true); }
 
-    // HESAP MAKİNESİ
     var currentCalc=""; function calcAppend(v){currentCalc+=v;document.getElementById('calc-screen').value=currentCalc;} function calcClear(){currentCalc="";document.getElementById('calc-screen').value="";} function calcResult(){try{var r=new Function('return '+currentCalc)();if(!isFinite(r))r="Hata";document.getElementById('calc-screen').value=r;currentCalc=r.toString();}catch(e){document.getElementById('calc-screen').value="Hata";currentCalc="";}} function calcPercent(){try{var v=parseFloat(currentCalc);if(!isNaN(v)){v=v/100;currentCalc=v.toString();document.getElementById('calc-screen').value=currentCalc;}}catch(e){}}
 
-    // DİĞER FONKSİYONLAR
-    function sayaciCalistir(){ let s=0; setInterval(function(){ s++; let sa=Math.floor(s/3600); let dk=Math.floor((s%3600)/60); let sn=s%60; document.getElementById('oturumSayaci').innerText=(sa<10?"0"+sa:sa)+":"+(dk<10?"0"+dk:dk)+":"+(sn<10?"0"+sn:sn); },1000); }
+    // --- GÜNCELLENEN KISIM: SAYACIN İÇİNE POMODORO MANTIĞI EKLENDİ ---
+    function sayaciCalistir(){ 
+        let s=0; 
+        setInterval(function(){ 
+            s++; 
+            let sa=Math.floor(s/3600); let dk=Math.floor((s%3600)/60); let sn=s%60; 
+            document.getElementById('oturumSayaci').innerText=(sa<10?"0"+sa:sa)+":"+(dk<10?"0"+dk:dk)+":"+(sn<10?"0"+sn:sn); 
+            
+            // Pomodoro Kontrolü (Her 1500 saniyede bir, yani 25 dakikada bir çalışır)
+            if (s > 0 && s % 1500 === 0) {
+                document.getElementById('pomodoroToast').style.display = 'block';
+            }
+        },1000); 
+    }
     
-    // GÜNCELLENDİ: Artık modal içerisinden veya doğrudan src ile arkaplan uygulanıyor
     function arkaplanDegistir(input){ if(input.files&&input.files[0]){ var r=new FileReader(); r.onload=function(e){ try{localStorage.setItem('bedir_arkaplan_v410',e.target.result);}catch(e){} resmiUygula(e.target.result); }; r.readAsDataURL(input.files[0]); } }
-    
-    function resmiUygula(url){ 
-        document.body.style.backgroundImage='url("'+url+'")'; 
-        var i=new Image(); 
-        i.src=url; 
-        i.onload=function(){ temaGuncelle(renkAnaliz(i)); } 
-    }
-    
-    // GÜNCELLENDİ: Local'de çalışırken (CORS) patlamaması için try-catch eklendi
-    function renkAnaliz(i){ 
-        var c=document.createElement('canvas'); var x=c.getContext('2d'); c.width=50; c.height=50; x.drawImage(i,0,0,50,50); 
-        try {
-            var d=x.getImageData(0,0,50,50).data; 
-            var r=0,g=0,b=0,k=0; for(var j=0;j<d.length;j+=4){ r+=d[j]; g+=d[j+1]; b+=d[j+2]; k++; } 
-            return {r:Math.floor(r/k),g:Math.floor(g/k),b:Math.floor(b/k)}; 
-        } catch(e) {
-            // Tarayıcı güvenlik (CORS) nedeniyle yerel resmi okuyamazsa varsayılan kahverengi tonlarını kullan.
-            return {r:140, g:106, b:84};
-        }
-    }
-    
+    function resmiUygula(url){ document.body.style.backgroundImage='url("'+url+'")'; var i=new Image(); i.src=url; i.onload=function(){ temaGuncelle(renkAnaliz(i)); } }
+    function renkAnaliz(i){ var c=document.createElement('canvas'); var x=c.getContext('2d'); c.width=50; c.height=50; x.drawImage(i,0,0,50,50); try { var d=x.getImageData(0,0,50,50).data; var r=0,g=0,b=0,k=0; for(var j=0;j<d.length;j+=4){ r+=d[j]; g+=d[j+1]; b+=d[j+2]; k++; } return {r:Math.floor(r/k),g:Math.floor(g/k),b:Math.floor(b/k)}; } catch(e) { return {r:140, g:106, b:84}; } }
     function temaGuncelle(rgb){ var root=document.documentElement.style; var ana=`rgb(${rgb.r},${rgb.g},${rgb.b})`; root.setProperty('--ana-renk',ana); var p=(rgb.r*299+rgb.g*587+rgb.b*114)/1000; if(p>140){ root.setProperty('--yazi-renk','#000'); root.setProperty('--kutu-bg','rgba(255,255,255,0.85)'); root.setProperty('--sekme-pasif','rgba(0,0,0,0.1)'); }else{ root.setProperty('--yazi-renk','#fff'); root.setProperty('--kutu-bg','rgba(0,0,0,0.5)'); root.setProperty('--sekme-pasif','rgba(255,255,255,0.2)'); if(p<40)root.setProperty('--ana-renk',`rgb(${rgb.r+50},${rgb.g+50},${rgb.b+50})`); } }
     function sifirla(){ localStorage.removeItem('bedir_arkaplan_v410'); localStorage.removeItem('bedir_ipucu_okundu'); localStorage.removeItem('bedir_lang'); location.reload(); }
     
-    function modDegis(no){ 
-        for(let i=1;i<=9;i++){ if(document.getElementById('mod'+i)){ document.getElementById('mod'+i).style.display='none'; if(document.getElementById('btn'+i))document.getElementById('btn'+i).className=''; } } 
-        document.getElementById('mod'+no).style.display='block'; 
-        if(document.getElementById('btn'+no))document.getElementById('btn'+no).className='aktif'; 
-        var s=document.getElementsByClassName('sonuc'); for(let k of s)k.style.display='none'; 
-        if(no!==4) { oyunAktif=false; if(activeGameLoop){cancelAnimationFrame(activeGameLoop); activeGameLoop=null;} } 
-    }
+    function modDegis(no){ for(let i=1;i<=9;i++){ if(document.getElementById('mod'+i)){ document.getElementById('mod'+i).style.display='none'; if(document.getElementById('btn'+i))document.getElementById('btn'+i).className=''; } } document.getElementById('mod'+no).style.display='block'; if(document.getElementById('btn'+no))document.getElementById('btn'+no).className='aktif'; var s=document.getElementsByClassName('sonuc'); for(let k of s)k.style.display='none'; if(no!==4) { oyunAktif=false; if(activeGameLoop){cancelAnimationFrame(activeGameLoop); activeGameLoop=null;} } }
     function temizle(v){ return parseFloat(v.replace(',','.')); }
     function goster(id,t){ var k=document.getElementById(id); k.style.display='block'; k.innerHTML=t; }
 
     function hesaplaCizim(){ var v=temizle(document.getElementById('g_sayi').value); var o=parseInt(document.getElementById('g_olcek').value); var cm=(document.getElementById('g_birim').value=='m')?v*100:((document.getElementById('g_birim').value=='mm')?v/10:v); goster('sonuc1',`${t[curLang].res_drawn}: ${(cm/o).toFixed(2)} CM`); }
     function hesaplaGercek(){ var v=temizle(document.getElementById('c_sayi').value); var o=parseInt(document.getElementById('c_olcek').value); goster('sonuc2',`${t[curLang].res_real}: ${((v*o)/100).toFixed(2)} M`); }
     function hesaplaEgim(){ var h=temizle(document.getElementById('e_h').value); var l=temizle(document.getElementById('e_l').value); var e=(h/l)*100; goster('sonuc3',`${t[curLang].res_slope}: %${e.toFixed(1)}`); }
-    function hesaplaMerdiven() { 
-        var h=temizle(document.getElementById('m_h').value); var b_input=document.getElementById('m_b').value; var b=temizle(b_input); 
-        if(isNaN(h)) return; var idealRiht, basamakEni, gercekRiht, adet; 
-        if (!isNaN(b) && b > 0) { idealRiht=(63-b)/2; adet=Math.round(h/idealRiht); if(adet<1)adet=1; gercekRiht=h/adet; basamakEni=b; } else { idealRiht=17.5; adet=Math.round(h/idealRiht); if(adet<1)adet=1; gercekRiht=h/adet; basamakEni=63-(2*gercekRiht); } 
-        var d=t[curLang];
-        var txt = `${d.res_riser}: <span style='font-size:24px'>${gercekRiht.toFixed(2)}</span> cm<br>${d.res_count}: <span style='font-size:24px'>${adet}</span> ${d.res_step}<br><small>${d.res_step}: ${basamakEni.toFixed(1)} cm</small>`; 
-        if(gercekRiht>18.5)txt+=`<br><span style='color:red'>[${d.res_warn_steep}]</span>`; if(gercekRiht<15)txt+=`<br><span style='color:orange'>[${d.res_warn_low}]</span>`; if(basamakEni<25)txt+=`<br><span style='color:red'>[${d.res_warn_foot}]</span>`; goster('sonuc5',txt); 
-    }
-    function hesaplaMalzeme() { 
-        var en=temizle(document.getElementById('mal_en').value); var boy=temizle(document.getElementById('mal_boy').value); var men=temizle(document.getElementById('mz_en').value); var mboy=temizle(document.getElementById('mz_boy').value); 
-        if(isNaN(en)||isNaN(boy)||isNaN(men)||isNaN(mboy)) return; 
-        var alan=en*boy; var mal=men*mboy; var adet=alan/mal; var fire=Math.ceil(adet*1.1); 
-        var d=t[curLang];
-        goster('sonuc6', `${d.res_area}: ${(alan/10000).toFixed(2)} m²<br>${d.res_need}: ${fire} ${d.res_count}<br><small>(${d.res_fire})</small>`); 
-    }
+    function hesaplaMerdiven() { var h=temizle(document.getElementById('m_h').value); var b_input=document.getElementById('m_b').value; var b=temizle(b_input); if(isNaN(h)) return; var idealRiht, basamakEni, gercekRiht, adet; if (!isNaN(b) && b > 0) { idealRiht=(63-b)/2; adet=Math.round(h/idealRiht); if(adet<1)adet=1; gercekRiht=h/adet; basamakEni=b; } else { idealRiht=17.5; adet=Math.round(h/idealRiht); if(adet<1)adet=1; gercekRiht=h/adet; basamakEni=63-(2*gercekRiht); } var d=t[curLang]; var txt = `${d.res_riser}: <span style='font-size:24px'>${gercekRiht.toFixed(2)}</span> cm<br>${d.res_count}: <span style='font-size:24px'>${adet}</span> ${d.res_step}<br><small>${d.res_step}: ${basamakEni.toFixed(1)} cm</small>`; if(gercekRiht>18.5)txt+=`<br><span style='color:red'>[${d.res_warn_steep}]</span>`; if(gercekRiht<15)txt+=`<br><span style='color:orange'>[${d.res_warn_low}]</span>`; if(basamakEni<25)txt+=`<br><span style='color:red'>[${d.res_warn_foot}]</span>`; goster('sonuc5',txt); }
+    function hesaplaMalzeme() { var en=temizle(document.getElementById('mal_en').value); var boy=temizle(document.getElementById('mal_boy').value); var men=temizle(document.getElementById('mz_en').value); var mboy=temizle(document.getElementById('mz_boy').value); if(isNaN(en)||isNaN(boy)||isNaN(men)||isNaN(mboy)) return; var alan=en*boy; var mal=men*mboy; var adet=alan/mal; var fire=Math.ceil(adet*1.1); var d=t[curLang]; goster('sonuc6', `${d.res_area}: ${(alan/10000).toFixed(2)} m²<br>${d.res_need}: ${fire} ${d.res_count}<br><small>(${d.res_fire})</small>`); }
     function hesaplaAltinOran(){ var v=temizle(document.getElementById('ao_val').value); goster('sonuc7',`${t[curLang].res_long}: ${(v*1.618).toFixed(1)} cm`); }
     function cevirBirim(){ var v=temizle(document.getElementById('cv_val').value); var r=(document.getElementById('cv_tip').value=='ft')?v*30.48:v*2.54; goster('sonuc8',`${t[curLang].res_result}: ${r.toFixed(2)} cm`); }
     
