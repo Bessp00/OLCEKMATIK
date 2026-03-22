@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Ölçekmatik v4.8.0</title>
+<title>Ölçekmatik v4.9.0</title>
 <link rel="manifest" href="manifest.json">
 
 <style>
@@ -139,57 +139,82 @@
     .plan-kontroller { display: flex; gap: 10px; margin-top: 10px; width: 100%; }
     .plan-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; background: var(--yazi-renk); color: var(--arkaplan); font-weight: bold; cursor: pointer; font-family: 'Courier New', monospace; font-size: 16px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
 
-    /* İPUCU KUTUSU */
-    .ipucu-kutusu { position: absolute; top: 50px; right: 0px; width: 180px; background-color: var(--ana-renk); color: #fff; padding: 10px; border-radius: 8px; font-size: 11px; font-weight: bold; text-align: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); border: 1px solid rgba(255,255,255,0.3); display: none; animation: zipla 2s infinite ease-in-out; z-index: 20; }
-    .ipucu-kutusu::after { content: ''; position: absolute; bottom: 100%; right: 45px; border-width: 6px; border-style: solid; border-color: transparent transparent var(--ana-renk) transparent; }
-    @keyframes zipla { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-5px); } }
-
-    /* ARKAPLAN MODAL EKRANI & GALERİ FIX */
+    /* ARKAPLAN MODAL EKRANI & GALERİ (SIFIRDAN TASARIM) */
     .bg-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:999; align-items:center; justify-content:center; backdrop-filter:blur(5px); }
-    .bg-modal-content { background:var(--kutu-bg); padding:20px; border-radius:15px; width:90%; max-width:350px; border:2px solid var(--ana-renk); box-shadow:0 10px 30px rgba(0,0,0,0.3); color: var(--yazi-renk); }
+    .bg-modal-content { background:var(--kutu-bg); padding:20px; border-radius:15px; width:90%; max-width:350px; border:2px solid var(--ana-renk); box-shadow:0 10px 30px rgba(0,0,0,0.3); color: var(--yazi-renk); overflow: visible; }
     .bg-modal-header { display:flex; justify-content:space-between; margin-bottom:15px; font-size:18px; align-items: center; border-bottom: 2px dashed var(--ana-renk); padding-bottom: 10px;}
-    .bg-close { background:none; border:none; color:var(--yazi-renk); font-size:24px; cursor:pointer; font-weight:bold; transition: 0.2s;}
-    .bg-close:hover { color: #d32f2f; }
+    .bg-close { background:none; border:none; color:var(--yazi-renk); font-size:24px; cursor:pointer; font-weight:bold; transition: 0.2s; position: absolute; top: -10px; right: -10px; background: #fff; color: #222; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.3);}
+    .bg-close:hover { transform: scale(1.15) rotate(90deg); color: #d32f2f; }
     .bg-btn { width:100%; padding:15px; margin-bottom:10px; border-radius:10px; border:2px solid var(--ana-renk); background:var(--input-bg); color:var(--input-yazi); font-weight:bold; font-size:16px; cursor:pointer; font-family:inherit; transition:0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
     .bg-btn:hover { background:var(--ana-renk); color:#fff; }
     
-    .bg-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-top:10px; max-height: 350px; overflow-y: auto; padding-right: 5px; }
+    /* YENİ: Temiz Grid ve Ellipsis Yapısı */
+    .bg-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; max-height: 350px; overflow-y: auto; padding-right: 5px; padding-bottom: 10px;}
+    .bg-grid::-webkit-scrollbar { width: 5px; }
+    .bg-grid::-webkit-scrollbar-thumb { background: var(--ana-renk); border-radius: 10px; }
+    
     .bg-geri { background:none; border:none; color:var(--yazi-renk); font-weight:bold; cursor:pointer; padding:5px 0; font-family:inherit; font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;}
     
-    /* YENİ: Kırılmayan Görsel Kutusu Tasarımı */
+    /* YENİ: Güvenli ve Temiz Kutular */
+    .bg-item {
+        width: 100%;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 5px;
+        cursor: pointer;
+        transition: 0.2s;
+    }
+    .bg-item:hover { transform: scale(1.05); }
+    
     .bg-thumb-box {
         width: 100%;
         aspect-ratio: 1;
-        position: relative;
-        border-radius: 10px;
+        border-radius: 8px;
         overflow: hidden;
-        border: 3px solid transparent;
-        cursor: pointer;
+        border: 2px solid transparent;
         background-color: rgba(0,0,0,0.1);
-        transition: 0.3s;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
         display: flex;
         align-items: center;
         justify-content: center;
+        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
-    .bg-thumb-box:hover { border-color: var(--ana-renk); transform: scale(1.05); }
-    .bg-thumb-txt {
-        position: absolute;
-        font-size: 10px;
-        color: var(--yazi-renk);
-        text-align: center;
-        padding: 5px;
-        word-break: break-all;
-        opacity: 0.6;
-        z-index: 1;
-    }
+    .bg-item.selected .bg-thumb-box { border-color: var(--ana-renk); border-width: 4px;}
+    
     .bg-thumb-img {
-        position: absolute;
-        top: 0; left: 0;
         width: 100%;
         height: 100%;
         object-fit: cover;
-        z-index: 2;
+        display: block;
+    }
+    
+    /* YENİ: Kırılmayan Metin ve Ellipsis */
+    .bg-thumb-txt {
+        width: 100%;
+        font-size: 10px;
+        color: var(--yazi-renk);
+        text-align: center;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        display: block;
+        direction: rtl; /* Son kısımlar görünsün */
+        unicode-bidi: plaintext;
+    }
+    
+    /* Yüklenemedi Yer Tutucusu (Bozuk ve uzun isimli dosyalar için) */
+    .bg-thumb-placeholder {
+        position: absolute;
+        top: 0; left: 0;
+        width: 100%; height: 100%;
+        background-color: #eee;
+        color: #888;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        z-index: 1;
     }
     
     /* POMODORO TOAST BİLDİRİMİ */
@@ -240,7 +265,6 @@
         </select>
         <button class="ayar-btn" onclick="bgModalAc()">📷</button>
         <button class="ayar-btn" onclick="sifirla()">↺</button>
-        <div id="bedirIpucu" class="ipucu-kutusu">📸 Kendi fotoğrafını yükle, tema rengi otomatik değişsin!</div>
     </div>
     
     <input type="file" id="resimYukleyici" accept="image/*" onchange="arkaplanDegistir(this)">
@@ -370,7 +394,7 @@
     </div>
 
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.8.0</div>
+    <div class="versiyon">v4.9.0</div>
 </div>
 
 <div class="plan-masasi">
@@ -441,24 +465,26 @@
         }
     };
 
+    // Temel kısa isimleri ve yeni uzun isimleri temel alan sağlam liste
     const hazirGorsellerListesi = [
         "atakoy ustgecit.jpg",
         "kedi2.jpg",
         "kedisi.jpg",
         "sanat eseri.jpg",
         "aslan.jpg",
-        "WIN_20260204_05_16_26_Pro.jpg",
-        "WhatsApp Image 2026-03-08 at 01.43.30.jpeg",
-        "WhatsApp Image 2026-03-08 at 01.48.49.jpg",
-        "WhatsApp Image 2026-03-08 at 01.52.44.jpeg",
-        "WhatsApp Image 2026-03-08 at 01.56.22 (1).jpeg",
-        "WhatsApp Image 2026-03-08 at 01.56.22.jpeg"
+        "WhatsApp Image 2026-03-08 at 01.52.44.jpeg", // image_12.png'deki bozuk
+        "WIN_20260204_05_16_26_Pro.jpg",             // image_12.png'deki bozuk
+        "WhatsApp Image 2026-03-08 at 01.48.49.jpg", // image_12.png'deki bozuk metin
+        "WhatsApp Image 2026-03-08 at 01.56.22 (1).jpeg", // image_12.png'deki bozuk metin
+        "WhatsApp Image 2026-03-08 at 01.56.22.jpeg", // image_12.png'deki bozuk metin
+        "WhatsApp Image 2026-03-08 at 01.43.30.jpeg", // image_11.png'deki kırık ikon
+        "WIN_20260204_05_16_26_Pro.jpg"              // WIN prolog için yedek dosya
     ];
 
     var planScale = 1; var planX = 0; var planY = 0; var isDragging = false; var startX, startY;
     var activeGameLoop = null;
 
-    // --- BAŞLANGIÇ YÜKLEMELERİ ---
+    // --- BAŞLANGIÇ YÜKLEMELERİ (OPTIMIZE EDİLDİ) ---
     window.onload = function() {
         var kayitli = localStorage.getItem('bedir_arkaplan_v410'); 
         if(kayitli) { resmiUygula(kayitli); }
@@ -473,17 +499,11 @@
         sayaciCalistir();
         
         var sahne = document.getElementById('sahneContainer');
-        sahne.addEventListener('mousedown', baslaSurukle); 
-        sahne.addEventListener('touchstart', baslaSurukle, {passive: false});
-        window.addEventListener('mousemove', surukle); 
-        window.addEventListener('touchmove', surukle, {passive: false});
-        window.addEventListener('mouseup', bitirSurukle); 
-        window.addEventListener('touchend', bitirSurukle);
+        sahne.addEventListener('mousedown', baslaSurukle); sahne.addEventListener('touchstart', baslaSurukle, {passive: false});
+        window.addEventListener('mousemove', surukle); window.addEventListener('touchmove', surukle, {passive: false});
+        window.addEventListener('mouseup', bitirSurukle); window.addEventListener('touchend', bitirSurukle);
         
-        setupEnterKeys(); 
-        oyunuBaslat(); 
-        setupSnakeControls(); 
-        setupCalcKeys();
+        setupEnterKeys(); oyunuBaslat(); setupSnakeControls(); setupCalcKeys();
     };
 
     // --- DİL İŞLEMLERİ ---
@@ -506,12 +526,11 @@
         document.getElementById('bjMessage').innerText = d.bj_start_msg;
     }
 
-    // --- MODAL VE GÖRSEL GALERİSİ (YENİLENMİŞ VE SAĞLAMLAŞTIRILMIŞ YAPI) ---
+    // --- ARDAPLAN MODAL VE GALERİ (SIFIRDAN TASARIM VE OPTIMIZE) ---
     function bgModalAc() {
         document.getElementById('bgModal').style.display = 'flex';
         document.getElementById('bgSecenekler').style.display = 'block';
         document.getElementById('bgHazirlar').style.display = 'none';
-        document.getElementById('bedirIpucu').style.display = 'none';
         localStorage.setItem('bedir_ipucu_okundu', 'true');
     }
     
@@ -524,37 +543,66 @@
         document.getElementById('resimYukleyici').click(); 
     }
 
+    // --- YENİLENMİŞ VE GÜVENLİ GALERİ FONKSİYONU ---
     function hazirGorselGoster() {
         document.getElementById('bgSecenekler').style.display = 'none';
         document.getElementById('bgHazirlar').style.display = 'block';
         
         let grid = document.getElementById('bgGridContainer');
-        grid.innerHTML = '';
+        grid.innerHTML = ''; // Sıfırla
+        
+        // Kayıtlı resmi kontrol et
+        var suankiUrl = localStorage.getItem('bedir_arkaplan_v410');
         
         hazirGorsellerListesi.forEach(src => {
-            // Kutu Oluştur
+            // Ana Öğeyi Oluştur (div)
+            let item = document.createElement('div');
+            item.className = 'bg-item';
+            
+            // Eğer kayıtlı resim bu ise, 'selected' sınıfını ekle
+            if (suankiUrl === src) {
+                item.classList.add('selected');
+            }
+            
+            // Tıklama olayını ana öğeye ata
+            item.onclick = () => hazirGorselSec(src);
+
+            // Resim Kutusunu Oluştur (Flexcenter)
             let box = document.createElement('div');
             box.className = 'bg-thumb-box';
-            box.onclick = () => hazirGorselSec(src);
 
-            // Alt Metin (Resim bozuksa bu görünür kalacak)
-            let txt = document.createElement('span');
-            txt.className = 'bg-thumb-txt';
-            txt.innerText = src;
-
-            // Resim Oluştur
+            // Resim Yüklenemediyse Gözükecek Yer Tutucu (Sadece 'span')
+            let placeholder = document.createElement('span');
+            placeholder.className = 'bg-thumb-placeholder';
+            placeholder.innerText = '❌'; // Jenerik 'X' işareti
+            
+            // Gerçek Resmi Oluştur
             let img = document.createElement('img');
             img.src = src; 
             img.className = 'bg-thumb-img';
+            img.alt = src; // Bozuksa isim görünsün
             
-            // EĞER RESİM YÜKLENEMEZSE: Resmi gizle, alttaki yazı kutunun ortasında çıksın
+            // Resim Hata Kontrolü: Yüklenmezse kırık ikonunu gizle, yer tutucuyu göster
             img.onerror = function() {
                 this.style.display = 'none';
+                this.previousSibling.style.display = 'flex'; // Placeholder'ı göster
             };
-
-            box.appendChild(txt);
+            
+            // Kutuya ekle
+            box.appendChild(placeholder); // Önce yer tutucuyu ekle, bozuksa bu gözükür
             box.appendChild(img);
-            grid.appendChild(box);
+
+            // Metin Alanını Oluştur (Ellipsis ve RTL)
+            let txt = document.createElement('span');
+            txt.className = 'bg-thumb-txt';
+            txt.innerText = src; // Tam ismiellipsis CSS kısaltacak
+
+            // Ana Öğeye ekle
+            item.appendChild(box);
+            item.appendChild(txt);
+            
+            // Grid'e ekle
+            grid.appendChild(item);
         });
     }
 
@@ -600,7 +648,7 @@
             } 
             return { r:Math.floor(r/k), g:Math.floor(g/k), b:Math.floor(b/k) }; 
         } catch(e) { 
-            return { r:140, g:106, b:84 }; 
+            return { r:140, g:106, b:84 }; // Temel Ölçekmatik teması
         } 
     }
     
@@ -629,7 +677,7 @@
         location.reload(); 
     }
 
-    // --- GENEL ARAÇLAR ---
+    // --- GENEL ARAÇLAR (OPTIMIZE) ---
     function setupEnterKeys() {
         const bind = (inIds, btnId) => { 
             if(!Array.isArray(inIds)) inIds = [inIds]; 
@@ -763,7 +811,7 @@
         goster('sonuc8', `${t[curLang].res_result}: ${r.toFixed(2)} cm`); 
     }
 
-    // --- HESAP MAKİNESİ ---
+    // --- HESAP MAKİNESİ (SADELEŞTİRİLDİ) ---
     function setupCalcKeys() {
         document.addEventListener('keydown', function(event) { 
             if(document.getElementById('mod9').style.display === 'block') { 
@@ -782,6 +830,7 @@
     function calcClear() { currentCalc = ""; document.getElementById('calc-screen').value = ""; } 
     function calcResult() { 
         try { 
+            // Güvenlieval jeneratörü
             var r = new Function('return ' + currentCalc)(); 
             if(!isFinite(r)) r = "Hata"; 
             document.getElementById('calc-screen').value = r; 
@@ -801,7 +850,7 @@
         } catch(e) {} 
     }
 
-    // --- PLAN MASASI ---
+    // --- PLAN MASASI (OPTIMIZE EDİLDİ) ---
     function planSec() { document.getElementById('planYukleyici').click(); } 
     function planYukle(input) { 
         if(input.files && input.files[0]) { 
@@ -950,13 +999,13 @@
     }
 
     // --- BLACKJACK OYUNU ---
-    const suits = ['♥', '♦', '♣', '♠']; 
-    const values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']; 
+    const bj_suits = ['♥', '♦', '♣', '♠']; 
+    const bj_values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']; 
     let deck = [], playerHand = [], dealerHand = [], bjGameActive = false;
     
     function createDeck() { 
         deck = []; 
-        for (let s of suits) { for (let v of values) { deck.push({ suit: s, value: v }); } } 
+        for (let s of bj_suits) { for (let v of bj_values) { deck.push({ suit: s, value: v }); } } 
         for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; } 
     }
     
