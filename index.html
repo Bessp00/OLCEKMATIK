@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Ölçekmatik v4.9.1</title>
+<title>Ölçekmatik v4.9.2</title>
 <link rel="manifest" href="manifest.json">
 
 <style>
@@ -177,19 +177,6 @@
         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
     }
     .bg-item.selected .bg-thumb-box { border-color: var(--ana-renk); border-width: 4px;}
-    
-    .bg-thumb-txt {
-        width: 100%;
-        font-size: 10px;
-        color: var(--yazi-renk);
-        text-align: center;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: block;
-        direction: rtl;
-        unicode-bidi: plaintext;
-    }
     
     /* POMODORO TOAST BİLDİRİMİ */
     #pomodoroToast { display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: var(--ana-renk); color: #fff; padding: 20px 30px; border-radius: 15px; font-weight: 900; box-shadow: 0 10px 40px rgba(0,0,0,0.5); z-index: 9999; text-align: center; font-family: 'Courier New', Courier, monospace; border: 3px solid #fff; animation: asagiKay 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
@@ -368,7 +355,7 @@
     </div>
 
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.9.1</div>
+    <div class="versiyon">v4.9.2</div>
 </div>
 
 <div class="plan-masasi">
@@ -496,7 +483,6 @@
     function bgModalKapat() { document.getElementById('bgModal').style.display = 'none'; }
     function galeridenYukle() { bgModalKapat(); document.getElementById('resimYukleyici').click(); }
 
-    // --- EN GÜVENLİ VE SAĞLAM ÖNİZLEME FONKSİYONU ---
     function hazirGorselGoster() {
         document.getElementById('bgSecenekler').style.display = 'none';
         document.getElementById('bgHazirlar').style.display = 'block';
@@ -507,22 +493,30 @@
         var suankiUrl = localStorage.getItem('bedir_arkaplan_v410');
         
         hazirGorsellerListesi.forEach(src => {
+            // Ana Öğeyi Oluştur (div)
             let item = document.createElement('div');
             item.className = 'bg-item';
-            if (suankiUrl === src) { item.classList.add('selected'); }
+            
+            // Eğer kayıtlı resim bu ise, 'selected' sınıfını ekle
+            if (suankiUrl === src) {
+                item.classList.add('selected');
+            }
+            
+            // Tıklama olayını ana öğeye ata
             item.onclick = () => hazirGorselSec(src);
 
-            // GÜNCELLEME: Sadece CSS Background kullanıyoruz. İmg etiketi tamamen kaldırıldı.
+            // Resim Kutusunu Oluştur (CSS Arkaplan ile)
             let box = document.createElement('div');
             box.className = 'bg-thumb-box';
             box.style.backgroundImage = "url('" + src + "')"; 
 
-            let txt = document.createElement('span');
-            txt.className = 'bg-thumb-txt';
-            txt.innerText = src; 
+            // GÜNCELLEME: Metin etiketi (bg-thumb-txt) tamamen kaldırıldı.
+            // box.appendChild(placeholder); // Placeholder da kaldırıldı, CSS background kullanılıyor.
 
+            // Ana Öğeye ekle
             item.appendChild(box);
-            item.appendChild(txt);
+            
+            // Grid'e ekle
             grid.appendChild(item);
         });
     }
