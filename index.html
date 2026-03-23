@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Ölçekmatik v4.10.0</title>
+<title>Ölçekmatik v4.11.0</title>
 <link rel="manifest" href="manifest.json">
 
 <style>
@@ -34,7 +34,7 @@
         overscroll-behavior: none; 
     }
 
-    /* INSTAGRAM BUTONU (SOL ALT) */
+    /* INSTAGRAM BUTONU */
     .ig-link {
         position: fixed; bottom: 20px; left: 20px; z-index: 50;
         background: var(--kutu-bg); padding: 10px; border-radius: 50%;
@@ -46,7 +46,7 @@
     .ig-link:hover { transform: scale(1.15) rotate(5deg); background: var(--ana-renk); color: #fff; }
     .ig-link svg { width: 28px; height: 28px; fill: currentColor; }
 
-    /* APK İNDİR BUTONU (SAĞ ALT) */
+    /* APK İNDİR BUTONU */
     .apk-link {
         position: fixed; bottom: 20px; right: 20px; z-index: 50;
         background: var(--ana-renk); color: #fff; padding: 12px 20px; border-radius: 30px;
@@ -96,7 +96,7 @@
     .sonuc { background: #fff; padding: 15px; text-align: center; border-radius: 10px; border: 3px solid var(--ana-renk); margin-top: 20px; display: none; font-weight: bold; color: #000; font-size: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
     .sayac-alani { margin-top: 20px; padding: 10px; border-top: 2px dashed var(--ana-renk); text-align: center; font-family: 'Courier New', monospace; font-weight: 900; color: var(--yazi-renk); font-size: 16px; }
     .versiyon { position: absolute; bottom: 5px; right: 10px; font-size: 11px; font-weight: bold; opacity: 0.6; font-family: sans-serif; color: var(--yazi-renk); }
-    #resimYukleyici, #planYukleyici { display: none; }
+    #resimYukleyici { display: none; }
     
     /* OYUN STILLERI */
     .game-menu { display: flex; gap: 5px; justify-content: center; margin-bottom: 15px; border-bottom: 2px dashed var(--ana-renk); padding-bottom: 10px; }
@@ -140,16 +140,27 @@
     .game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); border-radius: 8px; z-index: 5; color: #fff; font-weight: bold; }
     .start-btn { padding: 10px 20px; background: var(--ana-renk); color: #fff; border: 2px solid #fff; border-radius: 8px; font-size: 18px; cursor: pointer; margin-top: 10px; }
 
-    /* PLAN MASASI */
-    .plan-masasi { background-color: var(--kutu-bg); backdrop-filter: blur(12px); width: 100%; max-width: 420px; border-radius: 16px; border: 2px dashed var(--ana-renk); padding: 10px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; position: relative; margin-bottom: 50px; }
-    .plan-baslik { font-weight: 900; font-size: 14px; margin-bottom: 10px; color: var(--ana-renk); text-transform: uppercase; letter-spacing: 1px; }
+    /* --- YENİ EKLENEN: ALT MODÜL (PLAN & NOTLAR) --- */
+    .alt-modul { background-color: var(--kutu-bg); backdrop-filter: blur(12px); width: 100%; max-width: 420px; border-radius: 16px; border: 2px dashed var(--ana-renk); padding: 15px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; position: relative; margin-bottom: 70px; }
+    
+    .alt-sekmeler { display: flex; gap: 10px; width: 100%; margin-bottom: 15px; }
+    .alt-sekme { flex: 1; padding: 10px; border: 2px solid transparent; border-radius: 8px; background: rgba(0,0,0,0.1); color: var(--yazi-renk); font-weight: 900; cursor: pointer; font-family: 'Courier New', monospace; font-size: 14px; transition: 0.3s; }
+    .alt-sekme.aktif { background: var(--ana-renk); color: #fff; border-color: rgba(255,255,255,0.5); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+    
+    .alt-icerik { width: 100%; display: none; animation: fadeIn 0.4s; }
+    .alt-icerik.aktif { display: flex; flex-direction: column; align-items: center; }
+
     .plan-sahne { width: 100%; height: 350px; background: #fff; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--input-border); touch-action: none; cursor: grab; }
     .plan-sahne:active { cursor: grabbing; }
     #planGorsel { max-width: 100%; transform-origin: center center; transition: transform 0.1s ease-out; pointer-events: none; }
     .plan-kontroller { display: flex; gap: 10px; margin-top: 10px; width: 100%; }
     .plan-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; background: var(--yazi-renk); color: var(--arkaplan); font-weight: bold; cursor: pointer; font-family: 'Courier New', monospace; font-size: 16px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+    #planYukleyici { display: none; }
 
-    /* ARKAPLAN MODAL EKRANI & GALERİ (KÖKTEN ÇÖZÜM) */
+    #notDefteri { width: 100%; height: 350px; padding: 15px; border-radius: 8px; border: 2px solid var(--input-border); background: var(--input-bg); color: var(--input-yazi) !important; font-family: 'Courier New', Courier, monospace; font-size: 15px; font-weight: bold; resize: vertical; box-sizing: border-box; transition: 0.3s; }
+    #notDefteri:focus { border-color: var(--ana-renk); outline: none; }
+
+    /* ARKAPLAN MODAL EKRANI & GALERİ */
     .bg-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:999; align-items:center; justify-content:center; backdrop-filter:blur(5px); }
     .bg-modal-content { background:var(--kutu-bg); padding:20px; border-radius:15px; width:90%; max-width:350px; border:2px solid var(--ana-renk); box-shadow:0 10px 30px rgba(0,0,0,0.3); color: var(--yazi-renk); overflow: visible; }
     .bg-modal-header { display:flex; justify-content:space-between; margin-bottom:15px; font-size:18px; align-items: center; border-bottom: 2px dashed var(--ana-renk); padding-bottom: 10px;}
@@ -164,27 +175,10 @@
     
     .bg-geri { background:none; border:none; color:var(--yazi-renk); font-weight:bold; cursor:pointer; padding:5px 0; font-family:inherit; font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;}
     
-    .bg-item {
-        width: 100%;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 5px;
-        cursor: pointer;
-        transition: 0.2s;
-    }
+    .bg-item { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; transition: 0.2s; }
     .bg-item:hover { transform: scale(1.05); }
     
-    .bg-thumb-box {
-        width: 100%;
-        aspect-ratio: 1;
-        border-radius: 8px;
-        border: 2px solid transparent;
-        background-color: rgba(0,0,0,0.1);
-        background-size: cover;
-        background-position: center;
-        box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-    }
+    .bg-thumb-box { width: 100%; aspect-ratio: 1; border-radius: 8px; border: 2px solid transparent; background-color: rgba(0,0,0,0.1); background-size: cover; background-position: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
     .bg-item.selected .bg-thumb-box { border-color: var(--ana-renk); border-width: 4px;}
     
     /* POMODORO TOAST BİLDİRİMİ */
@@ -368,18 +362,31 @@
     </div>
 
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.10.0</div>
+    <div class="versiyon">v4.11.0</div>
 </div>
 
-<div class="plan-masasi">
-    <div class="plan-baslik" id="lbl_plan_table">📐 PLAN MASASI</div>
-    <div class="plan-sahne" id="sahneContainer">
-        <div id="planGorsel" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#888;">...</div>
+<div class="alt-modul">
+    <div class="alt-sekmeler">
+        <button id="btnPlan" class="alt-sekme aktif" onclick="altSekmeDegis('plan')">📐 PLAN MASASI</button>
+        <button id="btnNot" class="alt-sekme" onclick="altSekmeDegis('not')">📝 NOTLAR</button>
     </div>
-    <div class="plan-kontroller">
-        <button id="btn_load" class="plan-btn" onclick="planSec()">📂</button><button class="plan-btn" onclick="planZoom(0.1)">➕</button><button class="plan-btn" onclick="planZoom(-0.1)">➖</button><button id="btn_reset" class="plan-btn" onclick="planReset()">↺</button>
+    
+    <div id="icerikPlan" class="alt-icerik aktif">
+        <div class="plan-sahne" id="sahneContainer">
+            <div id="planGorsel" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#888;">...</div>
+        </div>
+        <div class="plan-kontroller">
+            <button id="btn_load" class="plan-btn" onclick="planSec()">📂</button>
+            <button class="plan-btn" onclick="planZoom(0.1)">➕</button>
+            <button class="plan-btn" onclick="planZoom(-0.1)">➖</button>
+            <button id="btn_reset" class="plan-btn" onclick="planReset()">↺</button>
+        </div>
+        <input type="file" id="planYukleyici" accept="image/*" onchange="planYukle(this)">
     </div>
-    <input type="file" id="planYukleyici" accept="image/*" onchange="planYukle(this)">
+
+    <div id="icerikNot" class="alt-icerik">
+        <textarea id="notDefteri" placeholder="Ölçüleri, fikirleri veya yapılacakları buraya yaz..." oninput="notKaydet()"></textarea>
+    </div>
 </div>
 
 <script>
@@ -396,7 +403,6 @@
             lbl_val: "Değer Gir:", btn_conv2: "ÇEVİR (CM) >>",
             lbl_score: "SKOR", lbl_snake_title: "YILAN", btn_start: "BAŞLA",
             lbl_dealer: "KASA", lbl_player: "SEN", bj_start_msg: "BAŞLAMAK İÇİN OYNA",
-            lbl_plan_table: "📐 PLAN MASASI",
             res_drawn: "ÇİZİLECEK", res_real: "GERÇEK", res_slope: "EĞİM", res_riser: "RIHT", res_count: "ADET", res_step: "Basamak", res_warn_steep: "ÇOK DİK!", res_warn_low: "ALÇAK RIHT", res_warn_foot: "AYAK SIĞMAZ",
             res_area: "ALAN", res_need: "GEREKEN", res_fire: "%10 Fire Dahil",
             res_long: "UZUN", res_short: "KISA", res_result: "SONUÇ",
@@ -413,7 +419,6 @@
             lbl_val: "Enter Value:", btn_conv2: "CONVERT (CM) >>",
             lbl_score: "SCORE", lbl_snake_title: "SNAKE", btn_start: "START",
             lbl_dealer: "DEALER", lbl_player: "YOU", bj_start_msg: "PRESS PLAY TO START",
-            lbl_plan_table: "📐 PLAN TABLE",
             res_drawn: "DRAW", res_real: "REAL", res_slope: "SLOPE", res_riser: "RISER", res_count: "COUNT", res_step: "Tread", res_warn_steep: "TOO STEEP!", res_warn_low: "LOW RISER", res_warn_foot: "TOO NARROW",
             res_area: "AREA", res_need: "NEEDED", res_fire: "Incl. 10% Waste",
             res_long: "LONG", res_short: "SHORT", res_result: "RESULT",
@@ -430,7 +435,6 @@
             lbl_val: "Nirx Binivîse:", btn_conv2: "VEGERÎNE (CM) >>",
             lbl_score: "SKOR", lbl_snake_title: "MAR", btn_start: "DESTPÊKE",
             lbl_dealer: "KASA", lbl_player: "TU", bj_start_msg: "JI BO DESTPÊKÊ BİLÎZE",
-            lbl_plan_table: "📐 MASA PLANÊ",
             res_drawn: "TÊ XÊZKIRIN", res_real: "RASTÎ", res_slope: "ŞÎV", res_riser: "BILINDAHÎ", res_count: "HEJMAR", res_step: "Pêlik", res_warn_steep: "ZEF TÎK E!", res_warn_low: "NIZM E", res_warn_foot: "PIYÊ MROV NAÇÊ",
             res_area: "QAD", res_need: "PÊWÎST E", res_fire: "%10 Zêde",
             res_long: "DIRÊJ", res_short: "KIN", res_result: "ENCAM",
@@ -465,6 +469,11 @@
             document.getElementById('langSelect').value = curLang; 
         }
         
+        var kayitliNot = localStorage.getItem('bedir_notlar');
+        if(kayitliNot) {
+            document.getElementById('notDefteri').value = kayitliNot;
+        }
+
         updateLanguageUI();
         sayaciCalistir();
         
@@ -475,6 +484,27 @@
         
         setupEnterKeys(); oyunuBaslat(); setupSnakeControls(); setupCalcKeys();
     };
+
+    /* --- ALT SEKME YÖNETİMİ --- */
+    function altSekmeDegis(sekme) {
+        document.getElementById('btnPlan').classList.remove('aktif');
+        document.getElementById('btnNot').classList.remove('aktif');
+        document.getElementById('icerikPlan').classList.remove('aktif');
+        document.getElementById('icerikNot').classList.remove('aktif');
+
+        if(sekme === 'plan') {
+            document.getElementById('btnPlan').classList.add('aktif');
+            document.getElementById('icerikPlan').classList.add('aktif');
+        } else {
+            document.getElementById('btnNot').classList.add('aktif');
+            document.getElementById('icerikNot').classList.add('aktif');
+        }
+    }
+
+    function notKaydet() {
+        var notIcerik = document.getElementById('notDefteri').value;
+        localStorage.setItem('bedir_notlar', notIcerik);
+    }
 
     function degisDil(val) { curLang = val; localStorage.setItem('bedir_lang', val); updateLanguageUI(); }
     function updateLanguageUI() {
@@ -487,12 +517,7 @@
         document.getElementById('bjMessage').innerText = d.bj_start_msg;
     }
 
-    function bgModalAc() {
-        document.getElementById('bgModal').style.display = 'flex';
-        document.getElementById('bgSecenekler').style.display = 'block';
-        document.getElementById('bgHazirlar').style.display = 'none';
-    }
-    
+    function bgModalAc() { document.getElementById('bgModal').style.display = 'flex'; document.getElementById('bgSecenekler').style.display = 'block'; document.getElementById('bgHazirlar').style.display = 'none'; }
     function bgModalKapat() { document.getElementById('bgModal').style.display = 'none'; }
     function galeridenYukle() { bgModalKapat(); document.getElementById('resimYukleyici').click(); }
 
@@ -502,7 +527,6 @@
         
         let grid = document.getElementById('bgGridContainer');
         grid.innerHTML = ''; 
-        
         var suankiUrl = localStorage.getItem('bedir_arkaplan_v410');
         
         hazirGorsellerListesi.forEach(src => {
@@ -553,7 +577,7 @@
         if(p > 140) { root.setProperty('--yazi-renk', '#000'); root.setProperty('--kutu-bg', 'rgba(255,255,255,0.85)'); root.setProperty('--sekme-pasif', 'rgba(0,0,0,0.1)'); } 
         else { root.setProperty('--yazi-renk', '#fff'); root.setProperty('--kutu-bg', 'rgba(0,0,0,0.5)'); root.setProperty('--sekme-pasif', 'rgba(255,255,255,0.2)'); if(p < 40) root.setProperty('--ana-renk', `rgb(${rgb.r+50},${rgb.g+50},${rgb.b+50})`); } 
     }
-    function sifirla() { localStorage.removeItem('bedir_arkaplan_v410'); localStorage.removeItem('bedir_ipucu_okundu'); localStorage.removeItem('bedir_lang'); location.reload(); }
+    function sifirla() { localStorage.removeItem('bedir_arkaplan_v410'); localStorage.removeItem('bedir_ipucu_okundu'); localStorage.removeItem('bedir_lang'); localStorage.removeItem('bedir_notlar'); location.reload(); }
 
     function setupEnterKeys() {
         const bind = (inIds, btnId) => { if(!Array.isArray(inIds)) inIds = [inIds]; inIds.forEach(id => { let el = document.getElementById(id); if(el) { el.addEventListener("keyup", function(e) { if(e.key === "Enter") document.getElementById(btnId).click(); }); } }); };
