@@ -10,6 +10,8 @@
 <meta name="robots" content="index, follow">
 <link rel="manifest" href="manifest.json">
 
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8466515091566751" crossorigin="anonymous"></script>
+
 <style>
     /* --- DİNAMİK DEĞİŞKENLER --- */
     :root {
@@ -183,7 +185,7 @@
     #pomodoroToast button:hover { transform: scale(1.05); background: #f0f0f0; }
     @keyframes asagiKay { from { top: -100px; opacity: 0; } to { top: 20px; opacity: 1; } }
 
-    /* YENİ EKLENEN KURUMSAL STİLLER (ADSENSE İÇİN) */
+    /* SEO & KURUMSAL METİNLER */
     .seo-metni { max-width: 420px; width: 100%; color: var(--yazi-renk); background: rgba(255,255,255,0.6); backdrop-filter: blur(5px); padding: 15px; border-radius: 10px; font-size: 13px; text-align: center; margin-bottom: 15px; box-sizing: border-box; line-height: 1.4; border: 1px dashed var(--ana-renk); }
     .footer-linkler { max-width: 420px; width: 100%; text-align: center; font-size: 12px; font-weight: bold; color: var(--yazi-renk); margin-bottom: 80px; }
     .footer-linkler span { cursor: pointer; text-decoration: none; margin: 0 8px; border-bottom: 1px solid transparent; transition: 0.2s; }
@@ -396,7 +398,7 @@
     </div>
 
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.13.0</div>
+    <div class="versiyon">v4.15.0</div>
 </div>
 
 <div class="alt-modul">
@@ -502,17 +504,10 @@
     let soruSkor = 0;
 
     window.onload = function() {
-        // ÇEREZ KONTROLÜ
         if(!localStorage.getItem('bedir_cerez_onay')) { document.getElementById('cerezUyarisi').style.display = 'block'; }
-
-        var kayitli = localStorage.getItem('bedir_arkaplan_v410'); 
-        if(kayitli) { resmiUygula(kayitli); }
-        
-        var savedLang = localStorage.getItem('bedir_lang');
-        if(savedLang) { curLang = savedLang; document.getElementById('langSelect').value = curLang; }
-        
-        var kayitliNot = localStorage.getItem('bedir_notlar');
-        if(kayitliNot) { document.getElementById('notDefteri').value = kayitliNot; }
+        var kayitli = localStorage.getItem('bedir_arkaplan_v410'); if(kayitli) { resmiUygula(kayitli); }
+        var savedLang = localStorage.getItem('bedir_lang'); if(savedLang) { curLang = savedLang; document.getElementById('langSelect').value = curLang; }
+        var kayitliNot = localStorage.getItem('bedir_notlar'); if(kayitliNot) { document.getElementById('notDefteri').value = kayitliNot; }
 
         updateLanguageUI(); sayaciCalistir();
         
@@ -524,47 +519,24 @@
         setupEnterKeys(); oyunuBaslat(); setupSnakeControls(); setupCalcKeys();
     };
 
-    // --- YENİ EKLENEN: KURUMSAL SAYFA AÇICI ---
     function kurumsalAc(tip) {
         document.getElementById('kurumsalModal').style.display = 'flex';
         let baslik = "", icerik = "";
-        
-        if(tip === 'hakkimizda') {
-            baslik = "Hakkımızda & İletişim";
-            icerik = "<b>Bedir Design</b> tarafından geliştirilen Ölçekmatik, mimarlık öğrencilerinin ve tasarım profesyonellerinin sahada veya ofiste hayatını kolaylaştırmak amacıyla üretilmiş ücretsiz, mobil uyumlu bir hesaplama aracıdır.<br><br><b>İletişim & İşbirlikleri:</b><br>Projeyle ilgili görüş, öneri veya reklam seçenekleri için Instagram üzerinden tasarımcımız Bedirhan Ergül'e ulaşabilirsiniz:<br><br>👉 <a href='https://www.instagram.com/ergul.bedirhan/' target='_blank' style='color:var(--ana-renk); font-weight:bold; font-size:15px; text-decoration:none;'>@ergul.bedirhan</a>";
-        } else if(tip === 'gizlilik') {
-            baslik = "Gizlilik Politikası (Privacy Policy)";
-            icerik = "Ölçekmatik, kullanıcılarının gizliliğine ve kişisel verilerine büyük önem verir. Şeffaflık ilkemiz gereği uygulamamızın veri kullanım şartları aşağıdadır:<br><br><b>1. Kişisel Veriler:</b> Sitemiz (olcekmatik.com.tr) üzerinden isim, e-posta adresi, telefon numarası veya konum bilgisi gibi hiçbir kişisel veri toplanmaz, işlenmez ve 3. şahıslarla paylaşılmaz.<br><b>2. Tarayıcı Hafızası (Local Storage):</b> Sitemiz, aldığınız notları, seçtiğiniz arkaplan resmini ve dil tercihlerinizi sadece sizin cihazınızda tutar. Bizim sunucularımıza herhangi bir veri gönderilmez.<br><b>3. Çerezler (Cookies) ve Reklamlar:</b> Sitemizde, kullanıcı deneyimini artırmak ve ücretsiz hizmet sunabilmek için Google AdSense ağı kullanılmaktadır. Google ve reklam ortakları, size daha uygun reklamlar sunmak için standart çerezleri kullanabilir.<br><br>Bu siteyi kullanarak belirtilen koşulları kabul etmiş sayılırsınız.";
-        } else if(tip === 'kullanim') {
-            baslik = "Kullanım Koşulları (Terms of Use)";
-            icerik = "<b>1. Hizmetin Doğası:</b> Ölçekmatik tarafından sağlanan hesaplamalar (ölçek çevirme, merdiven rıht hesabı, alan metrajı vb.) pratiklik sağlamak amacıyla sunulan yardımcı araçlar niteliğindedir.<br><br><b>2. Sorumluluk Reddi:</b> Uygulama sonuçlarının doğruluğunu optimize etmek için çaba göstersek de, profesyonel ve yasal kesinlik gerektiren (şantiye, resmi evrak, ihale vb.) projelerde manuel ve detaylı kontrol yapılması tamamen kullanıcının sorumluluğundadır. Doğabilecek teknik, maddi veya manevi hatalardan Bedir Design (olcekmatik.com.tr) sorumlu tutulamaz.<br><br><b>3. Fikri Mülkiyet:</b> Sitenin arayüz tasarımı, kod altyapısı ve 'Ölçekmatik' markası Bedir Design'a aittir. İzinsiz kopyalanması veya ticari amaçla başka bir sunucuda yayınlanması yasaktır.";
-        }
-        
-        document.getElementById('kurumsalBaslik').innerText = baslik;
-        document.getElementById('kurumsalIcerik').innerHTML = icerik;
+        if(tip === 'hakkimizda') { baslik = "Hakkımızda & İletişim"; icerik = "<b>Bedir Design</b> tarafından geliştirilen Ölçekmatik, mimarlık öğrencilerinin ve tasarım profesyonellerinin sahada veya ofiste hayatını kolaylaştırmak amacıyla üretilmiş ücretsiz, mobil uyumlu bir hesaplama aracıdır.<br><br><b>İletişim & İşbirlikleri:</b><br>Projeyle ilgili görüş, öneri veya reklam seçenekleri için Instagram üzerinden tasarımcımız Bedirhan Ergül'e ulaşabilirsiniz:<br><br>👉 <a href='https://www.instagram.com/ergul.bedirhan/' target='_blank' style='color:var(--ana-renk); font-weight:bold; font-size:15px; text-decoration:none;'>@ergul.bedirhan</a>"; } 
+        else if(tip === 'gizlilik') { baslik = "Gizlilik Politikası (Privacy Policy)"; icerik = "Ölçekmatik, kullanıcılarının gizliliğine ve kişisel verilerine büyük önem verir. Şeffaflık ilkemiz gereği uygulamamızın veri kullanım şartları aşağıdadır:<br><br><b>1. Kişisel Veriler:</b> Sitemiz (olcekmatik.com.tr) üzerinden isim, e-posta adresi, telefon numarası veya konum bilgisi gibi hiçbir kişisel veri toplanmaz, işlenmez ve 3. şahıslarla paylaşılmaz.<br><b>2. Tarayıcı Hafızası (Local Storage):</b> Sitemiz, aldığınız notları, seçtiğiniz arkaplan resmini ve dil tercihlerinizi sadece sizin cihazınızda tutar. Bizim sunucularımıza herhangi bir veri gönderilmez.<br><b>3. Çerezler (Cookies) ve Reklamlar:</b> Sitemizde, kullanıcı deneyimini artırmak ve ücretsiz hizmet sunabilmek için Google AdSense ağı kullanılmaktadır. Google ve reklam ortakları, size daha uygun reklamlar sunmak için standart çerezleri kullanabilir.<br><br>Bu siteyi kullanarak belirtilen koşulları kabul etmiş sayılırsınız."; } 
+        else if(tip === 'kullanim') { baslik = "Kullanım Koşulları (Terms of Use)"; icerik = "<b>1. Hizmetin Doğası:</b> Ölçekmatik tarafından sağlanan hesaplamalar (ölçek çevirme, merdiven rıht hesabı, alan metrajı vb.) pratiklik sağlamak amacıyla sunulan yardımcı araçlar niteliğindedir.<br><br><b>2. Sorumluluk Reddi:</b> Uygulama sonuçlarının doğruluğunu optimize etmek için çaba göstersek de, profesyonel ve yasal kesinlik gerektiren (şantiye, resmi evrak, ihale vb.) projelerde manuel ve detaylı kontrol yapılması tamamen kullanıcının sorumluluğundadır. Doğabilecek teknik, maddi veya manevi hatalardan Bedir Design (olcekmatik.com.tr) sorumlu tutulamaz.<br><br><b>3. Fikri Mülkiyet:</b> Sitenin arayüz tasarımı, kod altyapısı ve 'Ölçekmatik' markası Bedir Design'a aittir. İzinsiz kopyalanması veya ticari amaçla başka bir sunucuda yayınlanması yasaktır."; }
+        document.getElementById('kurumsalBaslik').innerText = baslik; document.getElementById('kurumsalIcerik').innerHTML = icerik;
     }
 
-    function cerezKabul() {
-        localStorage.setItem('bedir_cerez_onay', 'true');
-        document.getElementById('cerezUyarisi').style.display = 'none';
-    }
+    function cerezKabul() { localStorage.setItem('bedir_cerez_onay', 'true'); document.getElementById('cerezUyarisi').style.display = 'none'; }
 
     function yeniSoruUret() {
         document.getElementById('soruCevap').value = ''; document.getElementById('soruSonuc').style.display = 'none';
-        const olcekler = [20, 50, 100, 200, 500];
-        let S = olcekler[Math.floor(Math.random() * olcekler.length)]; let tip = Math.random() > 0.5 ? 1 : 2; let metin = "";
-        
+        const olcekler = [20, 50, 100, 200, 500]; let S = olcekler[Math.floor(Math.random() * olcekler.length)]; let tip = Math.random() > 0.5 ? 1 : 2; let metin = "";
         if (tip === 1) { 
             let D = Math.floor(Math.random() * 20) + 1; let R_cm = D * S;
-            if (R_cm >= 100 && Math.random() > 0.5) {
-                soruDogruCevap = R_cm / 100; 
-                let q = { tr: `1/${S} ölçekli bir planda ${D} cm olarak ölçtüğün bir uzunluk gerçekte kaç METRE'dir?`, en: `If a drawing is ${D} cm at 1/${S} scale, how many METERS is it in reality?`, ku: `Di pîvana 1/${S} de, xêzek ku ${D} cm hatiye pîvandin di rastiyê de çend METRE ye?` };
-                metin = q[curLang] || q['tr'];
-            } else {
-                soruDogruCevap = R_cm; 
-                let q = { tr: `1/${S} ölçekli bir çizimde ${D} cm olan bir obje gerçekte kaç CM'dir?`, en: `If an object is ${D} cm at 1/${S} scale, how many CM is it in reality?`, ku: `Di pîvana 1/${S} de, objeyek ku ${D} cm e di rastiyê de çend CM ye?` };
-                metin = q[curLang] || q['tr'];
-            }
+            if (R_cm >= 100 && Math.random() > 0.5) { soruDogruCevap = R_cm / 100; let q = { tr: `1/${S} ölçekli bir planda ${D} cm olarak ölçtüğün bir uzunluk gerçekte kaç METRE'dir?`, en: `If a drawing is ${D} cm at 1/${S} scale, how many METERS is it in reality?`, ku: `Di pîvana 1/${S} de, xêzek ku ${D} cm hatiye pîvandin di rastiyê de çend METRE ye?` }; metin = q[curLang] || q['tr']; } 
+            else { soruDogruCevap = R_cm; let q = { tr: `1/${S} ölçekli bir çizimde ${D} cm olan bir obje gerçekte kaç CM'dir?`, en: `If an object is ${D} cm at 1/${S} scale, how many CM is it in reality?`, ku: `Di pîvana 1/${S} de, objeyek ku ${D} cm e di rastiyê de çend CM ye?` }; metin = q[curLang] || q['tr']; }
         } else { 
             let R_cm_tam = (Math.floor(Math.random() * 50) + 5) * 50; let r_m = R_cm_tam / 100; soruDogruCevap = R_cm_tam / S;
             let q = { tr: `Gerçek uzunluğu ${r_m} metre olan bir cephe, 1/${S} ölçekli bir paftaya kaç CM çizilir?`, en: `A facade that is ${r_m} meters in reality, how many CM is it drawn on a 1/${S} scale sheet?`, ku: `Cîhek ku di rastiyê de ${r_m} metre ye, li ser kaxezek 1/${S} pîvanî çend CM tê xêzkirin?` };
@@ -574,42 +546,23 @@
     }
 
     function soruCevapla() {
-        let val = document.getElementById('soruCevap').value; if(!val) return;
-        let cvp = parseFloat(val.replace(',', '.')); if (isNaN(cvp)) return;
-        
-        if (Math.abs(cvp - soruDogruCevap) < 0.01) {
-            soruSkor += 10; let msg = { tr: 'DOĞRU! 🎉 (+10 Puan)', en: 'CORRECT! 🎉 (+10 Pts)', ku: 'RAST E! 🎉 (+10 Puan)' };
-            goster('soruSonuc', `<span style='color:green'>${msg[curLang] || msg['tr']}</span>`); document.getElementById('soruSkor').innerText = soruSkor; setTimeout(yeniSoruUret, 1500);
-        } else {
-            soruSkor -= 5; let msg = { tr: 'YANLIŞ! 💥 (-5 Puan)', en: 'WRONG! 💥 (-5 Pts)', ku: 'ŞAŞ E! 💥 (-5 Puan)' }; let ans = { tr: 'Doğru Cevap', en: 'Correct Answer', ku: 'Bersiva Rast' };
-            goster('soruSonuc', `<span style='color:red'>${msg[curLang] || msg['tr']}<br><small>${ans[curLang] || ans['tr']}: ${soruDogruCevap}</small></span>`); document.getElementById('soruSkor').innerText = soruSkor; setTimeout(yeniSoruUret, 2500);
-        }
+        let val = document.getElementById('soruCevap').value; if(!val) return; let cvp = parseFloat(val.replace(',', '.')); if (isNaN(cvp)) return;
+        if (Math.abs(cvp - soruDogruCevap) < 0.01) { soruSkor += 10; let msg = { tr: 'DOĞRU! 🎉 (+10 Puan)', en: 'CORRECT! 🎉 (+10 Pts)', ku: 'RAST E! 🎉 (+10 Puan)' }; goster('soruSonuc', `<span style='color:green'>${msg[curLang] || msg['tr']}</span>`); document.getElementById('soruSkor').innerText = soruSkor; setTimeout(yeniSoruUret, 1500); } 
+        else { soruSkor -= 5; let msg = { tr: 'YANLIŞ! 💥 (-5 Puan)', en: 'WRONG! 💥 (-5 Pts)', ku: 'ŞAŞ E! 💥 (-5 Puan)' }; let ans = { tr: 'Doğru Cevap', en: 'Correct Answer', ku: 'Bersiva Rast' }; goster('soruSonuc', `<span style='color:red'>${msg[curLang] || msg['tr']}<br><small>${ans[curLang] || ans['tr']}: ${soruDogruCevap}</small></span>`); document.getElementById('soruSkor').innerText = soruSkor; setTimeout(yeniSoruUret, 2500); }
     }
 
     function altSekmeDegis(sekme) { document.getElementById('btnPlan').classList.remove('aktif'); document.getElementById('btnNot').classList.remove('aktif'); document.getElementById('icerikPlan').classList.remove('aktif'); document.getElementById('icerikNot').classList.remove('aktif'); if(sekme === 'plan') { document.getElementById('btnPlan').classList.add('aktif'); document.getElementById('icerikPlan').classList.add('aktif'); } else { document.getElementById('btnNot').classList.add('aktif'); document.getElementById('icerikNot').classList.add('aktif'); } }
     function notKaydet() { var notIcerik = document.getElementById('notDefteri').value; localStorage.setItem('bedir_notlar', notIcerik); }
     function degisDil(val) { curLang = val; localStorage.setItem('bedir_lang', val); updateLanguageUI(); if(document.getElementById('mod10').style.display === 'block'){ yeniSoruUret(); } }
     
-    function updateLanguageUI() {
-        var d = t[curLang];
-        for (const [key, value] of Object.entries(d)) { var el = document.getElementById(key); if(el) { if(el.tagName === 'INPUT') el.placeholder = value; else el.innerText = value; } }
-        document.getElementById('btn_start_snake').innerText = d.btn_start; document.getElementById('bjMessage').innerText = d.bj_start_msg;
-    }
-
+    function updateLanguageUI() { var d = t[curLang]; for (const [key, value] of Object.entries(d)) { var el = document.getElementById(key); if(el) { if(el.tagName === 'INPUT') el.placeholder = value; else el.innerText = value; } } document.getElementById('btn_start_snake').innerText = d.btn_start; document.getElementById('bjMessage').innerText = d.bj_start_msg; }
     function bgModalAc() { document.getElementById('bgModal').style.display = 'flex'; document.getElementById('bgSecenekler').style.display = 'block'; document.getElementById('bgHazirlar').style.display = 'none'; }
     function bgModalKapat() { document.getElementById('bgModal').style.display = 'none'; }
     function galeridenYukle() { bgModalKapat(); document.getElementById('resimYukleyici').click(); }
 
     function hazirGorselGoster() {
-        document.getElementById('bgSecenekler').style.display = 'none'; document.getElementById('bgHazirlar').style.display = 'block';
-        let grid = document.getElementById('bgGridContainer'); grid.innerHTML = ''; 
-        var suankiUrl = localStorage.getItem('bedir_arkaplan_v410');
-        
-        hazirGorsellerListesi.forEach(src => {
-            let item = document.createElement('div'); item.className = 'bg-item'; if (suankiUrl === src) { item.classList.add('selected'); } item.onclick = () => hazirGorselSec(src);
-            let box = document.createElement('div'); box.className = 'bg-thumb-box'; box.style.backgroundImage = "url('" + src + "')"; 
-            item.appendChild(box); grid.appendChild(item);
-        });
+        document.getElementById('bgSecenekler').style.display = 'none'; document.getElementById('bgHazirlar').style.display = 'block'; let grid = document.getElementById('bgGridContainer'); grid.innerHTML = ''; var suankiUrl = localStorage.getItem('bedir_arkaplan_v410');
+        hazirGorsellerListesi.forEach(src => { let item = document.createElement('div'); item.className = 'bg-item'; if (suankiUrl === src) { item.classList.add('selected'); } item.onclick = () => hazirGorselSec(src); let box = document.createElement('div'); box.className = 'bg-thumb-box'; box.style.backgroundImage = "url('" + src + "')"; item.appendChild(box); grid.appendChild(item); });
     }
 
     function bgGeri() { document.getElementById('bgSecenekler').style.display = 'block'; document.getElementById('bgHazirlar').style.display = 'none'; }
@@ -618,28 +571,11 @@
     function resmiUygula(url) { document.body.style.backgroundImage = "url('" + url + "')"; var i = new Image(); i.src = url; i.onload = function() { temaGuncelle(renkAnaliz(i)); } }
     function renkAnaliz(i) { var c = document.createElement('canvas'); var x = c.getContext('2d'); c.width = 50; c.height = 50; x.drawImage(i,0,0,50,50); try { var d = x.getImageData(0,0,50,50).data; var r = 0, g = 0, b = 0, k = 0; for(var j = 0; j < d.length; j += 4) { r += d[j]; g += d[j+1]; b += d[j+2]; k++; } return { r:Math.floor(r/k), g:Math.floor(g/k), b:Math.floor(b/k) }; } catch(e) { return { r:140, g:106, b:84 }; } }
     
-    function temaGuncelle(rgb) { 
-        var root = document.documentElement.style; var ana = `rgb(${rgb.r},${rgb.g},${rgb.b})`; root.setProperty('--ana-renk', ana); 
-        var p = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000; 
-        if(p > 140) { root.setProperty('--yazi-renk', '#000'); root.setProperty('--kutu-bg', 'rgba(255,255,255,0.85)'); root.setProperty('--sekme-pasif', 'rgba(0,0,0,0.1)'); } 
-        else { root.setProperty('--yazi-renk', '#fff'); root.setProperty('--kutu-bg', 'rgba(0,0,0,0.5)'); root.setProperty('--sekme-pasif', 'rgba(255,255,255,0.2)'); if(p < 40) root.setProperty('--ana-renk', `rgb(${rgb.r+50},${rgb.g+50},${rgb.b+50})`); } 
-    }
+    function temaGuncelle(rgb) { var root = document.documentElement.style; var ana = `rgb(${rgb.r},${rgb.g},${rgb.b})`; root.setProperty('--ana-renk', ana); var p = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000; if(p > 140) { root.setProperty('--yazi-renk', '#000'); root.setProperty('--kutu-bg', 'rgba(255,255,255,0.85)'); root.setProperty('--sekme-pasif', 'rgba(0,0,0,0.1)'); } else { root.setProperty('--yazi-renk', '#fff'); root.setProperty('--kutu-bg', 'rgba(0,0,0,0.5)'); root.setProperty('--sekme-pasif', 'rgba(255,255,255,0.2)'); if(p < 40) root.setProperty('--ana-renk', `rgb(${rgb.r+50},${rgb.g+50},${rgb.b+50})`); } }
     function sifirla() { localStorage.removeItem('bedir_arkaplan_v410'); localStorage.removeItem('bedir_lang'); localStorage.removeItem('bedir_notlar'); location.reload(); }
 
-    function setupEnterKeys() {
-        const bind = (inIds, btnId) => { if(!Array.isArray(inIds)) inIds = [inIds]; inIds.forEach(id => { let el = document.getElementById(id); if(el) { el.addEventListener("keyup", function(e) { if(e.key === "Enter") document.getElementById(btnId).click(); }); } }); };
-        bind("g_sayi", "btn_calc1"); bind("c_sayi", "btn_conv1"); bind(["e_h", "e_l"], "btn_analyse"); bind(["m_h", "m_b"], "btn_calc2"); bind(["mal_en", "mal_boy", "mz_en", "mz_boy"], "btn_quant"); bind("ao_val", "btn_ratio"); bind("cv_val", "btn_conv2"); bind("soruCevap", "btn_cevapla");
-    }
-
-    function modDegis(no) { 
-        for(let i=1; i<=10; i++) { if(document.getElementById('mod'+i)) { document.getElementById('mod'+i).style.display = 'none'; if(document.getElementById('btn'+i)) document.getElementById('btn'+i).className = ''; } } 
-        document.getElementById('mod'+no).style.display = 'block'; 
-        if(document.getElementById('btn'+no)) document.getElementById('btn'+no).className = 'aktif'; 
-        var s = document.getElementsByClassName('sonuc'); for(let k of s) k.style.display = 'none'; 
-        if(no !== 4) { oyunAktif = false; if(activeGameLoop) { cancelAnimationFrame(activeGameLoop); activeGameLoop = null; } } 
-        if(no === 10 && document.getElementById('soruMetni').innerText === "Soru yükleniyor...") { yeniSoruUret(); }
-    }
-    
+    function setupEnterKeys() { const bind = (inIds, btnId) => { if(!Array.isArray(inIds)) inIds = [inIds]; inIds.forEach(id => { let el = document.getElementById(id); if(el) { el.addEventListener("keyup", function(e) { if(e.key === "Enter") document.getElementById(btnId).click(); }); } }); }; bind("g_sayi", "btn_calc1"); bind("c_sayi", "btn_conv1"); bind(["e_h", "e_l"], "btn_analyse"); bind(["m_h", "m_b"], "btn_calc2"); bind(["mal_en", "mal_boy", "mz_en", "mz_boy"], "btn_quant"); bind("ao_val", "btn_ratio"); bind("cv_val", "btn_conv2"); bind("soruCevap", "btn_cevapla"); }
+    function modDegis(no) { for(let i=1; i<=10; i++) { if(document.getElementById('mod'+i)) { document.getElementById('mod'+i).style.display = 'none'; if(document.getElementById('btn'+i)) document.getElementById('btn'+i).className = ''; } } document.getElementById('mod'+no).style.display = 'block'; if(document.getElementById('btn'+no)) document.getElementById('btn'+no).className = 'aktif'; var s = document.getElementsByClassName('sonuc'); for(let k of s) k.style.display = 'none'; if(no !== 4) { oyunAktif = false; if(activeGameLoop) { cancelAnimationFrame(activeGameLoop); activeGameLoop = null; } } if(no === 10 && document.getElementById('soruMetni').innerText === "Soru yükleniyor...") { yeniSoruUret(); } }
     function temizle(v) { return parseFloat(v.replace(',', '.')); }
     function goster(id, t) { var k = document.getElementById(id); k.style.display = 'block'; k.innerHTML = t; }
     function sayaciCalistir() { let s = 0; setInterval(function() { s++; let sa = Math.floor(s/3600); let dk = Math.floor((s%3600)/60); let sn = s%60; document.getElementById('oturumSayaci').innerText = (sa<10?"0"+sa:sa) + ":" + (dk<10?"0"+dk:dk) + ":" + (sn<10?"0"+sn:sn); if (s > 0 && s % 1500 === 0) { document.getElementById('pomodoroToast').style.display = 'block'; } }, 1000); }
