@@ -16,7 +16,7 @@
     .ig-link { position: fixed; bottom: 20px; left: 20px; z-index: 50; background: var(--kutu-bg); padding: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; border: 2px solid var(--ana-renk); color: var(--ana-renk); backdrop-filter: blur(5px); }
     .ig-link:hover { transform: scale(1.15) rotate(5deg); background: var(--ana-renk); color: #fff; }
     .ig-link svg { width: 28px; height: 28px; fill: currentColor; }
-    .apk-link { position: fixed; bottom: 20px; right: 20px; z-index: 50; background: var(--ana-renk); color: #fff; padding: 12px 20px; border-radius: 30px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: all 0.3s ease; font-weight: 900; font-size: 14px; text-decoration: none; border: 2px solid #fff; }
+    .apk-link { position: fixed; bottom: 20px; right: 20px; z-index: 50; background: var(--ana-renk); color: #fff; padding: 12px 20px; border-radius: 30px; display: flex; align-items: center; justify-content: gap: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: all 0.3s ease; font-weight: 900; font-size: 14px; text-decoration: none; border: 2px solid #fff; }
     .apk-link:hover { transform: scale(1.05); background: var(--yazi-renk); }
     .kutu { background-color: var(--kutu-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); width: 100%; max-width: 420px; border-radius: 16px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2); border-top: 6px solid var(--ana-renk); overflow: visible; padding-bottom: 35px; position: relative; transition: all 0.5s ease; margin-bottom: 10px; z-index: 10; }
     .ayarlar { position: absolute; top: 15px; right: 15px; display: flex; gap: 8px; z-index: 20; align-items: center; }
@@ -296,7 +296,7 @@
         </div>
     </div>
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.17.0</div>
+    <div class="versiyon">v4.18.0</div>
 </div>
 <div class="alt-modul">
     <div class="alt-sekmeler">
@@ -397,12 +397,7 @@
             gm_win: "لقد فزت!", gm_lose: "لقد خسرت!", gm_draw: "تعادل", gm_bust: "خسارة!", gm_dealer_bust: "خسارة الموزع!"
         }
     };
-    const hazirGorsellerListesi = [
-        "atakoy ustgecit.jpg", "kedi2.jpg", "kedisi.jpg", "sanat eseri.jpg", "aslan.jpg",
-        "WhatsApp Image 2026-03-08 at 01.52.44.jpeg", "WIN_20260204_05_16_26_Pro.jpg",
-        "WhatsApp Image 2026-03-08 at 01.48.49.jpg", "WhatsApp Image 2026-03-08 at 01.56.22 (1).jpeg",
-        "WhatsApp Image 2026-03-08 at 01.56.22.jpeg", "WhatsApp Image 2026-03-08 at 01.43.30.jpeg"
-    ];
+    const hazirGorsellerListesi = [];
     var planScale = 1; var planX = 0; var planY = 0; var isDragging = false; var startX, startY;
     var activeGameLoop = null;
     let soruDogruCevap = 0; 
@@ -486,6 +481,7 @@
     function galeridenYukle() { bgModalKapat(); document.getElementById('resimYukleyici').click(); }
     function hazirGorselGoster() {
         document.getElementById('bgSecenekler').style.display = 'none'; document.getElementById('bgHazirlar').style.display = 'block'; let grid = document.getElementById('bgGridContainer'); grid.innerHTML = ''; var suankiUrl = localStorage.getItem('bedir_arkaplan_v410');
+        if(hazirGorsellerListesi.length === 0) { grid.innerHTML = "<div style='grid-column: span 3; text-align: center; opacity: 0.7;'>Hazır görsel bulunamadı. Galeriden yükleyebilirsiniz.</div>"; }
         hazirGorsellerListesi.forEach(src => { let item = document.createElement('div'); item.className = 'bg-item'; if (suankiUrl === src) { item.classList.add('selected'); } item.onclick = () => hazirGorselSec(src); let box = document.createElement('div'); box.className = 'bg-thumb-box'; box.style.backgroundImage = "url('" + src + "')"; item.appendChild(box); grid.appendChild(item); });
     }
     function bgGeri() { document.getElementById('bgSecenekler').style.display = 'block'; document.getElementById('bgHazirlar').style.display = 'none'; }
