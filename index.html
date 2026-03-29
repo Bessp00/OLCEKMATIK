@@ -23,7 +23,6 @@
     .ig-link:hover { transform: scale(1.15) rotate(5deg); background: var(--ana-renk); color: #fff; }
     .ig-link svg { width: 28px; height: 28px; fill: currentColor; }
     
-    /* GÜNCELLENEN KISIM: Drive indirme butonu stili */
     .apk-link { position: fixed; bottom: 20px; right: 20px; z-index: 50; background: var(--ana-renk); color: #fff; padding: 12px 20px; border-radius: 30px; display: flex; align-items: center; justify-content: gap: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: all 0.3s ease; font-weight: 900; font-size: 14px; text-decoration: none; border: 2px solid #fff; cursor: pointer; }
     .apk-link:hover { transform: scale(1.05); background: var(--yazi-renk); }
     
@@ -33,7 +32,14 @@
     .ayar-btn:hover { background: var(--yazi-renk); color: var(--ana-renk); }
     #langSelect { height: 38px; border-radius: 10px; border: 1px solid var(--yazi-renk); background: rgba(255,255,255,0.3); color: var(--yazi-renk); font-weight: bold; font-family: 'Courier New', monospace; padding: 0 5px; cursor: pointer; }
     h2 { text-align: center; color: var(--yazi-renk); margin-top: 80px; margin-bottom: 5px; font-size: 34px; font-weight: 900; letter-spacing: -1px; text-shadow: 2px 2px 0px var(--ana-renk); border-bottom: 3px solid var(--ana-renk); display: inline-block; position: relative; left: 50%; transform: translateX(-50%); padding-bottom: 5px; width: 90%; }
-    .imza { text-align: center; font-size: 13px; opacity: 0.9; margin-bottom: 25px; font-weight: bold; letter-spacing: 2px; color: var(--yazi-renk); }
+    .imza { text-align: center; font-size: 13px; opacity: 0.9; margin-bottom: 15px; font-weight: bold; letter-spacing: 2px; color: var(--yazi-renk); }
+    
+    /* GÜNCELLENEN KISIM: Bilgilendirme Panosu CSS'i */
+    .bilgi-panosu { background: rgba(211, 47, 47, 0.1); border: 2px dashed #d32f2f; color: var(--yazi-renk); padding: 12px 15px; border-radius: 10px; margin: 0 15px 20px 15px; font-size: 13px; text-align: center; position: relative; line-height: 1.4; font-family: sans-serif; }
+    .bilgi-panosu b { color: #d32f2f; }
+    .bilgi-kapat { position: absolute; top: -10px; right: -10px; background: #fff; border: 2px solid #d32f2f; color: #d32f2f; font-weight: bold; cursor: pointer; font-size: 14px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: 0.2s; }
+    .bilgi-kapat:hover { transform: scale(1.1); background: #d32f2f; color: #fff; }
+
     .menu-container { overflow-x: auto; white-space: nowrap; margin: 0 15px 15px 15px; padding-bottom: 5px; scrollbar-width: none; -ms-overflow-style: none; }
     .menu-container::-webkit-scrollbar { display: none; }
     .menu { display: inline-flex; gap: 8px; }
@@ -78,7 +84,7 @@
     .kart { width: 45px; height: 65px; background: #fff; border-radius: 5px; border: 1px solid #999; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; box-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
     .kart.kirmizi { color: #d32f2f; } .kart.siyah { color: #222; }
     .kart-arka { background: repeating-linear-gradient(45deg, #8C6A54, #8C6A54 5px, #fff 5px, #fff 10px); border: 2px solid #fff; }
-    .bj-mesaj { font-weight: bold; margin: 10px 0; min-height: 20px; color: var(--yazi-renk); }
+    .bj-mesaj { font-weight: margin: 10px 0; min-height: 20px; color: var(--yazi-renk); }
     .bj-btn-grup { display: flex; gap: 10px; justify-content: center; }
     .bj-btn { padding: 10px 15px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; flex: 1; background: var(--yazi-renk); color: #fff; }
     .bj-btn:disabled { opacity: 0.5; }
@@ -185,6 +191,12 @@
     <input type="file" id="resimYukleyici" accept="image/*" onchange="arkaplanDegistir(this)">
     <h2 id="lbl_title">ÖLÇEKMATİK</h2>
     <div class="imza">BEDIR DESIGN</div>
+    
+    <div class="bilgi-panosu" id="yeniSiteBilgi">
+        <button class="bilgi-kapat" onclick="document.getElementById('yeniSiteBilgi').style.display='none'">✖</button>
+        🛠️ <b>Bilgilendirme:</b><br>Ölçekmatik yepyeni altyapısıyla yayında! Sistemimiz henüz çok taze olduğu için geçiş sürecinde ufak tefek teknik aksaklıklar yaşanabilir. Olası kesintiler için şimdiden özür diler, anlayışınız ve sabrınız için teşekkür ederiz. 🙏
+    </div>
+
     <div class="menu-container">
         <div class="menu">
             <button id="btn1" onclick="modDegis(1)" class="aktif">PROJE</button>
@@ -305,7 +317,7 @@
         </div>
     </div>
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.23.0</div>
+    <div class="versiyon">v4.24.0</div>
 </div>
 <div class="alt-modul">
     <div class="alt-sekmeler">
@@ -430,9 +442,9 @@
     function kurumsalAc(tip) {
         document.getElementById('kurumsalModal').style.display = 'flex';
         let baslik = "", icerik = "";
-        if(tip === 'hakkimizda') { baslik = "Hakkımızda & İletişim"; icerik = "<b>Bedir Design</b> tarafından geliştirilen Ölçekmatik, mimarlık öğrencilerinin ve tasarım profesyonellerinin sahada veya ofiste hayatını kolaylaştırmak amacıyla üretilmiş ücretsiz, mobil uyumlu bir hesaplama aracıdır.<br><br><b>İletişim & İşbirlikleri:</b><br>Projeyle ilgili görüş, öneri veya reklam seçenekleri için Instagram üzerinden tasarımcımız Bedirhan Ergül'e ulaşabilirsiniz:<br><br>👉 <a href='https://www.instagram.com/ergul.bedirhan/' target='_blank' style='color:var(--ana-renk); font-weight:bold; font-size:15px; text-decoration:none;'>@ergul.bedirhan</a>"; } 
-        else if(tip === 'gizlilik') { baslik = "Gizlilik Politikası (Privacy Policy)"; icerik = "Ölçekmatik, kullanıcılarının gizliliğine ve kişisel verilerine büyük önem verir. Şeffaflık ilkemiz gereği uygulamamızın veri kullanım şartları aşağıdadır:<br><br><b>1. Kişisel Veriler:</b> Sitemiz (olcekmatik.com.tr) üzerinden isim, e-posta adresi, telefon numarası veya konum bilgisi gibi hiçbir kişisel veri toplanmaz, işlenmez ve 3. şahıslarla paylaşılmaz.<br><b>2. Tarayıcı Hafızası (Local Storage):</b> Sitemiz, aldığınız notları, seçtiğiniz arkaplan resmini ve dil tercihlerinizi sadece sizin cihazınızda tutar. Bizim sunucularımıza herhangi bir veri gönderilmez.<br><b>3. Çerezler (Cookies) ve Reklamlar:</b> Sitemizde, kullanıcı deneyimini artırmak ve ücretsiz hizmet sunabilmek için Google AdSense ağı kullanılmaktadır. Google ve reklam ortakları, size daha uygun reklamlar sunmak için standart çerezleri kullanabilir.<br><br>Bu siteyi kullanarak belirtilen koşulları kabul etmiş sayılırsınız."; } 
-        else if(tip === 'kullanim') { baslik = "Kullanım Koşulları (Terms of Use)"; icerik = "<b>1. Hizmetin Doğası:</b> Ölçekmatik tarafından sağlanan hesaplamalar (ölçek çevirme, merdiven rıht hesabı, alan metrajı vb.) pratiklik sağlamak amacıyla sunulan yardımcı araçlar niteliğindedir.<br><br><b>2. Sorumluluk Reddi:</b> Uygulama sonuçlarının doğruluğunu optimize etmek için çaba göstersek de, profesyonel ve yasal kesinlik gerektiren (şantiye, resmi evrak, ihale vb.) projelerde manuel ve detaylı kontrol yapılması tamamen kullanıcının sorumluluğundadır. Doğabilecek teknik, maddi veya manevi hatalardan Bedir Design (olcekmatik.com.tr) sorumlu tutulamaz.<br><br><b>3. Fikri Mülkiyet:</b> Sitenin arayüz tasarımı, kod altyapısı ve 'Ölçekmatik' markası Bedir Design'a aittir. İzinsiz kopyalanması veya ticari amaçla başka bir sunucuda yayınlanması yasaktır."; }
+        if(tip === 'hakkimizda') { baslik = "Hakkımızda & İletişim"; icerik = "<b>Bedir Design</b> tarafından geliştirilen Ölçekmatik, mimarlık öğrencileri ve tasarım profesyonellerinin hayatını kolaylaştırmak amacıyla üretilmiş ücretsiz, mobil uyumlu bir hesaplama aracıdır.<br><br><b>İletişim & İşbirlikleri:</b><br>Projeyle ilgili görüş, öneri veya reklam seçenekleri için Instagram üzerinden tasarımcımız Bedirhan Ergül'e ulaşabilirsiniz:<br><br>👉 <a href='https://www.instagram.com/ergul.bedirhan/' target='_blank' style='color:var(--ana-renk); font-weight:bold; font-size:15px; text-decoration:none;'>@ergul.bedirhan</a>"; } 
+        else if(tip === 'gizlilik') { baslik = "Gizlilik Politikası (Privacy Policy)"; icerik = "Ölçekmatik, kullanıcılarının gizliliğine ve kişisel verilerine büyük önem verir. Şeffaflık ilkemiz gereği uygulamamızın veri kullanım şartları aşağıdadır:<br><br><b>1. Kişisel Veriler:</b> Sitemiz üzerinden hiçbir kişisel veri toplanmaz, işlenmez ve 3. şahıslarla paylaşılmaz.<br><b>2. Tarayıcı Hafızası:</b> Notlarınız ve dil tercihleriniz cihazınızda tutulur.<br><b>3. Çerezler ve Reklamlar:</b> Sitemizde Google AdSense ağı kullanılmaktadır."; } 
+        else if(tip === 'kullanim') { baslik = "Kullanım Koşulları (Terms of Use)"; icerik = "<b>1. Hizmetin Doğası:</b> Ölçekmatik tarafından sağlanan hesaplamalar pratiklik sağlamak amacıyla sunulan yardımcı araçlar niteliğindedir.<br><br><b>2. Sorumluluk Reddi:</b> Profesyonel ve yasal kesinlik gerektiren projelerde detaylı kontrol yapılması kullanıcının sorumluluğundadır.<br><br><b>3. Fikri Mülkiyet:</b> Sitenin arayüz tasarımı, kod altyapısı ve 'Ölçekmatik' markası Bedir Design'a aittir."; }
         document.getElementById('kurumsalBaslik').innerText = baslik; document.getElementById('kurumsalIcerik').innerHTML = icerik;
     }
     function cerezKabul() { localStorage.setItem('bedir_cerez_onay', 'true'); document.getElementById('cerezUyarisi').style.display = 'none'; }
@@ -443,17 +455,17 @@
             let D = Math.floor(Math.random() * 20) + 1; let R_cm = D * S;
             if (R_cm >= 100 && Math.random() > 0.5) { 
                 soruDogruCevap = R_cm / 100; 
-                let q = { tr: `1/${S} ölçekli bir planda ${D} cm olarak ölçtüğün bir uzunluk gerçekte kaç METRE'dir?`, en: `If a drawing is ${D} cm at 1/${S} scale, how many METERS is it in reality?`, ku: `Di pîvana 1/${S} de, xêzek ku ${D} cm hatiye pîvandin di rastiyê de çend METRE ye?`, ar: `في مقياس 1/${S}، الطول الذي قسته ${D} سم كم مترًا في الواقع؟` }; 
+                let q = { tr: `1/${S} ölçekli planda ${D} cm olarak ölçtüğün uzunluk gerçekte kaç METRE'dir?`, en: `If a drawing is ${D} cm at 1/${S} scale, how many METERS is it in reality?`, ku: `Di pîvana 1/${S} de, xêzek ku ${D} cm e rastiyê de çend METRE ye?`, ar: `في مقياس 1/${S}، الطول ${D} سم كم مترًا في الواقع؟` }; 
                 metin = q[curLang] || q['tr']; 
             } 
             else { 
                 soruDogruCevap = R_cm; 
-                let q = { tr: `1/${S} ölçekli bir çizimde ${D} cm olan bir obje gerçekte kaç CM'dir?`, en: `If an object is ${D} cm at 1/${S} scale, how many CM is it in reality?`, ku: `Di pîvana 1/${S} de, objeyek ku ${D} cm e di rastiyê de çend CM ye?`, ar: `في مقياس 1/${S}، كائن طوله ${D} سم كم سم في الواقع؟` }; 
+                let q = { tr: `1/${S} ölçekli çizimde ${D} cm olan obje gerçekte kaç CM'dir?`, en: `If an object is ${D} cm at 1/${S} scale, how many CM is it in reality?`, ku: `Di pîvana 1/${S} de, objeyek ku ${D} cm e rastiyê de çend CM ye?`, ar: `في مقياس 1/${S}، كائن طوله ${D} سم كم سم في الواقع؟` }; 
                 metin = q[curLang] || q['tr']; 
             }
         } else { 
             let R_cm_tam = (Math.floor(Math.random() * 50) + 5) * 50; let r_m = R_cm_tam / 100; soruDogruCevap = R_cm_tam / S;
-            let q = { tr: `Gerçek uzunluğu ${r_m} metre olan bir cephe, 1/${S} ölçekli bir paftaya kaç CM çizilir?`, en: `A facade that is ${r_m} meters in reality, how many CM is it drawn on a 1/${S} scale sheet?`, ku: `Cîhek ku di rastiyê de ${r_m} metre ye, li ser kaxezek 1/${S} pîvanî çend CM tê xêzkirin?`, ar: `واجهة طولها الحقيقي ${r_m} متر، كم سم تُرسم على ورقة بمقياس 1/${S}؟` };
+            let q = { tr: `Gerçek uzunluğu ${r_m} metre olan cephe, 1/${S} ölçekli paftaya kaç CM çizilir?`, en: `A facade ${r_m} meters in reality, how many CM is it drawn on a 1/${S} sheet?`, ku: `Cîhek ku rastiyê de ${r_m} metre ye, li ser kaxezek 1/${S} çend CM tê xêzkirin?`, ar: `واجهة طولها ${r_m} متر، كم سم تُرسم بمقياس 1/${S}؟` };
             metin = q[curLang] || q['tr'];
         }
         document.getElementById('soruMetni').innerText = metin;
@@ -478,12 +490,7 @@
     }
     function altSekmeDegis(sekme) { document.getElementById('btnPlan').classList.remove('aktif'); document.getElementById('btnNot').classList.remove('aktif'); document.getElementById('icerikPlan').classList.remove('aktif'); document.getElementById('icerikNot').classList.remove('aktif'); if(sekme === 'plan') { document.getElementById('btnPlan').classList.add('aktif'); document.getElementById('icerikPlan').classList.add('aktif'); } else { document.getElementById('btnNot').classList.add('aktif'); document.getElementById('icerikNot').classList.add('aktif'); } }
     function notKaydet() { var notIcerik = document.getElementById('notDefteri').value; localStorage.setItem('bedir_notlar', notIcerik); }
-    function degisDil(val) { 
-        curLang = val; 
-        localStorage.setItem('bedir_lang', val); 
-        updateLanguageUI(); 
-        if(document.getElementById('mod10').style.display === 'block'){ yeniSoruUret(); } 
-    }
+    function degisDil(val) { curLang = val; localStorage.setItem('bedir_lang', val); updateLanguageUI(); if(document.getElementById('mod10').style.display === 'block'){ yeniSoruUret(); } }
     function updateLanguageUI() { var d = t[curLang]; for (const [key, value] of Object.entries(d)) { var el = document.getElementById(key); if(el) { if(el.tagName === 'INPUT') el.placeholder = value; else el.innerText = value; } } document.getElementById('btn_start_snake').innerText = d.btn_start; document.getElementById('bjMessage').innerText = d.bj_start_msg; }
     function bgModalAc() { document.getElementById('bgModal').style.display = 'flex'; document.getElementById('bgSecenekler').style.display = 'block'; document.getElementById('bgHazirlar').style.display = 'none'; }
     function bgModalKapat() { document.getElementById('bgModal').style.display = 'none'; }
