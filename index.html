@@ -22,8 +22,11 @@
     .ig-link { position: fixed; bottom: 20px; left: 20px; z-index: 50; background: var(--kutu-bg); padding: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; border: 2px solid var(--ana-renk); color: var(--ana-renk); backdrop-filter: blur(5px); }
     .ig-link:hover { transform: scale(1.15) rotate(5deg); background: var(--ana-renk); color: #fff; }
     .ig-link svg { width: 28px; height: 28px; fill: currentColor; }
-    .apk-link { position: fixed; bottom: 20px; right: 20px; z-index: 50; background: var(--ana-renk); color: #fff; padding: 12px 20px; border-radius: 30px; display: flex; align-items: center; justify-content: gap: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: all 0.3s ease; font-weight: 900; font-size: 14px; text-decoration: none; border: 2px solid #fff; }
+    
+    /* GÜNCELLENEN KISIM: Drive indirme butonu stili */
+    .apk-link { position: fixed; bottom: 20px; right: 20px; z-index: 50; background: var(--ana-renk); color: #fff; padding: 12px 20px; border-radius: 30px; display: flex; align-items: center; justify-content: gap: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: all 0.3s ease; font-weight: 900; font-size: 14px; text-decoration: none; border: 2px solid #fff; cursor: pointer; }
     .apk-link:hover { transform: scale(1.05); background: var(--yazi-renk); }
+    
     .kutu { background-color: var(--kutu-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); width: 100%; max-width: 420px; border-radius: 16px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2); border-top: 6px solid var(--ana-renk); overflow: visible; padding-bottom: 35px; position: relative; transition: all 0.5s ease; margin-bottom: 10px; z-index: 10; }
     .ayarlar { position: absolute; top: 15px; right: 15px; display: flex; gap: 8px; z-index: 20; align-items: center; }
     .ayar-btn { background: rgba(255,255,255,0.3); border: 1px solid var(--yazi-renk); border-radius: 12px; width: 38px; height: 38px; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; transition: 0.3s; color: var(--yazi-renk); }
@@ -142,9 +145,11 @@
         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
     </svg>
 </a>
-<a href="base.apk" download="Olcekmatik.apk" class="apk-link" title="Android Uygulamasını İndir">
+
+<a href="https://drive.google.com/uc?export=download&id=1aeAjv8kF6I34Y16he1VcFfSvmMMy5zTo" target="_blank" class="apk-link" title="Android Uygulamasını İndir">
     📱 APK İNDİR
 </a>
+
 <div id="pomodoroToast">
     <h3>⏱️ MOLA ZAMANI!</h3>
     25 dakika boyunca aralıksız çalıştın.<br>Verimini korumak için şimdi 5 dakika gözlerini dinlendir.
@@ -300,7 +305,7 @@
         </div>
     </div>
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.22.0</div>
+    <div class="versiyon">v4.23.0</div>
 </div>
 <div class="alt-modul">
     <div class="alt-sekmeler">
@@ -401,12 +406,7 @@
             gm_win: "لقد فزت!", gm_lose: "لقد خسرت!", gm_draw: "تعادل", gm_bust: "خسارة!", gm_dealer_bust: "خسارة الموزع!"
         }
     };
-    const hazirGorsellerListesi = [
-        "atakoy ustgecit.jpg", "kedi2.jpg", "kedisi.jpg", "sanat eseri.jpg", "aslan.jpg",
-        "WhatsApp Image 2026-03-08 at 01.52.44.jpeg", "WIN_20260204_05_16_26_Pro.jpg",
-        "WhatsApp Image 2026-03-08 at 01.48.49.jpg", "WhatsApp Image 2026-03-08 at 01.56.22 (1).jpeg",
-        "WhatsApp Image 2026-03-08 at 01.56.22.jpeg", "WhatsApp Image 2026-03-08 at 01.43.30.jpeg"
-    ];
+    const hazirGorsellerListesi = [];
     var planScale = 1; var planX = 0; var planY = 0; var isDragging = false; var startX, startY;
     var activeGameLoop = null;
     let soruDogruCevap = 0; 
