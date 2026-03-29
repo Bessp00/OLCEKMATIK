@@ -254,6 +254,7 @@
             <option value="tr">TR</option>
             <option value="en">EN</option>
             <option value="ku">KU</option>
+            <option value="ar">AR</option>
         </select>
         <button class="ayar-btn" onclick="bgModalAc()">📷</button>
         <button class="ayar-btn" onclick="sifirla()">↺</button>
@@ -398,7 +399,7 @@
     </div>
 
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.15.0</div>
+    <div class="versiyon">v4.16.0</div>
 </div>
 
 <div class="alt-modul">
@@ -487,6 +488,22 @@
             res_area: "QAD", res_need: "PÊWÎST E", res_fire: "%10 Zêde",
             res_long: "DIRÊJ", res_short: "KIN", res_result: "ENCAM",
             gm_win: "TE QEZENC KIR!", gm_lose: "TE WNDA KIR!", gm_draw: "WEKHEV", gm_bust: "TEQÎYA!", gm_dealer_bust: "KASA TEQÎYA!"
+        },
+        ar: {
+            btn1: "مشروع", btn2: "حقيقي", btn3: "انحدار", btn4: "لعبة", btn5: "درج", btn6: "مواد", btn7: "النسبة الذهبية", btn8: "تحويل", btn9: "حساب", btn10: "سؤال",
+            lbl_real: "الحجم الحقيقي:", lbl_scale_sel: "اختيار المقياس:", btn_calc1: "احسب >>",
+            lbl_ruler: "قياس المسطرة (سم):", lbl_p_scale: "مقياس المشروع:", btn_conv1: "تحويل >>",
+            lbl_kot: "فرق الارتفاع (h):", lbl_dist: "المسافة (L):", btn_analyse: "تحليل >>",
+            lbl_h: "ارتفاع الطابق (h):", lbl_b: "درجة (b) [اختياري]:", btn_calc2: "احسب >>",
+            lbl_area: "غرفة / مساحة (سم):", lbl_mat: "مادة (سم):", btn_quant: "حساب الكمية >>",
+            lbl_edge: "الحافة المعروفة (سم):", btn_ratio: "نسبة >>",
+            lbl_val: "أدخل القيمة:", btn_conv2: "تحويل (سم) >>",
+            lbl_score: "النتيجة", lbl_snake_title: "ثعبان", btn_start: "ابدأ",
+            lbl_dealer: "الموزع", lbl_player: "أنت", bj_start_msg: "العب للبدء",
+            res_drawn: "للرسم", res_real: "حقيقي", res_slope: "انحدار", res_riser: "قائمة الدرج", res_count: "عدد", res_step: "درجة", res_warn_steep: "شديد الانحدار!", res_warn_low: "قائمة منخفضة", res_warn_foot: "ضيق جداً",
+            res_area: "مساحة", res_need: "مطلوب", res_fire: "شامل 10٪ هدر",
+            res_long: "طويل", res_short: "قصير", res_result: "نتيجة",
+            gm_win: "لقد فزت!", gm_lose: "لقد خسرت!", gm_draw: "تعادل", gm_bust: "خسارة!", gm_dealer_bust: "خسارة الموزع!"
         }
     };
 
@@ -506,7 +523,12 @@
     window.onload = function() {
         if(!localStorage.getItem('bedir_cerez_onay')) { document.getElementById('cerezUyarisi').style.display = 'block'; }
         var kayitli = localStorage.getItem('bedir_arkaplan_v410'); if(kayitli) { resmiUygula(kayitli); }
-        var savedLang = localStorage.getItem('bedir_lang'); if(savedLang) { curLang = savedLang; document.getElementById('langSelect').value = curLang; }
+        var savedLang = localStorage.getItem('bedir_lang'); 
+        if(savedLang) { 
+            curLang = savedLang; 
+            document.getElementById('langSelect').value = curLang; 
+            if(curLang === 'ar') document.body.dir = 'rtl';
+        }
         var kayitliNot = localStorage.getItem('bedir_notlar'); if(kayitliNot) { document.getElementById('notDefteri').value = kayitliNot; }
 
         updateLanguageUI(); sayaciCalistir();
@@ -535,11 +557,19 @@
         const olcekler = [20, 50, 100, 200, 500]; let S = olcekler[Math.floor(Math.random() * olcekler.length)]; let tip = Math.random() > 0.5 ? 1 : 2; let metin = "";
         if (tip === 1) { 
             let D = Math.floor(Math.random() * 20) + 1; let R_cm = D * S;
-            if (R_cm >= 100 && Math.random() > 0.5) { soruDogruCevap = R_cm / 100; let q = { tr: `1/${S} ölçekli bir planda ${D} cm olarak ölçtüğün bir uzunluk gerçekte kaç METRE'dir?`, en: `If a drawing is ${D} cm at 1/${S} scale, how many METERS is it in reality?`, ku: `Di pîvana 1/${S} de, xêzek ku ${D} cm hatiye pîvandin di rastiyê de çend METRE ye?` }; metin = q[curLang] || q['tr']; } 
-            else { soruDogruCevap = R_cm; let q = { tr: `1/${S} ölçekli bir çizimde ${D} cm olan bir obje gerçekte kaç CM'dir?`, en: `If an object is ${D} cm at 1/${S} scale, how many CM is it in reality?`, ku: `Di pîvana 1/${S} de, objeyek ku ${D} cm e di rastiyê de çend CM ye?` }; metin = q[curLang] || q['tr']; }
+            if (R_cm >= 100 && Math.random() > 0.5) { 
+                soruDogruCevap = R_cm / 100; 
+                let q = { tr: `1/${S} ölçekli bir planda ${D} cm olarak ölçtüğün bir uzunluk gerçekte kaç METRE'dir?`, en: `If a drawing is ${D} cm at 1/${S} scale, how many METERS is it in reality?`, ku: `Di pîvana 1/${S} de, xêzek ku ${D} cm hatiye pîvandin di rastiyê de çend METRE ye?`, ar: `في مقياس 1/${S}، الطول الذي قسته ${D} سم كم مترًا في الواقع؟` }; 
+                metin = q[curLang] || q['tr']; 
+            } 
+            else { 
+                soruDogruCevap = R_cm; 
+                let q = { tr: `1/${S} ölçekli bir çizimde ${D} cm olan bir obje gerçekte kaç CM'dir?`, en: `If an object is ${D} cm at 1/${S} scale, how many CM is it in reality?`, ku: `Di pîvana 1/${S} de, objeyek ku ${D} cm e di rastiyê de çend CM ye?`, ar: `في مقياس 1/${S}، كائن طوله ${D} سم كم سم في الواقع؟` }; 
+                metin = q[curLang] || q['tr']; 
+            }
         } else { 
             let R_cm_tam = (Math.floor(Math.random() * 50) + 5) * 50; let r_m = R_cm_tam / 100; soruDogruCevap = R_cm_tam / S;
-            let q = { tr: `Gerçek uzunluğu ${r_m} metre olan bir cephe, 1/${S} ölçekli bir paftaya kaç CM çizilir?`, en: `A facade that is ${r_m} meters in reality, how many CM is it drawn on a 1/${S} scale sheet?`, ku: `Cîhek ku di rastiyê de ${r_m} metre ye, li ser kaxezek 1/${S} pîvanî çend CM tê xêzkirin?` };
+            let q = { tr: `Gerçek uzunluğu ${r_m} metre olan bir cephe, 1/${S} ölçekli bir paftaya kaç CM çizilir?`, en: `A facade that is ${r_m} meters in reality, how many CM is it drawn on a 1/${S} scale sheet?`, ku: `Cîhek ku di rastiyê de ${r_m} metre ye, li ser kaxezek 1/${S} pîvanî çend CM tê xêzkirin?`, ar: `واجهة طولها الحقيقي ${r_m} متر، كم سم تُرسم على ورقة بمقياس 1/${S}؟` };
             metin = q[curLang] || q['tr'];
         }
         document.getElementById('soruMetni').innerText = metin;
@@ -547,13 +577,33 @@
 
     function soruCevapla() {
         let val = document.getElementById('soruCevap').value; if(!val) return; let cvp = parseFloat(val.replace(',', '.')); if (isNaN(cvp)) return;
-        if (Math.abs(cvp - soruDogruCevap) < 0.01) { soruSkor += 10; let msg = { tr: 'DOĞRU! 🎉 (+10 Puan)', en: 'CORRECT! 🎉 (+10 Pts)', ku: 'RAST E! 🎉 (+10 Puan)' }; goster('soruSonuc', `<span style='color:green'>${msg[curLang] || msg['tr']}</span>`); document.getElementById('soruSkor').innerText = soruSkor; setTimeout(yeniSoruUret, 1500); } 
-        else { soruSkor -= 5; let msg = { tr: 'YANLIŞ! 💥 (-5 Puan)', en: 'WRONG! 💥 (-5 Pts)', ku: 'ŞAŞ E! 💥 (-5 Puan)' }; let ans = { tr: 'Doğru Cevap', en: 'Correct Answer', ku: 'Bersiva Rast' }; goster('soruSonuc', `<span style='color:red'>${msg[curLang] || msg['tr']}<br><small>${ans[curLang] || ans['tr']}: ${soruDogruCevap}</small></span>`); document.getElementById('soruSkor').innerText = soruSkor; setTimeout(yeniSoruUret, 2500); }
+        if (Math.abs(cvp - soruDogruCevap) < 0.01) { 
+            soruSkor += 10; 
+            let msg = { tr: 'DOĞRU! 🎉 (+10 Puan)', en: 'CORRECT! 🎉 (+10 Pts)', ku: 'RAST E! 🎉 (+10 Puan)', ar: 'صحيح! 🎉 (+10 نقاط)' }; 
+            goster('soruSonuc', `<span style='color:green'>${msg[curLang] || msg['tr']}</span>`); 
+            document.getElementById('soruSkor').innerText = soruSkor; 
+            setTimeout(yeniSoruUret, 1500); 
+        } 
+        else { 
+            soruSkor -= 5; 
+            let msg = { tr: 'YANLIŞ! 💥 (-5 Puan)', en: 'WRONG! 💥 (-5 Pts)', ku: 'ŞAŞ E! 💥 (-5 Puan)', ar: 'خطأ! 💥 (-5 نقاط)' }; 
+            let ans = { tr: 'Doğru Cevap', en: 'Correct Answer', ku: 'Bersiva Rast', ar: 'الجواب الصحيح' }; 
+            goster('soruSonuc', `<span style='color:red'>${msg[curLang] || msg['tr']}<br><small>${ans[curLang] || ans['tr']}: ${soruDogruCevap}</small></span>`); 
+            document.getElementById('soruSkor').innerText = soruSkor; 
+            setTimeout(yeniSoruUret, 2500); 
+        }
     }
 
     function altSekmeDegis(sekme) { document.getElementById('btnPlan').classList.remove('aktif'); document.getElementById('btnNot').classList.remove('aktif'); document.getElementById('icerikPlan').classList.remove('aktif'); document.getElementById('icerikNot').classList.remove('aktif'); if(sekme === 'plan') { document.getElementById('btnPlan').classList.add('aktif'); document.getElementById('icerikPlan').classList.add('aktif'); } else { document.getElementById('btnNot').classList.add('aktif'); document.getElementById('icerikNot').classList.add('aktif'); } }
     function notKaydet() { var notIcerik = document.getElementById('notDefteri').value; localStorage.setItem('bedir_notlar', notIcerik); }
-    function degisDil(val) { curLang = val; localStorage.setItem('bedir_lang', val); updateLanguageUI(); if(document.getElementById('mod10').style.display === 'block'){ yeniSoruUret(); } }
+    function degisDil(val) { 
+        curLang = val; 
+        localStorage.setItem('bedir_lang', val); 
+        updateLanguageUI(); 
+        if(document.getElementById('mod10').style.display === 'block'){ yeniSoruUret(); } 
+        // Arapça için sağdan sola (RTL) düzeni aktif et
+        document.body.dir = val === 'ar' ? 'rtl' : 'ltr';
+    }
     
     function updateLanguageUI() { var d = t[curLang]; for (const [key, value] of Object.entries(d)) { var el = document.getElementById(key); if(el) { if(el.tagName === 'INPUT') el.placeholder = value; else el.innerText = value; } } document.getElementById('btn_start_snake').innerText = d.btn_start; document.getElementById('bjMessage').innerText = d.bj_start_msg; }
     function bgModalAc() { document.getElementById('bgModal').style.display = 'flex'; document.getElementById('bgSecenekler').style.display = 'block'; document.getElementById('bgHazirlar').style.display = 'none'; }
