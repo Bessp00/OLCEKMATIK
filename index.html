@@ -3,16 +3,26 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Ölçekmatik v4.19.0</title>
+<title>Ölçekmatik - Ölçek Hesaplama Aracı</title>
 <meta name="description" content="Mimarlar, iç mimarlar ve tasarımcılar için hızlı ölçek hesaplama aracı. Proje ölçeği, gerçek ölçü, merdiven hesabı ve metraj çıkarma işlemlerini anında yapın.">
 <meta name="keywords" content="ölçekmatik, ölçek hesaplama, mimari ölçek, 1/50 ölçek, merdiven hesabı, kot farkı hesaplama, altın oran, bedir design, iç mimarlık, ölçek çevirici">
 <meta name="author" content="Bedirhan - Bedir Design">
 <meta name="robots" content="index, follow">
 <link rel="manifest" href="manifest.json">
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8466515091566751" crossorigin="anonymous"></script>
+
 <style>
     :root { --arkaplan: #F2E8DC; --ana-renk: #8C6A54; --yazi-renk: #3E2C22; --kutu-bg: rgba(196, 176, 163, 0.95); --input-bg: #FFFDF9; --input-border: #D9C6B8; --input-yazi: #3E2C22; --sekme-aktif: #ffffff; --sekme-pasif: rgba(62, 44, 34, 0.15); }
-    body { font-family: 'Courier New', Courier, monospace; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; color: var(--yazi-renk); background-color: var(--arkaplan); background-size: cover; background-position: center; background-attachment: fixed; transition: background 0.5s ease, color 0.5s ease; overscroll-behavior: none; }
+    
+    /* --- GENEL KAYDIRMA ÇUBUĞU (SCROLLBAR) --- */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--arkaplan); transition: 0.3s; }
+    ::-webkit-scrollbar-thumb { background: var(--ana-renk); border-radius: 10px; border: 1px solid var(--arkaplan); }
+    ::-webkit-scrollbar-thumb:hover { background: var(--yazi-renk); }
+    * { scrollbar-width: thin; scrollbar-color: var(--ana-renk) var(--arkaplan); }
+
+    body { font-family: 'Courier New', Courier, monospace; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; color: var(--yazi-renk); background-color: var(--arkaplan); background-size: cover; background-position: center; background-attachment: fixed; transition: background 0.5s ease, color 0.5s ease; }
     .ig-link { position: fixed; bottom: 20px; left: 20px; z-index: 50; background: var(--kutu-bg); padding: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; border: 2px solid var(--ana-renk); color: var(--ana-renk); backdrop-filter: blur(5px); }
     .ig-link:hover { transform: scale(1.15) rotate(5deg); background: var(--ana-renk); color: #fff; }
     .ig-link svg { width: 28px; height: 28px; fill: currentColor; }
@@ -97,8 +107,6 @@
     .bg-btn { width:100%; padding:15px; margin-bottom:10px; border-radius:10px; border:2px solid var(--ana-renk); background:var(--input-bg); color:var(--input-yazi); font-weight:bold; font-size:16px; cursor:pointer; font-family:inherit; transition:0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
     .bg-btn:hover { background:var(--ana-renk); color:#fff; }
     .bg-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; max-height: 350px; overflow-y: auto; padding-right: 5px; padding-bottom: 10px;}
-    .bg-grid::-webkit-scrollbar { width: 5px; }
-    .bg-grid::-webkit-scrollbar-thumb { background: var(--ana-renk); border-radius: 10px; }
     .bg-geri { background:none; border:none; color:var(--yazi-renk); font-weight:bold; cursor:pointer; padding:5px 0; font-family:inherit; font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;}
     .bg-item { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; transition: 0.2s; }
     .bg-item:hover { transform: scale(1.05); }
@@ -296,7 +304,7 @@
         </div>
     </div>
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.19.0</div>
+    <div class="versiyon">v4.20.0</div>
 </div>
 <div class="alt-modul">
     <div class="alt-sekmeler">
@@ -397,12 +405,7 @@
             gm_win: "لقد فزت!", gm_lose: "لقد خسرت!", gm_draw: "تعادل", gm_bust: "خسارة!", gm_dealer_bust: "خسارة الموزع!"
         }
     };
-    const hazirGorsellerListesi = [
-        "atakoy ustgecit.jpg", "kedi2.jpg", "kedisi.jpg", "sanat eseri.jpg", "aslan.jpg",
-        "WhatsApp Image 2026-03-08 at 01.52.44.jpeg", "WIN_20260204_05_16_26_Pro.jpg",
-        "WhatsApp Image 2026-03-08 at 01.48.49.jpg", "WhatsApp Image 2026-03-08 at 01.56.22 (1).jpeg",
-        "WhatsApp Image 2026-03-08 at 01.56.22.jpeg", "WhatsApp Image 2026-03-08 at 01.43.30.jpeg"
-    ];
+    const hazirGorsellerListesi = [];
     var planScale = 1; var planX = 0; var planY = 0; var isDragging = false; var startX, startY;
     var activeGameLoop = null;
     let soruDogruCevap = 0; 
