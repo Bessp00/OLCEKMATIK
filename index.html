@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Ölçekmatik - Ölçek Hesaplama Aracı</title>
+<title>Ölçekmatik v4.19.0</title>
 <meta name="description" content="Mimarlar, iç mimarlar ve tasarımcılar için hızlı ölçek hesaplama aracı. Proje ölçeği, gerçek ölçü, merdiven hesabı ve metraj çıkarma işlemlerini anında yapın.">
 <meta name="keywords" content="ölçekmatik, ölçek hesaplama, mimari ölçek, 1/50 ölçek, merdiven hesabı, kot farkı hesaplama, altın oran, bedir design, iç mimarlık, ölçek çevirici">
 <meta name="author" content="Bedirhan - Bedir Design">
@@ -296,7 +296,7 @@
         </div>
     </div>
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.18.0</div>
+    <div class="versiyon">v4.19.0</div>
 </div>
 <div class="alt-modul">
     <div class="alt-sekmeler">
@@ -397,7 +397,12 @@
             gm_win: "لقد فزت!", gm_lose: "لقد خسرت!", gm_draw: "تعادل", gm_bust: "خسارة!", gm_dealer_bust: "خسارة الموزع!"
         }
     };
-    const hazirGorsellerListesi = [];
+    const hazirGorsellerListesi = [
+        "atakoy ustgecit.jpg", "kedi2.jpg", "kedisi.jpg", "sanat eseri.jpg", "aslan.jpg",
+        "WhatsApp Image 2026-03-08 at 01.52.44.jpeg", "WIN_20260204_05_16_26_Pro.jpg",
+        "WhatsApp Image 2026-03-08 at 01.48.49.jpg", "WhatsApp Image 2026-03-08 at 01.56.22 (1).jpeg",
+        "WhatsApp Image 2026-03-08 at 01.56.22.jpeg", "WhatsApp Image 2026-03-08 at 01.43.30.jpeg"
+    ];
     var planScale = 1; var planX = 0; var planY = 0; var isDragging = false; var startX, startY;
     var activeGameLoop = null;
     let soruDogruCevap = 0; 
