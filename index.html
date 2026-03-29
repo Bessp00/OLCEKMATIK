@@ -103,8 +103,6 @@
     .bg-btn { width:100%; padding:15px; margin-bottom:10px; border-radius:10px; border:2px solid var(--ana-renk); background:var(--input-bg); color:var(--input-yazi); font-weight:bold; font-size:16px; cursor:pointer; font-family:inherit; transition:0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
     .bg-btn:hover { background:var(--ana-renk); color:#fff; }
     .bg-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; max-height: 350px; overflow-y: auto; padding-right: 5px; padding-bottom: 10px;}
-    .bg-grid::-webkit-scrollbar { width: 5px; }
-    .bg-grid::-webkit-scrollbar-thumb { background: var(--ana-renk); border-radius: 10px; }
     .bg-geri { background:none; border:none; color:var(--yazi-renk); font-weight:bold; cursor:pointer; padding:5px 0; font-family:inherit; font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;}
     .bg-item { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; transition: 0.2s; }
     .bg-item:hover { transform: scale(1.05); }
@@ -302,7 +300,7 @@
         </div>
     </div>
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.21.0</div>
+    <div class="versiyon">v4.22.0</div>
 </div>
 <div class="alt-modul">
     <div class="alt-sekmeler">
@@ -403,7 +401,12 @@
             gm_win: "لقد فزت!", gm_lose: "لقد خسرت!", gm_draw: "تعادل", gm_bust: "خسارة!", gm_dealer_bust: "خسارة الموزع!"
         }
     };
-    const hazirGorsellerListesi = [];
+    const hazirGorsellerListesi = [
+        "atakoy ustgecit.jpg", "kedi2.jpg", "kedisi.jpg", "sanat eseri.jpg", "aslan.jpg",
+        "WhatsApp Image 2026-03-08 at 01.52.44.jpeg", "WIN_20260204_05_16_26_Pro.jpg",
+        "WhatsApp Image 2026-03-08 at 01.48.49.jpg", "WhatsApp Image 2026-03-08 at 01.56.22 (1).jpeg",
+        "WhatsApp Image 2026-03-08 at 01.56.22.jpeg", "WhatsApp Image 2026-03-08 at 01.43.30.jpeg"
+    ];
     var planScale = 1; var planX = 0; var planY = 0; var isDragging = false; var startX, startY;
     var activeGameLoop = null;
     let soruDogruCevap = 0; 
