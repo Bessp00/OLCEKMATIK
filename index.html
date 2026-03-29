@@ -9,102 +9,38 @@
 <meta name="author" content="Bedirhan - Bedir Design">
 <meta name="robots" content="index, follow">
 <link rel="manifest" href="manifest.json">
-
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8466515091566751" crossorigin="anonymous"></script>
-
 <style>
-    /* --- DİNAMİK DEĞİŞKENLER --- */
-    :root {
-        --arkaplan: #F2E8DC; 
-        --ana-renk: #8C6A54; 
-        --yazi-renk: #3E2C22; 
-        --kutu-bg: rgba(196, 176, 163, 0.95); 
-        --input-bg: #FFFDF9; 
-        --input-border: #D9C6B8; 
-        --input-yazi: #3E2C22; 
-        --sekme-aktif: #ffffff; 
-        --sekme-pasif: rgba(62, 44, 34, 0.15); 
-    }
-
-    body {
-        font-family: 'Courier New', Courier, monospace; 
-        margin: 0; padding: 20px;
-        display: flex; flex-direction: column; align-items: center;
-        min-height: 100vh;
-        color: var(--yazi-renk);
-        background-color: var(--arkaplan);
-        background-size: cover;
-        background-position: center;
-        background-attachment: fixed;
-        transition: background 0.5s ease, color 0.5s ease;
-        overscroll-behavior: none; 
-    }
-
-    /* INSTAGRAM BUTONU */
-    .ig-link {
-        position: fixed; bottom: 20px; left: 20px; z-index: 50;
-        background: var(--kutu-bg); padding: 10px; border-radius: 50%;
-        display: flex; align-items: center; justify-content: center;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: all 0.3s ease;
-        border: 2px solid var(--ana-renk); color: var(--ana-renk);
-        backdrop-filter: blur(5px);
-    }
+    :root { --arkaplan: #F2E8DC; --ana-renk: #8C6A54; --yazi-renk: #3E2C22; --kutu-bg: rgba(196, 176, 163, 0.95); --input-bg: #FFFDF9; --input-border: #D9C6B8; --input-yazi: #3E2C22; --sekme-aktif: #ffffff; --sekme-pasif: rgba(62, 44, 34, 0.15); }
+    body { font-family: 'Courier New', Courier, monospace; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; color: var(--yazi-renk); background-color: var(--arkaplan); background-size: cover; background-position: center; background-attachment: fixed; transition: background 0.5s ease, color 0.5s ease; overscroll-behavior: none; }
+    .ig-link { position: fixed; bottom: 20px; left: 20px; z-index: 50; background: var(--kutu-bg); padding: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; border: 2px solid var(--ana-renk); color: var(--ana-renk); backdrop-filter: blur(5px); }
     .ig-link:hover { transform: scale(1.15) rotate(5deg); background: var(--ana-renk); color: #fff; }
     .ig-link svg { width: 28px; height: 28px; fill: currentColor; }
-
-    /* APK İNDİR BUTONU */
-    .apk-link {
-        position: fixed; bottom: 20px; right: 20px; z-index: 50;
-        background: var(--ana-renk); color: #fff; padding: 12px 20px; border-radius: 30px;
-        display: flex; align-items: center; justify-content: center; gap: 8px;
-        box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: all 0.3s ease;
-        font-weight: 900; font-size: 14px; text-decoration: none; border: 2px solid #fff;
-    }
+    .apk-link { position: fixed; bottom: 20px; right: 20px; z-index: 50; background: var(--ana-renk); color: #fff; padding: 12px 20px; border-radius: 30px; display: flex; align-items: center; justify-content: center; gap: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: all 0.3s ease; font-weight: 900; font-size: 14px; text-decoration: none; border: 2px solid #fff; }
     .apk-link:hover { transform: scale(1.05); background: var(--yazi-renk); }
-
-    .kutu {
-        background-color: var(--kutu-bg);
-        backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-        width: 100%; max-width: 420px;
-        border-radius: 16px; 
-        box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2);
-        border-top: 6px solid var(--ana-renk);
-        overflow: visible; padding-bottom: 35px;
-        position: relative; transition: all 0.5s ease;
-        margin-bottom: 20px; z-index: 10;
-    }
-
+    .kutu { background-color: var(--kutu-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); width: 100%; max-width: 420px; border-radius: 16px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2); border-top: 6px solid var(--ana-renk); overflow: visible; padding-bottom: 35px; position: relative; transition: all 0.5s ease; margin-bottom: 10px; z-index: 10; }
     .ayarlar { position: absolute; top: 15px; right: 15px; display: flex; gap: 8px; z-index: 20; align-items: center; }
     .ayar-btn { background: rgba(255,255,255,0.3); border: 1px solid var(--yazi-renk); border-radius: 12px; width: 38px; height: 38px; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; transition: 0.3s; color: var(--yazi-renk); }
     .ayar-btn:hover { background: var(--yazi-renk); color: var(--ana-renk); }
-    
     #langSelect { height: 38px; border-radius: 10px; border: 1px solid var(--yazi-renk); background: rgba(255,255,255,0.3); color: var(--yazi-renk); font-weight: bold; font-family: 'Courier New', monospace; padding: 0 5px; cursor: pointer; }
-
     h2 { text-align: center; color: var(--yazi-renk); margin-top: 80px; margin-bottom: 5px; font-size: 34px; font-weight: 900; letter-spacing: -1px; text-shadow: 2px 2px 0px var(--ana-renk); border-bottom: 3px solid var(--ana-renk); display: inline-block; position: relative; left: 50%; transform: translateX(-50%); padding-bottom: 5px; width: 90%; }
     .imza { text-align: center; font-size: 13px; opacity: 0.9; margin-bottom: 25px; font-weight: bold; letter-spacing: 2px; color: var(--yazi-renk); }
-
     .menu-container { overflow-x: auto; white-space: nowrap; margin: 0 15px 15px 15px; padding-bottom: 5px; }
     .menu-container::-webkit-scrollbar { height: 0; }
     .menu { display: inline-flex; gap: 8px; }
     .menu button { padding: 12px 16px; border: 1px solid transparent; border-radius: 10px; background: var(--sekme-pasif); font-weight: 900; cursor: pointer; font-family: 'Courier New', Courier, monospace; font-size: 14px; color: var(--yazi-renk); transition: 0.3s; flex-shrink: 0; }
     .menu button.aktif { background: var(--ana-renk); color: #fff; border-color: rgba(255,255,255,0.5); box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-shadow: 0 1px 1px rgba(0,0,0,0.2); }
-
     .mod { padding: 0 25px; display: none; animation: fadeIn 0.4s; }
     @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-
     label { display: block; font-weight: 900; font-size: 13px; margin-top: 15px; opacity: 1; text-transform: uppercase; }
     input, select { width: 100%; padding: 14px; margin-top: 5px; border: 2px solid var(--input-border); border-radius: 10px; font-size: 16px; font-family: 'Courier New', Courier, monospace; box-sizing: border-box; background: var(--input-bg); color: var(--input-yazi) !important; font-weight: bold; transition: 0.3s; }
     input:focus, select:focus { border-color: var(--ana-renk); outline: none; }
-    
     button.hesapla { width: 100%; padding: 16px; background: var(--ana-renk); color: #fff; border: none; border-radius: 10px; font-weight: 900; cursor: pointer; font-family: 'Courier New', Courier, monospace; font-size: 18px; margin-top: 20px; transition: 0.2s; box-shadow: 0 5px 15px rgba(0,0,0,0.15); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
     button.hesapla:active { transform: scale(0.98); }
-
     .sonuc { background: #fff; padding: 15px; text-align: center; border-radius: 10px; border: 3px solid var(--ana-renk); margin-top: 20px; display: none; font-weight: bold; color: #000; font-size: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
     .sayac-alani { margin-top: 20px; padding: 10px; border-top: 2px dashed var(--ana-renk); text-align: center; font-family: 'Courier New', monospace; font-weight: 900; color: var(--yazi-renk); font-size: 16px; }
     .versiyon { position: absolute; bottom: 5px; right: 10px; font-size: 11px; font-weight: bold; opacity: 0.6; font-family: sans-serif; color: var(--yazi-renk); }
     #resimYukleyici { display: none; }
-    
-    /* OYUN STILLERI */
     .game-menu { display: flex; gap: 5px; justify-content: center; margin-bottom: 15px; border-bottom: 2px dashed var(--ana-renk); padding-bottom: 10px; }
     .gm-btn { padding: 8px 12px; border: none; border-radius: 6px; background: rgba(255,255,255,0.4); color: var(--yazi-renk); font-weight: bold; cursor: pointer; font-family: inherit; font-size: 12px; }
     .gm-btn.aktif { background: var(--ana-renk); color: #fff; transform: scale(1.05); }
@@ -114,23 +50,18 @@
     .oyun-skor { font-weight: bold; font-size: 18px; color: var(--ana-renk); }
     .oyun-btn { padding: 8px 15px; border: 2px solid var(--ana-renk); background: #fff; border-radius: 6px; cursor: pointer; font-weight: bold; font-family: 'Courier New', monospace; color: var(--ana-renk); transition: 0.2s; }
     .oyun-btn.aktif-mod { background: var(--ana-renk); color: #fff; }
-    
     .mayin-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; background: transparent; padding: 5px; border-radius: 8px; user-select: none; }
     .hucre { aspect-ratio: 1; background: var(--ana-renk); opacity: 0.85; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; cursor: pointer; box-shadow: inset 0 2px 5px rgba(255,255,255,0.3); }
     .hucre.acik { background: #fdfdfd; opacity: 1; color: #333; }
     .hucre.bayrak { background: #ddd; opacity: 1; }
     .hucre.bom { background: #d32f2f; color: white; opacity: 1; }
     .c1 { color: #1976D2; } .c2 { color: #388E3C; } .c3 { color: #D32F2F; } .c4 { color: #7B1FA2; }
-
-    /* HESAP MAKİNESİ */
     .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
     .calc-btn { padding: 15px; border-radius: 8px; border: none; font-size: 18px; font-weight: bold; cursor: pointer; background: rgba(255,255,255,0.5); color: var(--yazi-renk); }
     .calc-btn:active { background: var(--ana-renk); color: #fff; }
     .calc-btn.op { background: var(--ana-renk); color: #fff; }
     .calc-btn.c { background: #d32f2f; color: #fff; }
     #calc-screen { width: 100%; padding: 15px; font-size: 24px; text-align: right; background: var(--input-bg); border: 2px solid var(--ana-renk); border-radius: 8px; margin-bottom: 5px; color: var(--input-yazi); font-weight: bold; box-sizing: border-box; }
-
-    /* BLACKJACK & YILAN */
     .bj-masa { background: rgba(0,0,0,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 2px solid var(--ana-renk); }
     .bj-alan { margin-bottom: 15px; min-height: 100px; }
     .bj-isim { font-weight: bold; font-size: 14px; margin-bottom: 5px; text-transform: uppercase; }
@@ -145,8 +76,6 @@
     canvas { background: rgba(255,255,255,0.5); border-radius: 8px; border: 2px solid var(--ana-renk); display: block; margin: 0 auto; touch-action: none; }
     .game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); border-radius: 8px; z-index: 5; color: #fff; font-weight: bold; }
     .start-btn { padding: 10px 20px; background: var(--ana-renk); color: #fff; border: 2px solid #fff; border-radius: 8px; font-size: 18px; cursor: pointer; margin-top: 10px; }
-
-    /* ALT MODÜL (PLAN & NOTLAR) */
     .alt-modul { background-color: var(--kutu-bg); backdrop-filter: blur(12px); width: 100%; max-width: 420px; border-radius: 16px; border: 2px dashed var(--ana-renk); padding: 15px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; position: relative; margin-bottom: 20px; }
     .alt-sekmeler { display: flex; gap: 10px; width: 100%; margin-bottom: 15px; }
     .alt-sekme { flex: 1; padding: 10px; border: 2px solid transparent; border-radius: 8px; background: rgba(0,0,0,0.1); color: var(--yazi-renk); font-weight: 900; cursor: pointer; font-family: 'Courier New', monospace; font-size: 14px; transition: 0.3s; }
@@ -160,8 +89,6 @@
     .plan-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; background: var(--yazi-renk); color: var(--arkaplan); font-weight: bold; cursor: pointer; font-family: 'Courier New', monospace; font-size: 16px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
     #notDefteri { width: 100%; height: 350px; padding: 15px; border-radius: 8px; border: 2px solid var(--input-border); background: var(--input-bg); color: var(--input-yazi) !important; font-family: 'Courier New', Courier, monospace; font-size: 15px; font-weight: bold; resize: vertical; box-sizing: border-box; transition: 0.3s; }
     #notDefteri:focus { border-color: var(--ana-renk); outline: none; }
-
-    /* ARKAPLAN MODAL EKRANI & GALERİ */
     .bg-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:999; align-items:center; justify-content:center; backdrop-filter:blur(5px); }
     .bg-modal-content { background:var(--kutu-bg); padding:20px; border-radius:15px; width:90%; max-width:350px; border:2px solid var(--ana-renk); box-shadow:0 10px 30px rgba(0,0,0,0.3); color: var(--yazi-renk); overflow: visible; }
     .bg-modal-header { display:flex; justify-content:space-between; margin-bottom:15px; font-size:18px; align-items: center; border-bottom: 2px dashed var(--ana-renk); padding-bottom: 10px;}
@@ -177,33 +104,25 @@
     .bg-item:hover { transform: scale(1.05); }
     .bg-thumb-box { width: 100%; aspect-ratio: 1; border-radius: 8px; border: 2px solid transparent; background-color: rgba(0,0,0,0.1); background-size: cover; background-position: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
     .bg-item.selected .bg-thumb-box { border-color: var(--ana-renk); border-width: 4px;}
-    
-    /* POMODORO TOAST BİLDİRİMİ */
     #pomodoroToast { display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: var(--ana-renk); color: #fff; padding: 20px 30px; border-radius: 15px; font-weight: 900; box-shadow: 0 10px 40px rgba(0,0,0,0.5); z-index: 9999; text-align: center; font-family: 'Courier New', Courier, monospace; border: 3px solid #fff; animation: asagiKay 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     #pomodoroToast h3 { margin: 0 0 10px 0; font-size: 22px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
     #pomodoroToast button { display: block; margin: 15px auto 0 auto; background: #fff; color: var(--ana-renk); border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-weight: 900; font-family: inherit; font-size: 16px; transition: 0.2s; }
     #pomodoroToast button:hover { transform: scale(1.05); background: #f0f0f0; }
     @keyframes asagiKay { from { top: -100px; opacity: 0; } to { top: 20px; opacity: 1; } }
-
-    /* SEO & KURUMSAL METİNLER */
     .seo-metni { max-width: 420px; width: 100%; color: var(--yazi-renk); background: rgba(255,255,255,0.6); backdrop-filter: blur(5px); padding: 15px; border-radius: 10px; font-size: 13px; text-align: center; margin-bottom: 15px; box-sizing: border-box; line-height: 1.4; border: 1px dashed var(--ana-renk); }
     .footer-linkler { max-width: 420px; width: 100%; text-align: center; font-size: 12px; font-weight: bold; color: var(--yazi-renk); margin-bottom: 80px; }
     .footer-linkler span { cursor: pointer; text-decoration: none; margin: 0 8px; border-bottom: 1px solid transparent; transition: 0.2s; }
     .footer-linkler span:hover { border-bottom: 1px solid var(--ana-renk); color: var(--ana-renk); }
-    
     .cerez-kutusu { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.85); color: white; padding: 15px; text-align: center; z-index: 1000; font-family: sans-serif; font-size: 13px; display: none; box-sizing: border-box; border-top: 3px solid var(--ana-renk);}
     .cerez-kutusu button { background: var(--ana-renk); color: white; border: 1px solid #fff; padding: 6px 20px; margin-left: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.2s; }
     .cerez-kutusu button:hover { background: #fff; color: var(--ana-renk); }
-
 </style>
 </head>
 <body>
-
 <div id="cerezUyarisi" class="cerez-kutusu">
     🍪 Bu site, deneyiminizi geliştirmek ve size kişiselleştirilmiş içerik/reklam sunmak için çerezler (cookies) kullanır. Siteyi kullanmaya devam ederek bunu kabul etmiş olursunuz.
     <button onclick="cerezKabul()">Anladım</button>
 </div>
-
 <div id="kurumsalModal" class="bg-modal">
     <div class="bg-modal-content" style="max-width: 400px; text-align: left; font-family: sans-serif; font-size: 13px;">
         <div class="bg-modal-header" style="margin-bottom: 15px; border-bottom: 2px dashed var(--ana-renk);">
@@ -211,26 +130,22 @@
             <button class="bg-close" onclick="document.getElementById('kurumsalModal').style.display='none'">✖</button>
         </div>
         <div id="kurumsalIcerik" style="max-height: 350px; overflow-y: auto; padding-right: 10px; line-height: 1.6;">
-            </div>
+        </div>
     </div>
 </div>
-
 <a href="https://www.instagram.com/ergul.bedirhan/" target="_blank" class="ig-link" title="Instagram Profilim">
     <svg viewBox="0 0 24 24">
         <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
     </svg>
 </a>
-
 <a href="base.apk" download="Olcekmatik.apk" class="apk-link" title="Android Uygulamasını İndir">
     📱 APK İNDİR
 </a>
-
 <div id="pomodoroToast">
     <h3>⏱️ MOLA ZAMANI!</h3>
     25 dakika boyunca aralıksız çalıştın.<br>Verimini korumak için şimdi 5 dakika gözlerini dinlendir.
     <button onclick="document.getElementById('pomodoroToast').style.display='none'">TAMAM</button>
 </div>
-
 <div id="bgModal" class="bg-modal">
     <div class="bg-modal-content">
         <div class="bg-modal-header">
@@ -247,7 +162,6 @@
         </div>
     </div>
 </div>
-
 <div class="kutu">
     <div class="ayarlar">
         <select id="langSelect" onchange="degisDil(this.value)">
@@ -259,12 +173,9 @@
         <button class="ayar-btn" onclick="bgModalAc()">📷</button>
         <button class="ayar-btn" onclick="sifirla()">↺</button>
     </div>
-    
     <input type="file" id="resimYukleyici" accept="image/*" onchange="arkaplanDegistir(this)">
-
     <h2 id="lbl_title">ÖLÇEKMATİK</h2>
     <div class="imza">BEDIR DESIGN</div>
-
     <div class="menu-container">
         <div class="menu">
             <button id="btn1" onclick="modDegis(1)" class="aktif">PROJE</button>
@@ -279,7 +190,6 @@
             <button id="btn4" onclick="modDegis(4)">OYUN</button>
         </div>
     </div>
-
     <div id="mod1" class="mod" style="display:block;">
         <label id="lbl_real">Gerçek Ölçü:</label>
         <div style="display:flex; gap:5px;"><input type="text" inputmode="decimal" id="g_sayi" placeholder="300"><select id="g_birim" style="width:100px;"><option value="cm">CM</option><option value="m">M</option><option value="mm">MM</option></select></div>
@@ -290,41 +200,34 @@
         </select>
         <button id="btn_calc1" class="hesapla" onclick="hesaplaCizim()">HESAPLA >></button><div id="sonuc1" class="sonuc"></div>
     </div>
-
     <div id="mod2" class="mod">
         <label id="lbl_ruler">Cetvel Ölçüsü (CM):</label><input type="text" inputmode="decimal" id="c_sayi" placeholder="4.5">
         <label id="lbl_p_scale">Proje Ölçeği:</label><select id="c_olcek"><option value="2">1/2</option><option value="5">1/5</option><option value="10">1/10</option><option value="20">1/20</option><option value="50" selected>1/50</option><option value="100">1/100</option><option value="200">1/200</option><option value="500">1/500</option></select>
         <button id="btn_conv1" class="hesapla" onclick="hesaplaGercek()">ÇEVİR >></button><div id="sonuc2" class="sonuc"></div>
     </div>
-
     <div id="mod3" class="mod">
         <label id="lbl_kot">Kot Farkı (h):</label><input type="text" id="e_h" placeholder="20">
         <label id="lbl_dist">Mesafe (L):</label><input type="text" id="e_l" placeholder="200">
         <button id="btn_analyse" class="hesapla" onclick="hesaplaEgim()">ANALİZ ET >></button><div id="sonuc3" class="sonuc"></div>
     </div>
-
     <div id="mod5" class="mod">
         <label id="lbl_h">Kat Yüksekliği (h):</label><input type="text" inputmode="decimal" id="m_h" placeholder="300">
         <label id="lbl_b">Basamak Derinliği (b):</label><input type="text" inputmode="decimal" id="m_b" placeholder="">
         <button id="btn_calc2" class="hesapla" onclick="hesaplaMerdiven()">HESAPLA >></button><div id="sonuc5" class="sonuc"></div>
     </div>
-
     <div id="mod6" class="mod">
         <label id="lbl_area">Oda / Alan (cm):</label><div style="display:flex; gap:10px; align-items:center;"><input type="text" inputmode="decimal" id="mal_en" placeholder="En"><span style="font-weight:bold">x</span><input type="text" inputmode="decimal" id="mal_boy" placeholder="Boy"></div>
         <label id="lbl_mat">Malzeme Ölçüsü (cm):</label><div style="display:flex; gap:10px; align-items:center;"><input type="text" inputmode="decimal" id="mz_en" placeholder="En"><span style="font-weight:bold">x</span><input type="text" inputmode="decimal" id="mz_boy" placeholder="Boy"></div>
         <button id="btn_quant" class="hesapla" onclick="hesaplaMalzeme()">METRAJ ÇIKAR >></button><div id="sonuc6" class="sonuc"></div>
     </div>
-
     <div id="mod7" class="mod">
         <label id="lbl_edge">Bilinen Kenar (cm):</label><input type="text" id="ao_val" placeholder="100">
         <button id="btn_ratio" class="hesapla" onclick="hesaplaAltinOran()">ORANLA >></button><div id="sonuc7" class="sonuc"></div>
     </div>
-
     <div id="mod8" class="mod">
         <label id="lbl_val">Değer Gir:</label><div style="display:flex; gap:5px;"><input type="text" id="cv_val" placeholder="5"><select id="cv_tip" style="width:100px;"><option value="ft">Feet</option><option value="in">Inch</option></select></div>
         <button id="btn_conv2" class="hesapla" onclick="cevirBirim()">ÇEVİR (CM) >></button><div id="sonuc8" class="sonuc"></div>
     </div>
-
     <div id="mod9" class="mod">
         <input type="text" id="calc-screen" readonly value="">
         <div class="calc-grid">
@@ -335,7 +238,6 @@
             <button class="calc-btn" onclick="calcAppend('0')" style="grid-column: span 2;">0</button><button class="calc-btn" onclick="calcAppend('.')">.</button>
         </div>
     </div>
-
     <div id="mod10" class="mod">
         <div class="sayac-alani" style="margin-top:0; border:none; padding-bottom:5px;">SKOR: <span id="soruSkor" style="color:var(--ana-renk)">0</span></div>
         <div id="soruMetni" style="font-weight:bold; font-size:16px; margin-bottom:15px; text-align:center; color:var(--yazi-renk); min-height: 60px; display: flex; align-items: center; justify-content: center;">Soru yükleniyor...</div>
@@ -346,14 +248,12 @@
         </div>
         <div id="soruSonuc" class="sonuc"></div>
     </div>
-
     <div id="mod4" class="mod">
         <div class="game-menu">
             <button id="gm-btn-mine" class="gm-btn aktif" onclick="switchGame('mine')">💣</button>
             <button id="gm-btn-snake" class="gm-btn" onclick="switchGame('snake')">🐍</button>
             <button id="gm-btn-bj" class="gm-btn" onclick="switchGame('bj')">🃏 21</button>
         </div>
-
         <div id="game-mine" class="game-wrapper active">
             <div class="oyun-header">
                 <div class="oyun-skor">💣 <span id="mayinSayac">15</span></div>
@@ -366,7 +266,6 @@
             <div id="mayinTarlasi" class="mayin-grid"></div>
             <div id="oyunSonuc" class="sonuc"></div>
         </div>
-
         <div id="game-snake" class="game-wrapper">
             <div class="game-score"><span id="lbl_score">SKOR</span>: <span id="snakeScore">0</span></div>
             <div style="position:relative;">
@@ -377,7 +276,6 @@
                 </div>
             </div>
         </div>
-
         <div id="game-bj" class="game-wrapper">
             <div class="bj-masa">
                 <div class="bj-alan">
@@ -397,17 +295,14 @@
             </div>
         </div>
     </div>
-
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.16.1</div>
+    <div class="versiyon">v4.17.0</div>
 </div>
-
 <div class="alt-modul">
     <div class="alt-sekmeler">
         <button id="btnPlan" class="alt-sekme aktif" onclick="altSekmeDegis('plan')">📐 PLAN MASASI</button>
         <button id="btnNot" class="alt-sekme" onclick="altSekmeDegis('not')">📝 NOTLAR</button>
     </div>
-    
     <div id="icerikPlan" class="alt-icerik aktif">
         <div class="plan-sahne" id="sahneContainer">
             <div id="planGorsel" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#888;">...</div>
@@ -420,24 +315,20 @@
         </div>
         <input type="file" id="planYukleyici" accept="image/*" onchange="planYukle(this)">
     </div>
-
     <div id="icerikNot" class="alt-icerik">
         <textarea id="notDefteri" placeholder="Ölçüleri, fikirleri veya yapılacakları buraya yaz..." oninput="notKaydet()"></textarea>
     </div>
 </div>
-
 <div class="seo-metni">
     <strong style="color:var(--ana-renk); font-size:15px;">Ölçekmatik Nedir?</strong><br><br>
     Ölçekmatik; mimarlar, iç mimarlar, mühendisler ve tasarım öğrencileri için geliştirilmiş ücretsiz ve pratik bir <b>mimari ölçek hesaplama aracıdır</b>. Projelerinizde kağıt üzerindeki ölçüleri gerçek ölçülere veya gerçek ölçüleri plan ölçeklerine (1/20, 1/50, 1/100 vb.) hızlıca çevirebilirsiniz. Ayrıca merdiven rıht/basamak analizi, kot farkı (eğim) hesaplaması ve seramik, parke gibi yapı malzemeleri için hızlı metraj çıkarma işlemlerini saniyeler içinde yapmanızı sağlar.
 </div>
-
 <div class="footer-linkler">
     <span onclick="kurumsalAc('hakkimizda')">Hakkımızda & İletişim</span> | 
     <span onclick="kurumsalAc('gizlilik')">Gizlilik Politikası</span> | 
     <span onclick="kurumsalAc('kullanim')">Kullanım Koşulları</span><br><br>
     <div style="font-weight:normal; opacity:0.7;">© 2026 Bedir Design. Tüm Hakları Saklıdır.</div>
 </div>
-
 <script>
     var curLang = 'tr';
     const t = {
@@ -506,20 +397,16 @@
             gm_win: "لقد فزت!", gm_lose: "لقد خسرت!", gm_draw: "تعادل", gm_bust: "خسارة!", gm_dealer_bust: "خسارة الموزع!"
         }
     };
-
     const hazirGorsellerListesi = [
         "atakoy ustgecit.jpg", "kedi2.jpg", "kedisi.jpg", "sanat eseri.jpg", "aslan.jpg",
         "WhatsApp Image 2026-03-08 at 01.52.44.jpeg", "WIN_20260204_05_16_26_Pro.jpg",
         "WhatsApp Image 2026-03-08 at 01.48.49.jpg", "WhatsApp Image 2026-03-08 at 01.56.22 (1).jpeg",
         "WhatsApp Image 2026-03-08 at 01.56.22.jpeg", "WhatsApp Image 2026-03-08 at 01.43.30.jpeg"
     ];
-
     var planScale = 1; var planX = 0; var planY = 0; var isDragging = false; var startX, startY;
     var activeGameLoop = null;
-
     let soruDogruCevap = 0; 
     let soruSkor = 0;
-
     window.onload = function() {
         if(!localStorage.getItem('bedir_cerez_onay')) { document.getElementById('cerezUyarisi').style.display = 'block'; }
         var kayitli = localStorage.getItem('bedir_arkaplan_v410'); if(kayitli) { resmiUygula(kayitli); }
@@ -529,17 +416,13 @@
             document.getElementById('langSelect').value = curLang; 
         }
         var kayitliNot = localStorage.getItem('bedir_notlar'); if(kayitliNot) { document.getElementById('notDefteri').value = kayitliNot; }
-
         updateLanguageUI(); sayaciCalistir();
-        
         var sahne = document.getElementById('sahneContainer');
         sahne.addEventListener('mousedown', baslaSurukle); sahne.addEventListener('touchstart', baslaSurukle, {passive: false});
         window.addEventListener('mousemove', surukle); window.addEventListener('touchmove', surukle, {passive: false});
         window.addEventListener('mouseup', bitirSurukle); window.addEventListener('touchend', bitirSurukle);
-        
         setupEnterKeys(); oyunuBaslat(); setupSnakeControls(); setupCalcKeys();
     };
-
     function kurumsalAc(tip) {
         document.getElementById('kurumsalModal').style.display = 'flex';
         let baslik = "", icerik = "";
@@ -548,9 +431,7 @@
         else if(tip === 'kullanim') { baslik = "Kullanım Koşulları (Terms of Use)"; icerik = "<b>1. Hizmetin Doğası:</b> Ölçekmatik tarafından sağlanan hesaplamalar (ölçek çevirme, merdiven rıht hesabı, alan metrajı vb.) pratiklik sağlamak amacıyla sunulan yardımcı araçlar niteliğindedir.<br><br><b>2. Sorumluluk Reddi:</b> Uygulama sonuçlarının doğruluğunu optimize etmek için çaba göstersek de, profesyonel ve yasal kesinlik gerektiren (şantiye, resmi evrak, ihale vb.) projelerde manuel ve detaylı kontrol yapılması tamamen kullanıcının sorumluluğundadır. Doğabilecek teknik, maddi veya manevi hatalardan Bedir Design (olcekmatik.com.tr) sorumlu tutulamaz.<br><br><b>3. Fikri Mülkiyet:</b> Sitenin arayüz tasarımı, kod altyapısı ve 'Ölçekmatik' markası Bedir Design'a aittir. İzinsiz kopyalanması veya ticari amaçla başka bir sunucuda yayınlanması yasaktır."; }
         document.getElementById('kurumsalBaslik').innerText = baslik; document.getElementById('kurumsalIcerik').innerHTML = icerik;
     }
-
     function cerezKabul() { localStorage.setItem('bedir_cerez_onay', 'true'); document.getElementById('cerezUyarisi').style.display = 'none'; }
-
     function yeniSoruUret() {
         document.getElementById('soruCevap').value = ''; document.getElementById('soruSonuc').style.display = 'none';
         const olcekler = [20, 50, 100, 200, 500]; let S = olcekler[Math.floor(Math.random() * olcekler.length)]; let tip = Math.random() > 0.5 ? 1 : 2; let metin = "";
@@ -573,7 +454,6 @@
         }
         document.getElementById('soruMetni').innerText = metin;
     }
-
     function soruCevapla() {
         let val = document.getElementById('soruCevap').value; if(!val) return; let cvp = parseFloat(val.replace(',', '.')); if (isNaN(cvp)) return;
         if (Math.abs(cvp - soruDogruCevap) < 0.01) { 
@@ -592,43 +472,34 @@
             setTimeout(yeniSoruUret, 2500); 
         }
     }
-
     function altSekmeDegis(sekme) { document.getElementById('btnPlan').classList.remove('aktif'); document.getElementById('btnNot').classList.remove('aktif'); document.getElementById('icerikPlan').classList.remove('aktif'); document.getElementById('icerikNot').classList.remove('aktif'); if(sekme === 'plan') { document.getElementById('btnPlan').classList.add('aktif'); document.getElementById('icerikPlan').classList.add('aktif'); } else { document.getElementById('btnNot').classList.add('aktif'); document.getElementById('icerikNot').classList.add('aktif'); } }
     function notKaydet() { var notIcerik = document.getElementById('notDefteri').value; localStorage.setItem('bedir_notlar', notIcerik); }
-    
     function degisDil(val) { 
         curLang = val; 
         localStorage.setItem('bedir_lang', val); 
         updateLanguageUI(); 
         if(document.getElementById('mod10').style.display === 'block'){ yeniSoruUret(); } 
-        // Estetik bozulmaması için RTL (Sağdan Sola) düzeni kaldırıldı.
     }
-    
     function updateLanguageUI() { var d = t[curLang]; for (const [key, value] of Object.entries(d)) { var el = document.getElementById(key); if(el) { if(el.tagName === 'INPUT') el.placeholder = value; else el.innerText = value; } } document.getElementById('btn_start_snake').innerText = d.btn_start; document.getElementById('bjMessage').innerText = d.bj_start_msg; }
     function bgModalAc() { document.getElementById('bgModal').style.display = 'flex'; document.getElementById('bgSecenekler').style.display = 'block'; document.getElementById('bgHazirlar').style.display = 'none'; }
     function bgModalKapat() { document.getElementById('bgModal').style.display = 'none'; }
     function galeridenYukle() { bgModalKapat(); document.getElementById('resimYukleyici').click(); }
-
     function hazirGorselGoster() {
         document.getElementById('bgSecenekler').style.display = 'none'; document.getElementById('bgHazirlar').style.display = 'block'; let grid = document.getElementById('bgGridContainer'); grid.innerHTML = ''; var suankiUrl = localStorage.getItem('bedir_arkaplan_v410');
         hazirGorsellerListesi.forEach(src => { let item = document.createElement('div'); item.className = 'bg-item'; if (suankiUrl === src) { item.classList.add('selected'); } item.onclick = () => hazirGorselSec(src); let box = document.createElement('div'); box.className = 'bg-thumb-box'; box.style.backgroundImage = "url('" + src + "')"; item.appendChild(box); grid.appendChild(item); });
     }
-
     function bgGeri() { document.getElementById('bgSecenekler').style.display = 'block'; document.getElementById('bgHazirlar').style.display = 'none'; }
     function hazirGorselSec(src) { bgModalKapat(); resmiUygula(src); localStorage.setItem('bedir_arkaplan_v410', src); }
     function arkaplanDegistir(input) { if(input.files && input.files[0]) { var r = new FileReader(); r.onload = function(e) { try { localStorage.setItem('bedir_arkaplan_v410', e.target.result); } catch(e){} resmiUygula(e.target.result); }; r.readAsDataURL(input.files[0]); } }
     function resmiUygula(url) { document.body.style.backgroundImage = "url('" + url + "')"; var i = new Image(); i.src = url; i.onload = function() { temaGuncelle(renkAnaliz(i)); } }
     function renkAnaliz(i) { var c = document.createElement('canvas'); var x = c.getContext('2d'); c.width = 50; c.height = 50; x.drawImage(i,0,0,50,50); try { var d = x.getImageData(0,0,50,50).data; var r = 0, g = 0, b = 0, k = 0; for(var j = 0; j < d.length; j += 4) { r += d[j]; g += d[j+1]; b += d[j+2]; k++; } return { r:Math.floor(r/k), g:Math.floor(g/k), b:Math.floor(b/k) }; } catch(e) { return { r:140, g:106, b:84 }; } }
-    
     function temaGuncelle(rgb) { var root = document.documentElement.style; var ana = `rgb(${rgb.r},${rgb.g},${rgb.b})`; root.setProperty('--ana-renk', ana); var p = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000; if(p > 140) { root.setProperty('--yazi-renk', '#000'); root.setProperty('--kutu-bg', 'rgba(255,255,255,0.85)'); root.setProperty('--sekme-pasif', 'rgba(0,0,0,0.1)'); } else { root.setProperty('--yazi-renk', '#fff'); root.setProperty('--kutu-bg', 'rgba(0,0,0,0.5)'); root.setProperty('--sekme-pasif', 'rgba(255,255,255,0.2)'); if(p < 40) root.setProperty('--ana-renk', `rgb(${rgb.r+50},${rgb.g+50},${rgb.b+50})`); } }
     function sifirla() { localStorage.removeItem('bedir_arkaplan_v410'); localStorage.removeItem('bedir_lang'); localStorage.removeItem('bedir_notlar'); location.reload(); }
-
     function setupEnterKeys() { const bind = (inIds, btnId) => { if(!Array.isArray(inIds)) inIds = [inIds]; inIds.forEach(id => { let el = document.getElementById(id); if(el) { el.addEventListener("keyup", function(e) { if(e.key === "Enter") document.getElementById(btnId).click(); }); } }); }; bind("g_sayi", "btn_calc1"); bind("c_sayi", "btn_conv1"); bind(["e_h", "e_l"], "btn_analyse"); bind(["m_h", "m_b"], "btn_calc2"); bind(["mal_en", "mal_boy", "mz_en", "mz_boy"], "btn_quant"); bind("ao_val", "btn_ratio"); bind("cv_val", "btn_conv2"); bind("soruCevap", "btn_cevapla"); }
     function modDegis(no) { for(let i=1; i<=10; i++) { if(document.getElementById('mod'+i)) { document.getElementById('mod'+i).style.display = 'none'; if(document.getElementById('btn'+i)) document.getElementById('btn'+i).className = ''; } } document.getElementById('mod'+no).style.display = 'block'; if(document.getElementById('btn'+no)) document.getElementById('btn'+no).className = 'aktif'; var s = document.getElementsByClassName('sonuc'); for(let k of s) k.style.display = 'none'; if(no !== 4) { oyunAktif = false; if(activeGameLoop) { cancelAnimationFrame(activeGameLoop); activeGameLoop = null; } } if(no === 10 && document.getElementById('soruMetni').innerText === "Soru yükleniyor...") { yeniSoruUret(); } }
     function temizle(v) { return parseFloat(v.replace(',', '.')); }
     function goster(id, t) { var k = document.getElementById(id); k.style.display = 'block'; k.innerHTML = t; }
     function sayaciCalistir() { let s = 0; setInterval(function() { s++; let sa = Math.floor(s/3600); let dk = Math.floor((s%3600)/60); let sn = s%60; document.getElementById('oturumSayaci').innerText = (sa<10?"0"+sa:sa) + ":" + (dk<10?"0"+dk:dk) + ":" + (sn<10?"0"+sn:sn); if (s > 0 && s % 1500 === 0) { document.getElementById('pomodoroToast').style.display = 'block'; } }, 1000); }
-
     function hesaplaCizim() { var v = temizle(document.getElementById('g_sayi').value); var o = parseInt(document.getElementById('g_olcek').value); var cm = (document.getElementById('g_birim').value == 'm') ? v*100 : ((document.getElementById('g_birim').value == 'mm') ? v/10 : v); goster('sonuc1', `${t[curLang].res_drawn}: ${(cm/o).toFixed(2)} CM`); }
     function hesaplaGercek() { var v = temizle(document.getElementById('c_sayi').value); var o = parseInt(document.getElementById('c_olcek').value); goster('sonuc2', `${t[curLang].res_real}: ${((v*o)/100).toFixed(2)} M`); }
     function hesaplaEgim() { var h = temizle(document.getElementById('e_h').value); var l = temizle(document.getElementById('e_l').value); var e = (h/l) * 100; goster('sonuc3', `${t[curLang].res_slope}: %${e.toFixed(1)}`); }
@@ -636,21 +507,16 @@
     function hesaplaMalzeme() { var en = temizle(document.getElementById('mal_en').value); var boy = temizle(document.getElementById('mal_boy').value); var men = temizle(document.getElementById('mz_en').value); var mboy = temizle(document.getElementById('mz_boy').value); if(isNaN(en) || isNaN(boy) || isNaN(men) || isNaN(mboy)) return; var alan = en * boy; var mal = men * mboy; var adet = alan / mal; var fire = Math.ceil(adet * 1.1); var d = t[curLang]; goster('sonuc6', `${d.res_area}: ${(alan/10000).toFixed(2)} m²<br>${d.res_need}: ${fire} ${d.res_count}<br><small>(${d.res_fire})</small>`); }
     function hesaplaAltinOran() { var v = temizle(document.getElementById('ao_val').value); goster('sonuc7', `${t[curLang].res_long}: ${(v*1.618).toFixed(1)} cm`); }
     function cevirBirim() { var v = temizle(document.getElementById('cv_val').value); var r = (document.getElementById('cv_tip').value == 'ft') ? v * 30.48 : v * 2.54; goster('sonuc8', `${t[curLang].res_result}: ${r.toFixed(2)} cm`); }
-
     function setupCalcKeys() { document.addEventListener('keydown', function(event) { if(document.getElementById('mod9').style.display === 'block') { const key = event.key; if(/[0-9]/.test(key)) calcAppend(key); if(['+', '-', '*', '/'].includes(key)) calcAppend(key); if(key === '.' || key === ',') calcAppend('.'); if(key === 'Enter' || key === '=') calcResult(); if(key === 'Backspace' || key === 'Escape' || key.toLowerCase() === 'c') calcClear(); } }); }
     var currentCalc = ""; function calcAppend(v) { currentCalc += v; document.getElementById('calc-screen').value = currentCalc; } function calcClear() { currentCalc = ""; document.getElementById('calc-screen').value = ""; } function calcResult() { try { var r = new Function('return ' + currentCalc)(); if(!isFinite(r)) r = "Hata"; document.getElementById('calc-screen').value = r; currentCalc = r.toString(); } catch(e) { document.getElementById('calc-screen').value = "Hata"; currentCalc = ""; } } function calcPercent() { try { var v = parseFloat(currentCalc); if(!isNaN(v)) { v = v/100; currentCalc = v.toString(); document.getElementById('calc-screen').value = currentCalc; } } catch(e) {} }
-
     function planSec() { document.getElementById('planYukleyici').click(); } function planYukle(input) { if(input.files && input.files[0]) { var r = new FileReader(); r.onload = function(e) { var h = '<img id="gercekPlan" src="'+e.target.result+'" style="max-width:100%; transform: scale(1) translate(0px, 0px);">'; document.getElementById('planGorsel').innerHTML = h; planReset(); }; r.readAsDataURL(input.files[0]); } } function gorselGuncelle() { var i = document.getElementById('gercekPlan'); if(i) i.style.transform = `translate(${planX}px, ${planY}px) scale(${planScale})`; } function planZoom(v) { planScale += v; if(planScale < 0.5) planScale = 0.5; gorselGuncelle(); } function planReset() { planScale = 1; planX = 0; planY = 0; gorselGuncelle(); } function baslaSurukle(e) { if(!document.getElementById('gercekPlan')) return; isDragging = true; var cx = e.clientX || e.touches[0].clientX; var cy = e.clientY || e.touches[0].clientY; startX = cx - planX; startY = cy - planY; e.preventDefault(); } function surukle(e) { if(!isDragging) return; var cx = e.clientX || e.touches[0].clientX; var cy = e.clientY || e.touches[0].clientY; planX = cx - startX; planY = cy - startY; gorselGuncelle(); e.preventDefault(); } function bitirSurukle() { isDragging = false; }
-
     function switchGame(game) { if(activeGameLoop) { cancelAnimationFrame(activeGameLoop); activeGameLoop = null; } document.querySelectorAll('.game-wrapper').forEach(el => el.classList.remove('active')); document.querySelectorAll('.gm-btn').forEach(el => el.classList.remove('aktif')); document.getElementById('game-'+game).classList.add('active'); document.getElementById('gm-btn-'+game).classList.add('aktif'); if(game === 'mine') oyunuBaslat(); if(game === 'snake') document.getElementById('snakeOverlay').style.display = 'flex'; }
-
     const sc = document.getElementById('snakeCanvas'); const sCtx = sc.getContext('2d'); let snake = [], food = {}, dir = 'RIGHT', nextDir = 'RIGHT', snakeScore = 0; const box = 15;
     function startSnake() { document.getElementById('snakeOverlay').style.display = 'none'; snake = [{x: 9*box, y: 10*box}]; dir = 'RIGHT'; nextDir = 'RIGHT'; snakeScore = 0; document.getElementById('snakeScore').innerText = 0; placeFood(); if(activeGameLoop) cancelAnimationFrame(activeGameLoop); snakeLoop(); }
     function placeFood() { food = { x: Math.floor(Math.random() * (sc.width/box)) * box, y: Math.floor(Math.random() * (sc.height/box)) * box } } let lastTime = 0;
     function snakeLoop(timestamp) { if (!document.getElementById('game-snake').classList.contains('active')) return; activeGameLoop = requestAnimationFrame(snakeLoop); if (timestamp - lastTime < 100) return; lastTime = timestamp; sCtx.fillStyle = '#fff'; sCtx.fillRect(0,0,sc.width,sc.height); dir = nextDir; let snakeX = snake[0].x; let snakeY = snake[0].y; if(dir == 'LEFT') snakeX -= box; if(dir == 'UP') snakeY -= box; if(dir == 'RIGHT') snakeX += box; if(dir == 'DOWN') snakeY += box; if(snakeX < 0 || snakeX >= sc.width || snakeY < 0 || snakeY >= sc.height || collision(snakeX, snakeY, snake)) { cancelAnimationFrame(activeGameLoop); document.getElementById('snakeOverlay').style.display = 'flex'; document.querySelector('#snakeOverlay div').innerText = t[curLang].gm_lose + " " + t[curLang].lbl_score + ": " + snakeScore; return; } if(snakeX == food.x && snakeY == food.y) { snakeScore++; document.getElementById('snakeScore').innerText = snakeScore; placeFood(); } else { snake.pop(); } let newHead = {x: snakeX, y: snakeY}; snake.unshift(newHead); for(let i=0; i<snake.length; i++) { sCtx.fillStyle = (i==0) ? getComputedStyle(document.documentElement).getPropertyValue('--ana-renk').trim() : "#aaa"; sCtx.fillRect(snake[i].x, snake[i].y, box, box); sCtx.strokeStyle = "#fff"; sCtx.strokeRect(snake[i].x, snake[i].y, box, box); } sCtx.fillStyle = "red"; sCtx.fillRect(food.x, food.y, box, box); }
     function collision(x, y, array) { for(let i=0; i<array.length; i++) { if(x == array[i].x && y == array[i].y) return true; } return false; }
     function setupSnakeControls() { window.addEventListener('keydown', function(e) { if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) { if(document.getElementById('game-snake').classList.contains('active')) { e.preventDefault(); } } }, false); document.addEventListener('keydown', function(event) { let key = event.keyCode; if((key==37 || key==65) && dir!='RIGHT') nextDir='LEFT'; else if((key==38 || key==87) && dir!='DOWN') nextDir='UP'; else if((key==39 || key==68) && dir!='LEFT') nextDir='RIGHT'; else if((key==40 || key==83) && dir!='UP') nextDir='DOWN'; }); let tsX, tsY; sc.addEventListener('touchstart', function(e) { tsX = e.touches[0].clientX; tsY = e.touches[0].clientY; e.preventDefault(); }, {passive: false}); sc.addEventListener('touchmove', function(e) { e.preventDefault(); }, {passive: false}); sc.addEventListener('touchend', function(e) { let teX = e.changedTouches[0].clientX; let teY = e.changedTouches[0].clientY; let dx = teX - tsX; let dy = teY - tsY; if(Math.abs(dx) > Math.abs(dy)) { if(dx > 0 && dir!='LEFT') nextDir='RIGHT'; else if(dx < 0 && dir!='RIGHT') nextDir='LEFT'; } else { if(dy > 0 && dir!='UP') nextDir='DOWN'; else if(dy < 0 && dir!='DOWN') nextDir='UP'; } }); }
-
     const bj_suits = ['♥', '♦', '♣', '♠']; const bj_values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']; let deck = [], playerHand = [], dealerHand = [], bjGameActive = false;
     function createDeck() { deck = []; for (let s of bj_suits) { for (let v of bj_values) { deck.push({ suit: s, value: v }); } } for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; } }
     function getCardValue(card) { if (['J', 'Q', 'K'].includes(card.value)) return 10; if (card.value === 'A') return 11; return parseInt(card.value); }
@@ -661,7 +527,6 @@
     function bjHit() { if (!bjGameActive) return; playerHand.push(deck.pop()); updateBJUI(false); if (getHandScore(playerHand) > 21) bjEnd(false, t[curLang].gm_bust); }
     function bjStand() { if (!bjGameActive) return; let dScore = getHandScore(dealerHand); while (dScore < 17) { dealerHand.push(deck.pop()); dScore = getHandScore(dealerHand); } updateBJUI(true); let pScore = getHandScore(playerHand); if (dScore > 21) bjEnd(true, t[curLang].gm_dealer_bust + " " + t[curLang].gm_win); else if (pScore > dScore) bjEnd(true, t[curLang].gm_win); else if (pScore < dScore) bjEnd(false, t[curLang].gm_lose); else bjEnd(true, t[curLang].gm_draw); }
     function bjEnd(win, msg) { bjGameActive = false; document.getElementById('bjHit').disabled = true; document.getElementById('bjStand').disabled = true; document.getElementById('bjNew').disabled = false; updateBJUI(true); let color = win ? "green" : "red"; if(msg.includes(t[curLang].gm_draw)) color = "orange"; document.getElementById('bjMessage').innerHTML = `<span style='color:${color}'>${msg}</span>`; }
-
     const SATIR=10, SUTUN=10, MAYIN_SAYISI=15; let oyunGrid=[], oyunAktif=false, kazmaModu=true;
     function modDegistirOyun(kaz) { kazmaModu=kaz; document.getElementById('btnKaz').className = kaz ? 'oyun-btn aktif-mod' : 'oyun-btn'; document.getElementById('btnBayrak').className = !kaz ? 'oyun-btn aktif-mod' : 'oyun-btn'; }
     function oyunuBaslat() { const g = document.getElementById('mayinTarlasi'); g.innerHTML = ''; oyunGrid = []; oyunAktif = true; document.getElementById('mayinSayac').innerText = MAYIN_SAYISI; document.getElementById('oyunSonuc').style.display = 'none'; for(let i=0; i<SATIR; i++){ let rArr=[]; for(let j=0; j<SUTUN; j++){ let h = document.createElement('div'); h.className = 'hucre'; h.onclick = () => hucreTikla(i,j); g.appendChild(h); rArr.push({el:h, mayin:false, acik:false, bayrak:false, sayi:0}); } oyunGrid.push(rArr); } let m=0; while(m < MAYIN_SAYISI){ let r = Math.floor(Math.random()*SATIR), c = Math.floor(Math.random()*SUTUN); if(!oyunGrid[r][c].mayin){ oyunGrid[r][c].mayin = true; m++; } } for(let i=0; i<SATIR; i++){ for(let j=0; j<SUTUN; j++){ if(!oyunGrid[i][j].mayin){ let c=0; for(let x=-1; x<=1; x++){ for(let y=-1; y<=1; y++){ let ni=i+x, nj=j+y; if(ni>=0 && ni<SATIR && nj>=0 && nj<SUTUN && oyunGrid[ni][nj].mayin) c++; } } oyunGrid[i][j].sayi = c; } } } }
@@ -670,6 +535,5 @@
     function oyunBitir(k){ oyunAktif = false; let s = document.getElementById('oyunSonuc'); s.style.display = 'block'; if(k) { s.innerHTML = "<span style='color:green'>"+t[curLang].gm_win+" 🎉</span>"; } else { s.innerHTML = "<span style='color:red'>"+t[curLang].gm_lose+" 💥</span>"; for(let i=0; i<SATIR; i++) { for(let j=0; j<SUTUN; j++) { if(oyunGrid[i][j].mayin){ oyunGrid[i][j].el.innerText = '💣'; if(!oyunGrid[i][j].bayrak) oyunGrid[i][j].el.style.color = 'white'; } } } } }
     function kazanmaKontrol(){ let k=0; for(let i=0; i<SATIR; i++) for(let j=0; j<SUTUN; j++) if(!oyunGrid[i][j].acik) k++; if(k === MAYIN_SAYISI) oyunBitir(true); }
 </script>
-
 </body>
 </html>
