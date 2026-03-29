@@ -9,20 +9,16 @@
 <meta name="author" content="Bedirhan - Bedir Design">
 <meta name="robots" content="index, follow">
 <link rel="manifest" href="manifest.json">
-
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8466515091566751" crossorigin="anonymous"></script>
-
 <style>
     :root { --arkaplan: #F2E8DC; --ana-renk: #8C6A54; --yazi-renk: #3E2C22; --kutu-bg: rgba(196, 176, 163, 0.95); --input-bg: #FFFDF9; --input-border: #D9C6B8; --input-yazi: #3E2C22; --sekme-aktif: #ffffff; --sekme-pasif: rgba(62, 44, 34, 0.15); }
     
-    /* --- GENEL KAYDIRMA ÇUBUĞU (SCROLLBAR) --- */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: var(--arkaplan); transition: 0.3s; }
-    ::-webkit-scrollbar-thumb { background: var(--ana-renk); border-radius: 10px; border: 1px solid var(--arkaplan); }
-    ::-webkit-scrollbar-thumb:hover { background: var(--yazi-renk); }
-    * { scrollbar-width: thin; scrollbar-color: var(--ana-renk) var(--arkaplan); }
+    html::-webkit-scrollbar { width: 8px; }
+    html::-webkit-scrollbar-track { background: var(--arkaplan); }
+    html::-webkit-scrollbar-thumb { background: var(--ana-renk); border-radius: 10px; border: 1px solid var(--arkaplan); }
+    html { scrollbar-width: thin; scrollbar-color: var(--ana-renk) var(--arkaplan); }
 
-    body { font-family: 'Courier New', Courier, monospace; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; color: var(--yazi-renk); background-color: var(--arkaplan); background-size: cover; background-position: center; background-attachment: fixed; transition: background 0.5s ease, color 0.5s ease; }
+    body { font-family: 'Courier New', Courier, monospace; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; color: var(--yazi-renk); background-color: var(--arkaplan); background-size: cover; background-position: center; background-attachment: fixed; transition: background 0.5s ease, color 0.5s ease; overscroll-behavior: none; }
     .ig-link { position: fixed; bottom: 20px; left: 20px; z-index: 50; background: var(--kutu-bg); padding: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; border: 2px solid var(--ana-renk); color: var(--ana-renk); backdrop-filter: blur(5px); }
     .ig-link:hover { transform: scale(1.15) rotate(5deg); background: var(--ana-renk); color: #fff; }
     .ig-link svg { width: 28px; height: 28px; fill: currentColor; }
@@ -35,8 +31,8 @@
     #langSelect { height: 38px; border-radius: 10px; border: 1px solid var(--yazi-renk); background: rgba(255,255,255,0.3); color: var(--yazi-renk); font-weight: bold; font-family: 'Courier New', monospace; padding: 0 5px; cursor: pointer; }
     h2 { text-align: center; color: var(--yazi-renk); margin-top: 80px; margin-bottom: 5px; font-size: 34px; font-weight: 900; letter-spacing: -1px; text-shadow: 2px 2px 0px var(--ana-renk); border-bottom: 3px solid var(--ana-renk); display: inline-block; position: relative; left: 50%; transform: translateX(-50%); padding-bottom: 5px; width: 90%; }
     .imza { text-align: center; font-size: 13px; opacity: 0.9; margin-bottom: 25px; font-weight: bold; letter-spacing: 2px; color: var(--yazi-renk); }
-    .menu-container { overflow-x: auto; white-space: nowrap; margin: 0 15px 15px 15px; padding-bottom: 5px; }
-    .menu-container::-webkit-scrollbar { height: 0; }
+    .menu-container { overflow-x: auto; white-space: nowrap; margin: 0 15px 15px 15px; padding-bottom: 5px; scrollbar-width: none; -ms-overflow-style: none; }
+    .menu-container::-webkit-scrollbar { display: none; }
     .menu { display: inline-flex; gap: 8px; }
     .menu button { padding: 12px 16px; border: 1px solid transparent; border-radius: 10px; background: var(--sekme-pasif); font-weight: 900; cursor: pointer; font-family: 'Courier New', Courier, monospace; font-size: 14px; color: var(--yazi-renk); transition: 0.3s; flex-shrink: 0; }
     .menu button.aktif { background: var(--ana-renk); color: #fff; border-color: rgba(255,255,255,0.5); box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-shadow: 0 1px 1px rgba(0,0,0,0.2); }
@@ -107,6 +103,8 @@
     .bg-btn { width:100%; padding:15px; margin-bottom:10px; border-radius:10px; border:2px solid var(--ana-renk); background:var(--input-bg); color:var(--input-yazi); font-weight:bold; font-size:16px; cursor:pointer; font-family:inherit; transition:0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
     .bg-btn:hover { background:var(--ana-renk); color:#fff; }
     .bg-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; max-height: 350px; overflow-y: auto; padding-right: 5px; padding-bottom: 10px;}
+    .bg-grid::-webkit-scrollbar { width: 5px; }
+    .bg-grid::-webkit-scrollbar-thumb { background: var(--ana-renk); border-radius: 10px; }
     .bg-geri { background:none; border:none; color:var(--yazi-renk); font-weight:bold; cursor:pointer; padding:5px 0; font-family:inherit; font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;}
     .bg-item { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; transition: 0.2s; }
     .bg-item:hover { transform: scale(1.05); }
@@ -304,7 +302,7 @@
         </div>
     </div>
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.20.0</div>
+    <div class="versiyon">v4.21.0</div>
 </div>
 <div class="alt-modul">
     <div class="alt-sekmeler">
