@@ -399,7 +399,7 @@
     </div>
 
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.16.0</div>
+    <div class="versiyon">v4.16.1</div>
 </div>
 
 <div class="alt-modul">
@@ -527,7 +527,6 @@
         if(savedLang) { 
             curLang = savedLang; 
             document.getElementById('langSelect').value = curLang; 
-            if(curLang === 'ar') document.body.dir = 'rtl';
         }
         var kayitliNot = localStorage.getItem('bedir_notlar'); if(kayitliNot) { document.getElementById('notDefteri').value = kayitliNot; }
 
@@ -596,13 +595,13 @@
 
     function altSekmeDegis(sekme) { document.getElementById('btnPlan').classList.remove('aktif'); document.getElementById('btnNot').classList.remove('aktif'); document.getElementById('icerikPlan').classList.remove('aktif'); document.getElementById('icerikNot').classList.remove('aktif'); if(sekme === 'plan') { document.getElementById('btnPlan').classList.add('aktif'); document.getElementById('icerikPlan').classList.add('aktif'); } else { document.getElementById('btnNot').classList.add('aktif'); document.getElementById('icerikNot').classList.add('aktif'); } }
     function notKaydet() { var notIcerik = document.getElementById('notDefteri').value; localStorage.setItem('bedir_notlar', notIcerik); }
+    
     function degisDil(val) { 
         curLang = val; 
         localStorage.setItem('bedir_lang', val); 
         updateLanguageUI(); 
         if(document.getElementById('mod10').style.display === 'block'){ yeniSoruUret(); } 
-        // Arapça için sağdan sola (RTL) düzeni aktif et
-        document.body.dir = val === 'ar' ? 'rtl' : 'ltr';
+        // Estetik bozulmaması için RTL (Sağdan Sola) düzeni kaldırıldı.
     }
     
     function updateLanguageUI() { var d = t[curLang]; for (const [key, value] of Object.entries(d)) { var el = document.getElementById(key); if(el) { if(el.tagName === 'INPUT') el.placeholder = value; else el.innerText = value; } } document.getElementById('btn_start_snake').innerText = d.btn_start; document.getElementById('bjMessage').innerText = d.bj_start_msg; }
