@@ -34,7 +34,6 @@
     h2 { text-align: center; color: var(--yazi-renk); margin-top: 80px; margin-bottom: 5px; font-size: 34px; font-weight: 900; letter-spacing: -1px; text-shadow: 2px 2px 0px var(--ana-renk); border-bottom: 3px solid var(--ana-renk); display: inline-block; position: relative; left: 50%; transform: translateX(-50%); padding-bottom: 5px; width: 90%; }
     .imza { text-align: center; font-size: 13px; opacity: 0.9; margin-bottom: 15px; font-weight: bold; letter-spacing: 2px; color: var(--yazi-renk); }
     
-    /* GÜNCELLENEN KISIM: Bilgilendirme Panosu CSS'i */
     .bilgi-panosu { background: rgba(211, 47, 47, 0.1); border: 2px dashed #d32f2f; color: var(--yazi-renk); padding: 12px 15px; border-radius: 10px; margin: 0 15px 20px 15px; font-size: 13px; text-align: center; position: relative; line-height: 1.4; font-family: sans-serif; }
     .bilgi-panosu b { color: #d32f2f; }
     .bilgi-kapat { position: absolute; top: -10px; right: -10px; background: #fff; border: 2px solid #d32f2f; color: #d32f2f; font-weight: bold; cursor: pointer; font-size: 14px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: 0.2s; }
@@ -84,7 +83,7 @@
     .kart { width: 45px; height: 65px; background: #fff; border-radius: 5px; border: 1px solid #999; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; box-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
     .kart.kirmizi { color: #d32f2f; } .kart.siyah { color: #222; }
     .kart-arka { background: repeating-linear-gradient(45deg, #8C6A54, #8C6A54 5px, #fff 5px, #fff 10px); border: 2px solid #fff; }
-    .bj-mesaj { font-weight: margin: 10px 0; min-height: 20px; color: var(--yazi-renk); }
+    .bj-mesaj { font-weight: bold; margin: 10px 0; min-height: 20px; color: var(--yazi-renk); }
     .bj-btn-grup { display: flex; gap: 10px; justify-content: center; }
     .bj-btn { padding: 10px 15px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; flex: 1; background: var(--yazi-renk); color: #fff; }
     .bj-btn:disabled { opacity: 0.5; }
@@ -202,12 +201,12 @@
             <button id="btn1" onclick="modDegis(1)" class="aktif">PROJE</button>
             <button id="btn2" onclick="modDegis(2)">GERÇEK</button>
             <button id="btn9" onclick="modDegis(9)">HESAP</button>
-            <button id="btn3" onclick="modDegis(3)">EĞİM</button>
+            <button id="btn10" onclick="modDegis(10)">SORU</button>
             <button id="btn5" onclick="modDegis(5)">MERDİVEN</button>
             <button id="btn6" onclick="modDegis(6)">MALZEME</button>
             <button id="btn7" onclick="modDegis(7)">ALTIN ORAN</button>
             <button id="btn8" onclick="modDegis(8)">ÇEVİR</button>
-            <button id="btn10" onclick="modDegis(10)">SORU</button>
+            <button id="btn3" onclick="modDegis(3)">EĞİM</button>
             <button id="btn4" onclick="modDegis(4)">OYUN</button>
         </div>
     </div>
@@ -317,7 +316,7 @@
         </div>
     </div>
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.24.0</div>
+    <div class="versiyon">v4.25.0</div>
 </div>
 <div class="alt-modul">
     <div class="alt-sekmeler">
@@ -418,7 +417,7 @@
             gm_win: "لقد فزت!", gm_lose: "لقد خسرت!", gm_draw: "تعادل", gm_bust: "خسارة!", gm_dealer_bust: "خسارة الموزع!"
         }
     };
-    const hazirGorsellerListesi = [];
+    const hazirGorsellerListesi = ["atakoy ustgecit.jpg", "kedi2.jpg", "kedisi.jpg", "sanat eseri.jpg", "aslan.jpg", "WhatsApp Image 2026-03-08 at 01.52.44.jpeg", "WIN_20260204_05_16_26_Pro.jpg", "WhatsApp Image 2026-03-08 at 01.48.49.jpg", "WhatsApp Image 2026-03-08 at 01.56.22 (1).jpeg", "WhatsApp Image 2026-03-08 at 01.56.22.jpeg", "WhatsApp Image 2026-03-08 at 01.43.30.jpeg"];
     var planScale = 1; var planX = 0; var planY = 0; var isDragging = false; var startX, startY;
     var activeGameLoop = null;
     let soruDogruCevap = 0; 
@@ -511,7 +510,25 @@
     function modDegis(no) { for(let i=1; i<=10; i++) { if(document.getElementById('mod'+i)) { document.getElementById('mod'+i).style.display = 'none'; if(document.getElementById('btn'+i)) document.getElementById('btn'+i).className = ''; } } document.getElementById('mod'+no).style.display = 'block'; if(document.getElementById('btn'+no)) document.getElementById('btn'+no).className = 'aktif'; var s = document.getElementsByClassName('sonuc'); for(let k of s) k.style.display = 'none'; if(no !== 4) { oyunAktif = false; if(activeGameLoop) { cancelAnimationFrame(activeGameLoop); activeGameLoop = null; } } if(no === 10 && document.getElementById('soruMetni').innerText === "Soru yükleniyor...") { yeniSoruUret(); } }
     function temizle(v) { return parseFloat(v.replace(',', '.')); }
     function goster(id, t) { var k = document.getElementById(id); k.style.display = 'block'; k.innerHTML = t; }
-    function sayaciCalistir() { let s = 0; setInterval(function() { s++; let sa = Math.floor(s/3600); let dk = Math.floor((s%3600)/60); let sn = s%60; document.getElementById('oturumSayaci').innerText = (sa<10?"0"+sa:sa) + ":" + (dk<10?"0"+dk:dk) + ":" + (sn<10?"0"+sn:sn); if (s > 0 && s % 1500 === 0) { document.getElementById('pomodoroToast').style.display = 'block'; } }, 1000); }
+    
+    /* GÜNCELLENEN KISIM: Arka Planda Çalışan Sayaç */
+    let oturumBaslangic = Date.now();
+    let sonPomodoro = 0;
+    function sayaciCalistir() { 
+        setInterval(function() { 
+            let gecenSaniye = Math.floor((Date.now() - oturumBaslangic) / 1000);
+            let sa = Math.floor(gecenSaniye/3600); 
+            let dk = Math.floor((gecenSaniye%3600)/60); 
+            let sn = gecenSaniye%60; 
+            document.getElementById('oturumSayaci').innerText = (sa<10?"0"+sa:sa) + ":" + (dk<10?"0"+dk:dk) + ":" + (sn<10?"0"+sn:sn); 
+            
+            if (gecenSaniye >= sonPomodoro + 1500) { 
+                document.getElementById('pomodoroToast').style.display = 'block'; 
+                sonPomodoro += 1500; 
+            } 
+        }, 1000); 
+    }
+    
     function hesaplaCizim() { var v = temizle(document.getElementById('g_sayi').value); var o = parseInt(document.getElementById('g_olcek').value); var cm = (document.getElementById('g_birim').value == 'm') ? v*100 : ((document.getElementById('g_birim').value == 'mm') ? v/10 : v); goster('sonuc1', `${t[curLang].res_drawn}: ${(cm/o).toFixed(2)} CM`); }
     function hesaplaGercek() { var v = temizle(document.getElementById('c_sayi').value); var o = parseInt(document.getElementById('c_olcek').value); goster('sonuc2', `${t[curLang].res_real}: ${((v*o)/100).toFixed(2)} M`); }
     function hesaplaEgim() { var h = temizle(document.getElementById('e_h').value); var l = temizle(document.getElementById('e_l').value); var e = (h/l) * 100; goster('sonuc3', `${t[curLang].res_slope}: %${e.toFixed(1)}`); }
@@ -539,9 +556,36 @@
     function bjHit() { if (!bjGameActive) return; playerHand.push(deck.pop()); updateBJUI(false); if (getHandScore(playerHand) > 21) bjEnd(false, t[curLang].gm_bust); }
     function bjStand() { if (!bjGameActive) return; let dScore = getHandScore(dealerHand); while (dScore < 17) { dealerHand.push(deck.pop()); dScore = getHandScore(dealerHand); } updateBJUI(true); let pScore = getHandScore(playerHand); if (dScore > 21) bjEnd(true, t[curLang].gm_dealer_bust + " " + t[curLang].gm_win); else if (pScore > dScore) bjEnd(true, t[curLang].gm_win); else if (pScore < dScore) bjEnd(false, t[curLang].gm_lose); else bjEnd(true, t[curLang].gm_draw); }
     function bjEnd(win, msg) { bjGameActive = false; document.getElementById('bjHit').disabled = true; document.getElementById('bjStand').disabled = true; document.getElementById('bjNew').disabled = false; updateBJUI(true); let color = win ? "green" : "red"; if(msg.includes(t[curLang].gm_draw)) color = "orange"; document.getElementById('bjMessage').innerHTML = `<span style='color:${color}'>${msg}</span>`; }
+    
+    /* GÜNCELLENEN KISIM: Mayın Tarlası Sağ Tık Özelliği eklendi */
     const SATIR=10, SUTUN=10, MAYIN_SAYISI=15; let oyunGrid=[], oyunAktif=false, kazmaModu=true;
     function modDegistirOyun(kaz) { kazmaModu=kaz; document.getElementById('btnKaz').className = kaz ? 'oyun-btn aktif-mod' : 'oyun-btn'; document.getElementById('btnBayrak').className = !kaz ? 'oyun-btn aktif-mod' : 'oyun-btn'; }
-    function oyunuBaslat() { const g = document.getElementById('mayinTarlasi'); g.innerHTML = ''; oyunGrid = []; oyunAktif = true; document.getElementById('mayinSayac').innerText = MAYIN_SAYISI; document.getElementById('oyunSonuc').style.display = 'none'; for(let i=0; i<SATIR; i++){ let rArr=[]; for(let j=0; j<SUTUN; j++){ let h = document.createElement('div'); h.className = 'hucre'; h.onclick = () => hucreTikla(i,j); g.appendChild(h); rArr.push({el:h, mayin:false, acik:false, bayrak:false, sayi:0}); } oyunGrid.push(rArr); } let m=0; while(m < MAYIN_SAYISI){ let r = Math.floor(Math.random()*SATIR), c = Math.floor(Math.random()*SUTUN); if(!oyunGrid[r][c].mayin){ oyunGrid[r][c].mayin = true; m++; } } for(let i=0; i<SATIR; i++){ for(let j=0; j<SUTUN; j++){ if(!oyunGrid[i][j].mayin){ let c=0; for(let x=-1; x<=1; x++){ for(let y=-1; y<=1; y++){ let ni=i+x, nj=j+y; if(ni>=0 && ni<SATIR && nj>=0 && nj<SUTUN && oyunGrid[ni][nj].mayin) c++; } } oyunGrid[i][j].sayi = c; } } } }
+    function oyunuBaslat() { 
+        const g = document.getElementById('mayinTarlasi'); g.innerHTML = ''; oyunGrid = []; oyunAktif = true; document.getElementById('mayinSayac').innerText = MAYIN_SAYISI; document.getElementById('oyunSonuc').style.display = 'none'; 
+        for(let i=0; i<SATIR; i++){ 
+            let rArr=[]; 
+            for(let j=0; j<SUTUN; j++){ 
+                let h = document.createElement('div'); h.className = 'hucre'; 
+                h.onclick = () => hucreTikla(i,j); 
+                h.oncontextmenu = (e) => { e.preventDefault(); sagTiklaBayrak(i,j); return false; }; /* Yeni Sağ Tık */
+                g.appendChild(h); rArr.push({el:h, mayin:false, acik:false, bayrak:false, sayi:0}); 
+            } 
+            oyunGrid.push(rArr); 
+        } 
+        let m=0; while(m < MAYIN_SAYISI){ let r = Math.floor(Math.random()*SATIR), c = Math.floor(Math.random()*SUTUN); if(!oyunGrid[r][c].mayin){ oyunGrid[r][c].mayin = true; m++; } } 
+        for(let i=0; i<SATIR; i++){ for(let j=0; j<SUTUN; j++){ if(!oyunGrid[i][j].mayin){ let c=0; for(let x=-1; x<=1; x++){ for(let y=-1; y<=1; y++){ let ni=i+x, nj=j+y; if(ni>=0 && ni<SATIR && nj>=0 && nj<SUTUN && oyunGrid[ni][nj].mayin) c++; } } oyunGrid[i][j].sayi = c; } } } 
+    }
+    
+    /* Yeni Fonksiyon: Sağ tıkla bayrak koyma */
+    function sagTiklaBayrak(r, c) {
+        if(!oyunAktif) return;
+        let h = oyunGrid[r][c];
+        if(h.acik) return;
+        h.bayrak = !h.bayrak;
+        h.el.className = h.bayrak ? 'hucre bayrak' : 'hucre';
+        h.el.innerText = h.bayrak ? '🚩' : '';
+    }
+
     function hucreTikla(r,c){ if(!oyunAktif) return; let h = oyunGrid[r][c]; if(!kazmaModu){ if(h.acik) return; h.bayrak = !h.bayrak; h.el.className = h.bayrak ? 'hucre bayrak' : 'hucre'; h.el.innerText = h.bayrak ? '🚩' : ''; return; } if(h.bayrak || h.acik) return; if(h.mayin){ oyunBitir(false); h.el.className = 'hucre bom'; h.el.innerText = '💣'; } else { acHucre(r,c); kazanmaKontrol(); } }
     function acHucre(r,c){ if(r<0 || r>=SATIR || c<0 || c>=SUTUN || oyunGrid[r][c].acik || oyunGrid[r][c].bayrak) return; let h = oyunGrid[r][c]; h.acik = true; h.el.className = 'hucre acik'; if(h.sayi > 0){ h.el.innerText = h.sayi; h.el.classList.add('c'+Math.min(h.sayi,4)); } else { for(let x=-1; x<=1; x++) for(let y=-1; y<=1; y++) acHucre(r+x, c+y); } }
     function oyunBitir(k){ oyunAktif = false; let s = document.getElementById('oyunSonuc'); s.style.display = 'block'; if(k) { s.innerHTML = "<span style='color:green'>"+t[curLang].gm_win+" 🎉</span>"; } else { s.innerHTML = "<span style='color:red'>"+t[curLang].gm_lose+" 💥</span>"; for(let i=0; i<SATIR; i++) { for(let j=0; j<SUTUN; j++) { if(oyunGrid[i][j].mayin){ oyunGrid[i][j].el.innerText = '💣'; if(!oyunGrid[i][j].bayrak) oyunGrid[i][j].el.style.color = 'white'; } } } } }
