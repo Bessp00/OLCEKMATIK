@@ -9,6 +9,15 @@
 <meta name="author" content="Bedirhan - Bedir Design">
 <meta name="robots" content="index, follow">
 <link rel="manifest" href="manifest.json">
+
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EHXDFLKGR6"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-EHXDFLKGR6');
+</script>
+
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8466515091566751" crossorigin="anonymous"></script>
 <style>
     :root { --arkaplan: #F2E8DC; --ana-renk: #8C6A54; --yazi-renk: #3E2C22; --kutu-bg: rgba(196, 176, 163, 0.95); --input-bg: #FFFDF9; --input-border: #D9C6B8; --input-yazi: #3E2C22; --sekme-aktif: #ffffff; --sekme-pasif: rgba(62, 44, 34, 0.15); }
@@ -316,7 +325,7 @@
         </div>
     </div>
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.25.0</div>
+    <div class="versiyon">v4.26.0</div>
 </div>
 <div class="alt-modul">
     <div class="alt-sekmeler">
@@ -511,7 +520,6 @@
     function temizle(v) { return parseFloat(v.replace(',', '.')); }
     function goster(id, t) { var k = document.getElementById(id); k.style.display = 'block'; k.innerHTML = t; }
     
-    /* GÜNCELLENEN KISIM: Arka Planda Çalışan Sayaç */
     let oturumBaslangic = Date.now();
     let sonPomodoro = 0;
     function sayaciCalistir() { 
@@ -557,7 +565,6 @@
     function bjStand() { if (!bjGameActive) return; let dScore = getHandScore(dealerHand); while (dScore < 17) { dealerHand.push(deck.pop()); dScore = getHandScore(dealerHand); } updateBJUI(true); let pScore = getHandScore(playerHand); if (dScore > 21) bjEnd(true, t[curLang].gm_dealer_bust + " " + t[curLang].gm_win); else if (pScore > dScore) bjEnd(true, t[curLang].gm_win); else if (pScore < dScore) bjEnd(false, t[curLang].gm_lose); else bjEnd(true, t[curLang].gm_draw); }
     function bjEnd(win, msg) { bjGameActive = false; document.getElementById('bjHit').disabled = true; document.getElementById('bjStand').disabled = true; document.getElementById('bjNew').disabled = false; updateBJUI(true); let color = win ? "green" : "red"; if(msg.includes(t[curLang].gm_draw)) color = "orange"; document.getElementById('bjMessage').innerHTML = `<span style='color:${color}'>${msg}</span>`; }
     
-    /* GÜNCELLENEN KISIM: Mayın Tarlası Sağ Tık Özelliği eklendi */
     const SATIR=10, SUTUN=10, MAYIN_SAYISI=15; let oyunGrid=[], oyunAktif=false, kazmaModu=true;
     function modDegistirOyun(kaz) { kazmaModu=kaz; document.getElementById('btnKaz').className = kaz ? 'oyun-btn aktif-mod' : 'oyun-btn'; document.getElementById('btnBayrak').className = !kaz ? 'oyun-btn aktif-mod' : 'oyun-btn'; }
     function oyunuBaslat() { 
@@ -567,7 +574,7 @@
             for(let j=0; j<SUTUN; j++){ 
                 let h = document.createElement('div'); h.className = 'hucre'; 
                 h.onclick = () => hucreTikla(i,j); 
-                h.oncontextmenu = (e) => { e.preventDefault(); sagTiklaBayrak(i,j); return false; }; /* Yeni Sağ Tık */
+                h.oncontextmenu = (e) => { e.preventDefault(); sagTiklaBayrak(i,j); return false; };
                 g.appendChild(h); rArr.push({el:h, mayin:false, acik:false, bayrak:false, sayi:0}); 
             } 
             oyunGrid.push(rArr); 
@@ -576,7 +583,6 @@
         for(let i=0; i<SATIR; i++){ for(let j=0; j<SUTUN; j++){ if(!oyunGrid[i][j].mayin){ let c=0; for(let x=-1; x<=1; x++){ for(let y=-1; y<=1; y++){ let ni=i+x, nj=j+y; if(ni>=0 && ni<SATIR && nj>=0 && nj<SUTUN && oyunGrid[ni][nj].mayin) c++; } } oyunGrid[i][j].sayi = c; } } } 
     }
     
-    /* Yeni Fonksiyon: Sağ tıkla bayrak koyma */
     function sagTiklaBayrak(r, c) {
         if(!oyunAktif) return;
         let h = oyunGrid[r][c];
