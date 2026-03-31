@@ -332,7 +332,7 @@
         </div>
     </div>
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.28.0</div>
+    <div class="versiyon">v4.29.0</div>
 </div>
 <div class="alt-modul">
     <div class="alt-sekmeler">
@@ -433,13 +433,15 @@
             gm_win: "لقد فزت!", gm_lose: "لقد خسرت!", gm_draw: "تعادل", gm_bust: "خسارة!", gm_dealer_bust: "خسارة الموزع!"
         }
     };
-    const hazirGorsellerListesi = ["atakoy ustgecit.jpg", "kedi2.jpg", "kedisi.jpg", "sanat eseri.jpg", "aslan.jpg", "WhatsApp Image 2026-03-08 at 01.52.44.jpeg", "WIN_20260204_05_16_26_Pro.jpg", "WhatsApp Image 2026-03-08 at 01.48.49.jpg", "WhatsApp Image 2026-03-08 at 01.56.22 (1).jpeg", "WhatsApp Image 2026-03-08 at 01.56.22.jpeg", "WhatsApp Image 2026-03-08 at 01.43.30.jpeg"];
+    
+    /* GÜNCELLENEN KISIM: LİSTEDEKİ İSİMLER YENİ RESİMLERE GÖRE AYARLANDI */
+    const hazirGorsellerListesi = ["atakoy ustgecit.jpg", "kedi2.jpg", "kedisi.jpg", "sanat eseri.jpg", "aslan.jpg", "modern sanat.jpg", "fiyakali.jpg"];
+    
     var planScale = 1; var planX = 0; var planY = 0; var isDragging = false; var startX, startY;
     var activeGameLoop = null;
     let soruDogruCevap = 0; 
     let soruSkor = 0;
     
-    // EKSTREM MOD DEĞİŞKENLERİ
     let ekstremModAktif = false;
     let soruZamanlayici = null;
     let kalanSaniye = 10;
@@ -470,7 +472,6 @@
     }
     function cerezKabul() { localStorage.setItem('bedir_cerez_onay', 'true'); document.getElementById('cerezUyarisi').style.display = 'none'; }
     
-    // ZAMANLAYICI FONKSİYONLARI
     function zamanlayiciDurdur() {
         if(soruZamanlayici) clearInterval(soruZamanlayici);
     }
@@ -509,7 +510,7 @@
             btn.style.background = '#d32f2f';
             btn.style.color = '#fff';
             gosterge.style.display = 'block';
-            soruSkor = 0; // Heyecan artsın diye skoru sıfırlıyoruz
+            soruSkor = 0; 
             document.getElementById('soruSkor').innerText = soruSkor;
         } else {
             btn.innerHTML = '🔥 EKSTREM MOD: KAPALI';
@@ -528,12 +529,10 @@
 
         const olcekler = [20, 50, 100, 200, 500]; 
         
-        // Ekstrem modda sadece 1/200 ve 1/500
         let S = ekstremModAktif ? (Math.random() > 0.5 ? 200 : 500) : olcekler[Math.floor(Math.random() * olcekler.length)]; 
         let tip = Math.random() > 0.5 ? 1 : 2; 
         let metin = "";
 
-        // Ekstrem Mod - Çap & Yarıçap Sürprizi (Beyin yakan cinsten)
         if (ekstremModAktif && Math.random() < 0.25) { 
             let isCap = Math.random() > 0.5; 
             let D_cm = Math.floor(Math.random() * 20) + 2; 
@@ -550,7 +549,6 @@
                 metin = q[curLang] || q['tr'];
             }
         } 
-        // Normal Sorular
         else {
             if (tip === 1) { 
                 let D = Math.floor(Math.random() * 20) + 1; let R_cm = D * S;
@@ -576,7 +574,7 @@
     function soruCevapla() {
         let val = document.getElementById('soruCevap').value; if(!val) return; let cvp = parseFloat(val.replace(',', '.')); if (isNaN(cvp)) return;
         
-        zamanlayiciDurdur(); // Cevap verdiği an sayacı durdur
+        zamanlayiciDurdur(); 
 
         if (Math.abs(cvp - soruDogruCevap) < 0.01) { 
             soruSkor += 10; 
@@ -606,7 +604,7 @@
         if(document.getElementById('btn'+no)) document.getElementById('btn'+no).className = 'aktif'; 
         var s = document.getElementsByClassName('sonuc'); for(let k of s) k.style.display = 'none'; 
         if(no !== 4) { oyunAktif = false; if(activeGameLoop) { cancelAnimationFrame(activeGameLoop); activeGameLoop = null; } } 
-        if(no !== 10) { zamanlayiciDurdur(); } // Soru sekmesinden çıkınca sayacı durdur
+        if(no !== 10) { zamanlayiciDurdur(); } 
         if(no === 10 && document.getElementById('soruMetni').innerText === "Soru yükleniyor...") { yeniSoruUret(); } 
     }
 
