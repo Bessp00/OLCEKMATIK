@@ -142,8 +142,8 @@
 </head>
 <body>
 <div id="cerezUyarisi" class="cerez-kutusu">
-    🍪 Bu site, deneyiminizi geliştirmek ve size kişiselleştirilmiş içerik/reklam sunmak için çerezler (cookies) kullanır. Siteyi kullanmaya devam ederek bunu kabul etmiş olursunuz.
-    <button onclick="cerezKabul()">Anladım</button>
+    <span id="lbl_cookie">🍪 Bu site, deneyiminizi geliştirmek ve size kişiselleştirilmiş içerik/reklam sunmak için çerezler (cookies) kullanır. Siteyi kullanmaya devam ederek bunu kabul etmiş olursunuz.</span>
+    <button id="btn_cookie_ok" onclick="cerezKabul()">Anladım</button>
 </div>
 <div id="kurumsalModal" class="bg-modal">
     <div class="bg-modal-content" style="max-width: 400px; text-align: left; font-family: sans-serif; font-size: 13px;">
@@ -166,22 +166,22 @@
 </a>
 
 <div id="pomodoroToast">
-    <h3>⏱️ MOLA ZAMANI!</h3>
-    25 dakika boyunca aralıksız çalıştın.<br>Verimini korumak için şimdi 5 dakika gözlerini dinlendir.
-    <button onclick="document.getElementById('pomodoroToast').style.display='none'">TAMAM</button>
+    <h3 id="lbl_pomodoro_title">⏱️ MOLA ZAMANI!</h3>
+    <span id="lbl_pomodoro_text">25 dakika boyunca aralıksız çalıştın.<br>Verimini korumak için şimdi 5 dakika gözlerini dinlendir.</span>
+    <button id="btn_pomodoro_ok" onclick="document.getElementById('pomodoroToast').style.display='none'">TAMAM</button>
 </div>
 <div id="bgModal" class="bg-modal">
     <div class="bg-modal-content">
         <div class="bg-modal-header">
-            <span style="font-weight:900;">🎨 Arkaplan Seçimi</span>
+            <span style="font-weight:900;" id="lbl_bg_title">🎨 Arkaplan Seçimi</span>
             <button class="bg-close" onclick="bgModalKapat()">✖</button>
         </div>
         <div id="bgSecenekler">
-            <button class="bg-btn" onclick="hazirGorselGoster()">🖼️ Hazır Görseller</button>
-            <button class="bg-btn" onclick="galeridenYukle()">📂 Galeriden Yükle</button>
+            <button id="btn_hazir" class="bg-btn" onclick="hazirGorselGoster()">🖼️ Hazır Görseller</button>
+            <button id="btn_galeri" class="bg-btn" onclick="galeridenYukle()">📂 Galeriden Yükle</button>
         </div>
         <div id="bgHazirlar" style="display:none;">
-            <button class="bg-geri" onclick="bgGeri()">⬅ Geri Dön</button>
+            <button id="btn_geri" class="bg-geri" onclick="bgGeri()">⬅ Geri Dön</button>
             <div class="bg-grid" id="bgGridContainer"></div>
         </div>
     </div>
@@ -191,6 +191,7 @@
         <select id="langSelect" onchange="degisDil(this.value)">
             <option value="tr">TR</option>
             <option value="en">EN</option>
+            <option value="zh">ZH</option>
             <option value="ku">KU</option>
             <option value="ar">AR</option>
         </select>
@@ -251,7 +252,9 @@
         <button id="btn_quant" class="hesapla" onclick="hesaplaMalzeme()">METRAJ ÇIKAR >></button><div id="sonuc6" class="sonuc"></div>
     </div>
     <div id="mod7" class="mod">
-        <label id="lbl_edge">Bilinen Kenar (cm):</label><input type="text" id="ao_val" placeholder="100">
+        <label id="lbl_edge">Bilinen Kenar (cm):</label>
+        <div id="lbl_golden_desc" style="font-size: 12px; opacity: 0.8; text-align: center; margin-bottom: 10px;">Doğadaki kusursuz estetik oranı projelerinize yansıtmak için.</div>
+        <input type="text" id="ao_val" placeholder="100">
         <button id="btn_ratio" class="hesapla" onclick="hesaplaAltinOran()">ORANLA >></button><div id="sonuc7" class="sonuc"></div>
     </div>
     <div id="mod8" class="mod">
@@ -270,16 +273,16 @@
     </div>
     
     <div id="mod10" class="mod">
-        <div class="sayac-alani" style="margin-top:0; border:none; padding-bottom:5px;">SKOR: <span id="soruSkor" style="color:var(--ana-renk)">0</span></div>
+        <div class="sayac-alani" style="margin-top:0; border:none; padding-bottom:5px;"><span id="lbl_score_text">SKOR:</span> <span id="soruSkor" style="color:var(--ana-renk)">0</span></div>
         <button id="btnEkstrem" class="btn-ekstrem" onclick="toggleEkstremMod()">🔥 EKSTREM MOD: KAPALI</button>
         <div id="ekstremGosterge" style="display:none; color:#d32f2f; font-weight:bold; font-size:18px; margin-bottom:15px; text-align:center;">
-            ⏳ Kalan Süre: <span id="soruSure">10</span>
+            ⏳ <span id="lbl_time">Kalan Süre:</span> <span id="soruSure">10</span>
         </div>
         <div id="soruMetni" style="font-weight:bold; font-size:16px; margin-bottom:15px; text-align:center; color:var(--yazi-renk); min-height: 60px; display: flex; align-items: center; justify-content: center;">Soru yükleniyor...</div>
         <input type="text" inputmode="decimal" id="soruCevap" placeholder="Cevabı gir (Sadece sayı)">
         <div style="display:flex; gap:10px; margin-top:20px;">
-            <button class="hesapla" style="margin-top:0; background:var(--yazi-renk);" onclick="yeniSoruUret()">GEÇ</button>
-            <button class="hesapla" style="margin-top:0;" id="btn_cevapla" onclick="soruCevapla()">CEVAPLA</button>
+            <button id="btn_gec" class="hesapla" style="margin-top:0; background:var(--yazi-renk);" onclick="yeniSoruUret()">GEÇ</button>
+            <button id="btn_cevapla" class="hesapla" style="margin-top:0;" onclick="soruCevapla()">CEVAPLA</button>
         </div>
         <div id="soruSonuc" class="sonuc"></div>
     </div>
@@ -303,7 +306,7 @@
             <div id="oyunSonuc" class="sonuc"></div>
         </div>
         <div id="game-snake" class="game-wrapper">
-            <div class="game-score"><span id="lbl_score">SKOR</span>: <span id="snakeScore">0</span></div>
+            <div class="game-score"><span id="lbl_score_snake">SKOR</span>: <span id="snakeScore">0</span></div>
             <div style="position:relative;">
                 <canvas id="snakeCanvas" width="300" height="300"></canvas>
                 <div id="snakeOverlay" class="game-overlay">
@@ -332,7 +335,7 @@
         </div>
     </div>
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.29.0</div>
+    <div class="versiyon">v4.30.0</div>
 </div>
 <div class="alt-modul">
     <div class="alt-sekmeler">
@@ -355,15 +358,15 @@
         <textarea id="notDefteri" placeholder="Ölçüleri, fikirleri veya yapılacakları buraya yaz..." oninput="notKaydet()"></textarea>
     </div>
 </div>
-<div class="seo-metni">
+<div class="seo-metni" id="lbl_seo_text">
     <strong style="color:var(--ana-renk); font-size:15px;">Ölçekmatik Nedir?</strong><br><br>
     Ölçekmatik; mimarlar, iç mimarlar, mühendisler ve tasarım öğrencileri için geliştirilmiş ücretsiz ve pratik bir <b>mimari ölçek hesaplama aracıdır</b>. Projelerinizde kağıt üzerindeki ölçüleri gerçek ölçülere veya gerçek ölçüleri plan ölçeklerine (1/20, 1/50, 1/100 vb.) hızlıca çevirebilirsiniz. Ayrıca merdiven rıht/basamak analizi, kot farkı (eğim) hesaplaması ve seramik, parke gibi yapı malzemeleri için hızlı metraj çıkarma işlemlerini saniyeler içinde yapmanızı sağlar.
 </div>
 <div class="footer-linkler">
-    <span onclick="kurumsalAc('hakkimizda')">Hakkımızda & İletişim</span> | 
-    <span onclick="kurumsalAc('gizlilik')">Gizlilik Politikası</span> | 
-    <span onclick="kurumsalAc('kullanim')">Kullanım Koşulları</span><br><br>
-    <div style="font-weight:normal; opacity:0.7;">© 2026 Bedir Design. Tüm Hakları Saklıdır.</div>
+    <span id="lbl_footer_about" onclick="kurumsalAc('hakkimizda')">Hakkımızda & İletişim</span> | 
+    <span id="lbl_footer_privacy" onclick="kurumsalAc('gizlilik')">Gizlilik Politikası</span> | 
+    <span id="lbl_footer_terms" onclick="kurumsalAc('kullanim')">Kullanım Koşulları</span><br><br>
+    <div id="lbl_footer_rights" style="font-weight:normal; opacity:0.7;">© 2026 Bedir Design. Tüm Hakları Saklıdır.</div>
 </div>
 <script>
     var curLang = 'tr';
@@ -375,14 +378,20 @@
             lbl_kot: "Kot Farkı (h):", lbl_dist: "Mesafe (L):", btn_analyse: "ANALİZ ET >>",
             lbl_h: "Kat Yüksekliği (h):", lbl_b: "Basamak (b) [Opsiyonel]:", btn_calc2: "HESAPLA >>",
             lbl_area: "Oda / Alan (cm):", lbl_mat: "Malzeme (cm):", btn_quant: "METRAJ ÇIKAR >>",
-            lbl_edge: "Bilinen Kenar (cm):", btn_ratio: "ORANLA >>",
+            lbl_edge: "Bilinen Kenar (cm):", btn_ratio: "ORANLA >>", lbl_golden_desc: "Doğadaki kusursuz estetik oranı projelerinize yansıtmak için.",
             lbl_val: "Değer Gir:", btn_conv2: "ÇEVİR (CM) >>",
-            lbl_score: "SKOR", lbl_snake_title: "YILAN", btn_start: "BAŞLA",
+            lbl_score_text: "SKOR:", lbl_score_snake: "SKOR", lbl_snake_title: "YILAN", btn_start_snake: "BAŞLA",
             lbl_dealer: "KASA", lbl_player: "SEN", bj_start_msg: "BAŞLAMAK İÇİN OYNA",
             res_drawn: "ÇİZİLECEK", res_real: "GERÇEK", res_slope: "EĞİM", res_riser: "RIHT", res_count: "ADET", res_step: "Basamak", res_warn_steep: "ÇOK DİK!", res_warn_low: "ALÇAK RIHT", res_warn_foot: "AYAK SIĞMAZ",
             res_area: "ALAN", res_need: "GEREKEN", res_fire: "%10 Fire Dahil",
             res_long: "UZUN", res_short: "KISA", res_result: "SONUÇ",
-            gm_win: "KAZANDIN!", gm_lose: "KAYBETTİN!", gm_draw: "BERABERE", gm_bust: "PATLADIN!", gm_dealer_bust: "KASA PATLADI!"
+            gm_win: "KAZANDIN!", gm_lose: "KAYBETTİN!", gm_draw: "BERABERE", gm_bust: "PATLADIN!", gm_dealer_bust: "KASA PATLADI!",
+            btnPlan: "📐 PLAN MASASI", btnNot: "📝 NOTLAR", btn_ekstrem_on: "🔥 EKSTREM MOD: AÇIK", btn_ekstrem_off: "🔥 EKSTREM MOD: KAPALI", lbl_time: "Kalan Süre:", btn_gec: "GEÇ", btn_cevapla: "CEVAPLA",
+            lbl_bg_title: "🎨 Arkaplan Seçimi", btn_hazir: "🖼️ Hazır Görseller", btn_galeri: "📂 Galeriden Yükle", btn_geri: "⬅ Geri Dön",
+            lbl_cookie: "🍪 Bu site, deneyiminizi geliştirmek ve size kişiselleştirilmiş içerik/reklam sunmak için çerezler (cookies) kullanır. Siteyi kullanmaya devam ederek bunu kabul etmiş olursunuz.", btn_cookie_ok: "Anladım",
+            lbl_pomodoro_title: "⏱️ MOLA ZAMANI!", lbl_pomodoro_text: "25 dakika boyunca aralıksız çalıştın.<br>Verimini korumak için şimdi 5 dakika gözlerini dinlendir.", btn_pomodoro_ok: "TAMAM",
+            lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>Ölçekmatik Nedir?</strong><br><br>Ölçekmatik; mimarlar, iç mimarlar, mühendisler ve tasarım öğrencileri için geliştirilmiş ücretsiz ve pratik bir <b>mimari ölçek hesaplama aracıdır</b>. Projelerinizde kağıt üzerindeki ölçüleri gerçek ölçülere veya gerçek ölçüleri plan ölçeklerine (1/20, 1/50, 1/100 vb.) hızlıca çevirebilirsiniz.",
+            lbl_footer_about: "Hakkımızda & İletişim", lbl_footer_privacy: "Gizlilik Politikası", lbl_footer_terms: "Kullanım Koşulları", lbl_footer_rights: "© 2026 Bedir Design. Tüm Hakları Saklıdır."
         },
         en: {
             btn1: "PROJECT", btn2: "REAL", btn3: "SLOPE", btn4: "GAME", btn5: "STAIRS", btn6: "MATERIAL", btn7: "GOLDEN RATIO", btn8: "CONVERT", btn9: "CALC", btn10: "QUIZ",
@@ -391,14 +400,42 @@
             lbl_kot: "Height Diff (h):", lbl_dist: "Distance (L):", btn_analyse: "ANALYZE >>",
             lbl_h: "Floor Height (h):", lbl_b: "Tread (b) [Optional]:", btn_calc2: "CALCULATE >>",
             lbl_area: "Area / Room (cm):", lbl_mat: "Material (cm):", btn_quant: "CALCULATE QTY >>",
-            lbl_edge: "Known Edge (cm):", btn_ratio: "RATIO >>",
+            lbl_edge: "Known Edge (cm):", btn_ratio: "RATIO >>", lbl_golden_desc: "Use to reflect nature's perfect aesthetic ratio in your projects.",
             lbl_val: "Enter Value:", btn_conv2: "CONVERT (CM) >>",
-            lbl_score: "SCORE", lbl_snake_title: "SNAKE", btn_start: "START",
+            lbl_score_text: "SCORE:", lbl_score_snake: "SCORE", lbl_snake_title: "SNAKE", btn_start_snake: "START",
             lbl_dealer: "DEALER", lbl_player: "YOU", bj_start_msg: "PRESS PLAY TO START",
             res_drawn: "DRAW", res_real: "REAL", res_slope: "SLOPE", res_riser: "RISER", res_count: "COUNT", res_step: "Tread", res_warn_steep: "TOO STEEP!", res_warn_low: "LOW RISER", res_warn_foot: "TOO NARROW",
             res_area: "AREA", res_need: "NEEDED", res_fire: "Incl. 10% Waste",
             res_long: "LONG", res_short: "SHORT", res_result: "RESULT",
-            gm_win: "YOU WON!", gm_lose: "GAME OVER!", gm_draw: "PUSH", gm_bust: "BUSTED!", gm_dealer_bust: "DEALER BUSTED!"
+            gm_win: "YOU WON!", gm_lose: "GAME OVER!", gm_draw: "PUSH", gm_bust: "BUSTED!", gm_dealer_bust: "DEALER BUSTED!",
+            btnPlan: "📐 PLAN DESK", btnNot: "📝 NOTES", btn_ekstrem_on: "🔥 EXTREME MODE: ON", btn_ekstrem_off: "🔥 EXTREME MODE: OFF", lbl_time: "Time Left:", btn_gec: "PASS", btn_cevapla: "ANSWER",
+            lbl_bg_title: "🎨 Background Selection", btn_hazir: "🖼️ Preset Images", btn_galeri: "📂 Load from Gallery", btn_geri: "⬅ Go Back",
+            lbl_cookie: "🍪 This site uses cookies to improve your experience and provide personalized content/ads. By continuing to use the site, you accept this.", btn_cookie_ok: "Got it",
+            lbl_pomodoro_title: "⏱️ BREAK TIME!", lbl_pomodoro_text: "You have worked for 25 minutes straight.<br>Rest your eyes for 5 minutes to maintain productivity.", btn_pomodoro_ok: "OK",
+            lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>What is Ölçekmatik?</strong><br><br>It is a free and practical <b>architectural scale calculator</b> developed for architects, interior designers, and students. Quickly convert paper dimensions to real dimensions or vice versa.",
+            lbl_footer_about: "About Us & Contact", lbl_footer_privacy: "Privacy Policy", lbl_footer_terms: "Terms of Use", lbl_footer_rights: "© 2026 Bedir Design. All Rights Reserved."
+        },
+        zh: {
+            btn1: "项目", btn2: "实际", btn3: "坡度", btn4: "游戏", btn5: "楼梯", btn6: "材料", btn7: "黄金比例", btn8: "转换", btn9: "计算器", btn10: "测验",
+            lbl_real: "实际尺寸:", lbl_scale_sel: "选择比例:", btn_calc1: "计算 >>",
+            lbl_ruler: "尺子尺寸 (CM):", lbl_p_scale: "项目比例:", btn_conv1: "转换 >>",
+            lbl_kot: "高度差 (h):", lbl_dist: "距离 (L):", btn_analyse: "分析 >>",
+            lbl_h: "层高 (h):", lbl_b: "踏步 (b) [可选]:", btn_calc2: "计算 >>",
+            lbl_area: "房间/面积 (cm):", lbl_mat: "材料 (cm):", btn_quant: "计算数量 >>",
+            lbl_edge: "已知边长 (cm):", btn_ratio: "计算比例 >>", lbl_golden_desc: "用于在您的项目中体现大自然完美的审美比例。",
+            lbl_val: "输入值:", btn_conv2: "转换 (CM) >>",
+            lbl_score_text: "得分:", lbl_score_snake: "得分", lbl_snake_title: "贪吃蛇", btn_start_snake: "开始",
+            lbl_dealer: "庄家", lbl_player: "你", bj_start_msg: "点击开始游戏",
+            res_drawn: "图纸尺寸", res_real: "实际尺寸", res_slope: "坡度", res_riser: "踢步高度", res_count: "数量", res_step: "踏步", res_warn_steep: "太陡！", res_warn_low: "踢步太低", res_warn_foot: "踏步太窄",
+            res_area: "总面积", res_need: "所需材料", res_fire: "含10%损耗",
+            res_long: "长边", res_short: "短边", res_result: "结果",
+            gm_win: "你赢了！", gm_lose: "游戏结束！", gm_draw: "平局", gm_bust: "爆牌！", gm_dealer_bust: "庄家爆牌！",
+            btnPlan: "📐 平面图桌", btnNot: "📝 笔记", btn_ekstrem_on: "🔥 极限模式: 开", btn_ekstrem_off: "🔥 极限模式: 关", lbl_time: "剩余时间:", btn_gec: "跳过", btn_cevapla: "回答",
+            lbl_bg_title: "🎨 背景选择", btn_hazir: "🖼️ 预设图片", btn_galeri: "📂 从相册加载", btn_geri: "⬅ 返回",
+            lbl_cookie: "🍪 本网站使用 cookie 来改善您的体验并提供个性化内容。继续使用本网站即表示您接受此条款。", btn_cookie_ok: "知道了",
+            lbl_pomodoro_title: "⏱️ 休息时间！", lbl_pomodoro_text: "您已经连续工作了 25 分钟。<br>请休息 5 分钟以保持工作效率。", btn_pomodoro_ok: "确定",
+            lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>什么是 Ölçekmatik？</strong><br><br>它是为建筑师和设计学生开发的免费且实用的<b>建筑比例计算器</b>。可以快速将图纸尺寸转换为实际尺寸。",
+            lbl_footer_about: "关于我们 & 联系方式", lbl_footer_privacy: "隐私政策", lbl_footer_terms: "使用条款", lbl_footer_rights: "© 2026 Bedir Design. 保留所有权利。"
         },
         ku: {
             btn1: "PROJE", btn2: "RASTÎ", btn3: "ŞÎV", btn4: "LÎSTIK", btn5: "PÊLIK", btn6: "KELÛPEL", btn7: "RÊJEYA ZÊRÎN", btn8: "VEGERÎNE", btn9: "HESAB", btn10: "PIRS",
@@ -407,14 +444,20 @@
             lbl_kot: "Cûdahîya Kotê (h):", lbl_dist: "Mesafe (L):", btn_analyse: "ANALÎZ KE >>",
             lbl_h: "Bilindahiya Qatê (h):", lbl_b: "Pêlik (b) [Opsiyonel]:", btn_calc2: "BIJIMÊRE >>",
             lbl_area: "Ode / Qad (cm):", lbl_mat: "Materyal (cm):", btn_quant: "METRAJ >>",
-            lbl_edge: "Aliyê Zanîn (cm):", btn_ratio: "RÊJE >>",
+            lbl_edge: "Aliyê Zanîn (cm):", btn_ratio: "RÊJE >>", lbl_golden_desc: "Ji bo nîşandana rêjeya estetîk a bêkêmasî ya xwezayê di projeyên we de.",
             lbl_val: "Nirx Binivîse:", btn_conv2: "VEGERÎNE (CM) >>",
-            lbl_score: "SKOR", lbl_snake_title: "MAR", btn_start: "DESTPÊKE",
+            lbl_score_text: "SKOR:", lbl_score_snake: "SKOR", lbl_snake_title: "MAR", btn_start_snake: "DESTPÊKE",
             lbl_dealer: "KASA", lbl_player: "TU", bj_start_msg: "JI BO DESTPÊKÊ BİLÎZE",
             res_drawn: "TÊ XÊZKIRIN", res_real: "RASTÎ", res_slope: "ŞÎV", res_riser: "BILINDAHÎ", res_count: "HEJMAR", res_step: "Pêlik", res_warn_steep: "ZEF TÎK E!", res_warn_low: "NIZM E", res_warn_foot: "PIYÊ MROV NAÇÊ",
             res_area: "QAD", res_need: "PÊWÎST E", res_fire: "%10 Zêde",
             res_long: "DIRÊJ", res_short: "KIN", res_result: "ENCAM",
-            gm_win: "TE QEZENC KIR!", gm_lose: "TE WNDA KIR!", gm_draw: "WEKHEV", gm_bust: "TEQÎYA!", gm_dealer_bust: "KASA TEQÎYA!"
+            gm_win: "TE QEZENC KIR!", gm_lose: "TE WNDA KIR!", gm_draw: "WEKHEV", gm_bust: "TEQÎYA!", gm_dealer_bust: "KASA TEQÎYA!",
+            btnPlan: "📐 MASA PLAN", btnNot: "📝 NÎŞE", btn_ekstrem_on: "🔥 MODA EKSTREM: VEKIRÎ", btn_ekstrem_off: "🔥 MODA EKSTREM: GIRTÎ", lbl_time: "Dema Mayî:", btn_gec: "DERBAS BE", btn_cevapla: "BERSIV",
+            lbl_bg_title: "🎨 Hilbijartina Paşnavê", btn_hazir: "🖼️ Wêneyên Amade", btn_galeri: "📂 Ji Galeriyê Bar Bike", btn_geri: "⬅ Vegere",
+            lbl_cookie: "🍪 Ev malper çerezan bikar tîne. Bi karanîna malperê hûn vê qebûl dikin.", btn_cookie_ok: "Fêm kir",
+            lbl_pomodoro_title: "⏱️ DEMA BÊHNDANÊ!", lbl_pomodoro_text: "We 25 deqe bê navber xebitî.<br>Niha 5 deqe çavên xwe bêhn bikin.", btn_pomodoro_ok: "TEMAM",
+            lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>Ölçekmatik Çi Ye?</strong><br><br>Amûrek belaş e ji bo mîmaran.",
+            lbl_footer_about: "Derbarê Me", lbl_footer_privacy: "Polîtîkaya Nepenîtiyê", lbl_footer_terms: "Mercên Bikaranînê", lbl_footer_rights: "© 2026 Bedir Design."
         },
         ar: {
             btn1: "مشروع", btn2: "حقيقي", btn3: "انحدار", btn4: "لعبة", btn5: "درج", btn6: "مواد", btn7: "النسبة الذهبية", btn8: "تحويل", btn9: "حساب", btn10: "سؤال",
@@ -423,19 +466,25 @@
             lbl_kot: "فرق الارتفاع (h):", lbl_dist: "المسافة (L):", btn_analyse: "تحليل >>",
             lbl_h: "ارتفاع الطابق (h):", lbl_b: "درجة (b) [اختياري]:", btn_calc2: "احسب >>",
             lbl_area: "غرفة / مساحة (سم):", lbl_mat: "مادة (سم):", btn_quant: "حساب الكمية >>",
-            lbl_edge: "الحافة المعروفة (سم):", btn_ratio: "نسبة >>",
+            lbl_edge: "الحافة المعروفة (سم):", btn_ratio: "نسبة >>", lbl_golden_desc: "تُستخدم لتعكس النسبة الجمالية المثالية للطبيعة في مشاريعك.",
             lbl_val: "أدخل القيمة:", btn_conv2: "تحويل (سم) >>",
-            lbl_score: "النتيجة", lbl_snake_title: "ثعبان", btn_start: "ابدأ",
+            lbl_score_text: "النتيجة:", lbl_score_snake: "النتيجة", lbl_snake_title: "ثعبان", btn_start_snake: "ابدأ",
             lbl_dealer: "الموزع", lbl_player: "أنت", bj_start_msg: "العب للبدء",
             res_drawn: "للرسم", res_real: "حقيقي", res_slope: "انحدار", res_riser: "قائمة الدرج", res_count: "عدد", res_step: "درجة", res_warn_steep: "شديد الانحدار!", res_warn_low: "قائمة منخفضة", res_warn_foot: "ضيق جداً",
             res_area: "مساحة", res_need: "مطلوب", res_fire: "شامل 10٪ هدر",
             res_long: "طويل", res_short: "قصير", res_result: "نتيجة",
-            gm_win: "لقد فزت!", gm_lose: "لقد خسرت!", gm_draw: "تعادل", gm_bust: "خسارة!", gm_dealer_bust: "خسارة الموزع!"
+            gm_win: "لقد فزت!", gm_lose: "لقد خسرت!", gm_draw: "تعادل", gm_bust: "خسارة!", gm_dealer_bust: "خسارة الموزع!",
+            btnPlan: "📐 طاولة الخطة", btnNot: "📝 ملاحظات", btn_ekstrem_on: "🔥 الوضع الصعب: مشغل", btn_ekstrem_off: "🔥 الوضع الصعب: مغلق", lbl_time: "الوقت المتبقي:", btn_gec: "تخطى", btn_cevapla: "أجب",
+            lbl_bg_title: "🎨 اختيار الخلفية", btn_hazir: "🖼️ صور جاهزة", btn_galeri: "📂 تحميل من المعرض", btn_geri: "⬅ العودة",
+            lbl_cookie: "🍪 يستخدم هذا الموقع ملفات تعريف الارتباط. بالاستمرار في الاستخدام، فإنك توافق على ذلك.", btn_cookie_ok: "موافق",
+            lbl_pomodoro_title: "⏱️ وقت الاستراحة!", lbl_pomodoro_text: "لقد عملت لمدة 25 دقيقة متواصلة.<br>أرح عينيك لمدة 5 دقائق.", btn_pomodoro_ok: "حسنا",
+            lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>ما هو Ölçekmatik؟</strong><br><br>أداة حساب معمارية مجانية.",
+            lbl_footer_about: "معلومات عنا", lbl_footer_privacy: "سياسة الخصوصية", lbl_footer_terms: "شروط الاستخدام", lbl_footer_rights: "© 2026 Bedir Design. جميع الحقوق محفوظة."
         }
     };
     
-    /* GÜNCELLENEN KISIM: LİSTEDEKİ İSİMLER YENİ RESİMLERE GÖRE AYARLANDI */
-    const hazirGorsellerListesi = ["atakoy ustgecit.jpg", "kedi2.jpg", "kedisi.jpg", "sanat eseri.jpg", "aslan.jpg", "modern sanat.jpg", "fiyakali.jpg"];
+    /* GÜNCELLENEN KISIM: LİSTEDEKİ İSİMLER YENİ RESİMLERE GÖRE AYARLANDI (Boşluksuz İsimler) */
+    const hazirGorsellerListesi = ["atakoy ustgecit.jpg", "kedi2.jpg", "kedisi.jpg", "sanat eseri.jpg", "aslan.jpg", "modern-sanat.jpg", "fiyakali.jpg"];
     
     var planScale = 1; var planX = 0; var planY = 0; var isDragging = false; var startX, startY;
     var activeGameLoop = null;
@@ -494,8 +543,8 @@
     function zamanDoldu() {
         soruSkor -= 5;
         document.getElementById('soruSkor').innerText = soruSkor;
-        let msg = { tr: 'SÜRE BİTTİ! ⏰ (-5 Puan)', en: 'TIME OUT! ⏰ (-5 Pts)', ku: 'DEMA QEDIYA! ⏰ (-5 Puan)', ar: 'انتهى الوقت! ⏰ (-5 نقاط)' };
-        let ans = { tr: 'Doğru Cevap', en: 'Correct Answer', ku: 'Bersiva Rast', ar: 'الجواب الصحيح' };
+        let msg = { tr: 'SÜRE BİTTİ! ⏰ (-5 Puan)', en: 'TIME OUT! ⏰ (-5 Pts)', zh: '时间到！⏰ (-5 分)', ku: 'DEMA QEDIYA! ⏰ (-5 Puan)', ar: 'انتهى الوقت! ⏰ (-5 نقاط)' };
+        let ans = { tr: 'Doğru Cevap', en: 'Correct Answer', zh: '正确答案', ku: 'Bersiva Rast', ar: 'الجواب الصحيح' };
         goster('soruSonuc', `<span style='color:red'>${msg[curLang] || msg['tr']}<br><small>${ans[curLang] || ans['tr']}: ${soruDogruCevap}</small></span>`);
         setTimeout(yeniSoruUret, 2000);
     }
@@ -506,14 +555,14 @@
         let gosterge = document.getElementById('ekstremGosterge');
         
         if(ekstremModAktif) {
-            btn.innerHTML = '🔥 EKSTREM MOD: AÇIK';
+            btn.innerHTML = t[curLang].btn_ekstrem_on;
             btn.style.background = '#d32f2f';
             btn.style.color = '#fff';
             gosterge.style.display = 'block';
             soruSkor = 0; 
             document.getElementById('soruSkor').innerText = soruSkor;
         } else {
-            btn.innerHTML = '🔥 EKSTREM MOD: KAPALI';
+            btn.innerHTML = t[curLang].btn_ekstrem_off;
             btn.style.background = 'transparent';
             btn.style.color = '#d32f2f';
             gosterge.style.display = 'none';
@@ -540,12 +589,12 @@
             if(isCap) {
                 let gercekR_cm = D_cm * S;
                 soruDogruCevap = (gercekR_cm * 2) / 100;
-                let q = { tr: `1/${S} planda YARIÇAPI ${D_cm} cm olan dairesel kolonun gerçek ÇAPI kaç METRE'dir?`, en: `If RADIUS is ${D_cm} cm at 1/${S}, what is the real DIAMETER in METERS?`, ku: `Di pîvana 1/${S} de NÎVÇAP ${D_cm} cm e, ÇAPÊ rastî çend METRE ye?`, ar: `إذا كان نصف القطر ${D_cm} سم بمقياس 1/${S}، فما هو القطر الحقيقي بالأمتار؟` };
+                let q = { tr: `1/${S} planda YARIÇAPI ${D_cm} cm olan dairesel kolonun gerçek ÇAPI kaç METRE'dir?`, en: `If RADIUS is ${D_cm} cm at 1/${S}, what is the real DIAMETER in METERS?`, zh: `在1/${S}的图纸上，半径为${D_cm}厘米的圆柱，实际直径是多少米？`, ku: `Di pîvana 1/${S} de NÎVÇAP ${D_cm} cm e, ÇAPÊ rastî çend METRE ye?`, ar: `إذا كان نصف القطر ${D_cm} سم بمقياس 1/${S}، فما هو القطر الحقيقي بالأمتار؟` };
                 metin = q[curLang] || q['tr'];
             } else {
                 let gercekD_cm = D_cm * S;
                 soruDogruCevap = (gercekD_cm / 2) / 100;
-                let q = { tr: `1/${S} planda ÇAPI ${D_cm} cm çizilmiş havuzun gerçek YARIÇAPI kaç METRE'dir?`, en: `If DIAMETER is ${D_cm} cm at 1/${S}, what is the real RADIUS in METERS?`, ku: `Di pîvana 1/${S} de ÇAP ${D_cm} cm e, NÎVÇAPÊ rastî çend METRE ye?`, ar: `إذا كان القطر ${D_cm} سم بمقياس 1/${S}، فما هو نصف القطر الحقيقي بالأمتار؟` };
+                let q = { tr: `1/${S} planda ÇAPI ${D_cm} cm çizilmiş havuzun gerçek YARIÇAPI kaç METRE'dir?`, en: `If DIAMETER is ${D_cm} cm at 1/${S}, what is the real RADIUS in METERS?`, zh: `在1/${S}的图纸上，直径为${D_cm}厘米的圆柱，实际半径是多少米？`, ku: `Di pîvana 1/${S} de ÇAP ${D_cm} cm e, NÎVÇAPÊ rastî çend METRE ye?`, ar: `إذا كان القطر ${D_cm} سم بمقياس 1/${S}، فما هو نصف القطر الحقيقي بالأمتار؟` };
                 metin = q[curLang] || q['tr'];
             }
         } 
@@ -554,17 +603,17 @@
                 let D = Math.floor(Math.random() * 20) + 1; let R_cm = D * S;
                 if (R_cm >= 100 && Math.random() > 0.5) { 
                     soruDogruCevap = R_cm / 100; 
-                    let q = { tr: `1/${S} ölçekli planda ${D} cm olarak ölçtüğün uzunluk gerçekte kaç METRE'dir?`, en: `If a drawing is ${D} cm at 1/${S} scale, how many METERS is it in reality?`, ku: `Di pîvana 1/${S} de, xêzek ku ${D} cm e rastiyê de çend METRE ye?`, ar: `في مقياس 1/${S}، الطول ${D} سم كم مترًا في الواقع؟` }; 
+                    let q = { tr: `1/${S} ölçekli planda ${D} cm olarak ölçtüğün uzunluk gerçekte kaç METRE'dir?`, en: `If a drawing is ${D} cm at 1/${S} scale, how many METERS is it in reality?`, zh: `如果在1/${S}的比例下长度为${D}厘米，实际是多少米？`, ku: `Di pîvana 1/${S} de, xêzek ku ${D} cm e rastiyê de çend METRE ye?`, ar: `في مقياس 1/${S}، الطول ${D} سم كم مترًا في الواقع؟` }; 
                     metin = q[curLang] || q['tr']; 
                 } 
                 else { 
                     soruDogruCevap = R_cm; 
-                    let q = { tr: `1/${S} ölçekli çizimde ${D} cm olan obje gerçekte kaç CM'dir?`, en: `If an object is ${D} cm at 1/${S} scale, how many CM is it in reality?`, ku: `Di pîvana 1/${S} de, objeyek ku ${D} cm e rastiyê de çend CM ye?`, ar: `في مقياس 1/${S}، كائن طوله ${D} سم كم سم في الواقع؟` }; 
+                    let q = { tr: `1/${S} ölçekli çizimde ${D} cm olan obje gerçekte kaç CM'dir?`, en: `If an object is ${D} cm at 1/${S} scale, how many CM is it in reality?`, zh: `如果在1/${S}的比例下长度为${D}厘米，实际是多少厘米？`, ku: `Di pîvana 1/${S} de, objeyek ku ${D} cm e rastiyê de çend CM ye?`, ar: `في مقياس 1/${S}، كائن طوله ${D} سم كم سم في الواقع؟` }; 
                     metin = q[curLang] || q['tr']; 
                 }
             } else { 
                 let R_cm_tam = (Math.floor(Math.random() * 50) + 5) * 50; let r_m = R_cm_tam / 100; soruDogruCevap = R_cm_tam / S;
-                let q = { tr: `Gerçek uzunluğu ${r_m} metre olan cephe, 1/${S} ölçekli paftaya kaç CM çizilir?`, en: `A facade ${r_m} meters in reality, how many CM is it drawn on a 1/${S} sheet?`, ku: `Cîhek ku rastiyê de ${r_m} metre ye, li ser kaxezek 1/${S} çend CM tê xêzkirin?`, ar: `واجهة طولها ${r_m} متر، كم سم تُرسم بمقياس 1/${S}؟` };
+                let q = { tr: `Gerçek uzunluğu ${r_m} metre olan cephe, 1/${S} ölçekli paftaya kaç CM çizilir?`, en: `A facade ${r_m} meters in reality, how many CM is it drawn on a 1/${S} sheet?`, zh: `实际长度为${r_m}米，在1/${S}的图纸上画多少厘米？`, ku: `Cîhek ku rastiyê de ${r_m} metre ye, li ser kaxezek 1/${S} çend CM tê xêzkirin?`, ar: `واجهة طولها ${r_m} متر، كم سم تُرسم بمقياس 1/${S}؟` };
                 metin = q[curLang] || q['tr'];
             }
         }
@@ -578,15 +627,15 @@
 
         if (Math.abs(cvp - soruDogruCevap) < 0.01) { 
             soruSkor += 10; 
-            let msg = { tr: 'DOĞRU! 🎉 (+10 Puan)', en: 'CORRECT! 🎉 (+10 Pts)', ku: 'RAST E! 🎉 (+10 Puan)', ar: 'صحيح! 🎉 (+10 نقاط)' }; 
+            let msg = { tr: 'DOĞRU! 🎉 (+10 Puan)', en: 'CORRECT! 🎉 (+10 Pts)', zh: '正确！🎉 (+10 分)', ku: 'RAST E! 🎉 (+10 Puan)', ar: 'صحيح! 🎉 (+10 نقاط)' }; 
             goster('soruSonuc', `<span style='color:green'>${msg[curLang] || msg['tr']}</span>`); 
             document.getElementById('soruSkor').innerText = soruSkor; 
             setTimeout(yeniSoruUret, 1500); 
         } 
         else { 
             soruSkor -= 5; 
-            let msg = { tr: 'YANLIŞ! 💥 (-5 Puan)', en: 'WRONG! 💥 (-5 Pts)', ku: 'ŞAŞ E! 💥 (-5 Puan)', ar: 'خطأ! 💥 (-5 نقاط)' }; 
-            let ans = { tr: 'Doğru Cevap', en: 'Correct Answer', ku: 'Bersiva Rast', ar: 'الجواب الصحيح' }; 
+            let msg = { tr: 'YANLIŞ! 💥 (-5 Puan)', en: 'WRONG! 💥 (-5 Pts)', zh: '错误！💥 (-5 分)', ku: 'ŞAŞ E! 💥 (-5 Puan)', ar: 'خطأ! 💥 (-5 نقاط)' }; 
+            let ans = { tr: 'Doğru Cevap', en: 'Correct Answer', zh: '正确答案', ku: 'Bersiva Rast', ar: 'الجواب الصحيح' }; 
             goster('soruSonuc', `<span style='color:red'>${msg[curLang] || msg['tr']}<br><small>${ans[curLang] || ans['tr']}: ${soruDogruCevap}</small></span>`); 
             document.getElementById('soruSkor').innerText = soruSkor; 
             setTimeout(yeniSoruUret, 2500); 
@@ -611,7 +660,19 @@
     function altSekmeDegis(sekme) { document.getElementById('btnPlan').classList.remove('aktif'); document.getElementById('btnNot').classList.remove('aktif'); document.getElementById('icerikPlan').classList.remove('aktif'); document.getElementById('icerikNot').classList.remove('aktif'); if(sekme === 'plan') { document.getElementById('btnPlan').classList.add('aktif'); document.getElementById('icerikPlan').classList.add('aktif'); } else { document.getElementById('btnNot').classList.add('aktif'); document.getElementById('icerikNot').classList.add('aktif'); } }
     function notKaydet() { var notIcerik = document.getElementById('notDefteri').value; localStorage.setItem('bedir_notlar', notIcerik); }
     function degisDil(val) { curLang = val; localStorage.setItem('bedir_lang', val); updateLanguageUI(); if(document.getElementById('mod10').style.display === 'block'){ yeniSoruUret(); } }
-    function updateLanguageUI() { var d = t[curLang]; for (const [key, value] of Object.entries(d)) { var el = document.getElementById(key); if(el) { if(el.tagName === 'INPUT') el.placeholder = value; else el.innerText = value; } } document.getElementById('btn_start_snake').innerText = d.btn_start; document.getElementById('bjMessage').innerText = d.bj_start_msg; }
+    
+    function updateLanguageUI() { 
+        var d = t[curLang]; 
+        for (const [key, value] of Object.entries(d)) { 
+            var el = document.getElementById(key); 
+            if(el) { 
+                if(el.tagName === 'INPUT') el.placeholder = value; 
+                else el.innerHTML = value; 
+            } 
+        } 
+        document.getElementById('btnEkstrem').innerHTML = ekstremModAktif ? d.btn_ekstrem_on : d.btn_ekstrem_off;
+    }
+    
     function bgModalAc() { document.getElementById('bgModal').style.display = 'flex'; document.getElementById('bgSecenekler').style.display = 'block'; document.getElementById('bgHazirlar').style.display = 'none'; }
     function bgModalKapat() { document.getElementById('bgModal').style.display = 'none'; }
     function galeridenYukle() { bgModalKapat(); document.getElementById('resimYukleyici').click(); }
@@ -662,7 +723,7 @@
     const sc = document.getElementById('snakeCanvas'); const sCtx = sc.getContext('2d'); let snake = [], food = {}, dir = 'RIGHT', nextDir = 'RIGHT', snakeScore = 0; const box = 15;
     function startSnake() { document.getElementById('snakeOverlay').style.display = 'none'; snake = [{x: 9*box, y: 10*box}]; dir = 'RIGHT'; nextDir = 'RIGHT'; snakeScore = 0; document.getElementById('snakeScore').innerText = 0; placeFood(); if(activeGameLoop) cancelAnimationFrame(activeGameLoop); snakeLoop(); }
     function placeFood() { food = { x: Math.floor(Math.random() * (sc.width/box)) * box, y: Math.floor(Math.random() * (sc.height/box)) * box } } let lastTime = 0;
-    function snakeLoop(timestamp) { if (!document.getElementById('game-snake').classList.contains('active')) return; activeGameLoop = requestAnimationFrame(snakeLoop); if (timestamp - lastTime < 100) return; lastTime = timestamp; sCtx.fillStyle = '#fff'; sCtx.fillRect(0,0,sc.width,sc.height); dir = nextDir; let snakeX = snake[0].x; let snakeY = snake[0].y; if(dir == 'LEFT') snakeX -= box; if(dir == 'UP') snakeY -= box; if(dir == 'RIGHT') snakeX += box; if(dir == 'DOWN') snakeY += box; if(snakeX < 0 || snakeX >= sc.width || snakeY < 0 || snakeY >= sc.height || collision(snakeX, snakeY, snake)) { cancelAnimationFrame(activeGameLoop); document.getElementById('snakeOverlay').style.display = 'flex'; document.querySelector('#snakeOverlay div').innerText = t[curLang].gm_lose + " " + t[curLang].lbl_score + ": " + snakeScore; return; } if(snakeX == food.x && snakeY == food.y) { snakeScore++; document.getElementById('snakeScore').innerText = snakeScore; placeFood(); } else { snake.pop(); } let newHead = {x: snakeX, y: snakeY}; snake.unshift(newHead); for(let i=0; i<snake.length; i++) { sCtx.fillStyle = (i==0) ? getComputedStyle(document.documentElement).getPropertyValue('--ana-renk').trim() : "#aaa"; sCtx.fillRect(snake[i].x, snake[i].y, box, box); sCtx.strokeStyle = "#fff"; sCtx.strokeRect(snake[i].x, snake[i].y, box, box); } sCtx.fillStyle = "red"; sCtx.fillRect(food.x, food.y, box, box); }
+    function snakeLoop(timestamp) { if (!document.getElementById('game-snake').classList.contains('active')) return; activeGameLoop = requestAnimationFrame(snakeLoop); if (timestamp - lastTime < 100) return; lastTime = timestamp; sCtx.fillStyle = '#fff'; sCtx.fillRect(0,0,sc.width,sc.height); dir = nextDir; let snakeX = snake[0].x; let snakeY = snake[0].y; if(dir == 'LEFT') snakeX -= box; if(dir == 'UP') snakeY -= box; if(dir == 'RIGHT') snakeX += box; if(dir == 'DOWN') snakeY += box; if(snakeX < 0 || snakeX >= sc.width || snakeY < 0 || snakeY >= sc.height || collision(snakeX, snakeY, snake)) { cancelAnimationFrame(activeGameLoop); document.getElementById('snakeOverlay').style.display = 'flex'; document.querySelector('#snakeOverlay div').innerText = t[curLang].gm_lose + " " + t[curLang].lbl_score_snake + ": " + snakeScore; return; } if(snakeX == food.x && snakeY == food.y) { snakeScore++; document.getElementById('snakeScore').innerText = snakeScore; placeFood(); } else { snake.pop(); } let newHead = {x: snakeX, y: snakeY}; snake.unshift(newHead); for(let i=0; i<snake.length; i++) { sCtx.fillStyle = (i==0) ? getComputedStyle(document.documentElement).getPropertyValue('--ana-renk').trim() : "#aaa"; sCtx.fillRect(snake[i].x, snake[i].y, box, box); sCtx.strokeStyle = "#fff"; sCtx.strokeRect(snake[i].x, snake[i].y, box, box); } sCtx.fillStyle = "red"; sCtx.fillRect(food.x, food.y, box, box); }
     function collision(x, y, array) { for(let i=0; i<array.length; i++) { if(x == array[i].x && y == array[i].y) return true; } return false; }
     function setupSnakeControls() { window.addEventListener('keydown', function(e) { if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) { if(document.getElementById('game-snake').classList.contains('active')) { e.preventDefault(); } } }, false); document.addEventListener('keydown', function(event) { let key = event.keyCode; if((key==37 || key==65) && dir!='RIGHT') nextDir='LEFT'; else if((key==38 || key==87) && dir!='DOWN') nextDir='UP'; else if((key==39 || key==68) && dir!='LEFT') nextDir='RIGHT'; else if((key==40 || key==83) && dir!='UP') nextDir='DOWN'; }); let tsX, tsY; sc.addEventListener('touchstart', function(e) { tsX = e.touches[0].clientX; tsY = e.touches[0].clientY; e.preventDefault(); }, {passive: false}); sc.addEventListener('touchmove', function(e) { e.preventDefault(); }, {passive: false}); sc.addEventListener('touchend', function(e) { let teX = e.changedTouches[0].clientX; let teY = e.changedTouches[0].clientY; let dx = teX - tsX; let dy = teY - tsY; if(Math.abs(dx) > Math.abs(dy)) { if(dx > 0 && dir!='LEFT') nextDir='RIGHT'; else if(dx < 0 && dir!='RIGHT') nextDir='LEFT'; } else { if(dy > 0 && dir!='UP') nextDir='DOWN'; else if(dy < 0 && dir!='DOWN') nextDir='UP'; } }); }
     const bj_suits = ['♥', '♦', '♣', '♠']; const bj_values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']; let deck = [], playerHand = [], dealerHand = [], bjGameActive = false;
