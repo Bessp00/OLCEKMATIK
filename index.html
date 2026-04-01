@@ -64,7 +64,8 @@
     .sayac-alani { margin-top: 20px; padding: 10px; border-top: 2px dashed var(--ana-renk); text-align: center; font-family: 'Courier New', monospace; font-weight: 900; color: var(--yazi-renk); font-size: 16px; }
     .versiyon { position: absolute; bottom: 5px; right: 10px; font-size: 11px; font-weight: bold; opacity: 0.6; font-family: sans-serif; color: var(--yazi-renk); }
     #resimYukleyici { display: none; }
-    .game-menu { display: flex; gap: 5px; justify-content: center; margin-bottom: 15px; border-bottom: 2px dashed var(--ana-renk); padding-bottom: 10px; }
+    
+    .game-menu { display: flex; gap: 5px; justify-content: center; margin-bottom: 15px; border-bottom: 2px dashed var(--ana-renk); padding-bottom: 10px; flex-wrap: wrap; }
     .gm-btn { padding: 8px 12px; border: none; border-radius: 6px; background: rgba(255,255,255,0.4); color: var(--yazi-renk); font-weight: bold; cursor: pointer; font-family: inherit; font-size: 12px; }
     .gm-btn.aktif { background: var(--ana-renk); color: #fff; transform: scale(1.05); }
     .game-wrapper { display:none; position:relative; }
@@ -73,6 +74,7 @@
     .oyun-skor { font-weight: bold; font-size: 18px; color: var(--ana-renk); }
     .oyun-btn { padding: 8px 15px; border: 2px solid var(--ana-renk); background: #fff; border-radius: 6px; cursor: pointer; font-weight: bold; font-family: 'Courier New', monospace; color: var(--ana-renk); transition: 0.2s; }
     .oyun-btn.aktif-mod { background: var(--ana-renk); color: #fff; }
+    
     .mayin-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; background: transparent; padding: 5px; border-radius: 8px; user-select: none; }
     .hucre { aspect-ratio: 1; background: var(--ana-renk); opacity: 0.85; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; cursor: pointer; box-shadow: inset 0 2px 5px rgba(255,255,255,0.3); }
     .hucre.acik { background: #fdfdfd; opacity: 1; color: #333; }
@@ -99,6 +101,27 @@
     canvas { background: rgba(255,255,255,0.5); border-radius: 8px; border: 2px solid var(--ana-renk); display: block; margin: 0 auto; touch-action: none; }
     .game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); border-radius: 8px; z-index: 5; color: #fff; font-weight: bold; }
     .start-btn { padding: 10px 20px; background: var(--ana-renk); color: #fff; border: 2px solid #fff; border-radius: 8px; font-size: 18px; cursor: pointer; margin-top: 10px; }
+    
+    /* YENİ OYUNLAR CSS */
+    .grid-2048 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; background: rgba(0,0,0,0.1); padding: 5px; border-radius: 8px; margin: 0 auto; width: 100%; max-width: 300px; touch-action: none;}
+    .cell-2048 { aspect-ratio: 1; background: rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; border-radius: 5px; color: var(--yazi-renk); transition: 0.1s; }
+    .c2048-2 { background: #eee4da; color:#776e65; } .c2048-4 { background: #ede0c8; color:#776e65; }
+    .c2048-8 { background: #f2b179; color:#fff; } .c2048-16 { background: #f59563; color:#fff; }
+    .c2048-32 { background: #f67c5f; color:#fff; } .c2048-64 { background: #f65e3b; color:#fff; }
+    .c2048-128 { background: #edcf72; color:#fff; font-size:18px;} .c2048-256 { background: #edcc61; color:#fff; font-size:18px;}
+    .c2048-512 { background: #edc850; color:#fff; font-size:18px;} .c2048-1024 { background: #edc53f; color:#fff; font-size:14px;}
+    .c2048-2048 { background: #edc22e; color:#fff; font-size:14px;}
+    
+    .sudoku-board { display: grid; grid-template-columns: repeat(9, 1fr); gap: 1px; background: var(--yazi-renk); border: 3px solid var(--yazi-renk); width: 100%; max-width: 320px; margin: 0 auto; }
+    .sudoku-cell { aspect-ratio: 1; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; cursor: pointer; color: var(--ana-renk); box-sizing:border-box;}
+    .sudoku-cell.fixed { background: rgba(0,0,0,0.1); color: var(--yazi-renk); cursor: default; }
+    .sudoku-cell.selected { background: rgba(0,0,0,0.2); }
+    .sudoku-cell.error { color: #d32f2f; }
+    .sudoku-cell:nth-child(3n) { border-right: 2px solid var(--yazi-renk); }
+    .sudoku-cell:nth-child(9n) { border-right: none; }
+    .sudoku-cell:nth-child(n+19):nth-child(-n+27), .sudoku-cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 2px solid var(--yazi-renk); }
+    .sudoku-numpad { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-top: 15px; max-width:320px; margin-left:auto; margin-right:auto;}
+    
     .alt-modul { background-color: var(--kutu-bg); backdrop-filter: blur(12px); width: 100%; max-width: 420px; border-radius: 16px; border: 2px dashed var(--ana-renk); padding: 15px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; position: relative; margin-bottom: 20px; }
     .alt-sekmeler { display: flex; gap: 10px; width: 100%; margin-bottom: 15px; }
     .alt-sekme { flex: 1; padding: 10px; border: 2px solid transparent; border-radius: 8px; background: rgba(0,0,0,0.1); color: var(--yazi-renk); font-weight: 900; cursor: pointer; font-family: 'Courier New', monospace; font-size: 14px; transition: 0.3s; }
@@ -137,8 +160,6 @@
     .cerez-kutusu { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.85); color: white; padding: 15px; text-align: center; z-index: 1000; font-family: sans-serif; font-size: 13px; display: none; box-sizing: border-box; border-top: 3px solid var(--ana-renk);}
     .cerez-kutusu button { background: var(--ana-renk); color: white; border: 1px solid #fff; padding: 6px 20px; margin-left: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.2s; }
     .cerez-kutusu button:hover { background: #fff; color: var(--ana-renk); }
-    
-    /* GÜNCELLENEN KISIM: EKSTREM MOD TEMASI */
     .btn-ekstrem { width: 100%; padding: 10px; margin-bottom: 15px; border: 2px dashed #d32f2f; background: transparent; color: #d32f2f; border-radius: 8px; font-weight: 900; cursor: pointer; transition: 0.3s; font-family: 'Courier New', monospace; font-size: 15px; }
     
     body.ekstrem-tema { background-image: linear-gradient(135deg, #1f0000 0%, #4a0000 100%) !important; color: #ffe6e6 !important; }
@@ -150,7 +171,6 @@
     body.ekstrem-tema .menu button { color: #ff9999 !important; background: rgba(255,0,0,0.1) !important;}
     body.ekstrem-tema .ayar-btn { color: #ffcccc !important; border-color:#ffcccc !important; }
     
-    /* GÜNCELLENEN KISIM: GEÇMİŞ KUTUSU CSS */
     .gecmis-btn { width: 100%; padding: 12px; margin-top: 20px; border-radius: 8px; border: 2px dashed var(--ana-renk); background: transparent; color: var(--yazi-renk); font-weight: bold; cursor: pointer; font-family: inherit; font-size: 14px; transition: 0.3s; }
     .gecmis-btn:hover { background: rgba(0,0,0,0.05); }
     .gecmis-kutusu { background: rgba(0,0,0,0.03); border: 2px solid var(--input-border); border-radius: 8px; padding: 10px; margin-top: 10px; max-height: 180px; overflow-y: auto; font-size: 12px; text-align: left; display: none; line-height: 1.4; }
@@ -323,7 +343,11 @@
             <button id="gm-btn-mine" class="gm-btn aktif" onclick="switchGame('mine')">💣</button>
             <button id="gm-btn-snake" class="gm-btn" onclick="switchGame('snake')">🐍</button>
             <button id="gm-btn-bj" class="gm-btn" onclick="switchGame('bj')">🃏 21</button>
+            <button id="gm-btn-rps" class="gm-btn" onclick="switchGame('rps')">✊✋✌️</button>
+            <button id="gm-btn-2048" class="gm-btn" onclick="switchGame('2048')">🔢</button>
+            <button id="gm-btn-sudoku" class="gm-btn" onclick="switchGame('sudoku')">🧩</button>
         </div>
+        
         <div id="game-mine" class="game-wrapper active">
             <div class="oyun-header">
                 <div class="oyun-skor">💣 <span id="mayinSayac">15</span></div>
@@ -336,6 +360,7 @@
             <div id="mayinTarlasi" class="mayin-grid"></div>
             <div id="oyunSonuc" class="sonuc"></div>
         </div>
+        
         <div id="game-snake" class="game-wrapper">
             <div class="game-score"><span id="lbl_score_snake">SKOR</span>: <span id="snakeScore">0</span></div>
             <div style="position:relative;">
@@ -346,6 +371,7 @@
                 </div>
             </div>
         </div>
+        
         <div id="game-bj" class="game-wrapper">
             <div class="bj-masa">
                 <div class="bj-alan">
@@ -364,9 +390,51 @@
                 </div>
             </div>
         </div>
+
+        <div id="game-rps" class="game-wrapper">
+            <div class="oyun-header">
+                <div class="oyun-skor">✊✋✌️</div>
+            </div>
+            <div style="text-align:center; font-size:50px; margin:20px 0;" id="rps-arena">❔ vs ❔</div>
+            <div id="rps-sonuc" style="text-align:center; font-weight:bold; margin-bottom:20px; font-size:18px;">Seçimini yap!</div>
+            <div style="display:flex; justify-content:center; gap:10px;">
+                <button class="calc-btn" onclick="oynaRPS('tas')">✊</button>
+                <button class="calc-btn" onclick="oynaRPS('kagit')">✋</button>
+                <button class="calc-btn" onclick="oynaRPS('makas')">✌️</button>
+            </div>
+        </div>
+
+        <div id="game-2048" class="game-wrapper">
+            <div class="oyun-header">
+                <div class="oyun-skor">SKOR: <span id="skor-2048">0</span></div>
+                <button class="oyun-btn" onclick="baslat2048()">🔄</button>
+            </div>
+            <div id="grid-2048" class="grid-2048"></div>
+        </div>
+
+        <div id="game-sudoku" class="game-wrapper">
+            <div class="oyun-header">
+                <div class="oyun-skor">🧩 SUDOKU</div>
+                <button class="oyun-btn" onclick="baslatSudoku()">🔄</button>
+            </div>
+            <div id="board-sudoku" class="sudoku-board"></div>
+            <div class="sudoku-numpad" id="numpad-sudoku">
+                <button class="sudoku-btn" onclick="girSudoku(1)">1</button>
+                <button class="sudoku-btn" onclick="girSudoku(2)">2</button>
+                <button class="sudoku-btn" onclick="girSudoku(3)">3</button>
+                <button class="sudoku-btn" onclick="girSudoku(4)">4</button>
+                <button class="sudoku-btn" onclick="girSudoku(5)">5</button>
+                <button class="sudoku-btn" onclick="girSudoku(6)">6</button>
+                <button class="sudoku-btn" onclick="girSudoku(7)">7</button>
+                <button class="sudoku-btn" onclick="girSudoku(8)">8</button>
+                <button class="sudoku-btn" onclick="girSudoku(9)">9</button>
+                <button class="sudoku-btn" style="background:#d32f2f;" onclick="girSudoku(0)">SİL</button>
+            </div>
+        </div>
+
     </div>
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.31.0</div>
+    <div class="versiyon">v4.32.0</div>
 </div>
 <div class="alt-modul">
     <div class="alt-sekmeler">
@@ -527,7 +595,6 @@
     let soruSkor = 0;
     let guncelSoruMetni = "";
     
-    // EKSTREM MOD & GEÇMİŞ DEĞİŞKENLERİ
     let ekstremModAktif = false;
     let soruZamanlayici = null;
     let kalanSaniye = 17;
@@ -538,17 +605,14 @@
         if(!localStorage.getItem('bedir_cerez_onay')) { document.getElementById('cerezUyarisi').style.display = 'block'; }
         var kayitli = localStorage.getItem('bedir_arkaplan_v410'); if(kayitli) { resmiUygula(kayitli); }
         var savedLang = localStorage.getItem('bedir_lang'); 
-        if(savedLang) { 
-            curLang = savedLang; 
-            document.getElementById('langSelect').value = curLang; 
-        }
+        if(savedLang) { curLang = savedLang; document.getElementById('langSelect').value = curLang; }
         var kayitliNot = localStorage.getItem('bedir_notlar'); if(kayitliNot) { document.getElementById('notDefteri').value = kayitliNot; }
         updateLanguageUI(); sayaciCalistir();
         var sahne = document.getElementById('sahneContainer');
         sahne.addEventListener('mousedown', baslaSurukle); sahne.addEventListener('touchstart', baslaSurukle, {passive: false});
         window.addEventListener('mousemove', surukle); window.addEventListener('touchmove', surukle, {passive: false});
         window.addEventListener('mouseup', bitirSurukle); window.addEventListener('touchend', bitirSurukle);
-        setupEnterKeys(); oyunuBaslat(); setupSnakeControls(); setupCalcKeys();
+        setupEnterKeys(); oyunuBaslat(); setupSnakeControls(); setupCalcKeys(); setup2048Swipe();
     };
     function kurumsalAc(tip) {
         document.getElementById('kurumsalModal').style.display = 'flex';
@@ -560,259 +624,129 @@
     }
     function cerezKabul() { localStorage.setItem('bedir_cerez_onay', 'true'); document.getElementById('cerezUyarisi').style.display = 'none'; }
     
-    // ZAMANLAYICI & GEÇMİŞ
     function gecmisiCiz() {
         let k = document.getElementById('gecmisListesi');
         if(soruGecmisiListesi.length === 0) { k.innerHTML = "<div style='opacity:0.5; text-align:center;'>Geçmiş henüz boş.</div>"; return; }
         k.innerHTML = soruGecmisiListesi.map(s => `<div class="gecmis-item">${s}</div>`).join('');
     }
-    
     function gecmisGosterGizle() {
         let k = document.getElementById('gecmisKutusuMain');
         k.style.display = k.style.display === 'none' ? 'block' : 'none';
         if(k.style.display === 'block') gecmisiCiz();
     }
-
-    function zamanlayiciDurdur() {
-        if(soruZamanlayici) clearInterval(soruZamanlayici);
-    }
-    
+    function zamanlayiciDurdur() { if(soruZamanlayici) clearInterval(soruZamanlayici); }
     function zamanlayiciBaslat(sure) {
-        zamanlayiciDurdur();
-        if(!ekstremModAktif) return;
-        kalanSaniye = sure;
-        document.getElementById('soruSure').innerText = kalanSaniye;
+        zamanlayiciDurdur(); if(!ekstremModAktif) return;
+        kalanSaniye = sure; document.getElementById('soruSure').innerText = kalanSaniye;
         soruZamanlayici = setInterval(() => {
-            kalanSaniye--;
-            document.getElementById('soruSure').innerText = kalanSaniye;
-            if(kalanSaniye <= 0) {
-                zamanlayiciDurdur();
-                zamanDoldu();
-            }
+            kalanSaniye--; document.getElementById('soruSure').innerText = kalanSaniye;
+            if(kalanSaniye <= 0) { zamanlayiciDurdur(); zamanDoldu(); }
         }, 1000);
     }
-    
     function zamanDoldu() {
-        soruSkor -= 5;
-        document.getElementById('soruSkor').innerText = soruSkor;
-        
+        soruSkor -= 5; document.getElementById('soruSkor').innerText = soruSkor;
         let dTxt = {tr: "⏳ Süre Bitti", en: "⏳ Time Out", zh: "⏳ 时间到", ku: "⏳ Dema Qediya", ar: "⏳ انتهى الوقت"};
         soruGecmisiListesi.unshift(`<b>${dTxt[curLang] || dTxt['tr']}</b> | ${guncelSoruMetni} <br> ${t[curLang].res_result}: ${soruDogruCevap}`);
-        if(soruGecmisiListesi.length > 20) soruGecmisiListesi.pop();
-        gecmisiCiz();
-
+        if(soruGecmisiListesi.length > 20) soruGecmisiListesi.pop(); gecmisiCiz();
         let msg = { tr: 'SÜRE BİTTİ! ⏰ (-5 Puan)', en: 'TIME OUT! ⏰ (-5 Pts)', zh: '时间到！⏰ (-5 分)', ku: 'DEMA QEDIYA! ⏰ (-5 Puan)', ar: 'انتهى الوقت! ⏰ (-5 نقاط)' };
         let ans = { tr: 'Doğru Cevap', en: 'Correct Answer', zh: '正确答案', ku: 'Bersiva Rast', ar: 'الجواب الصحيح' };
         goster('soruSonuc', `<span style='color:red'>${msg[curLang] || msg['tr']}<br><small>${ans[curLang] || ans['tr']}: ${soruDogruCevap}</small></span>`);
         setTimeout(yeniSoruUret, 2000);
     }
-
     function toggleEkstremMod() {
         ekstremModAktif = !ekstremModAktif;
-        let btn = document.getElementById('btnEkstrem');
-        let gosterge = document.getElementById('ekstremGosterge');
-        
+        let btn = document.getElementById('btnEkstrem'); let gosterge = document.getElementById('ekstremGosterge');
         if(ekstremModAktif) {
-            btn.innerHTML = t[curLang].btn_ekstrem_on;
-            document.body.classList.add('ekstrem-tema');
-            gosterge.style.display = 'block';
-            soruSkor = 0; 
-            ekstremSoruSayaci = 0;
-            document.getElementById('soruSkor').innerText = soruSkor;
+            btn.innerHTML = t[curLang].btn_ekstrem_on; document.body.classList.add('ekstrem-tema');
+            gosterge.style.display = 'block'; soruSkor = 0; ekstremSoruSayaci = 0; document.getElementById('soruSkor').innerText = soruSkor;
         } else {
-            btn.innerHTML = t[curLang].btn_ekstrem_off;
-            document.body.classList.remove('ekstrem-tema');
-            gosterge.style.display = 'none';
-            zamanlayiciDurdur();
+            btn.innerHTML = t[curLang].btn_ekstrem_off; document.body.classList.remove('ekstrem-tema');
+            gosterge.style.display = 'none'; zamanlayiciDurdur();
         }
         yeniSoruUret();
     }
-
     function soruGec() {
         if(guncelSoruMetni !== "") {
             let dTxt = {tr: "⏭️ Geçildi", en: "⏭️ Skipped", zh: "⏭️ 跳过", ku: "⏭️ Derbas Bû", ar: "⏭️ تم التخطي"};
             let q_str = {tr: "Cevapsız", en: "No Answer", zh: "未回答", ku: "Bêbersiv", ar: "لا اجابة"}[curLang] || "Cevapsız";
             soruGecmisiListesi.unshift(`<b>${dTxt[curLang] || dTxt['tr']}</b> | ${guncelSoruMetni} <br> Senin Cevabın: ${q_str} | ${t[curLang].res_result}: ${soruDogruCevap}`);
-            if(soruGecmisiListesi.length > 20) soruGecmisiListesi.pop();
-            gecmisiCiz();
+            if(soruGecmisiListesi.length > 20) soruGecmisiListesi.pop(); gecmisiCiz();
         }
-        zamanlayiciDurdur();
-        yeniSoruUret();
+        zamanlayiciDurdur(); yeniSoruUret();
     }
-
     function yeniSoruUret() {
-        document.getElementById('soruCevap').value = ''; 
-        document.getElementById('soruSonuc').style.display = 'none';
-        
-        let uygulanacakSure = 17;
-        const olcekler = [20, 50, 100, 200, 500]; 
+        document.getElementById('soruCevap').value = ''; document.getElementById('soruSonuc').style.display = 'none';
+        let uygulanacakSure = 17; const olcekler = [20, 50, 100, 200, 500]; 
         let S = ekstremModAktif ? (Math.random() > 0.5 ? 200 : 500) : olcekler[Math.floor(Math.random() * olcekler.length)]; 
         let metin = "";
-
         if (ekstremModAktif) {
             ekstremSoruSayaci++;
-            
-            // BOSS SAVAŞI: Her 5 soruda bir
             if(ekstremSoruSayaci % 5 === 0) {
-                uygulanacakSure = 31;
-                let kenarList = [10, 12, 14, 16, 20];
-                let L_cm = kenarList[Math.floor(Math.random() * kenarList.length)];
-                let realL_m = (L_cm * S) / 100;
-                let realS_m = realL_m / 2;
-                soruDogruCevap = (realL_m + realS_m) * 2;
-                
-                let q = {
-                    tr: `👑 ÖZEL PROBLEM: Şantiye şefi, 1/${S} ölçekli planda uzun kenarı ${L_cm} cm olan dikdörtgen bir salon tasarladı. Kısa kenar, uzun kenarın tam yarısıdır. Gerçekte bu salonun çevresi toplam kaç METRE'dir?`,
-                    en: `👑 SPECIAL PROBLEM: The site chief designed a rectangular hall with a long edge of ${L_cm} cm on a 1/${S} plan. The short edge is exactly half of the long edge. What is the total PERIMETER of this hall in METERS in reality?`,
-                    zh: `👑 特别问题：项目主管在1/${S}的平面图上设计了一个长边为${L_cm}厘米的矩形大厅。短边是长边的一半。实际上，这个大厅的总周长是多少米？`,
-                    ku: `👑 PROBLEMA TAYBET: Şefê şantiyeyê di pîvana 1/${S} de salonek ku kenarê dirêj ${L_cm} cm e sêwirand. Kenarê kurt nîvê kenarê dirêj e. Rastiyê de dorhêla vê salonê çend METRE ye?`,
-                    ar: `👑 مشكلة خاصة: صمم رئيس الموقع قاعة مستطيلة ذات حافة طويلة ${L_cm} سم في خطة 1/${S}. الحافة القصيرة هي نصف الحافة الطويلة تمامًا. ما هو إجمالي محيط هذه القاعة بالأمتار في الواقع؟`
-                };
+                uygulanacakSure = 31; let kenarList = [10, 12, 14, 16, 20]; let L_cm = kenarList[Math.floor(Math.random() * kenarList.length)];
+                let realL_m = (L_cm * S) / 100; let realS_m = realL_m / 2; soruDogruCevap = (realL_m + realS_m) * 2;
+                let q = { tr: `👑 ÖZEL PROBLEM: Şantiye şefi, 1/${S} ölçekli planda uzun kenarı ${L_cm} cm olan dikdörtgen bir salon tasarladı. Kısa kenar, uzun kenarın tam yarısıdır. Gerçekte bu salonun çevresi toplam kaç METRE'dir?`, en: `👑 SPECIAL PROBLEM: The site chief designed a rectangular hall with a long edge of ${L_cm} cm on a 1/${S} plan. The short edge is exactly half of the long edge. What is the total PERIMETER of this hall in METERS in reality?`, zh: `👑 特别问题：项目主管在1/${S}的平面图上设计了一个长边为${L_cm}厘米的矩形大厅。短边是长边的一半。实际上，这个大厅的总周长是多少米？`, ku: `👑 PROBLEMA TAYBET: Şefê şantiyeyê di pîvana 1/${S} de salonek ku kenarê dirêj ${L_cm} cm e sêwirand. Kenarê kurt nîvê kenarê dirêj e. Rastiyê de dorhêla vê salonê çend METRE ye?`, ar: `👑 مشكلة خاصة: صمم رئيس الموقع قاعة مستطيلة ذات حافة طويلة ${L_cm} سم في خطة 1/${S}. الحافة القصيرة هي نصف الحافة الطويلة تمامًا. ما هو إجمالي محيط هذه القاعة بالأمتار في الواقع؟` };
                 metin = q[curLang] || q['tr'];
-            }
-            // TERS KÖŞE: Her 6 soruda bir Çap/Yarıçap
-            else if (ekstremSoruSayaci % 6 === 0) {
-                let isCap = Math.random() > 0.5; 
-                let D_cm = Math.floor(Math.random() * 15) + 2; 
-                if(isCap) {
-                    soruDogruCevap = ((D_cm * S) * 2) / 100;
-                    let q = { tr: `1/${S} planda YARIÇAPI ${D_cm} cm olan dairesel kolonun gerçek ÇAPI kaç METRE'dir?`, en: `If RADIUS is ${D_cm} cm at 1/${S}, what is the real DIAMETER in METERS?`, zh: `在1/${S}的图纸上，半径为${D_cm}厘米的圆柱，实际直径是多少米？`, ku: `Di pîvana 1/${S} de NÎVÇAP ${D_cm} cm e, ÇAPÊ rastî çend METRE ye?`, ar: `إذا كان نصف القطر ${D_cm} سم بمقياس 1/${S}، فما هو القطر الحقيقي بالأمتار؟` };
-                    metin = q[curLang] || q['tr'];
-                } else {
-                    soruDogruCevap = ((D_cm * S) / 2) / 100;
-                    let q = { tr: `1/${S} planda ÇAPI ${D_cm} cm çizilmiş havuzun gerçek YARIÇAPI kaç METRE'dir?`, en: `If DIAMETER is ${D_cm} cm at 1/${S}, what is the real RADIUS in METERS?`, zh: `在1/${S}的图纸上，直径为${D_cm}厘米的圆柱，实际半径是多少米？`, ku: `Di pîvana 1/${S} de ÇAP ${D_cm} cm e, NÎVÇAPÊ rastî çend METRE ye?`, ar: `إذا كان القطر ${D_cm} سم بمقياس 1/${S}، فما هو نصف القطر الحقيقي بالأمتار؟` };
-                    metin = q[curLang] || q['tr'];
-                }
-            }
-            // ÖLÇEK ARASI GEÇİŞ veya STANDART Soru
-            else {
+            } else if (ekstremSoruSayaci % 6 === 0) {
+                let isCap = Math.random() > 0.5; let D_cm = Math.floor(Math.random() * 15) + 2; 
+                if(isCap) { soruDogruCevap = ((D_cm * S) * 2) / 100; let q = { tr: `1/${S} planda YARIÇAPI ${D_cm} cm olan dairesel kolonun gerçek ÇAPI kaç METRE'dir?`, en: `If RADIUS is ${D_cm} cm at 1/${S}, what is the real DIAMETER in METERS?`, zh: `在1/${S}的图纸上，半径为${D_cm}厘米的圆柱，实际直径是多少米？`, ku: `Di pîvana 1/${S} de NÎVÇAP ${D_cm} cm e, ÇAPÊ rastî çend METRE ye?`, ar: `إذا كان نصف القطر ${D_cm} سم بمقياس 1/${S}، فما هو القطر الحقيقي بالأمتار؟` }; metin = q[curLang] || q['tr'];
+                } else { soruDogruCevap = ((D_cm * S) / 2) / 100; let q = { tr: `1/${S} planda ÇAPI ${D_cm} cm çizilmiş havuzun gerçek YARIÇAPI kaç METRE'dir?`, en: `If DIAMETER is ${D_cm} cm at 1/${S}, what is the real RADIUS in METERS?`, zh: `在1/${S}的图纸上，直径为${D_cm}厘米的圆柱，实际半径是多少米？`, ku: `Di pîvana 1/${S} de ÇAP ${D_cm} cm e, NÎVÇAPÊ rastî çend METRE ye?`, ar: `إذا كان القطر ${D_cm} سم بمقياس 1/${S}، فما هو نصف القطر الحقيقي بالأمتار؟` }; metin = q[curLang] || q['tr']; }
+            } else {
                 if(Math.random() < 0.4) {
-                    let s1 = (Math.random() > 0.5) ? 200 : 500;
-                    let s2 = (s1 === 200) ? 500 : 200;
-                    let d1 = [2, 5, 10, 20, 25, 50][Math.floor(Math.random() * 6)];
-                    soruDogruCevap = (d1 * s1) / s2;
-                    let q = {
-                        tr: `1/${s1} ölçekli planda ${d1} cm çizilen bir duvar, 1/${s2} ölçekli başka bir planda kaç CM çizilir?`,
-                        en: `A wall that is ${d1} cm on a 1/${s1} plan, how many CM will it be drawn on a 1/${s2} plan?`,
-                        zh: `在1/${s1}比例尺上为${d1}厘米的墙，在1/${s2}的图纸上画多少厘米？`,
-                        ku: `Dîwarek ku di pîvana 1/${s1} de ${d1} cm e, li ser planek din a 1/${s2} çend CM tê xêzkirin?`,
-                        ar: `جدار طوله ${d1} سم في خطة 1/${s1}، كم سم سيُرسم في خطة 1/${s2}؟`
-                    };
+                    let s1 = (Math.random() > 0.5) ? 200 : 500; let s2 = (s1 === 200) ? 500 : 200; let d1 = [2, 5, 10, 20, 25, 50][Math.floor(Math.random() * 6)]; soruDogruCevap = (d1 * s1) / s2;
+                    let q = { tr: `1/${s1} ölçekli planda ${d1} cm çizilen bir duvar, 1/${s2} ölçekli başka bir planda kaç CM çizilir?`, en: `A wall that is ${d1} cm on a 1/${s1} plan, how many CM will it be drawn on a 1/${s2} plan?`, zh: `在1/${s1}比例尺上为${d1}厘米的墙，在1/${s2}的图纸上画多少厘米？`, ku: `Dîwarek ku di pîvana 1/${s1} de ${d1} cm e, li ser planek din a 1/${s2} çend CM tê xêzkirin?`, ar: `جدار طوله ${d1} سم في خطة 1/${s1}، كم سم سيُرسم في خطة 1/${s2}؟` };
                     metin = q[curLang] || q['tr'];
                 } else {
                     let tip = Math.random() > 0.5 ? 1 : 2; 
-                    if (tip === 1) { 
-                        let D = Math.floor(Math.random() * 20) + 1; let R_cm = D * S;
-                        if (R_cm >= 100 && Math.random() > 0.5) { 
-                            soruDogruCevap = R_cm / 100; 
-                            let q = { tr: `1/${S} ölçekli planda ${D} cm olarak ölçtüğün uzunluk gerçekte kaç METRE'dir?`, en: `If a drawing is ${D} cm at 1/${S} scale, how many METERS is it in reality?`, zh: `如果在1/${S}的比例下长度为${D}厘米，实际是多少米？`, ku: `Di pîvana 1/${S} de, xêzek ku ${D} cm e rastiyê de çend METRE ye?`, ar: `في مقياس 1/${S}، الطول ${D} سم كم مترًا في الواقع؟` }; 
-                            metin = q[curLang] || q['tr']; 
-                        } 
-                        else { 
-                            soruDogruCevap = R_cm; 
-                            let q = { tr: `1/${S} ölçekli çizimde ${D} cm olan obje gerçekte kaç CM'dir?`, en: `If an object is ${D} cm at 1/${S} scale, how many CM is it in reality?`, zh: `如果在1/${S}的比例下长度为${D}厘米，实际是多少厘米？`, ku: `Di pîvana 1/${S} de, objeyek ku ${D} cm e rastiyê de çend CM ye?`, ar: `في مقياس 1/${S}، كائن طوله ${D} سم كم سم في الواقع؟` }; 
-                            metin = q[curLang] || q['tr']; 
-                        }
-                    } else { 
-                        let R_cm_tam = (Math.floor(Math.random() * 50) + 5) * 50; let r_m = R_cm_tam / 100; soruDogruCevap = R_cm_tam / S;
-                        let q = { tr: `Gerçek uzunluğu ${r_m} metre olan cephe, 1/${S} ölçekli paftaya kaç CM çizilir?`, en: `A facade ${r_m} meters in reality, how many CM is it drawn on a 1/${S} sheet?`, zh: `实际长度为${r_m}米，在1/${S}的图纸上画多少厘米？`, ku: `Cîhek ku rastiyê de ${r_m} metre ye, li ser kaxezek 1/${S} çend CM tê xêzkirin?`, ar: `واجهة طولها ${r_m} متر، كم سم تُرسم بمقياس 1/${S}؟` };
-                        metin = q[curLang] || q['tr'];
-                    }
+                    if (tip === 1) { let D = Math.floor(Math.random() * 20) + 1; let R_cm = D * S; if (R_cm >= 100 && Math.random() > 0.5) { soruDogruCevap = R_cm / 100; let q = { tr: `1/${S} ölçekli planda ${D} cm olarak ölçtüğün uzunluk gerçekte kaç METRE'dir?`, en: `If a drawing is ${D} cm at 1/${S} scale, how many METERS is it in reality?`, zh: `如果在1/${S}的比例下长度为${D}厘米，实际是多少米？`, ku: `Di pîvana 1/${S} de, xêzek ku ${D} cm e rastiyê de çend METRE ye?`, ar: `في مقياس 1/${S}، الطول ${D} سم كم مترًا في الواقع؟` }; metin = q[curLang] || q['tr']; } else { soruDogruCevap = R_cm; let q = { tr: `1/${S} ölçekli çizimde ${D} cm olan obje gerçekte kaç CM'dir?`, en: `If an object is ${D} cm at 1/${S} scale, how many CM is it in reality?`, zh: `如果在1/${S}的比例下长度为${D}厘米，实际是多少厘米？`, ku: `Di pîvana 1/${S} de, objeyek ku ${D} cm e rastiyê de çend CM ye?`, ar: `في مقياس 1/${S}، كائن طوله ${D} سم كم سم في الواقع؟` }; metin = q[curLang] || q['tr']; }
+                    } else { let R_cm_tam = (Math.floor(Math.random() * 50) + 5) * 50; let r_m = R_cm_tam / 100; soruDogruCevap = R_cm_tam / S; let q = { tr: `Gerçek uzunluğu ${r_m} metre olan cephe, 1/${S} ölçekli paftaya kaç CM çizilir?`, en: `A facade ${r_m} meters in reality, how many CM is it drawn on a 1/${S} sheet?`, zh: `实际长度为${r_m}米，在1/${S}的图纸上画多少厘米？`, ku: `Cîhek ku rastiyê de ${r_m} metre ye, li ser kaxezek 1/${S} çend CM tê xêzkirin?`, ar: `واجهة طولها ${r_m} متر، كم سم تُرسم بمقياس 1/${S}؟` }; metin = q[curLang] || q['tr']; }
                 }
             }
             zamanlayiciBaslat(uygulanacakSure);
         } else {
-            // NORMAL MOD
             let tip = Math.random() > 0.5 ? 1 : 2; 
-            if (tip === 1) { 
-                let D = Math.floor(Math.random() * 20) + 1; let R_cm = D * S;
-                if (R_cm >= 100 && Math.random() > 0.5) { 
-                    soruDogruCevap = R_cm / 100; 
-                    let q = { tr: `1/${S} ölçekli planda ${D} cm olarak ölçtüğün uzunluk gerçekte kaç METRE'dir?`, en: `If a drawing is ${D} cm at 1/${S} scale, how many METERS is it in reality?`, zh: `如果在1/${S}的比例下长度为${D}厘米，实际是多少米？`, ku: `Di pîvana 1/${S} de, xêzek ku ${D} cm e rastiyê de çend METRE ye?`, ar: `في مقياس 1/${S}، الطول ${D} سم كم مترًا في الواقع؟` }; 
-                    metin = q[curLang] || q['tr']; 
-                } 
-                else { 
-                    soruDogruCevap = R_cm; 
-                    let q = { tr: `1/${S} ölçekli çizimde ${D} cm olan obje gerçekte kaç CM'dir?`, en: `If an object is ${D} cm at 1/${S} scale, how many CM is it in reality?`, zh: `如果在1/${S}的比例下长度为${D}厘米，实际是多少厘米？`, ku: `Di pîvana 1/${S} de, objeyek ku ${D} cm e rastiyê de çend CM ye?`, ar: `في مقياس 1/${S}، كائن طوله ${D} سم كم سم في الواقع؟` }; 
-                    metin = q[curLang] || q['tr']; 
-                }
-            } else { 
-                let R_cm_tam = (Math.floor(Math.random() * 50) + 5) * 50; let r_m = R_cm_tam / 100; soruDogruCevap = R_cm_tam / S;
-                let q = { tr: `Gerçek uzunluğu ${r_m} metre olan cephe, 1/${S} ölçekli paftaya kaç CM çizilir?`, en: `A facade ${r_m} meters in reality, how many CM is it drawn on a 1/${S} sheet?`, zh: `实际长度为${r_m}米，在1/${S}的图纸上画多少厘米？`, ku: `Cîhek ku rastiyê de ${r_m} metre ye, li ser kaxezek 1/${S} çend CM tê xêzkirin?`, ar: `واجهة طولها ${r_m} متر، كم سم تُرسم بمقياس 1/${S}؟` };
-                metin = q[curLang] || q['tr'];
-            }
+            if (tip === 1) { let D = Math.floor(Math.random() * 20) + 1; let R_cm = D * S; if (R_cm >= 100 && Math.random() > 0.5) { soruDogruCevap = R_cm / 100; let q = { tr: `1/${S} ölçekli planda ${D} cm olarak ölçtüğün uzunluk gerçekte kaç METRE'dir?`, en: `If a drawing is ${D} cm at 1/${S} scale, how many METERS is it in reality?`, zh: `如果在1/${S}的比例下长度为${D}厘米，实际是多少米？`, ku: `Di pîvana 1/${S} de, xêzek ku ${D} cm e rastiyê de çend METRE ye?`, ar: `في مقياس 1/${S}، الطول ${D} سم كم مترًا في الواقع؟` }; metin = q[curLang] || q['tr']; } else { soruDogruCevap = R_cm; let q = { tr: `1/${S} ölçekli çizimde ${D} cm olan obje gerçekte kaç CM'dir?`, en: `If an object is ${D} cm at 1/${S} scale, how many CM is it in reality?`, zh: `如果在1/${S}的比例下长度为${D}厘米，实际是多少厘米？`, ku: `Di pîvana 1/${S} de, objeyek ku ${D} cm e rastiyê de çend CM ye?`, ar: `في مقياس 1/${S}، كائن طوله ${D} سم كم سم في الواقع؟` }; metin = q[curLang] || q['tr']; }
+            } else { let R_cm_tam = (Math.floor(Math.random() * 50) + 5) * 50; let r_m = R_cm_tam / 100; soruDogruCevap = R_cm_tam / S; let q = { tr: `Gerçek uzunluğu ${r_m} metre olan cephe, 1/${S} ölçekli paftaya kaç CM çizilir?`, en: `A facade ${r_m} meters in reality, how many CM is it drawn on a 1/${S} sheet?`, zh: `实际长度为${r_m}米，在1/${S}的图纸上画多少厘米？`, ku: `Cîhek ku rastiyê de ${r_m} metre ye, li ser kaxezek 1/${S} çend CM tê xêzkirin?`, ar: `واجهة طولها ${r_m} متر، كم سم تُرسم بمقياس 1/${S}؟` }; metin = q[curLang] || q['tr']; }
         }
-        
-        guncelSoruMetni = metin;
-        document.getElementById('soruMetni').innerText = metin;
+        guncelSoruMetni = metin; document.getElementById('soruMetni').innerText = metin;
     }
 
     function soruCevapla() {
-        let val = document.getElementById('soruCevap').value; 
-        if(!val) return; 
-        
-        // Boşluğu noktaya çeviren hızlı cevaplama eklentisi (Örn: "2 5" -> "2.5")
+        let val = document.getElementById('soruCevap').value; if(!val) return; 
         val = val.trim().replace(',', '.').replace(' ', '.'); 
-        let cvp = parseFloat(val); 
-        if (isNaN(cvp)) return;
-        
+        let cvp = parseFloat(val); if (isNaN(cvp)) return;
         zamanlayiciDurdur(); 
         
         let isCorrect = Math.abs(cvp - soruDogruCevap) < 0.01;
         let durumIkon = isCorrect ? "✅" : "❌";
-        
         soruGecmisiListesi.unshift(`<b>${durumIkon}</b> | ${guncelSoruMetni} <br> Senin Cevabın: ${cvp} | ${t[curLang].res_result}: ${soruDogruCevap}`);
-        if(soruGecmisiListesi.length > 20) soruGecmisiListesi.pop();
-        gecmisiCiz();
+        if(soruGecmisiListesi.length > 20) soruGecmisiListesi.pop(); gecmisiCiz();
 
         if (isCorrect) { 
-            soruSkor += 10; 
-            let msg = { tr: 'DOĞRU! 🎉 (+10 Puan)', en: 'CORRECT! 🎉 (+10 Pts)', zh: '正确！🎉 (+10 分)', ku: 'RAST E! 🎉 (+10 Puan)', ar: 'صحيح! 🎉 (+10 نقاط)' }; 
-            goster('soruSonuc', `<span style='color:green'>${msg[curLang] || msg['tr']}</span>`); 
-            document.getElementById('soruSkor').innerText = soruSkor; 
-            setTimeout(yeniSoruUret, 1500); 
-        } 
-        else { 
-            soruSkor -= 5; 
-            let msg = { tr: 'YANLIŞ! 💥 (-5 Puan)', en: 'WRONG! 💥 (-5 Pts)', zh: '错误！💥 (-5 分)', ku: 'ŞAŞ E! 💥 (-5 Puan)', ar: 'خطأ! 💥 (-5 نقاط)' }; 
+            soruSkor += 10; let msg = { tr: 'DOĞRU! 🎉 (+10 Puan)', en: 'CORRECT! 🎉 (+10 Pts)', zh: '正确！🎉 (+10 分)', ku: 'RAST E! 🎉 (+10 Puan)', ar: 'صحيح! 🎉 (+10 نقاط)' }; 
+            goster('soruSonuc', `<span style='color:green'>${msg[curLang] || msg['tr']}</span>`); document.getElementById('soruSkor').innerText = soruSkor; setTimeout(yeniSoruUret, 1500); 
+        } else { 
+            soruSkor -= 5; let msg = { tr: 'YANLIŞ! 💥 (-5 Puan)', en: 'WRONG! 💥 (-5 Pts)', zh: '错误！💥 (-5 分)', ku: 'ŞAŞ E! 💥 (-5 Puan)', ar: 'خطأ! 💥 (-5 نقاط)' }; 
             let ans = { tr: 'Doğru Cevap', en: 'Correct Answer', zh: '正确答案', ku: 'Bersiva Rast', ar: 'الجواب الصحيح' }; 
-            goster('soruSonuc', `<span style='color:red'>${msg[curLang] || msg['tr']}<br><small>${ans[curLang] || ans['tr']}: ${soruDogruCevap}</small></span>`); 
-            document.getElementById('soruSkor').innerText = soruSkor; 
-            setTimeout(yeniSoruUret, 2500); 
+            goster('soruSonuc', `<span style='color:red'>${msg[curLang] || msg['tr']}<br><small>${ans[curLang] || ans['tr']}: ${soruDogruCevap}</small></span>`); document.getElementById('soruSkor').innerText = soruSkor; setTimeout(yeniSoruUret, 2500); 
         }
     }
     
     function modDegis(no) { 
-        for(let i=1; i<=10; i++) { 
-            if(document.getElementById('mod'+i)) { 
-                document.getElementById('mod'+i).style.display = 'none'; 
-                if(document.getElementById('btn'+i)) document.getElementById('btn'+i).className = ''; 
-            } 
-        } 
-        document.getElementById('mod'+no).style.display = 'block'; 
-        if(document.getElementById('btn'+no)) document.getElementById('btn'+no).className = 'aktif'; 
+        for(let i=1; i<=10; i++) { if(document.getElementById('mod'+i)) { document.getElementById('mod'+i).style.display = 'none'; if(document.getElementById('btn'+i)) document.getElementById('btn'+i).className = ''; } } 
+        document.getElementById('mod'+no).style.display = 'block'; if(document.getElementById('btn'+no)) document.getElementById('btn'+no).className = 'aktif'; 
         var s = document.getElementsByClassName('sonuc'); for(let k of s) k.style.display = 'none'; 
         if(no !== 4) { oyunAktif = false; if(activeGameLoop) { cancelAnimationFrame(activeGameLoop); activeGameLoop = null; } } 
         if(no !== 10) { zamanlayiciDurdur(); } 
         if(no === 10 && document.getElementById('soruMetni').innerText === "Soru yükleniyor...") { yeniSoruUret(); } 
     }
-
     function altSekmeDegis(sekme) { document.getElementById('btnPlan').classList.remove('aktif'); document.getElementById('btnNot').classList.remove('aktif'); document.getElementById('icerikPlan').classList.remove('aktif'); document.getElementById('icerikNot').classList.remove('aktif'); if(sekme === 'plan') { document.getElementById('btnPlan').classList.add('aktif'); document.getElementById('icerikPlan').classList.add('aktif'); } else { document.getElementById('btnNot').classList.add('aktif'); document.getElementById('icerikNot').classList.add('aktif'); } }
     function notKaydet() { var notIcerik = document.getElementById('notDefteri').value; localStorage.setItem('bedir_notlar', notIcerik); }
     function degisDil(val) { curLang = val; localStorage.setItem('bedir_lang', val); updateLanguageUI(); if(document.getElementById('mod10').style.display === 'block'){ yeniSoruUret(); } }
-    
     function updateLanguageUI() { 
         var d = t[curLang]; 
-        for (const [key, value] of Object.entries(d)) { 
-            var el = document.getElementById(key); 
-            if(el) { 
-                if(el.tagName === 'INPUT') el.placeholder = value; 
-                else el.innerHTML = value; 
-            } 
-        } 
+        for (const [key, value] of Object.entries(d)) { var el = document.getElementById(key); if(el) { if(el.tagName === 'INPUT') el.placeholder = value; else el.innerHTML = value; } } 
         document.getElementById('btnEkstrem').innerHTML = ekstremModAktif ? d.btn_ekstrem_on : d.btn_ekstrem_off;
     }
-    
     function bgModalAc() { document.getElementById('bgModal').style.display = 'flex'; document.getElementById('bgSecenekler').style.display = 'block'; document.getElementById('bgHazirlar').style.display = 'none'; }
     function bgModalKapat() { document.getElementById('bgModal').style.display = 'none'; }
     function galeridenYukle() { bgModalKapat(); document.getElementById('resimYukleyici').click(); }
@@ -834,20 +768,7 @@
     
     let oturumBaslangic = Date.now();
     let sonPomodoro = 0;
-    function sayaciCalistir() { 
-        setInterval(function() { 
-            let gecenSaniye = Math.floor((Date.now() - oturumBaslangic) / 1000);
-            let sa = Math.floor(gecenSaniye/3600); 
-            let dk = Math.floor((gecenSaniye%3600)/60); 
-            let sn = gecenSaniye%60; 
-            document.getElementById('oturumSayaci').innerText = (sa<10?"0"+sa:sa) + ":" + (dk<10?"0"+dk:dk) + ":" + (sn<10?"0"+sn:sn); 
-            
-            if (gecenSaniye >= sonPomodoro + 1500) { 
-                document.getElementById('pomodoroToast').style.display = 'block'; 
-                sonPomodoro += 1500; 
-            } 
-        }, 1000); 
-    }
+    function sayaciCalistir() { setInterval(function() { let gecenSaniye = Math.floor((Date.now() - oturumBaslangic) / 1000); let sa = Math.floor(gecenSaniye/3600); let dk = Math.floor((gecenSaniye%3600)/60); let sn = gecenSaniye%60; document.getElementById('oturumSayaci').innerText = (sa<10?"0"+sa:sa) + ":" + (dk<10?"0"+dk:dk) + ":" + (sn<10?"0"+sn:sn); if (gecenSaniye >= sonPomodoro + 1500) { document.getElementById('pomodoroToast').style.display = 'block'; sonPomodoro += 1500; } }, 1000); }
     
     function hesaplaCizim() { var v = temizle(document.getElementById('g_sayi').value); var o = parseInt(document.getElementById('g_olcek').value); var cm = (document.getElementById('g_birim').value == 'm') ? v*100 : ((document.getElementById('g_birim').value == 'mm') ? v/10 : v); goster('sonuc1', `${t[curLang].res_drawn}: ${(cm/o).toFixed(2)} CM`); }
     function hesaplaGercek() { var v = temizle(document.getElementById('c_sayi').value); var o = parseInt(document.getElementById('c_olcek').value); goster('sonuc2', `${t[curLang].res_real}: ${((v*o)/100).toFixed(2)} M`); }
@@ -859,13 +780,37 @@
     function setupCalcKeys() { document.addEventListener('keydown', function(event) { if(document.getElementById('mod9').style.display === 'block') { const key = event.key; if(/[0-9]/.test(key)) calcAppend(key); if(['+', '-', '*', '/'].includes(key)) calcAppend(key); if(key === '.' || key === ',') calcAppend('.'); if(key === 'Enter' || key === '=') calcResult(); if(key === 'Backspace' || key === 'Escape' || key.toLowerCase() === 'c') calcClear(); } }); }
     var currentCalc = ""; function calcAppend(v) { currentCalc += v; document.getElementById('calc-screen').value = currentCalc; } function calcClear() { currentCalc = ""; document.getElementById('calc-screen').value = ""; } function calcResult() { try { var r = new Function('return ' + currentCalc)(); if(!isFinite(r)) r = "Hata"; document.getElementById('calc-screen').value = r; currentCalc = r.toString(); } catch(e) { document.getElementById('calc-screen').value = "Hata"; currentCalc = ""; } } function calcPercent() { try { var v = parseFloat(currentCalc); if(!isNaN(v)) { v = v/100; currentCalc = v.toString(); document.getElementById('calc-screen').value = currentCalc; } } catch(e) {} }
     function planSec() { document.getElementById('planYukleyici').click(); } function planYukle(input) { if(input.files && input.files[0]) { var r = new FileReader(); r.onload = function(e) { var h = '<img id="gercekPlan" src="'+e.target.result+'" style="max-width:100%; transform: scale(1) translate(0px, 0px);">'; document.getElementById('planGorsel').innerHTML = h; planReset(); }; r.readAsDataURL(input.files[0]); } } function gorselGuncelle() { var i = document.getElementById('gercekPlan'); if(i) i.style.transform = `translate(${planX}px, ${planY}px) scale(${planScale})`; } function planZoom(v) { planScale += v; if(planScale < 0.5) planScale = 0.5; gorselGuncelle(); } function planReset() { planScale = 1; planX = 0; planY = 0; gorselGuncelle(); } function baslaSurukle(e) { if(!document.getElementById('gercekPlan')) return; isDragging = true; var cx = e.clientX || e.touches[0].clientX; var cy = e.clientY || e.touches[0].clientY; startX = cx - planX; startY = cy - planY; e.preventDefault(); } function surukle(e) { if(!isDragging) return; var cx = e.clientX || e.touches[0].clientX; var cy = e.clientY || e.touches[0].clientY; planX = cx - startX; planY = cy - startY; gorselGuncelle(); e.preventDefault(); } function bitirSurukle() { isDragging = false; }
-    function switchGame(game) { if(activeGameLoop) { cancelAnimationFrame(activeGameLoop); activeGameLoop = null; } document.querySelectorAll('.game-wrapper').forEach(el => el.classList.remove('active')); document.querySelectorAll('.gm-btn').forEach(el => el.classList.remove('aktif')); document.getElementById('game-'+game).classList.add('active'); document.getElementById('gm-btn-'+game).classList.add('aktif'); if(game === 'mine') oyunuBaslat(); if(game === 'snake') document.getElementById('snakeOverlay').style.display = 'flex'; }
+    
+    function switchGame(game) { 
+        if(activeGameLoop) { cancelAnimationFrame(activeGameLoop); activeGameLoop = null; } 
+        document.querySelectorAll('.game-wrapper').forEach(el => el.classList.remove('active')); 
+        document.querySelectorAll('.gm-btn').forEach(el => el.classList.remove('aktif')); 
+        document.getElementById('game-'+game).classList.add('active'); 
+        document.getElementById('gm-btn-'+game).classList.add('aktif'); 
+        if(game === 'mine') oyunuBaslat(); 
+        if(game === 'snake') document.getElementById('snakeOverlay').style.display = 'flex'; 
+        if(game === '2048') baslat2048();
+        if(game === 'sudoku') baslatSudoku();
+    }
+    
+    // OYUN: YILAN
     const sc = document.getElementById('snakeCanvas'); const sCtx = sc.getContext('2d'); let snake = [], food = {}, dir = 'RIGHT', nextDir = 'RIGHT', snakeScore = 0; const box = 15;
     function startSnake() { document.getElementById('snakeOverlay').style.display = 'none'; snake = [{x: 9*box, y: 10*box}]; dir = 'RIGHT'; nextDir = 'RIGHT'; snakeScore = 0; document.getElementById('snakeScore').innerText = 0; placeFood(); if(activeGameLoop) cancelAnimationFrame(activeGameLoop); snakeLoop(); }
     function placeFood() { food = { x: Math.floor(Math.random() * (sc.width/box)) * box, y: Math.floor(Math.random() * (sc.height/box)) * box } } let lastTime = 0;
     function snakeLoop(timestamp) { if (!document.getElementById('game-snake').classList.contains('active')) return; activeGameLoop = requestAnimationFrame(snakeLoop); if (timestamp - lastTime < 100) return; lastTime = timestamp; sCtx.fillStyle = '#fff'; sCtx.fillRect(0,0,sc.width,sc.height); dir = nextDir; let snakeX = snake[0].x; let snakeY = snake[0].y; if(dir == 'LEFT') snakeX -= box; if(dir == 'UP') snakeY -= box; if(dir == 'RIGHT') snakeX += box; if(dir == 'DOWN') snakeY += box; if(snakeX < 0 || snakeX >= sc.width || snakeY < 0 || snakeY >= sc.height || collision(snakeX, snakeY, snake)) { cancelAnimationFrame(activeGameLoop); document.getElementById('snakeOverlay').style.display = 'flex'; document.querySelector('#snakeOverlay div').innerText = t[curLang].gm_lose + " " + t[curLang].lbl_score_snake + ": " + snakeScore; return; } if(snakeX == food.x && snakeY == food.y) { snakeScore++; document.getElementById('snakeScore').innerText = snakeScore; placeFood(); } else { snake.pop(); } let newHead = {x: snakeX, y: snakeY}; snake.unshift(newHead); for(let i=0; i<snake.length; i++) { sCtx.fillStyle = (i==0) ? getComputedStyle(document.documentElement).getPropertyValue('--ana-renk').trim() : "#aaa"; sCtx.fillRect(snake[i].x, snake[i].y, box, box); sCtx.strokeStyle = "#fff"; sCtx.strokeRect(snake[i].x, snake[i].y, box, box); } sCtx.fillStyle = "red"; sCtx.fillRect(food.x, food.y, box, box); }
     function collision(x, y, array) { for(let i=0; i<array.length; i++) { if(x == array[i].x && y == array[i].y) return true; } return false; }
-    function setupSnakeControls() { window.addEventListener('keydown', function(e) { if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) { if(document.getElementById('game-snake').classList.contains('active')) { e.preventDefault(); } } }, false); document.addEventListener('keydown', function(event) { let key = event.keyCode; if((key==37 || key==65) && dir!='RIGHT') nextDir='LEFT'; else if((key==38 || key==87) && dir!='DOWN') nextDir='UP'; else if((key==39 || key==68) && dir!='LEFT') nextDir='RIGHT'; else if((key==40 || key==83) && dir!='UP') nextDir='DOWN'; }); let tsX, tsY; sc.addEventListener('touchstart', function(e) { tsX = e.touches[0].clientX; tsY = e.touches[0].clientY; e.preventDefault(); }, {passive: false}); sc.addEventListener('touchmove', function(e) { e.preventDefault(); }, {passive: false}); sc.addEventListener('touchend', function(e) { let teX = e.changedTouches[0].clientX; let teY = e.changedTouches[0].clientY; let dx = teX - tsX; let dy = teY - tsY; if(Math.abs(dx) > Math.abs(dy)) { if(dx > 0 && dir!='LEFT') nextDir='RIGHT'; else if(dx < 0 && dir!='RIGHT') nextDir='LEFT'; } else { if(dy > 0 && dir!='UP') nextDir='DOWN'; else if(dy < 0 && dir!='DOWN') nextDir='UP'; } }); }
+    function setupSnakeControls() { 
+        window.addEventListener('keydown', function(e) { 
+            if(["ArrowUp","ArrowDown","ArrowLeft","ArrowRight"].indexOf(e.code) > -1) { 
+                if(document.getElementById('game-snake').classList.contains('active')) { e.preventDefault(); } 
+                else if(document.getElementById('game-2048').classList.contains('active')) { e.preventDefault(); move2048({ArrowLeft:37,ArrowUp:38,ArrowRight:39,ArrowDown:40}[e.code]); }
+            } 
+        }, false); 
+        document.addEventListener('keydown', function(event) { let key = event.keyCode; if((key==37 || key==65) && dir!='RIGHT') nextDir='LEFT'; else if((key==38 || key==87) && dir!='DOWN') nextDir='UP'; else if((key==39 || key==68) && dir!='LEFT') nextDir='RIGHT'; else if((key==40 || key==83) && dir!='UP') nextDir='DOWN'; }); 
+        let tsX, tsY; sc.addEventListener('touchstart', function(e) { tsX = e.touches[0].clientX; tsY = e.touches[0].clientY; e.preventDefault(); }, {passive: false}); sc.addEventListener('touchmove', function(e) { e.preventDefault(); }, {passive: false}); sc.addEventListener('touchend', function(e) { let teX = e.changedTouches[0].clientX; let teY = e.changedTouches[0].clientY; let dx = teX - tsX; let dy = teY - tsY; if(Math.abs(dx) > Math.abs(dy)) { if(dx > 0 && dir!='LEFT') nextDir='RIGHT'; else if(dx < 0 && dir!='RIGHT') nextDir='LEFT'; } else { if(dy > 0 && dir!='UP') nextDir='DOWN'; else if(dy < 0 && dir!='DOWN') nextDir='UP'; } }); 
+    }
+    
+    // OYUN: BLACKJACK
     const bj_suits = ['♥', '♦', '♣', '♠']; const bj_values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']; let deck = [], playerHand = [], dealerHand = [], bjGameActive = false;
     function createDeck() { deck = []; for (let s of bj_suits) { for (let v of bj_values) { deck.push({ suit: s, value: v }); } } for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; } }
     function getCardValue(card) { if (['J', 'Q', 'K'].includes(card.value)) return 10; if (card.value === 'A') return 11; return parseInt(card.value); }
@@ -877,37 +822,102 @@
     function bjStand() { if (!bjGameActive) return; let dScore = getHandScore(dealerHand); while (dScore < 17) { dealerHand.push(deck.pop()); dScore = getHandScore(dealerHand); } updateBJUI(true); let pScore = getHandScore(playerHand); if (dScore > 21) bjEnd(true, t[curLang].gm_dealer_bust + " " + t[curLang].gm_win); else if (pScore > dScore) bjEnd(true, t[curLang].gm_win); else if (pScore < dScore) bjEnd(false, t[curLang].gm_lose); else bjEnd(true, t[curLang].gm_draw); }
     function bjEnd(win, msg) { bjGameActive = false; document.getElementById('bjHit').disabled = true; document.getElementById('bjStand').disabled = true; document.getElementById('bjNew').disabled = false; updateBJUI(true); let color = win ? "green" : "red"; if(msg.includes(t[curLang].gm_draw)) color = "orange"; document.getElementById('bjMessage').innerHTML = `<span style='color:${color}'>${msg}</span>`; }
     
+    // OYUN: MAYIN
     const SATIR=10, SUTUN=10, MAYIN_SAYISI=15; let oyunGrid=[], oyunAktif=false, kazmaModu=true;
     function modDegistirOyun(kaz) { kazmaModu=kaz; document.getElementById('btnKaz').className = kaz ? 'oyun-btn aktif-mod' : 'oyun-btn'; document.getElementById('btnBayrak').className = !kaz ? 'oyun-btn aktif-mod' : 'oyun-btn'; }
     function oyunuBaslat() { 
         const g = document.getElementById('mayinTarlasi'); g.innerHTML = ''; oyunGrid = []; oyunAktif = true; document.getElementById('mayinSayac').innerText = MAYIN_SAYISI; document.getElementById('oyunSonuc').style.display = 'none'; 
-        for(let i=0; i<SATIR; i++){ 
-            let rArr=[]; 
-            for(let j=0; j<SUTUN; j++){ 
-                let h = document.createElement('div'); h.className = 'hucre'; 
-                h.onclick = () => hucreTikla(i,j); 
-                h.oncontextmenu = (e) => { e.preventDefault(); sagTiklaBayrak(i,j); return false; };
-                g.appendChild(h); rArr.push({el:h, mayin:false, acik:false, bayrak:false, sayi:0}); 
-            } 
-            oyunGrid.push(rArr); 
-        } 
+        for(let i=0; i<SATIR; i++){ let rArr=[]; for(let j=0; j<SUTUN; j++){ let h = document.createElement('div'); h.className = 'hucre'; h.onclick = () => hucreTikla(i,j); h.oncontextmenu = (e) => { e.preventDefault(); sagTiklaBayrak(i,j); return false; }; g.appendChild(h); rArr.push({el:h, mayin:false, acik:false, bayrak:false, sayi:0}); } oyunGrid.push(rArr); } 
         let m=0; while(m < MAYIN_SAYISI){ let r = Math.floor(Math.random()*SATIR), c = Math.floor(Math.random()*SUTUN); if(!oyunGrid[r][c].mayin){ oyunGrid[r][c].mayin = true; m++; } } 
         for(let i=0; i<SATIR; i++){ for(let j=0; j<SUTUN; j++){ if(!oyunGrid[i][j].mayin){ let c=0; for(let x=-1; x<=1; x++){ for(let y=-1; y<=1; y++){ let ni=i+x, nj=j+y; if(ni>=0 && ni<SATIR && nj>=0 && nj<SUTUN && oyunGrid[ni][nj].mayin) c++; } } oyunGrid[i][j].sayi = c; } } } 
     }
-    
-    function sagTiklaBayrak(r, c) {
-        if(!oyunAktif) return;
-        let h = oyunGrid[r][c];
-        if(h.acik) return;
-        h.bayrak = !h.bayrak;
-        h.el.className = h.bayrak ? 'hucre bayrak' : 'hucre';
-        h.el.innerText = h.bayrak ? '🚩' : '';
-    }
-
+    function sagTiklaBayrak(r, c) { if(!oyunAktif) return; let h = oyunGrid[r][c]; if(h.acik) return; h.bayrak = !h.bayrak; h.el.className = h.bayrak ? 'hucre bayrak' : 'hucre'; h.el.innerText = h.bayrak ? '🚩' : ''; }
     function hucreTikla(r,c){ if(!oyunAktif) return; let h = oyunGrid[r][c]; if(!kazmaModu){ if(h.acik) return; h.bayrak = !h.bayrak; h.el.className = h.bayrak ? 'hucre bayrak' : 'hucre'; h.el.innerText = h.bayrak ? '🚩' : ''; return; } if(h.bayrak || h.acik) return; if(h.mayin){ oyunBitir(false); h.el.className = 'hucre bom'; h.el.innerText = '💣'; } else { acHucre(r,c); kazanmaKontrol(); } }
     function acHucre(r,c){ if(r<0 || r>=SATIR || c<0 || c>=SUTUN || oyunGrid[r][c].acik || oyunGrid[r][c].bayrak) return; let h = oyunGrid[r][c]; h.acik = true; h.el.className = 'hucre acik'; if(h.sayi > 0){ h.el.innerText = h.sayi; h.el.classList.add('c'+Math.min(h.sayi,4)); } else { for(let x=-1; x<=1; x++) for(let y=-1; y<=1; y++) acHucre(r+x, c+y); } }
     function oyunBitir(k){ oyunAktif = false; let s = document.getElementById('oyunSonuc'); s.style.display = 'block'; if(k) { s.innerHTML = "<span style='color:green'>"+t[curLang].gm_win+" 🎉</span>"; } else { s.innerHTML = "<span style='color:red'>"+t[curLang].gm_lose+" 💥</span>"; for(let i=0; i<SATIR; i++) { for(let j=0; j<SUTUN; j++) { if(oyunGrid[i][j].mayin){ oyunGrid[i][j].el.innerText = '💣'; if(!oyunGrid[i][j].bayrak) oyunGrid[i][j].el.style.color = 'white'; } } } } }
     function kazanmaKontrol(){ let k=0; for(let i=0; i<SATIR; i++) for(let j=0; j<SUTUN; j++) if(!oyunGrid[i][j].acik) k++; if(k === MAYIN_SAYISI) oyunBitir(true); }
+
+    // OYUN: TAŞ KAĞIT MAKAS
+    const rpsEmoji = {tas:'✊', kagit:'✋', makas:'✌️'};
+    function oynaRPS(secim) {
+        let pc = ['tas','kagit','makas'][Math.floor(Math.random()*3)];
+        document.getElementById('rps-arena').innerText = rpsEmoji[secim] + " vs " + rpsEmoji[pc];
+        let s = document.getElementById('rps-sonuc');
+        if(secim===pc) s.innerHTML = `<span style="color:orange">${t[curLang].gm_draw}</span>`;
+        else if((secim==='tas'&&pc==='makas') || (secim==='kagit'&&pc==='tas') || (secim==='makas'&&pc==='kagit')) s.innerHTML = `<span style="color:green">${t[curLang].gm_win}</span>`;
+        else s.innerHTML = `<span style="color:red">${t[curLang].gm_lose}</span>`;
+    }
+
+    // OYUN: 2048
+    let b2048=[], s2048=0;
+    function baslat2048(){ b2048=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]; s2048=0; add2048(); add2048(); ciz2048(); }
+    function add2048(){
+        let e=[]; for(let r=0;r<4;r++)for(let c=0;c<4;c++)if(!b2048[r][c])e.push({r,c});
+        if(e.length){ let rnd=e[Math.floor(Math.random()*e.length)]; b2048[rnd.r][rnd.c]=Math.random()>0.1?2:4; }
+    }
+    function ciz2048(){
+        let g=document.getElementById('grid-2048'); g.innerHTML=''; document.getElementById('skor-2048').innerText=s2048;
+        for(let r=0;r<4;r++)for(let c=0;c<4;c++){
+            let v=b2048[r][c]; let d=document.createElement('div');
+            d.className='cell-2048'+(v?' c2048-'+v:''); d.innerText=v||''; g.appendChild(d);
+        }
+    }
+    function move2048(dir){
+        let moved=false;
+        let rotate = (b) => b[0].map((val, index) => b.map(row => row[index]).reverse());
+        let rots = {37:0, 38:1, 39:2, 40:3}[dir];
+        for(let i=0;i<rots;i++) b2048 = rotate(b2048);
+        for(let r=0;r<4;r++){
+            let row = b2048[r].filter(v=>v);
+            for(let c=0;c<row.length-1;c++){ if(row[c]==row[c+1]){ row[c]*=2; s2048+=row[c]; row.splice(c+1,1); } }
+            while(row.length<4) row.push(0);
+            if(b2048[r].join(',') !== row.join(',')) moved=true;
+            b2048[r] = row;
+        }
+        for(let i=0;i<(4-rots)%4;i++) b2048 = rotate(b2048);
+        if(moved){ add2048(); ciz2048(); }
+    }
+    function setup2048Swipe(){
+        let tsX2, tsY2, grid = document.getElementById('grid-2048');
+        grid.addEventListener('touchstart', e => { tsX2=e.touches[0].clientX; tsY2=e.touches[0].clientY; e.preventDefault(); }, {passive:false});
+        grid.addEventListener('touchend', e => {
+            let dx = e.changedTouches[0].clientX - tsX2, dy = e.changedTouches[0].clientY - tsY2;
+            if(Math.abs(dx)>Math.abs(dy)) { if(dx>0) move2048(39); else move2048(37); } else { if(dy>0) move2048(40); else move2048(38); }
+        });
+    }
+
+    // OYUN: SUDOKU
+    let sdkSol=[], sdkGrid=[], sdkSel=null;
+    function baslatSudoku(){
+        let b=[[1,2,3,4,5,6,7,8,9],[4,5,6,7,8,9,1,2,3],[7,8,9,1,2,3,4,5,6],[2,3,1,5,6,4,8,9,7],[5,6,4,8,9,7,2,3,1],[8,9,7,2,3,1,5,6,4],[3,1,2,6,4,5,9,7,8],[6,4,5,9,7,8,3,1,2],[9,7,8,3,1,2,6,4,5]];
+        let nums = [1,2,3,4,5,6,7,8,9].sort(()=>Math.random()-0.5);
+        sdkSol = b.map(row => row.map(v => nums[v-1]));
+        sdkGrid = JSON.parse(JSON.stringify(sdkSol));
+        for(let i=0;i<40;i++) sdkGrid[Math.floor(Math.random()*9)][Math.floor(Math.random()*9)] = 0;
+        sdkSel = null; cizSudoku();
+    }
+    function cizSudoku(){
+        let g = document.getElementById('board-sudoku'); g.innerHTML='';
+        for(let r=0;r<9;r++){
+            for(let c=0;c<9;c++){
+                let d = document.createElement('div');
+                d.className = 'sudoku-cell' + (sdkGrid[r][c]!==0?' fixed':'') + (sdkSel&&sdkSel[0]==r&&sdkSel[1]==c?' selected':'');
+                if(sdkGrid[r][c]!==0) d.innerText = sdkGrid[r][c];
+                else d.onclick = () => { sdkSel=[r,c]; cizSudoku(); };
+                g.appendChild(d);
+            }
+        }
+    }
+    function girSudoku(n){
+        if(!sdkSel || sdkGrid[sdkSel[0]][sdkSel[1]]!==0) return;
+        let r=sdkSel[0], c=sdkSel[1];
+        let divs = document.getElementById('board-sudoku').children;
+        let d = divs[r*9+c];
+        if(n===0){ d.innerText=''; d.classList.remove('error'); return; }
+        d.innerText = n;
+        if(n !== sdkSol[r][c]) d.classList.add('error');
+        else { d.classList.remove('error'); sdkGrid[r][c]=n; sdkSel=null; cizSudoku(); }
+    }
 </script>
 </body>
 </html>
