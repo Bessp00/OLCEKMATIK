@@ -137,7 +137,30 @@
     .cerez-kutusu { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.85); color: white; padding: 15px; text-align: center; z-index: 1000; font-family: sans-serif; font-size: 13px; display: none; box-sizing: border-box; border-top: 3px solid var(--ana-renk);}
     .cerez-kutusu button { background: var(--ana-renk); color: white; border: 1px solid #fff; padding: 6px 20px; margin-left: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.2s; }
     .cerez-kutusu button:hover { background: #fff; color: var(--ana-renk); }
-    .btn-ekstrem { width: 100%; padding: 10px; margin-bottom: 15px; border: 2px dashed #d32f2f; background: transparent; color: #d32f2f; border-radius: 8px; font-weight: 900; cursor: pointer; transition: 0.3s; font-family: 'Courier New', monospace; }
+    
+    /* GÜNCELLENEN KISIM: EKSTREM MOD TEMASI */
+    .btn-ekstrem { width: 100%; padding: 10px; margin-bottom: 15px; border: 2px dashed #d32f2f; background: transparent; color: #d32f2f; border-radius: 8px; font-weight: 900; cursor: pointer; transition: 0.3s; font-family: 'Courier New', monospace; font-size: 15px; }
+    
+    body.ekstrem-tema { background-image: linear-gradient(135deg, #1f0000 0%, #4a0000 100%) !important; color: #ffe6e6 !important; }
+    body.ekstrem-tema .kutu { background-color: rgba(15, 0, 0, 0.9) !important; border-top: 6px solid #e60000 !important; box-shadow: 0 25px 60px rgba(255, 0, 0, 0.3) !important; }
+    body.ekstrem-tema h2, body.ekstrem-tema label, body.ekstrem-tema .sayac-alani, body.ekstrem-tema #soruMetni { color: #ffcccc !important; text-shadow: 1px 1px 0px #8a0000 !important; }
+    body.ekstrem-tema .hesapla { background: #cc0000 !important; color: white !important; box-shadow: 0 5px 15px rgba(255,0,0,0.4) !important; }
+    body.ekstrem-tema input, body.ekstrem-tema select { background: #2b0000 !important; color: #ffe6e6 !important; border-color: #ff3333 !important; }
+    body.ekstrem-tema .menu button.aktif { background: #cc0000 !important; color: #fff !important; }
+    body.ekstrem-tema .menu button { color: #ff9999 !important; background: rgba(255,0,0,0.1) !important;}
+    body.ekstrem-tema .ayar-btn { color: #ffcccc !important; border-color:#ffcccc !important; }
+    
+    /* GÜNCELLENEN KISIM: GEÇMİŞ KUTUSU CSS */
+    .gecmis-btn { width: 100%; padding: 12px; margin-top: 20px; border-radius: 8px; border: 2px dashed var(--ana-renk); background: transparent; color: var(--yazi-renk); font-weight: bold; cursor: pointer; font-family: inherit; font-size: 14px; transition: 0.3s; }
+    .gecmis-btn:hover { background: rgba(0,0,0,0.05); }
+    .gecmis-kutusu { background: rgba(0,0,0,0.03); border: 2px solid var(--input-border); border-radius: 8px; padding: 10px; margin-top: 10px; max-height: 180px; overflow-y: auto; font-size: 12px; text-align: left; display: none; line-height: 1.4; }
+    .gecmis-item { border-bottom: 1px solid rgba(0,0,0,0.1); padding: 8px 0; color: var(--yazi-renk); }
+    .gecmis-item:last-child { border-bottom: none; }
+    
+    body.ekstrem-tema .gecmis-btn { border-color: #ff3333 !important; color: #ffcccc !important; }
+    body.ekstrem-tema .gecmis-kutusu { border-color: #ff0000 !important; background: rgba(255,0,0,0.05) !important; }
+    body.ekstrem-tema .gecmis-item { color: #ffcccc !important; border-bottom: 1px solid rgba(255,0,0,0.2) !important; }
+
 </style>
 </head>
 <body>
@@ -275,16 +298,24 @@
     <div id="mod10" class="mod">
         <div class="sayac-alani" style="margin-top:0; border:none; padding-bottom:5px;"><span id="lbl_score_text">SKOR:</span> <span id="soruSkor" style="color:var(--ana-renk)">0</span></div>
         <button id="btnEkstrem" class="btn-ekstrem" onclick="toggleEkstremMod()">🔥 EKSTREM MOD: KAPALI</button>
-        <div id="ekstremGosterge" style="display:none; color:#d32f2f; font-weight:bold; font-size:18px; margin-bottom:15px; text-align:center;">
-            ⏳ <span id="lbl_time">Kalan Süre:</span> <span id="soruSure">10</span>
+        <div id="ekstremGosterge" style="display:none; color:#d32f2f; font-weight:bold; font-size:18px; margin-bottom:15px; text-align:center; animation: pulse 1s infinite alternate;">
+            ⏳ <span id="lbl_time">Kalan Süre:</span> <span id="soruSure">17</span>
         </div>
         <div id="soruMetni" style="font-weight:bold; font-size:16px; margin-bottom:15px; text-align:center; color:var(--yazi-renk); min-height: 60px; display: flex; align-items: center; justify-content: center;">Soru yükleniyor...</div>
+        
+        <div style="font-size:11px; opacity:0.7; text-align:center; margin-bottom:5px;" id="lbl_ipucu_hizli">💡 İpucu: Hız için virgül yerine boşluk bırakabilirsiniz (Örn: 2 5 = 2.5)</div>
+        
         <input type="text" inputmode="decimal" id="soruCevap" placeholder="Cevabı gir (Sadece sayı)">
         <div style="display:flex; gap:10px; margin-top:20px;">
-            <button id="btn_gec" class="hesapla" style="margin-top:0; background:var(--yazi-renk);" onclick="yeniSoruUret()">GEÇ</button>
+            <button id="btn_gec" class="hesapla" style="margin-top:0; background:var(--yazi-renk);" onclick="soruGec()">GEÇ</button>
             <button id="btn_cevapla" class="hesapla" style="margin-top:0;" onclick="soruCevapla()">CEVAPLA</button>
         </div>
         <div id="soruSonuc" class="sonuc"></div>
+        
+        <button class="gecmis-btn" onclick="gecmisGosterGizle()">📜 <span id="lbl_history_btn">Geçmiş Sorular</span></button>
+        <div id="gecmisKutusuMain" class="gecmis-kutusu">
+            <div id="gecmisListesi"></div>
+        </div>
     </div>
 
     <div id="mod4" class="mod">
@@ -335,7 +366,7 @@
         </div>
     </div>
     <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.30.0</div>
+    <div class="versiyon">v4.31.0</div>
 </div>
 <div class="alt-modul">
     <div class="alt-sekmeler">
@@ -391,7 +422,8 @@
             lbl_cookie: "🍪 Bu site, deneyiminizi geliştirmek ve size kişiselleştirilmiş içerik/reklam sunmak için çerezler (cookies) kullanır. Siteyi kullanmaya devam ederek bunu kabul etmiş olursunuz.", btn_cookie_ok: "Anladım",
             lbl_pomodoro_title: "⏱️ MOLA ZAMANI!", lbl_pomodoro_text: "25 dakika boyunca aralıksız çalıştın.<br>Verimini korumak için şimdi 5 dakika gözlerini dinlendir.", btn_pomodoro_ok: "TAMAM",
             lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>Ölçekmatik Nedir?</strong><br><br>Ölçekmatik; mimarlar, iç mimarlar, mühendisler ve tasarım öğrencileri için geliştirilmiş ücretsiz ve pratik bir <b>mimari ölçek hesaplama aracıdır</b>. Projelerinizde kağıt üzerindeki ölçüleri gerçek ölçülere veya gerçek ölçüleri plan ölçeklerine (1/20, 1/50, 1/100 vb.) hızlıca çevirebilirsiniz.",
-            lbl_footer_about: "Hakkımızda & İletişim", lbl_footer_privacy: "Gizlilik Politikası", lbl_footer_terms: "Kullanım Koşulları", lbl_footer_rights: "© 2026 Bedir Design. Tüm Hakları Saklıdır."
+            lbl_footer_about: "Hakkımızda & İletişim", lbl_footer_privacy: "Gizlilik Politikası", lbl_footer_terms: "Kullanım Koşulları", lbl_footer_rights: "© 2026 Bedir Design. Tüm Hakları Saklıdır.",
+            lbl_history_btn: "Geçmiş Sorular", lbl_ipucu_hizli: "💡 İpucu: Hız için virgül yerine boşluk bırakabilirsiniz (Örn: 2 5 = 2.5)"
         },
         en: {
             btn1: "PROJECT", btn2: "REAL", btn3: "SLOPE", btn4: "GAME", btn5: "STAIRS", btn6: "MATERIAL", btn7: "GOLDEN RATIO", btn8: "CONVERT", btn9: "CALC", btn10: "QUIZ",
@@ -413,7 +445,8 @@
             lbl_cookie: "🍪 This site uses cookies to improve your experience and provide personalized content/ads. By continuing to use the site, you accept this.", btn_cookie_ok: "Got it",
             lbl_pomodoro_title: "⏱️ BREAK TIME!", lbl_pomodoro_text: "You have worked for 25 minutes straight.<br>Rest your eyes for 5 minutes to maintain productivity.", btn_pomodoro_ok: "OK",
             lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>What is Ölçekmatik?</strong><br><br>It is a free and practical <b>architectural scale calculator</b> developed for architects, interior designers, and students. Quickly convert paper dimensions to real dimensions or vice versa.",
-            lbl_footer_about: "About Us & Contact", lbl_footer_privacy: "Privacy Policy", lbl_footer_terms: "Terms of Use", lbl_footer_rights: "© 2026 Bedir Design. All Rights Reserved."
+            lbl_footer_about: "About Us & Contact", lbl_footer_privacy: "Privacy Policy", lbl_footer_terms: "Terms of Use", lbl_footer_rights: "© 2026 Bedir Design. All Rights Reserved.",
+            lbl_history_btn: "Question History", lbl_ipucu_hizli: "💡 Tip: For speed, you can use space instead of dot (e.g. 2 5 = 2.5)"
         },
         zh: {
             btn1: "项目", btn2: "实际", btn3: "坡度", btn4: "游戏", btn5: "楼梯", btn6: "材料", btn7: "黄金比例", btn8: "转换", btn9: "计算器", btn10: "测验",
@@ -435,7 +468,8 @@
             lbl_cookie: "🍪 本网站使用 cookie 来改善您的体验并提供个性化内容。继续使用本网站即表示您接受此条款。", btn_cookie_ok: "知道了",
             lbl_pomodoro_title: "⏱️ 休息时间！", lbl_pomodoro_text: "您已经连续工作了 25 分钟。<br>请休息 5 分钟以保持工作效率。", btn_pomodoro_ok: "确定",
             lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>什么是 Ölçekmatik？</strong><br><br>它是为建筑师和设计学生开发的免费且实用的<b>建筑比例计算器</b>。可以快速将图纸尺寸转换为实际尺寸。",
-            lbl_footer_about: "关于我们 & 联系方式", lbl_footer_privacy: "隐私政策", lbl_footer_terms: "使用条款", lbl_footer_rights: "© 2026 Bedir Design. 保留所有权利。"
+            lbl_footer_about: "关于我们 & 联系方式", lbl_footer_privacy: "隐私政策", lbl_footer_terms: "使用条款", lbl_footer_rights: "© 2026 Bedir Design. 保留所有权利。",
+            lbl_history_btn: "问题历史", lbl_ipucu_hizli: "💡 提示: 为了速度，您可以使用空格代替小数点 (如 2 5 = 2.5)"
         },
         ku: {
             btn1: "PROJE", btn2: "RASTÎ", btn3: "ŞÎV", btn4: "LÎSTIK", btn5: "PÊLIK", btn6: "KELÛPEL", btn7: "RÊJEYA ZÊRÎN", btn8: "VEGERÎNE", btn9: "HESAB", btn10: "PIRS",
@@ -457,7 +491,8 @@
             lbl_cookie: "🍪 Ev malper çerezan bikar tîne. Bi karanîna malperê hûn vê qebûl dikin.", btn_cookie_ok: "Fêm kir",
             lbl_pomodoro_title: "⏱️ DEMA BÊHNDANÊ!", lbl_pomodoro_text: "We 25 deqe bê navber xebitî.<br>Niha 5 deqe çavên xwe bêhn bikin.", btn_pomodoro_ok: "TEMAM",
             lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>Ölçekmatik Çi Ye?</strong><br><br>Amûrek belaş e ji bo mîmaran.",
-            lbl_footer_about: "Derbarê Me", lbl_footer_privacy: "Polîtîkaya Nepenîtiyê", lbl_footer_terms: "Mercên Bikaranînê", lbl_footer_rights: "© 2026 Bedir Design."
+            lbl_footer_about: "Derbarê Me", lbl_footer_privacy: "Polîtîkaya Nepenîtiyê", lbl_footer_terms: "Mercên Bikaranînê", lbl_footer_rights: "© 2026 Bedir Design.",
+            lbl_history_btn: "Pirsên Berê", lbl_ipucu_hizli: "💡 Têbînî: Hûn dikarin li şûna xalê valahiyê bikar bînin (Wekî: 2 5 = 2.5)"
         },
         ar: {
             btn1: "مشروع", btn2: "حقيقي", btn3: "انحدار", btn4: "لعبة", btn5: "درج", btn6: "مواد", btn7: "النسبة الذهبية", btn8: "تحويل", btn9: "حساب", btn10: "سؤال",
@@ -479,21 +514,25 @@
             lbl_cookie: "🍪 يستخدم هذا الموقع ملفات تعريف الارتباط. بالاستمرار في الاستخدام، فإنك توافق على ذلك.", btn_cookie_ok: "موافق",
             lbl_pomodoro_title: "⏱️ وقت الاستراحة!", lbl_pomodoro_text: "لقد عملت لمدة 25 دقيقة متواصلة.<br>أرح عينيك لمدة 5 دقائق.", btn_pomodoro_ok: "حسنا",
             lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>ما هو Ölçekmatik؟</strong><br><br>أداة حساب معمارية مجانية.",
-            lbl_footer_about: "معلومات عنا", lbl_footer_privacy: "سياسة الخصوصية", lbl_footer_terms: "شروط الاستخدام", lbl_footer_rights: "© 2026 Bedir Design. جميع الحقوق محفوظة."
+            lbl_footer_about: "معلومات عنا", lbl_footer_privacy: "سياسة الخصوصية", lbl_footer_terms: "شروط الاستخدام", lbl_footer_rights: "© 2026 Bedir Design. جميع الحقوق محفوظة.",
+            lbl_history_btn: "تاريخ السؤال", lbl_ipucu_hizli: "💡 تلميح: للسرعة، يمكنك استخدام مسافة بدلاً من النقطة (مثل 2 5 = 2.5)"
         }
     };
     
-    /* GÜNCELLENEN KISIM: LİSTEDEKİ İSİMLER YENİ RESİMLERE GÖRE AYARLANDI (Boşluksuz İsimler) */
     const hazirGorsellerListesi = ["atakoy ustgecit.jpg", "kedi2.jpg", "kedisi.jpg", "sanat eseri.jpg", "aslan.jpg", "modern-sanat.jpg", "fiyakali.jpg"];
     
     var planScale = 1; var planX = 0; var planY = 0; var isDragging = false; var startX, startY;
     var activeGameLoop = null;
     let soruDogruCevap = 0; 
     let soruSkor = 0;
+    let guncelSoruMetni = "";
     
+    // EKSTREM MOD & GEÇMİŞ DEĞİŞKENLERİ
     let ekstremModAktif = false;
     let soruZamanlayici = null;
-    let kalanSaniye = 10;
+    let kalanSaniye = 17;
+    let ekstremSoruSayaci = 0;
+    let soruGecmisiListesi = [];
 
     window.onload = function() {
         if(!localStorage.getItem('bedir_cerez_onay')) { document.getElementById('cerezUyarisi').style.display = 'block'; }
@@ -521,14 +560,27 @@
     }
     function cerezKabul() { localStorage.setItem('bedir_cerez_onay', 'true'); document.getElementById('cerezUyarisi').style.display = 'none'; }
     
+    // ZAMANLAYICI & GEÇMİŞ
+    function gecmisiCiz() {
+        let k = document.getElementById('gecmisListesi');
+        if(soruGecmisiListesi.length === 0) { k.innerHTML = "<div style='opacity:0.5; text-align:center;'>Geçmiş henüz boş.</div>"; return; }
+        k.innerHTML = soruGecmisiListesi.map(s => `<div class="gecmis-item">${s}</div>`).join('');
+    }
+    
+    function gecmisGosterGizle() {
+        let k = document.getElementById('gecmisKutusuMain');
+        k.style.display = k.style.display === 'none' ? 'block' : 'none';
+        if(k.style.display === 'block') gecmisiCiz();
+    }
+
     function zamanlayiciDurdur() {
         if(soruZamanlayici) clearInterval(soruZamanlayici);
     }
     
-    function zamanlayiciBaslat() {
+    function zamanlayiciBaslat(sure) {
         zamanlayiciDurdur();
         if(!ekstremModAktif) return;
-        kalanSaniye = 10;
+        kalanSaniye = sure;
         document.getElementById('soruSure').innerText = kalanSaniye;
         soruZamanlayici = setInterval(() => {
             kalanSaniye--;
@@ -543,6 +595,12 @@
     function zamanDoldu() {
         soruSkor -= 5;
         document.getElementById('soruSkor').innerText = soruSkor;
+        
+        let dTxt = {tr: "⏳ Süre Bitti", en: "⏳ Time Out", zh: "⏳ 时间到", ku: "⏳ Dema Qediya", ar: "⏳ انتهى الوقت"};
+        soruGecmisiListesi.unshift(`<b>${dTxt[curLang] || dTxt['tr']}</b> | ${guncelSoruMetni} <br> ${t[curLang].res_result}: ${soruDogruCevap}`);
+        if(soruGecmisiListesi.length > 20) soruGecmisiListesi.pop();
+        gecmisiCiz();
+
         let msg = { tr: 'SÜRE BİTTİ! ⏰ (-5 Puan)', en: 'TIME OUT! ⏰ (-5 Pts)', zh: '时间到！⏰ (-5 分)', ku: 'DEMA QEDIYA! ⏰ (-5 Puan)', ar: 'انتهى الوقت! ⏰ (-5 نقاط)' };
         let ans = { tr: 'Doğru Cevap', en: 'Correct Answer', zh: '正确答案', ku: 'Bersiva Rast', ar: 'الجواب الصحيح' };
         goster('soruSonuc', `<span style='color:red'>${msg[curLang] || msg['tr']}<br><small>${ans[curLang] || ans['tr']}: ${soruDogruCevap}</small></span>`);
@@ -556,49 +614,116 @@
         
         if(ekstremModAktif) {
             btn.innerHTML = t[curLang].btn_ekstrem_on;
-            btn.style.background = '#d32f2f';
-            btn.style.color = '#fff';
+            document.body.classList.add('ekstrem-tema');
             gosterge.style.display = 'block';
             soruSkor = 0; 
+            ekstremSoruSayaci = 0;
             document.getElementById('soruSkor').innerText = soruSkor;
         } else {
             btn.innerHTML = t[curLang].btn_ekstrem_off;
-            btn.style.background = 'transparent';
-            btn.style.color = '#d32f2f';
+            document.body.classList.remove('ekstrem-tema');
             gosterge.style.display = 'none';
             zamanlayiciDurdur();
         }
         yeniSoruUret();
     }
 
+    function soruGec() {
+        if(guncelSoruMetni !== "") {
+            let dTxt = {tr: "⏭️ Geçildi", en: "⏭️ Skipped", zh: "⏭️ 跳过", ku: "⏭️ Derbas Bû", ar: "⏭️ تم التخطي"};
+            let q_str = {tr: "Cevapsız", en: "No Answer", zh: "未回答", ku: "Bêbersiv", ar: "لا اجابة"}[curLang] || "Cevapsız";
+            soruGecmisiListesi.unshift(`<b>${dTxt[curLang] || dTxt['tr']}</b> | ${guncelSoruMetni} <br> Senin Cevabın: ${q_str} | ${t[curLang].res_result}: ${soruDogruCevap}`);
+            if(soruGecmisiListesi.length > 20) soruGecmisiListesi.pop();
+            gecmisiCiz();
+        }
+        zamanlayiciDurdur();
+        yeniSoruUret();
+    }
+
     function yeniSoruUret() {
         document.getElementById('soruCevap').value = ''; 
         document.getElementById('soruSonuc').style.display = 'none';
-        zamanlayiciBaslat();
-
-        const olcekler = [20, 50, 100, 200, 500]; 
         
+        let uygulanacakSure = 17;
+        const olcekler = [20, 50, 100, 200, 500]; 
         let S = ekstremModAktif ? (Math.random() > 0.5 ? 200 : 500) : olcekler[Math.floor(Math.random() * olcekler.length)]; 
-        let tip = Math.random() > 0.5 ? 1 : 2; 
         let metin = "";
 
-        if (ekstremModAktif && Math.random() < 0.25) { 
-            let isCap = Math.random() > 0.5; 
-            let D_cm = Math.floor(Math.random() * 20) + 2; 
+        if (ekstremModAktif) {
+            ekstremSoruSayaci++;
             
-            if(isCap) {
-                let gercekR_cm = D_cm * S;
-                soruDogruCevap = (gercekR_cm * 2) / 100;
-                let q = { tr: `1/${S} planda YARIÇAPI ${D_cm} cm olan dairesel kolonun gerçek ÇAPI kaç METRE'dir?`, en: `If RADIUS is ${D_cm} cm at 1/${S}, what is the real DIAMETER in METERS?`, zh: `在1/${S}的图纸上，半径为${D_cm}厘米的圆柱，实际直径是多少米？`, ku: `Di pîvana 1/${S} de NÎVÇAP ${D_cm} cm e, ÇAPÊ rastî çend METRE ye?`, ar: `إذا كان نصف القطر ${D_cm} سم بمقياس 1/${S}، فما هو القطر الحقيقي بالأمتار؟` };
-                metin = q[curLang] || q['tr'];
-            } else {
-                let gercekD_cm = D_cm * S;
-                soruDogruCevap = (gercekD_cm / 2) / 100;
-                let q = { tr: `1/${S} planda ÇAPI ${D_cm} cm çizilmiş havuzun gerçek YARIÇAPI kaç METRE'dir?`, en: `If DIAMETER is ${D_cm} cm at 1/${S}, what is the real RADIUS in METERS?`, zh: `在1/${S}的图纸上，直径为${D_cm}厘米的圆柱，实际半径是多少米？`, ku: `Di pîvana 1/${S} de ÇAP ${D_cm} cm e, NÎVÇAPÊ rastî çend METRE ye?`, ar: `إذا كان القطر ${D_cm} سم بمقياس 1/${S}، فما هو نصف القطر الحقيقي بالأمتار؟` };
+            // BOSS SAVAŞI: Her 5 soruda bir
+            if(ekstremSoruSayaci % 5 === 0) {
+                uygulanacakSure = 31;
+                let kenarList = [10, 12, 14, 16, 20];
+                let L_cm = kenarList[Math.floor(Math.random() * kenarList.length)];
+                let realL_m = (L_cm * S) / 100;
+                let realS_m = realL_m / 2;
+                soruDogruCevap = (realL_m + realS_m) * 2;
+                
+                let q = {
+                    tr: `👑 ÖZEL PROBLEM: Şantiye şefi, 1/${S} ölçekli planda uzun kenarı ${L_cm} cm olan dikdörtgen bir salon tasarladı. Kısa kenar, uzun kenarın tam yarısıdır. Gerçekte bu salonun çevresi toplam kaç METRE'dir?`,
+                    en: `👑 SPECIAL PROBLEM: The site chief designed a rectangular hall with a long edge of ${L_cm} cm on a 1/${S} plan. The short edge is exactly half of the long edge. What is the total PERIMETER of this hall in METERS in reality?`,
+                    zh: `👑 特别问题：项目主管在1/${S}的平面图上设计了一个长边为${L_cm}厘米的矩形大厅。短边是长边的一半。实际上，这个大厅的总周长是多少米？`,
+                    ku: `👑 PROBLEMA TAYBET: Şefê şantiyeyê di pîvana 1/${S} de salonek ku kenarê dirêj ${L_cm} cm e sêwirand. Kenarê kurt nîvê kenarê dirêj e. Rastiyê de dorhêla vê salonê çend METRE ye?`,
+                    ar: `👑 مشكلة خاصة: صمم رئيس الموقع قاعة مستطيلة ذات حافة طويلة ${L_cm} سم في خطة 1/${S}. الحافة القصيرة هي نصف الحافة الطويلة تمامًا. ما هو إجمالي محيط هذه القاعة بالأمتار في الواقع؟`
+                };
                 metin = q[curLang] || q['tr'];
             }
-        } 
-        else {
+            // TERS KÖŞE: Her 6 soruda bir Çap/Yarıçap
+            else if (ekstremSoruSayaci % 6 === 0) {
+                let isCap = Math.random() > 0.5; 
+                let D_cm = Math.floor(Math.random() * 15) + 2; 
+                if(isCap) {
+                    soruDogruCevap = ((D_cm * S) * 2) / 100;
+                    let q = { tr: `1/${S} planda YARIÇAPI ${D_cm} cm olan dairesel kolonun gerçek ÇAPI kaç METRE'dir?`, en: `If RADIUS is ${D_cm} cm at 1/${S}, what is the real DIAMETER in METERS?`, zh: `在1/${S}的图纸上，半径为${D_cm}厘米的圆柱，实际直径是多少米？`, ku: `Di pîvana 1/${S} de NÎVÇAP ${D_cm} cm e, ÇAPÊ rastî çend METRE ye?`, ar: `إذا كان نصف القطر ${D_cm} سم بمقياس 1/${S}، فما هو القطر الحقيقي بالأمتار؟` };
+                    metin = q[curLang] || q['tr'];
+                } else {
+                    soruDogruCevap = ((D_cm * S) / 2) / 100;
+                    let q = { tr: `1/${S} planda ÇAPI ${D_cm} cm çizilmiş havuzun gerçek YARIÇAPI kaç METRE'dir?`, en: `If DIAMETER is ${D_cm} cm at 1/${S}, what is the real RADIUS in METERS?`, zh: `在1/${S}的图纸上，直径为${D_cm}厘米的圆柱，实际半径是多少米？`, ku: `Di pîvana 1/${S} de ÇAP ${D_cm} cm e, NÎVÇAPÊ rastî çend METRE ye?`, ar: `إذا كان القطر ${D_cm} سم بمقياس 1/${S}، فما هو نصف القطر الحقيقي بالأمتار؟` };
+                    metin = q[curLang] || q['tr'];
+                }
+            }
+            // ÖLÇEK ARASI GEÇİŞ veya STANDART Soru
+            else {
+                if(Math.random() < 0.4) {
+                    let s1 = (Math.random() > 0.5) ? 200 : 500;
+                    let s2 = (s1 === 200) ? 500 : 200;
+                    let d1 = [2, 5, 10, 20, 25, 50][Math.floor(Math.random() * 6)];
+                    soruDogruCevap = (d1 * s1) / s2;
+                    let q = {
+                        tr: `1/${s1} ölçekli planda ${d1} cm çizilen bir duvar, 1/${s2} ölçekli başka bir planda kaç CM çizilir?`,
+                        en: `A wall that is ${d1} cm on a 1/${s1} plan, how many CM will it be drawn on a 1/${s2} plan?`,
+                        zh: `在1/${s1}比例尺上为${d1}厘米的墙，在1/${s2}的图纸上画多少厘米？`,
+                        ku: `Dîwarek ku di pîvana 1/${s1} de ${d1} cm e, li ser planek din a 1/${s2} çend CM tê xêzkirin?`,
+                        ar: `جدار طوله ${d1} سم في خطة 1/${s1}، كم سم سيُرسم في خطة 1/${s2}؟`
+                    };
+                    metin = q[curLang] || q['tr'];
+                } else {
+                    let tip = Math.random() > 0.5 ? 1 : 2; 
+                    if (tip === 1) { 
+                        let D = Math.floor(Math.random() * 20) + 1; let R_cm = D * S;
+                        if (R_cm >= 100 && Math.random() > 0.5) { 
+                            soruDogruCevap = R_cm / 100; 
+                            let q = { tr: `1/${S} ölçekli planda ${D} cm olarak ölçtüğün uzunluk gerçekte kaç METRE'dir?`, en: `If a drawing is ${D} cm at 1/${S} scale, how many METERS is it in reality?`, zh: `如果在1/${S}的比例下长度为${D}厘米，实际是多少米？`, ku: `Di pîvana 1/${S} de, xêzek ku ${D} cm e rastiyê de çend METRE ye?`, ar: `في مقياس 1/${S}، الطول ${D} سم كم مترًا في الواقع؟` }; 
+                            metin = q[curLang] || q['tr']; 
+                        } 
+                        else { 
+                            soruDogruCevap = R_cm; 
+                            let q = { tr: `1/${S} ölçekli çizimde ${D} cm olan obje gerçekte kaç CM'dir?`, en: `If an object is ${D} cm at 1/${S} scale, how many CM is it in reality?`, zh: `如果在1/${S}的比例下长度为${D}厘米，实际是多少厘米？`, ku: `Di pîvana 1/${S} de, objeyek ku ${D} cm e rastiyê de çend CM ye?`, ar: `في مقياس 1/${S}، كائن طوله ${D} سم كم سم في الواقع؟` }; 
+                            metin = q[curLang] || q['tr']; 
+                        }
+                    } else { 
+                        let R_cm_tam = (Math.floor(Math.random() * 50) + 5) * 50; let r_m = R_cm_tam / 100; soruDogruCevap = R_cm_tam / S;
+                        let q = { tr: `Gerçek uzunluğu ${r_m} metre olan cephe, 1/${S} ölçekli paftaya kaç CM çizilir?`, en: `A facade ${r_m} meters in reality, how many CM is it drawn on a 1/${S} sheet?`, zh: `实际长度为${r_m}米，在1/${S}的图纸上画多少厘米？`, ku: `Cîhek ku rastiyê de ${r_m} metre ye, li ser kaxezek 1/${S} çend CM tê xêzkirin?`, ar: `واجهة طولها ${r_m} متر، كم سم تُرسم بمقياس 1/${S}؟` };
+                        metin = q[curLang] || q['tr'];
+                    }
+                }
+            }
+            zamanlayiciBaslat(uygulanacakSure);
+        } else {
+            // NORMAL MOD
+            let tip = Math.random() > 0.5 ? 1 : 2; 
             if (tip === 1) { 
                 let D = Math.floor(Math.random() * 20) + 1; let R_cm = D * S;
                 if (R_cm >= 100 && Math.random() > 0.5) { 
@@ -617,15 +742,30 @@
                 metin = q[curLang] || q['tr'];
             }
         }
+        
+        guncelSoruMetni = metin;
         document.getElementById('soruMetni').innerText = metin;
     }
 
     function soruCevapla() {
-        let val = document.getElementById('soruCevap').value; if(!val) return; let cvp = parseFloat(val.replace(',', '.')); if (isNaN(cvp)) return;
+        let val = document.getElementById('soruCevap').value; 
+        if(!val) return; 
+        
+        // Boşluğu noktaya çeviren hızlı cevaplama eklentisi (Örn: "2 5" -> "2.5")
+        val = val.trim().replace(',', '.').replace(' ', '.'); 
+        let cvp = parseFloat(val); 
+        if (isNaN(cvp)) return;
         
         zamanlayiciDurdur(); 
+        
+        let isCorrect = Math.abs(cvp - soruDogruCevap) < 0.01;
+        let durumIkon = isCorrect ? "✅" : "❌";
+        
+        soruGecmisiListesi.unshift(`<b>${durumIkon}</b> | ${guncelSoruMetni} <br> Senin Cevabın: ${cvp} | ${t[curLang].res_result}: ${soruDogruCevap}`);
+        if(soruGecmisiListesi.length > 20) soruGecmisiListesi.pop();
+        gecmisiCiz();
 
-        if (Math.abs(cvp - soruDogruCevap) < 0.01) { 
+        if (isCorrect) { 
             soruSkor += 10; 
             let msg = { tr: 'DOĞRU! 🎉 (+10 Puan)', en: 'CORRECT! 🎉 (+10 Pts)', zh: '正确！🎉 (+10 分)', ku: 'RAST E! 🎉 (+10 Puan)', ar: 'صحيح! 🎉 (+10 نقاط)' }; 
             goster('soruSonuc', `<span style='color:green'>${msg[curLang] || msg['tr']}</span>`); 
