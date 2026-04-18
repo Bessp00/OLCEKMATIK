@@ -35,7 +35,20 @@
     .apk-link { position: fixed; bottom: 20px; right: 20px; z-index: 50; background: var(--ana-renk); color: #fff; padding: 12px 20px; border-radius: 30px; display: flex; align-items: center; justify-content: gap: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: all 0.3s ease; font-weight: 900; font-size: 14px; text-decoration: none; border: 2px solid #fff; cursor: pointer; }
     .apk-link:hover { transform: scale(1.05); background: var(--yazi-renk); }
     
-    .kutu { background-color: var(--kutu-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); width: 100%; max-width: 420px; border-radius: 16px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2); border-top: 6px solid var(--ana-renk); overflow: visible; padding-bottom: 35px; position: relative; transition: all 0.5s ease; margin-bottom: 10px; z-index: 10; }
+    .ana-tasiyici { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 1100px; gap: 20px; z-index: 10; position: relative; margin-bottom: 20px; }
+    
+    .kutu { background-color: var(--kutu-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); width: 100%; max-width: 420px; border-radius: 16px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2); border-top: 6px solid var(--ana-renk); overflow: visible; padding-bottom: 35px; position: relative; transition: all 0.5s ease; margin-bottom: 0; }
+    .alt-modul { background-color: var(--kutu-bg); backdrop-filter: blur(12px); width: 100%; max-width: 420px; border-radius: 16px; border: 2px dashed var(--ana-renk); padding: 15px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; position: relative; margin-bottom: 0; }
+    
+    @media (min-width: 950px) {
+        .ana-tasiyici { flex-direction: row; align-items: flex-start; justify-content: center; gap: 30px; }
+        .kutu { flex: 1; max-width: 420px; }
+        .alt-modul { flex: 1.5; max-width: 650px; }
+        .plan-sahne { height: 600px !important; }
+        #notDefteri { height: 600px !important; }
+        .seo-metni, .footer-linkler { max-width: 1100px !important; }
+    }
+    
     .ayarlar { position: absolute; top: 15px; right: 15px; display: flex; gap: 8px; z-index: 20; align-items: center; }
     .ayar-btn { background: rgba(255,255,255,0.3); border: 1px solid var(--yazi-renk); border-radius: 12px; width: 38px; height: 38px; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; transition: 0.3s; color: var(--yazi-renk); }
     .ayar-btn:hover { background: var(--yazi-renk); color: var(--ana-renk); }
@@ -48,11 +61,20 @@
     .bilgi-kapat { position: absolute; top: -10px; right: -10px; background: #fff; border: 2px solid #d32f2f; color: #d32f2f; font-weight: bold; cursor: pointer; font-size: 14px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: 0.2s; }
     .bilgi-kapat:hover { transform: scale(1.1); background: #d32f2f; color: #fff; }
 
-    .menu-container { overflow-x: auto; white-space: nowrap; margin: 0 15px 15px 15px; padding-bottom: 5px; scrollbar-width: none; -ms-overflow-style: none; }
-    .menu-container::-webkit-scrollbar { display: none; }
+    .kategori-menu { display: flex; flex-wrap: wrap; width: auto; gap: 5px; margin: 0 15px 10px 15px; }
+    .kat-btn { flex: 1; min-width: 45%; padding: 10px 5px; font-weight: 900; background: var(--sekme-pasif); color: var(--yazi-renk); border: 1px solid transparent; border-radius: 10px; cursor: pointer; transition: 0.3s; font-family: 'Courier New', monospace; font-size: 13px; }
+    .kat-btn.aktif { background: var(--ana-renk); color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.5); }
+    
+    .alt-menu-container { display: none; overflow-x: auto; white-space: nowrap; margin: 0 15px 15px 15px; padding-bottom: 5px; scrollbar-width: none; -ms-overflow-style: none; }
+    .alt-menu-container::-webkit-scrollbar { display: none; }
+    .alt-menu-container.aktif { display: block; animation: fadeIn 0.3s; }
     .menu { display: inline-flex; gap: 8px; }
-    .menu button { padding: 12px 16px; border: 1px solid transparent; border-radius: 10px; background: var(--sekme-pasif); font-weight: 900; cursor: pointer; font-family: 'Courier New', Courier, monospace; font-size: 14px; color: var(--yazi-renk); transition: 0.3s; flex-shrink: 0; }
-    .menu button.aktif { background: var(--ana-renk); color: #fff; border-color: rgba(255,255,255,0.5); box-shadow: 0 4px 15px rgba(0,0,0,0.1); text-shadow: 0 1px 1px rgba(0,0,0,0.2); }
+    .menu button { padding: 10px 14px; border: 1px solid var(--ana-renk); border-radius: 8px; background: transparent; font-weight: 900; cursor: pointer; font-family: 'Courier New', Courier, monospace; font-size: 13px; color: var(--yazi-renk); transition: 0.3s; flex-shrink: 0; }
+    .menu button.aktif { background: var(--ana-renk); color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    
+    .reklam-alani { width: calc(100% - 30px); min-height: 50px; background: rgba(0,0,0,0.05); border: 1px dashed var(--ana-renk); margin: 0 15px 15px 15px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; opacity: 0.6; font-weight: bold; font-family: sans-serif; box-sizing: border-box;}
+    body.ekstrem-tema .reklam-alani { border-color: #ff3333; background: rgba(255,0,0,0.1); color: #ffcccc; }
+
     .mod { padding: 0 25px; display: none; animation: fadeIn 0.4s; }
     @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
     label { display: block; font-weight: 900; font-size: 13px; margin-top: 15px; opacity: 1; text-transform: uppercase; }
@@ -65,69 +87,66 @@
     .versiyon { position: absolute; bottom: 5px; right: 10px; font-size: 11px; font-weight: bold; opacity: 0.6; font-family: sans-serif; color: var(--yazi-renk); }
     #resimYukleyici { display: none; }
     
-    .game-menu { display: flex; gap: 5px; justify-content: center; margin-bottom: 15px; border-bottom: 2px dashed var(--ana-renk); padding-bottom: 10px; flex-wrap: wrap; }
-    .gm-btn { padding: 8px 12px; border: none; border-radius: 6px; background: rgba(255,255,255,0.4); color: var(--yazi-renk); font-weight: bold; cursor: pointer; font-family: inherit; font-size: 12px; }
-    .gm-btn.aktif { background: var(--ana-renk); color: #fff; transform: scale(1.05); }
-    .game-wrapper { display:none; position:relative; }
-    .game-wrapper.active { display:block; }
-    .oyun-header { display: flex; justify-content: space-between; margin-bottom: 10px; align-items: center; }
-    .oyun-skor { font-weight: bold; font-size: 18px; color: var(--ana-renk); }
-    .oyun-btn { padding: 8px 15px; border: 2px solid var(--ana-renk); background: #fff; border-radius: 6px; cursor: pointer; font-weight: bold; font-family: 'Courier New', monospace; color: var(--ana-renk); transition: 0.2s; }
+    .gm-btn { padding: 12px 15px; border: 1px solid var(--yazi-renk); border-radius: 10px; background: rgba(255,255,255,0.4); color: var(--yazi-renk); font-weight: bold; cursor: pointer; font-family: inherit; font-size: 14px; transition: 0.2s; text-align: left; }
+    .gm-btn.aktif { background: var(--ana-renk); color: #fff; border-color: rgba(255,255,255,0.5); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
+    .gm-btn:hover { background: var(--yazi-renk); color: #fff; }
+    
+    .game-wrapper { width: 100%; display:none; flex-direction: column; align-items: center; justify-content: center; }
+    .game-wrapper.active { display:flex; }
+    
+    .oyun-header { display: flex; justify-content: space-between; margin-bottom: 15px; align-items: center; width: 100%; max-width: 450px; }
+    .oyun-skor { font-weight: bold; font-size: 20px; color: var(--ana-renk); }
+    .oyun-btn { padding: 10px 20px; border: 2px solid var(--ana-renk); background: #fff; border-radius: 8px; cursor: pointer; font-weight: bold; font-family: 'Courier New', monospace; color: var(--ana-renk); transition: 0.2s; }
     .oyun-btn.aktif-mod { background: var(--ana-renk); color: #fff; }
     
-    .mayin-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; background: transparent; padding: 5px; border-radius: 8px; user-select: none; }
-    .hucre { aspect-ratio: 1; background: var(--ana-renk); opacity: 0.85; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; cursor: pointer; box-shadow: inset 0 2px 5px rgba(255,255,255,0.3); }
+    .mayin-grid { display: grid; grid-template-columns: repeat(10, 1fr); gap: 3px; background: transparent; padding: 5px; border-radius: 8px; user-select: none; width: 100%; max-width: 450px; aspect-ratio: 1; }
+    .hucre { aspect-ratio: 1; background: var(--ana-renk); opacity: 0.85; border-radius: 4px; display: flex; align-items: center; justify-content: center; font-size: 18px; font-weight: 900; cursor: pointer; box-shadow: inset 0 2px 5px rgba(255,255,255,0.3); }
+    @media (min-width: 950px) { .hucre { font-size: 26px; } }
     .hucre.acik { background: #fdfdfd; opacity: 1; color: #333; }
     .hucre.bayrak { background: #ddd; opacity: 1; }
     .hucre.bom { background: #d32f2f; color: white; opacity: 1; }
     .c1 { color: #1976D2; } .c2 { color: #388E3C; } .c3 { color: #D32F2F; } .c4 { color: #7B1FA2; }
+    
     .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
     .calc-btn { padding: 15px; border-radius: 8px; border: none; font-size: 18px; font-weight: bold; cursor: pointer; background: rgba(255,255,255,0.5); color: var(--yazi-renk); }
     .calc-btn:active { background: var(--ana-renk); color: #fff; }
     .calc-btn.op { background: var(--ana-renk); color: #fff; }
     .calc-btn.c { background: #d32f2f; color: #fff; }
     #calc-screen { width: 100%; padding: 15px; font-size: 24px; text-align: right; background: var(--input-bg); border: 2px solid var(--ana-renk); border-radius: 8px; margin-bottom: 5px; color: var(--input-yazi); font-weight: bold; box-sizing: border-box; }
-    .bj-masa { background: rgba(0,0,0,0.1); border-radius: 10px; padding: 15px; text-align: center; border: 2px solid var(--ana-renk); }
-    .bj-alan { margin-bottom: 15px; min-height: 100px; }
-    .bj-isim { font-weight: bold; font-size: 14px; margin-bottom: 5px; text-transform: uppercase; }
-    .bj-el { display: flex; justify-content: center; gap: 5px; flex-wrap: wrap; }
-    .kart { width: 45px; height: 65px; background: #fff; border-radius: 5px; border: 1px solid #999; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; font-size: 14px; box-shadow: 1px 1px 3px rgba(0,0,0,0.2); }
+    
+    .bj-masa { background: rgba(0,0,0,0.05); border-radius: 12px; padding: 20px; text-align: center; border: 2px dashed var(--ana-renk); width: 100%; max-width: 450px; }
+    .bj-alan { margin-bottom: 20px; min-height: 120px; }
+    .bj-isim { font-weight: bold; font-size: 16px; margin-bottom: 10px; text-transform: uppercase; border-bottom: 1px solid var(--ana-renk); display: inline-block; padding-bottom: 5px; }
+    .bj-el { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
+    .kart { width: 50px; height: 75px; background: #fff; border-radius: 6px; border: 1px solid #999; display: flex; flex-direction: column; align-items: center; justify-content: center; font-weight: bold; font-size: 16px; box-shadow: 1px 2px 5px rgba(0,0,0,0.2); }
+    @media (min-width: 950px) { .kart { width: 65px; height: 95px; font-size: 20px; } }
     .kart.kirmizi { color: #d32f2f; } .kart.siyah { color: #222; }
     .kart-arka { background: repeating-linear-gradient(45deg, #8C6A54, #8C6A54 5px, #fff 5px, #fff 10px); border: 2px solid #fff; }
-    .bj-mesaj { font-weight: bold; margin: 10px 0; min-height: 20px; color: var(--yazi-renk); }
-    .bj-btn-grup { display: flex; gap: 10px; justify-content: center; }
-    .bj-btn { padding: 10px 15px; border: none; border-radius: 6px; font-weight: bold; cursor: pointer; flex: 1; background: var(--yazi-renk); color: #fff; }
+    .bj-mesaj { font-weight: bold; margin: 15px 0; min-height: 25px; color: var(--yazi-renk); font-size: 18px; }
+    .bj-btn-grup { display: flex; gap: 15px; justify-content: center; margin-top: 20px; }
+    .bj-btn { padding: 12px 20px; border: none; border-radius: 8px; font-weight: bold; cursor: pointer; flex: 1; background: var(--yazi-renk); color: #fff; font-size: 16px; }
     .bj-btn:disabled { opacity: 0.5; }
-    canvas { background: rgba(255,255,255,0.5); border-radius: 8px; border: 2px solid var(--ana-renk); display: block; margin: 0 auto; touch-action: none; }
-    .game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); border-radius: 8px; z-index: 5; color: #fff; font-weight: bold; }
-    .start-btn { padding: 10px 20px; background: var(--ana-renk); color: #fff; border: 2px solid #fff; border-radius: 8px; font-size: 18px; cursor: pointer; margin-top: 10px; }
     
-    /* YENİ OYUNLAR CSS */
-    .grid-2048 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 5px; background: rgba(0,0,0,0.1); padding: 5px; border-radius: 8px; margin: 0 auto; width: 100%; max-width: 300px; touch-action: none;}
-    .cell-2048 { aspect-ratio: 1; background: rgba(255,255,255,0.5); display: flex; align-items: center; justify-content: center; font-size: 22px; font-weight: 900; border-radius: 5px; color: var(--yazi-renk); transition: 0.1s; }
+    #snakeCanvas { background: rgba(255,255,255,0.5); border-radius: 8px; border: 2px solid var(--ana-renk); display: block; margin: 0 auto; touch-action: none; width: 100%; max-width: 450px; aspect-ratio: 1; height: auto; }
+    .game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); border-radius: 8px; z-index: 5; color: #fff; font-weight: bold; }
+    .start-btn { padding: 12px 25px; background: var(--ana-renk); color: #fff; border: 2px solid #fff; border-radius: 8px; font-size: 18px; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
+    
+    .grid-2048 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: rgba(0,0,0,0.1); padding: 8px; border-radius: 12px; margin: 0 auto; width: 100%; max-width: 450px; touch-action: none; aspect-ratio: 1;}
+    .cell-2048 { aspect-ratio: 1; background: rgba(255,255,255,0.6); display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 900; border-radius: 8px; color: var(--yazi-renk); transition: 0.1s; box-shadow: inset 0 0 10px rgba(255,255,255,0.5);}
+    @media (min-width: 950px) { .cell-2048 { font-size: 36px; } }
     .c2048-2 { background: #eee4da; color:#776e65; } .c2048-4 { background: #ede0c8; color:#776e65; }
     .c2048-8 { background: #f2b179; color:#fff; } .c2048-16 { background: #f59563; color:#fff; }
     .c2048-32 { background: #f67c5f; color:#fff; } .c2048-64 { background: #f65e3b; color:#fff; }
-    .c2048-128 { background: #edcf72; color:#fff; font-size:18px;} .c2048-256 { background: #edcc61; color:#fff; font-size:18px;}
-    .c2048-512 { background: #edc850; color:#fff; font-size:18px;} .c2048-1024 { background: #edc53f; color:#fff; font-size:14px;}
-    .c2048-2048 { background: #edc22e; color:#fff; font-size:14px;}
+    .c2048-128 { background: #edcf72; color:#fff; font-size:22px;} .c2048-256 { background: #edcc61; color:#fff; font-size:22px;}
+    .c2048-512 { background: #edc850; color:#fff; font-size:22px;} .c2048-1024 { background: #edc53f; color:#fff; font-size:18px;}
+    .c2048-2048 { background: #edc22e; color:#fff; font-size:18px;}
     
-    .sudoku-board { display: grid; grid-template-columns: repeat(9, 1fr); gap: 1px; background: var(--yazi-renk); border: 3px solid var(--yazi-renk); width: 100%; max-width: 320px; margin: 0 auto; }
-    .sudoku-cell { aspect-ratio: 1; background: #fff; display: flex; align-items: center; justify-content: center; font-size: 16px; font-weight: 900; cursor: pointer; color: var(--ana-renk); box-sizing:border-box;}
-    .sudoku-cell.fixed { background: rgba(0,0,0,0.1); color: var(--yazi-renk); cursor: default; }
-    .sudoku-cell.selected { background: rgba(0,0,0,0.2); }
-    .sudoku-cell.error { color: #d32f2f; }
-    .sudoku-cell:nth-child(3n) { border-right: 2px solid var(--yazi-renk); }
-    .sudoku-cell:nth-child(9n) { border-right: none; }
-    .sudoku-cell:nth-child(n+19):nth-child(-n+27), .sudoku-cell:nth-child(n+46):nth-child(-n+54) { border-bottom: 2px solid var(--yazi-renk); }
-    .sudoku-numpad { display: grid; grid-template-columns: repeat(5, 1fr); gap: 5px; margin-top: 15px; max-width:320px; margin-left:auto; margin-right:auto;}
-    
-    .alt-modul { background-color: var(--kutu-bg); backdrop-filter: blur(12px); width: 100%; max-width: 420px; border-radius: 16px; border: 2px dashed var(--ana-renk); padding: 15px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; position: relative; margin-bottom: 20px; }
     .alt-sekmeler { display: flex; gap: 10px; width: 100%; margin-bottom: 15px; }
     .alt-sekme { flex: 1; padding: 10px; border: 2px solid transparent; border-radius: 8px; background: rgba(0,0,0,0.1); color: var(--yazi-renk); font-weight: 900; cursor: pointer; font-family: 'Courier New', monospace; font-size: 14px; transition: 0.3s; }
     .alt-sekme.aktif { background: var(--ana-renk); color: #fff; border-color: rgba(255,255,255,0.5); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-    .alt-icerik { width: 100%; display: none; animation: fadeIn 0.4s; }
-    .alt-icerik.aktif { display: flex; flex-direction: column; align-items: center; }
+    .alt-icerik { width: 100%; display: none; animation: fadeIn 0.4s; flex-direction: column; align-items: center; height: 100%; }
+    .alt-icerik.aktif { display: flex; }
+    
     .plan-sahne { width: 100%; height: 350px; background: #fff; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--input-border); touch-action: none; cursor: grab; }
     .plan-sahne:active { cursor: grabbing; }
     #planGorsel { max-width: 100%; transform-origin: center center; transition: transform 0.1s ease-out; pointer-events: none; }
@@ -135,6 +154,7 @@
     .plan-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; background: var(--yazi-renk); color: var(--arkaplan); font-weight: bold; cursor: pointer; font-family: 'Courier New', monospace; font-size: 16px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
     #notDefteri { width: 100%; height: 350px; padding: 15px; border-radius: 8px; border: 2px solid var(--input-border); background: var(--input-bg); color: var(--input-yazi) !important; font-family: 'Courier New', Courier, monospace; font-size: 15px; font-weight: bold; resize: vertical; box-sizing: border-box; transition: 0.3s; }
     #notDefteri:focus { border-color: var(--ana-renk); outline: none; }
+    
     .bg-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:999; align-items:center; justify-content:center; backdrop-filter:blur(5px); }
     .bg-modal-content { background:var(--kutu-bg); padding:20px; border-radius:15px; width:90%; max-width:350px; border:2px solid var(--ana-renk); box-shadow:0 10px 30px rgba(0,0,0,0.3); color: var(--yazi-renk); overflow: visible; }
     .bg-modal-header { display:flex; justify-content:space-between; margin-bottom:15px; font-size:18px; align-items: center; border-bottom: 2px dashed var(--ana-renk); padding-bottom: 10px;}
@@ -180,6 +200,11 @@
     body.ekstrem-tema .gecmis-btn { border-color: #ff3333 !important; color: #ffcccc !important; }
     body.ekstrem-tema .gecmis-kutusu { border-color: #ff0000 !important; background: rgba(255,0,0,0.05) !important; }
     body.ekstrem-tema .gecmis-item { color: #ffcccc !important; border-bottom: 1px solid rgba(255,0,0,0.2) !important; }
+    
+    .veri-grid { display: grid; grid-template-columns: 80px 1fr; gap: 8px; align-items: center; margin-bottom: 5px; }
+    .veri-grid span { font-weight: bold; font-size: 13px; text-align: right; padding-right: 5px;}
+    .veri-grid input { margin-top: 0; padding: 10px; font-size: 14px; }
+    @media (max-width: 400px) { .veri-grid { grid-template-columns: 60px 1fr; } }
 
 </style>
 </head>
@@ -229,234 +254,327 @@
         </div>
     </div>
 </div>
-<div class="kutu">
-    <div class="ayarlar">
-        <select id="langSelect" onchange="degisDil(this.value)">
-            <option value="tr">TR</option>
-            <option value="en">EN</option>
-            <option value="zh">ZH</option>
-            <option value="ku">KU</option>
-            <option value="ar">AR</option>
-        </select>
-        <button class="ayar-btn" onclick="bgModalAc()">📷</button>
-        <button class="ayar-btn" onclick="sifirla()">↺</button>
+
+<div class="ana-tasiyici">
+
+    <div class="kutu">
+        <div class="ayarlar">
+            <select id="langSelect" onchange="degisDil(this.value)">
+                <option value="tr">TR</option>
+                <option value="en">EN</option>
+                <option value="zh">ZH</option>
+                <option value="ku">KU</option>
+                <option value="ar">AR</option>
+            </select>
+            <button class="ayar-btn" onclick="bgModalAc()">📷</button>
+            <button class="ayar-btn" onclick="sifirla()">↺</button>
+        </div>
+        <input type="file" id="resimYukleyici" accept="image/*" onchange="arkaplanDegistir(this)">
+        <h2 id="lbl_title">ÖLÇEKMATİK</h2>
+        <div class="imza">BEDIR DESIGN</div>
+        
+        <div class="bilgi-panosu" id="yeniSiteBilgi">
+            <button class="bilgi-kapat" onclick="document.getElementById('yeniSiteBilgi').style.display='none'">✖</button>
+            🛠️ <b>Bilgilendirme:</b><br>Ölçekmatik yepyeni altyapısıyla yayında! Sistemimiz henüz çok taze olduğu için geçiş sürecinde ufak tefek teknik aksaklıklar yaşanabilir. Olası kesintiler için şimdiden özür diler, anlayışınız ve sabrınız için teşekkür ederiz. 🙏
+        </div>
+        
+        <div class="reklam-alani">
+            Reklam Alanı (Google AdSense)
+        </div>
+
+        <div class="kategori-menu">
+            <button id="btn-kat-mimari" onclick="kategoriDegis('mimari')" class="kat-btn aktif"><span id="lbl_cat_arch">📐 Mimari</span></button>
+            <button id="btn-kat-hesap" onclick="kategoriDegis('hesap')" class="kat-btn"><span id="lbl_cat_calc">🧮 Hesap</span></button>
+            <button id="btn-kat-donusturucu" onclick="kategoriDegis('donusturucu')" class="kat-btn"><span id="lbl_cat_conv">🔄 Dönüştürücü</span></button>
+            <button id="btn-kat-oyun" onclick="kategoriDegis('oyun')" class="kat-btn"><span id="lbl_cat_game">🎮 Eğlence</span></button>
+        </div>
+
+        <div id="kat-mimari" class="alt-menu-container aktif">
+            <div class="menu">
+                <button id="btn1" onclick="modDegis(1, 'proje')" class="aktif">PROJE</button>
+                <button id="btn2" onclick="modDegis(2, 'gercek')">GERÇEK</button>
+                <button id="btn10" onclick="modDegis(10, 'soru')">SORU</button>
+                <button id="btn3" onclick="modDegis(3, 'egim')">EĞİM</button>
+                <button id="btn5" onclick="modDegis(5, 'merdiven')">MERDİVEN</button>
+                <button id="btn6" onclick="modDegis(6, 'malzeme')">MALZEME</button>
+                <button id="btn7" onclick="modDegis(7, 'altin-oran')">ALTIN ORAN</button>
+            </div>
+        </div>
+
+        <div id="kat-hesap" class="alt-menu-container">
+            <div class="menu">
+                <button id="btn9" onclick="modDegis(9, 'hesap-makinesi')" class="aktif">HESAP</button>
+            </div>
+        </div>
+        
+        <div id="kat-donusturucu" class="alt-menu-container">
+            <div class="menu">
+                <button id="btn8" onclick="modDegis(8, 'cevirici')" class="aktif">UZUNLUK</button>
+                <button id="btn12" onclick="modDegis(12, 'alan')">ALAN</button>
+                <button id="btn13" onclick="modDegis(13, 'agirlik')">AĞIRLIK</button>
+                <button id="btn14" onclick="modDegis(14, 'sicaklik')">SICAKLIK</button>
+                <button id="btn11" onclick="modDegis(11, 'veri')">VERİ</button>
+            </div>
+        </div>
+
+        <div id="kat-oyun" class="alt-menu-container">
+            <div class="mod" id="mod4" style="display:block;">
+                <label id="lbl_select_game" style="text-align:center; margin-bottom:15px; font-size:16px;">Oyun Seçin:</label>
+                <div class="game-menu" style="display:flex; flex-direction:column; gap:10px;">
+                    <button id="gm-btn-mine" class="gm-btn aktif" onclick="switchGame('mine')">💣 Mayın Tarlası</button>
+                    <button id="gm-btn-snake" class="gm-btn" onclick="switchGame('snake')">🐍 Yılan</button>
+                    <button id="gm-btn-bj" class="gm-btn" onclick="switchGame('bj')">🃏 21 Blackjack</button>
+                    <button id="gm-btn-rps" class="gm-btn" onclick="switchGame('rps')">✊✋✌️ Taş Kağıt Makas</button>
+                    <button id="gm-btn-2048" class="gm-btn" onclick="switchGame('2048')">🔢 2048</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="mod1" class="mod" style="display:block;">
+            <label id="lbl_real">Gerçek Ölçü:</label>
+            <div style="display:flex; gap:5px;"><input type="text" inputmode="decimal" id="g_sayi" placeholder="300"><select id="g_birim" style="width:100px;"><option value="cm">CM</option><option value="m">M</option><option value="mm">MM</option></select></div>
+            <label id="lbl_scale_sel">Ölçek Seçimi:</label>
+            <select id="g_olcek">
+                <option value="2">1/2</option><option value="5">1/5</option><option value="10">1/10</option><option value="20">1/20</option>
+                <option value="50" selected>1/50</option><option value="100">1/100</option><option value="200">1/200</option><option value="500">1/500</option>
+            </select>
+            <button id="btn_calc1" class="hesapla" onclick="hesaplaCizim()">HESAPLA >></button><div id="sonuc1" class="sonuc"></div>
+            <button class="gecmis-btn" onclick="gecmisGosterGizleOlcek('Mod1')">📜 <span class="lbl_history_calc">Geçmiş İşlemler</span></button>
+            <div id="gecmisKutusuMod1" class="gecmis-kutusu"><div id="gecmisListesiMod1"></div></div>
+        </div>
+        <div id="mod2" class="mod">
+            <label id="lbl_ruler">Cetvel Ölçüsü (CM):</label><input type="text" inputmode="decimal" id="c_sayi" placeholder="4.5">
+            <label id="lbl_p_scale">Proje Ölçeği:</label><select id="c_olcek"><option value="2">1/2</option><option value="5">1/5</option><option value="10">1/10</option><option value="20">1/20</option><option value="50" selected>1/50</option><option value="100">1/100</option><option value="200">1/200</option><option value="500">1/500</option></select>
+            <button id="btn_conv1" class="hesapla" onclick="hesaplaGercek()">ÇEVİR >></button><div id="sonuc2" class="sonuc"></div>
+            <button class="gecmis-btn" onclick="gecmisGosterGizleOlcek('Mod2')">📜 <span class="lbl_history_calc">Geçmiş İşlemler</span></button>
+            <div id="gecmisKutusuMod2" class="gecmis-kutusu"><div id="gecmisListesiMod2"></div></div>
+        </div>
+        <div id="mod3" class="mod">
+            <label id="lbl_kot">Kot Farkı (h):</label><input type="text" id="e_h" placeholder="20">
+            <label id="lbl_dist">Mesafe (L):</label><input type="text" id="e_l" placeholder="200">
+            <button id="btn_analyse" class="hesapla" onclick="hesaplaEgim()">ANALİZ ET >></button><div id="sonuc3" class="sonuc"></div>
+        </div>
+        <div id="mod5" class="mod">
+            <label id="lbl_h">Kat Yüksekliği (h):</label><input type="text" inputmode="decimal" id="m_h" placeholder="300">
+            <label id="lbl_b">Basamak Derinliği (b):</label><input type="text" inputmode="decimal" id="m_b" placeholder="">
+            <button id="btn_calc2" class="hesapla" onclick="hesaplaMerdiven()">HESAPLA >></button><div id="sonuc5" class="sonuc"></div>
+        </div>
+        <div id="mod6" class="mod">
+            <label id="lbl_area">Oda / Alan (cm):</label><div style="display:flex; gap:10px; align-items:center;"><input type="text" inputmode="decimal" id="mal_en" placeholder="En"><span style="font-weight:bold">x</span><input type="text" inputmode="decimal" id="mal_boy" placeholder="Boy"></div>
+            <label id="lbl_mat">Malzeme Ölçüsü (cm):</label><div style="display:flex; gap:10px; align-items:center;"><input type="text" inputmode="decimal" id="mz_en" placeholder="En"><span style="font-weight:bold">x</span><input type="text" inputmode="decimal" id="mz_boy" placeholder="Boy"></div>
+            <button id="btn_quant" class="hesapla" onclick="hesaplaMalzeme()">METRAJ ÇIKAR >></button><div id="sonuc6" class="sonuc"></div>
+        </div>
+        <div id="mod7" class="mod">
+            <label id="lbl_edge">Bilinen Kenar (cm):</label>
+            <div id="lbl_golden_desc" style="font-size: 12px; opacity: 0.8; text-align: center; margin-bottom: 10px;">Doğadaki kusursuz estetik oranı projelerinize yansıtmak için.</div>
+            <input type="text" id="ao_val" placeholder="100">
+            <button id="btn_ratio" class="hesapla" onclick="hesaplaAltinOran()">ORANLA >></button><div id="sonuc7" class="sonuc"></div>
+        </div>
+        
+        <div id="mod8" class="mod">
+            <label id="lbl_val" class="lbl_len_title">Uzunluk Çevirici:</label>
+            <div style="display:flex; gap:5px;"><input type="text" id="cv_val" placeholder="5"><select id="cv_tip" style="width:100px;"><option value="ft">Feet</option><option value="in">Inch</option></select></div>
+            <button id="btn_conv2" class="hesapla" onclick="cevirBirim()">ÇEVİR (CM) >></button><div id="sonuc8" class="sonuc"></div>
+        </div>
+        
+        <div id="mod11" class="mod">
+            <label id="lbl_ds_title">Veri Depolama Çevirici:</label>
+            <div style="opacity:0.8; font-size:12px; margin-bottom:15px; text-align:center;">Herhangi bir kutucuğa bir değer girin ve HESAPLA düğmesine tıklayın.</div>
+            <div class="veri-grid">
+                <span id="lbl_bit">Bit (b):</span><input type="text" inputmode="decimal" id="ds_bit" placeholder="Örn: 8589934592">
+                <span id="lbl_byte">Byte (B):</span><input type="text" inputmode="decimal" id="ds_byte" placeholder="Örn: 1073741824">
+                <span id="lbl_kb">KB:</span><input type="text" inputmode="decimal" id="ds_kb" placeholder="Örn: 1048576">
+                <span id="lbl_mb">MB:</span><input type="text" inputmode="decimal" id="ds_mb" placeholder="Örn: 1024">
+                <span id="lbl_gb">GB:</span><input type="text" inputmode="decimal" id="ds_gb" placeholder="Örn: 1">
+                <span id="lbl_tb">TB:</span><input type="text" inputmode="decimal" id="ds_tb" placeholder="Örn: 0.00097">
+            </div>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button id="btn_clear" class="hesapla" style="margin-top:0; background:var(--yazi-renk);" onclick="temizleVeri()"><span class="btn_clear_text">SİL</span></button>
+                <button id="btn_calc3" class="hesapla" style="margin-top:0;" onclick="hesaplaVeri()"><span class="btn_calc_text">HESAPLA</span></button>
+            </div>
+        </div>
+
+        <div id="mod12" class="mod">
+            <label id="lbl_area_title">Alan Çevirici:</label>
+            <div class="veri-grid">
+                <span>m²:</span><input type="text" inputmode="decimal" id="ds_m2" placeholder="Örn: 10000">
+                <span>Ar:</span><input type="text" inputmode="decimal" id="ds_ar" placeholder="Örn: 100">
+                <span>Dönüm:</span><input type="text" inputmode="decimal" id="ds_donum" placeholder="Örn: 10">
+                <span>Hektar:</span><input type="text" inputmode="decimal" id="ds_hektar" placeholder="Örn: 1">
+                <span>km²:</span><input type="text" inputmode="decimal" id="ds_km2" placeholder="Örn: 0.01">
+            </div>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button class="hesapla" style="margin-top:0; background:var(--yazi-renk);" onclick="temizleAlanConv()"><span class="btn_clear_text">SİL</span></button>
+                <button id="btn_calc4" class="hesapla" style="margin-top:0;" onclick="hesaplaAlanConv()"><span class="btn_calc_text">HESAPLA</span></button>
+            </div>
+        </div>
+
+        <div id="mod13" class="mod">
+            <label id="lbl_weight_title">Ağırlık Çevirici:</label>
+            <div class="veri-grid">
+                <span>Gram (g):</span><input type="text" inputmode="decimal" id="ds_g" placeholder="Örn: 1000">
+                <span>KG:</span><input type="text" inputmode="decimal" id="ds_kg" placeholder="Örn: 1">
+                <span>Ton:</span><input type="text" inputmode="decimal" id="ds_ton" placeholder="Örn: 0.001">
+                <span>Libre (lb):</span><input type="text" inputmode="decimal" id="ds_lb" placeholder="Örn: 2.204">
+                <span>Ons (oz):</span><input type="text" inputmode="decimal" id="ds_oz" placeholder="Örn: 35.274">
+            </div>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button class="hesapla" style="margin-top:0; background:var(--yazi-renk);" onclick="temizleAgirlik()"><span class="btn_clear_text">SİL</span></button>
+                <button id="btn_calc5" class="hesapla" style="margin-top:0;" onclick="hesaplaAgirlik()"><span class="btn_calc_text">HESAPLA</span></button>
+            </div>
+        </div>
+
+        <div id="mod14" class="mod">
+            <label id="lbl_temp_title">Sıcaklık Çevirici:</label>
+            <div class="veri-grid">
+                <span>Celsius (°C):</span><input type="text" inputmode="decimal" id="ds_c" placeholder="Örn: 25">
+                <span>Fahrenheit (°F):</span><input type="text" inputmode="decimal" id="ds_f" placeholder="Örn: 77">
+                <span>Kelvin (K):</span><input type="text" inputmode="decimal" id="ds_k" placeholder="Örn: 298.15">
+            </div>
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button class="hesapla" style="margin-top:0; background:var(--yazi-renk);" onclick="temizleSicaklik()"><span class="btn_clear_text">SİL</span></button>
+                <button id="btn_calc6" class="hesapla" style="margin-top:0;" onclick="hesaplaSicaklik()"><span class="btn_calc_text">HESAPLA</span></button>
+            </div>
+        </div>
+        
+        <div id="mod9" class="mod">
+            <input type="text" id="calc-screen" readonly value="">
+            <div class="calc-grid">
+                <button class="calc-btn c" onclick="calcClear()">C</button><button class="calc-btn op" onclick="calcPercent()">%</button><button class="calc-btn op" onclick="calcAppend('/')">÷</button><button class="calc-btn op" onclick="calcAppend('*')">x</button>
+                <button class="calc-btn" onclick="calcAppend('7')">7</button><button class="calc-btn" onclick="calcAppend('8')">8</button><button class="calc-btn" onclick="calcAppend('9')">9</button><button class="calc-btn op" onclick="calcAppend('-')">-</button>
+                <button class="calc-btn" onclick="calcAppend('4')">4</button><button class="calc-btn" onclick="calcAppend('5')">5</button><button class="calc-btn" onclick="calcAppend('6')">6</button><button class="calc-btn op" onclick="calcAppend('+')">+</button>
+                <button class="calc-btn" onclick="calcAppend('1')">1</button><button class="calc-btn" onclick="calcAppend('2')">2</button><button class="calc-btn" onclick="calcAppend('3')">3</button><button class="calc-btn op" style="grid-row: span 2;" onclick="calcResult()">=</button>
+                <button class="calc-btn" onclick="calcAppend('0')" style="grid-column: span 2;">0</button><button class="calc-btn" onclick="calcAppend('.')">.</button>
+            </div>
+            
+            <button class="gecmis-btn" onclick="gecmisGosterGizleMakine()">📜 <span class="lbl_history_calc">Geçmiş İşlemler</span></button>
+            <div id="gecmisKutusuMakine" class="gecmis-kutusu"><div id="gecmisListesiMakine"></div></div>
+        </div>
+        
+        <div id="mod10" class="mod">
+            <div class="sayac-alani" style="margin-top:0; border:none; padding-bottom:5px;"><span id="lbl_score_text">SKOR:</span> <span id="soruSkor" style="color:var(--ana-renk)">0</span></div>
+            <button id="btnEkstrem" class="btn-ekstrem" onclick="toggleEkstremMod()">🔥 EKSTREM MOD: KAPALI</button>
+            <div id="ekstremGosterge" style="display:none; color:#d32f2f; font-weight:bold; font-size:18px; margin-bottom:15px; text-align:center; animation: pulse 1s infinite alternate;">
+                ⏳ <span id="lbl_time">Kalan Süre:</span> <span id="soruSure">17</span>
+            </div>
+            <div id="soruMetni" style="font-weight:bold; font-size:16px; margin-bottom:15px; text-align:center; color:var(--yazi-renk); min-height: 60px; display: flex; align-items: center; justify-content: center;">Soru yükleniyor...</div>
+            
+            <div style="font-size:11px; opacity:0.7; text-align:center; margin-bottom:5px;" id="lbl_ipucu_hizli">💡 İpucu: Hız için virgül yerine boşluk bırakabilirsiniz (Örn: 2 5 = 2.5)</div>
+            
+            <input type="text" inputmode="decimal" id="soruCevap" placeholder="Cevabı gir (Sadece sayı)">
+            <div style="display:flex; gap:10px; margin-top:20px;">
+                <button id="btn_gec" class="hesapla" style="margin-top:0; background:var(--yazi-renk);" onclick="soruGec()">GEÇ</button>
+                <button id="btn_cevapla" class="hesapla" style="margin-top:0;" onclick="soruCevapla()">CEVAPLA</button>
+            </div>
+            <div id="soruSonuc" class="sonuc"></div>
+            
+            <button class="gecmis-btn" onclick="gecmisGosterGizleSoru()">📜 <span id="lbl_history_btn">Geçmiş Sorular</span></button>
+            <div id="gecmisKutusuMain" class="gecmis-kutusu">
+                <div id="gecmisListesiSoru"></div>
+            </div>
+        </div>
+
+        <div class="reklam-alani" style="margin-top:20px;">
+            Reklam Alanı (Google AdSense)
+        </div>
+        
+        <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
+        <div class="versiyon">v4.39.0</div>
     </div>
-    <input type="file" id="resimYukleyici" accept="image/*" onchange="arkaplanDegistir(this)">
-    <h2 id="lbl_title">ÖLÇEKMATİK</h2>
-    <div class="imza">BEDIR DESIGN</div>
     
-    <div class="bilgi-panosu" id="yeniSiteBilgi">
-        <button class="bilgi-kapat" onclick="document.getElementById('yeniSiteBilgi').style.display='none'">✖</button>
-        🛠️ <b>Bilgilendirme:</b><br>Ölçekmatik yepyeni altyapısıyla yayında! Sistemimiz henüz çok taze olduğu için geçiş sürecinde ufak tefek teknik aksaklıklar yaşanabilir. Olası kesintiler için şimdiden özür diler, anlayışınız ve sabrınız için teşekkür ederiz. 🙏
-    </div>
-
-    <div class="menu-container">
-        <div class="menu">
-            <button id="btn1" onclick="modDegis(1)" class="aktif">PROJE</button>
-            <button id="btn2" onclick="modDegis(2)">GERÇEK</button>
-            <button id="btn9" onclick="modDegis(9)">HESAP</button>
-            <button id="btn10" onclick="modDegis(10)">SORU</button>
-            <button id="btn5" onclick="modDegis(5)">MERDİVEN</button>
-            <button id="btn6" onclick="modDegis(6)">MALZEME</button>
-            <button id="btn7" onclick="modDegis(7)">ALTIN ORAN</button>
-            <button id="btn8" onclick="modDegis(8)">ÇEVİR</button>
-            <button id="btn3" onclick="modDegis(3)">EĞİM</button>
-            <button id="btn4" onclick="modDegis(4)">OYUN</button>
-        </div>
-    </div>
-    <div id="mod1" class="mod" style="display:block;">
-        <label id="lbl_real">Gerçek Ölçü:</label>
-        <div style="display:flex; gap:5px;"><input type="text" inputmode="decimal" id="g_sayi" placeholder="300"><select id="g_birim" style="width:100px;"><option value="cm">CM</option><option value="m">M</option><option value="mm">MM</option></select></div>
-        <label id="lbl_scale_sel">Ölçek Seçimi:</label>
-        <select id="g_olcek">
-            <option value="2">1/2</option><option value="5">1/5</option><option value="10">1/10</option><option value="20">1/20</option>
-            <option value="50" selected>1/50</option><option value="100">1/100</option><option value="200">1/200</option><option value="500">1/500</option>
-        </select>
-        <button id="btn_calc1" class="hesapla" onclick="hesaplaCizim()">HESAPLA >></button><div id="sonuc1" class="sonuc"></div>
-    </div>
-    <div id="mod2" class="mod">
-        <label id="lbl_ruler">Cetvel Ölçüsü (CM):</label><input type="text" inputmode="decimal" id="c_sayi" placeholder="4.5">
-        <label id="lbl_p_scale">Proje Ölçeği:</label><select id="c_olcek"><option value="2">1/2</option><option value="5">1/5</option><option value="10">1/10</option><option value="20">1/20</option><option value="50" selected>1/50</option><option value="100">1/100</option><option value="200">1/200</option><option value="500">1/500</option></select>
-        <button id="btn_conv1" class="hesapla" onclick="hesaplaGercek()">ÇEVİR >></button><div id="sonuc2" class="sonuc"></div>
-    </div>
-    <div id="mod3" class="mod">
-        <label id="lbl_kot">Kot Farkı (h):</label><input type="text" id="e_h" placeholder="20">
-        <label id="lbl_dist">Mesafe (L):</label><input type="text" id="e_l" placeholder="200">
-        <button id="btn_analyse" class="hesapla" onclick="hesaplaEgim()">ANALİZ ET >></button><div id="sonuc3" class="sonuc"></div>
-    </div>
-    <div id="mod5" class="mod">
-        <label id="lbl_h">Kat Yüksekliği (h):</label><input type="text" inputmode="decimal" id="m_h" placeholder="300">
-        <label id="lbl_b">Basamak Derinliği (b):</label><input type="text" inputmode="decimal" id="m_b" placeholder="">
-        <button id="btn_calc2" class="hesapla" onclick="hesaplaMerdiven()">HESAPLA >></button><div id="sonuc5" class="sonuc"></div>
-    </div>
-    <div id="mod6" class="mod">
-        <label id="lbl_area">Oda / Alan (cm):</label><div style="display:flex; gap:10px; align-items:center;"><input type="text" inputmode="decimal" id="mal_en" placeholder="En"><span style="font-weight:bold">x</span><input type="text" inputmode="decimal" id="mal_boy" placeholder="Boy"></div>
-        <label id="lbl_mat">Malzeme Ölçüsü (cm):</label><div style="display:flex; gap:10px; align-items:center;"><input type="text" inputmode="decimal" id="mz_en" placeholder="En"><span style="font-weight:bold">x</span><input type="text" inputmode="decimal" id="mz_boy" placeholder="Boy"></div>
-        <button id="btn_quant" class="hesapla" onclick="hesaplaMalzeme()">METRAJ ÇIKAR >></button><div id="sonuc6" class="sonuc"></div>
-    </div>
-    <div id="mod7" class="mod">
-        <label id="lbl_edge">Bilinen Kenar (cm):</label>
-        <div id="lbl_golden_desc" style="font-size: 12px; opacity: 0.8; text-align: center; margin-bottom: 10px;">Doğadaki kusursuz estetik oranı projelerinize yansıtmak için.</div>
-        <input type="text" id="ao_val" placeholder="100">
-        <button id="btn_ratio" class="hesapla" onclick="hesaplaAltinOran()">ORANLA >></button><div id="sonuc7" class="sonuc"></div>
-    </div>
-    <div id="mod8" class="mod">
-        <label id="lbl_val">Değer Gir:</label><div style="display:flex; gap:5px;"><input type="text" id="cv_val" placeholder="5"><select id="cv_tip" style="width:100px;"><option value="ft">Feet</option><option value="in">Inch</option></select></div>
-        <button id="btn_conv2" class="hesapla" onclick="cevirBirim()">ÇEVİR (CM) >></button><div id="sonuc8" class="sonuc"></div>
-    </div>
-    <div id="mod9" class="mod">
-        <input type="text" id="calc-screen" readonly value="">
-        <div class="calc-grid">
-            <button class="calc-btn c" onclick="calcClear()">C</button><button class="calc-btn op" onclick="calcPercent()">%</button><button class="calc-btn op" onclick="calcAppend('/')">÷</button><button class="calc-btn op" onclick="calcAppend('*')">x</button>
-            <button class="calc-btn" onclick="calcAppend('7')">7</button><button class="calc-btn" onclick="calcAppend('8')">8</button><button class="calc-btn" onclick="calcAppend('9')">9</button><button class="calc-btn op" onclick="calcAppend('-')">-</button>
-            <button class="calc-btn" onclick="calcAppend('4')">4</button><button class="calc-btn" onclick="calcAppend('5')">5</button><button class="calc-btn" onclick="calcAppend('6')">6</button><button class="calc-btn op" onclick="calcAppend('+')">+</button>
-            <button class="calc-btn" onclick="calcAppend('1')">1</button><button class="calc-btn" onclick="calcAppend('2')">2</button><button class="calc-btn" onclick="calcAppend('3')">3</button><button class="calc-btn op" style="grid-row: span 2;" onclick="calcResult()">=</button>
-            <button class="calc-btn" onclick="calcAppend('0')" style="grid-column: span 2;">0</button><button class="calc-btn" onclick="calcAppend('.')">.</button>
-        </div>
-    </div>
-    
-    <div id="mod10" class="mod">
-        <div class="sayac-alani" style="margin-top:0; border:none; padding-bottom:5px;"><span id="lbl_score_text">SKOR:</span> <span id="soruSkor" style="color:var(--ana-renk)">0</span></div>
-        <button id="btnEkstrem" class="btn-ekstrem" onclick="toggleEkstremMod()">🔥 EKSTREM MOD: KAPALI</button>
-        <div id="ekstremGosterge" style="display:none; color:#d32f2f; font-weight:bold; font-size:18px; margin-bottom:15px; text-align:center; animation: pulse 1s infinite alternate;">
-            ⏳ <span id="lbl_time">Kalan Süre:</span> <span id="soruSure">17</span>
-        </div>
-        <div id="soruMetni" style="font-weight:bold; font-size:16px; margin-bottom:15px; text-align:center; color:var(--yazi-renk); min-height: 60px; display: flex; align-items: center; justify-content: center;">Soru yükleniyor...</div>
-        
-        <div style="font-size:11px; opacity:0.7; text-align:center; margin-bottom:5px;" id="lbl_ipucu_hizli">💡 İpucu: Hız için virgül yerine boşluk bırakabilirsiniz (Örn: 2 5 = 2.5)</div>
-        
-        <input type="text" inputmode="decimal" id="soruCevap" placeholder="Cevabı gir (Sadece sayı)">
-        <div style="display:flex; gap:10px; margin-top:20px;">
-            <button id="btn_gec" class="hesapla" style="margin-top:0; background:var(--yazi-renk);" onclick="soruGec()">GEÇ</button>
-            <button id="btn_cevapla" class="hesapla" style="margin-top:0;" onclick="soruCevapla()">CEVAPLA</button>
-        </div>
-        <div id="soruSonuc" class="sonuc"></div>
-        
-        <button class="gecmis-btn" onclick="gecmisGosterGizle()">📜 <span id="lbl_history_btn">Geçmiş Sorular</span></button>
-        <div id="gecmisKutusuMain" class="gecmis-kutusu">
-            <div id="gecmisListesi"></div>
-        </div>
-    </div>
-
-    <div id="mod4" class="mod">
-        <div class="game-menu">
-            <button id="gm-btn-mine" class="gm-btn aktif" onclick="switchGame('mine')">💣</button>
-            <button id="gm-btn-snake" class="gm-btn" onclick="switchGame('snake')">🐍</button>
-            <button id="gm-btn-bj" class="gm-btn" onclick="switchGame('bj')">🃏 21</button>
-            <button id="gm-btn-rps" class="gm-btn" onclick="switchGame('rps')">✊✋✌️</button>
-            <button id="gm-btn-2048" class="gm-btn" onclick="switchGame('2048')">🔢</button>
-            <button id="gm-btn-sudoku" class="gm-btn" onclick="switchGame('sudoku')">🧩</button>
+    <div class="alt-modul">
+        <div class="alt-sekmeler" id="sagSekmeler">
+            <button id="btnPlan" class="alt-sekme aktif" onclick="altSekmeDegis('plan')">📐 PLAN MASASI</button>
+            <button id="btnNot" class="alt-sekme" onclick="altSekmeDegis('not')">📝 NOTLAR</button>
         </div>
         
-        <div id="game-mine" class="game-wrapper active">
-            <div class="oyun-header">
-                <div class="oyun-skor">💣 <span id="mayinSayac">15</span></div>
-                <div style="text-align:center;">
-                    <button id="btnKaz" style="padding:5px 10px; font-size:12px;" class="oyun-btn aktif-mod" onclick="modDegistirOyun(true)">⛏️</button>
-                    <button id="btnBayrak" style="padding:5px 10px; font-size:12px;" class="oyun-btn" onclick="modDegistirOyun(false)">🚩</button>
-                </div>
-                <button class="oyun-btn" style="padding:5px 10px; font-size:12px;" onclick="oyunuBaslat()">🔄</button>
+        <div id="icerikPlan" class="alt-icerik aktif">
+            <div class="plan-sahne" id="sahneContainer">
+                <div id="planGorsel" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#888;">...</div>
             </div>
-            <div id="mayinTarlasi" class="mayin-grid"></div>
-            <div id="oyunSonuc" class="sonuc"></div>
+            <div class="plan-kontroller">
+                <button id="btn_load" class="plan-btn" onclick="planSec()">📂</button>
+                <button class="plan-btn" onclick="planZoom(0.1)">➕</button>
+                <button class="plan-btn" onclick="planZoom(-0.1)">➖</button>
+                <button id="btn_reset" class="plan-btn" onclick="planReset()">↺</button>
+            </div>
+            <input type="file" id="planYukleyici" accept="image/*" onchange="planYukle(this)">
         </div>
         
-        <div id="game-snake" class="game-wrapper">
-            <div class="game-score"><span id="lbl_score_snake">SKOR</span>: <span id="snakeScore">0</span></div>
-            <div style="position:relative;">
-                <canvas id="snakeCanvas" width="300" height="300"></canvas>
-                <div id="snakeOverlay" class="game-overlay">
-                    <div id="lbl_snake_title">YILAN</div>
-                    <button id="btn_start_snake" class="start-btn" onclick="startSnake()">BAŞLA</button>
+        <div id="icerikNot" class="alt-icerik">
+            <textarea id="notDefteri" placeholder="Ölçüleri, fikirleri veya yapılacakları buraya yaz..." oninput="notKaydet()"></textarea>
+        </div>
+
+        <div id="icerikOyun" class="alt-icerik">
+            <div id="game-mine" class="game-wrapper active">
+                <div class="oyun-header">
+                    <div class="oyun-skor">💣 <span id="mayinSayac">15</span></div>
+                    <div style="text-align:center;">
+                        <button id="btnKaz" style="padding:5px 10px; font-size:12px;" class="oyun-btn aktif-mod" onclick="modDegistirOyun(true)">⛏️</button>
+                        <button id="btnBayrak" style="padding:5px 10px; font-size:12px;" class="oyun-btn" onclick="modDegistirOyun(false)">🚩</button>
+                    </div>
+                    <button class="oyun-btn" style="padding:5px 10px; font-size:12px;" onclick="oyunuBaslat()">🔄</button>
+                </div>
+                <div id="mayinTarlasi" class="mayin-grid"></div>
+                <div id="oyunSonuc" class="sonuc"></div>
+            </div>
+            
+            <div id="game-snake" class="game-wrapper">
+                <div class="game-score" style="margin-bottom:15px; font-weight:bold; font-size:18px; color:var(--ana-renk);"><span id="lbl_score_snake">SKOR</span>: <span id="snakeScore">0</span></div>
+                <div style="position:relative;">
+                    <canvas id="snakeCanvas" width="300" height="300"></canvas>
+                    <div id="snakeOverlay" class="game-overlay">
+                        <div id="lbl_snake_title">YILAN</div>
+                        <button id="btn_start_snake" class="start-btn" onclick="startSnake()">BAŞLA</button>
+                    </div>
                 </div>
             </div>
-        </div>
-        
-        <div id="game-bj" class="game-wrapper">
-            <div class="bj-masa">
-                <div class="bj-alan">
-                    <div class="bj-isim"><span id="lbl_dealer">KASA</span>: <span id="dealerScore">0</span></div>
-                    <div id="dealerHand" class="bj-el"></div>
+            
+            <div id="game-bj" class="game-wrapper">
+                <div class="bj-masa">
+                    <div class="bj-alan">
+                        <div class="bj-isim"><span id="lbl_dealer">KASA</span>: <span id="dealerScore">0</span></div>
+                        <div id="dealerHand" class="bj-el"></div>
+                    </div>
+                    <div class="bj-mesaj" id="bjMessage">...</div>
+                    <div class="bj-alan">
+                        <div class="bj-isim"><span id="lbl_player">SEN</span>: <span id="playerHandScore">0</span></div>
+                        <div id="playerHand" class="bj-el"></div>
+                    </div>
+                    <div class="bj-btn-grup">
+                        <button id="bjHit" class="bj-btn hit" onclick="bjHit()" disabled>➕</button>
+                        <button id="bjStand" class="bj-btn stand" onclick="bjStand()" disabled>✋</button>
+                        <button id="bjNew" class="bj-btn" onclick="startBJ()">🔄</button>
+                    </div>
                 </div>
-                <div class="bj-mesaj" id="bjMessage">...</div>
-                <div class="bj-alan">
-                    <div class="bj-isim"><span id="lbl_player">SEN</span>: <span id="playerHandScore">0</span></div>
-                    <div id="playerHand" class="bj-el"></div>
+            </div>
+
+            <div id="game-rps" class="game-wrapper">
+                <div class="oyun-header">
+                    <div class="oyun-skor">✊✋✌️</div>
                 </div>
-                <div class="bj-btn-grup">
-                    <button id="bjHit" class="bj-btn hit" onclick="bjHit()" disabled>➕</button>
-                    <button id="bjStand" class="bj-btn stand" onclick="bjStand()" disabled>✋</button>
-                    <button id="bjNew" class="bj-btn" onclick="startBJ()">🔄</button>
+                <div style="text-align:center; font-size:60px; margin:30px 0;" id="rps-arena">❔ vs ❔</div>
+                <div id="rps-sonuc" style="text-align:center; font-weight:bold; margin-bottom:30px; font-size:22px;">Seçimini yap!</div>
+                <div style="display:flex; justify-content:center; gap:15px;">
+                    <button class="calc-btn" style="padding:20px; font-size:24px;" onclick="oynaRPS('tas')">✊</button>
+                    <button class="calc-btn" style="padding:20px; font-size:24px;" onclick="oynaRPS('kagit')">✋</button>
+                    <button class="calc-btn" style="padding:20px; font-size:24px;" onclick="oynaRPS('makas')">✌️</button>
                 </div>
             </div>
-        </div>
 
-        <div id="game-rps" class="game-wrapper">
-            <div class="oyun-header">
-                <div class="oyun-skor">✊✋✌️</div>
-            </div>
-            <div style="text-align:center; font-size:50px; margin:20px 0;" id="rps-arena">❔ vs ❔</div>
-            <div id="rps-sonuc" style="text-align:center; font-weight:bold; margin-bottom:20px; font-size:18px;">Seçimini yap!</div>
-            <div style="display:flex; justify-content:center; gap:10px;">
-                <button class="calc-btn" onclick="oynaRPS('tas')">✊</button>
-                <button class="calc-btn" onclick="oynaRPS('kagit')">✋</button>
-                <button class="calc-btn" onclick="oynaRPS('makas')">✌️</button>
-            </div>
-        </div>
-
-        <div id="game-2048" class="game-wrapper">
-            <div class="oyun-header">
-                <div class="oyun-skor">SKOR: <span id="skor-2048">0</span></div>
-                <button class="oyun-btn" onclick="baslat2048()">🔄</button>
-            </div>
-            <div id="grid-2048" class="grid-2048"></div>
-        </div>
-
-        <div id="game-sudoku" class="game-wrapper">
-            <div class="oyun-header">
-                <div class="oyun-skor">🧩 SUDOKU</div>
-                <button class="oyun-btn" onclick="baslatSudoku()">🔄</button>
-            </div>
-            <div id="board-sudoku" class="sudoku-board"></div>
-            <div class="sudoku-numpad" id="numpad-sudoku">
-                <button class="sudoku-btn" onclick="girSudoku(1)">1</button>
-                <button class="sudoku-btn" onclick="girSudoku(2)">2</button>
-                <button class="sudoku-btn" onclick="girSudoku(3)">3</button>
-                <button class="sudoku-btn" onclick="girSudoku(4)">4</button>
-                <button class="sudoku-btn" onclick="girSudoku(5)">5</button>
-                <button class="sudoku-btn" onclick="girSudoku(6)">6</button>
-                <button class="sudoku-btn" onclick="girSudoku(7)">7</button>
-                <button class="sudoku-btn" onclick="girSudoku(8)">8</button>
-                <button class="sudoku-btn" onclick="girSudoku(9)">9</button>
-                <button class="sudoku-btn" style="background:#d32f2f;" onclick="girSudoku(0)">SİL</button>
+            <div id="game-2048" class="game-wrapper">
+                <div class="oyun-header">
+                    <div class="oyun-skor">SKOR: <span id="skor-2048">0</span></div>
+                    <button class="oyun-btn" onclick="baslat2048()">🔄</button>
+                </div>
+                <div id="grid-2048" class="grid-2048"></div>
             </div>
         </div>
 
     </div>
-    <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-    <div class="versiyon">v4.32.0</div>
+
 </div>
-<div class="alt-modul">
-    <div class="alt-sekmeler">
-        <button id="btnPlan" class="alt-sekme aktif" onclick="altSekmeDegis('plan')">📐 PLAN MASASI</button>
-        <button id="btnNot" class="alt-sekme" onclick="altSekmeDegis('not')">📝 NOTLAR</button>
-    </div>
-    <div id="icerikPlan" class="alt-icerik aktif">
-        <div class="plan-sahne" id="sahneContainer">
-            <div id="planGorsel" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#888;">...</div>
-        </div>
-        <div class="plan-kontroller">
-            <button id="btn_load" class="plan-btn" onclick="planSec()">📂</button>
-            <button class="plan-btn" onclick="planZoom(0.1)">➕</button>
-            <button class="plan-btn" onclick="planZoom(-0.1)">➖</button>
-            <button id="btn_reset" class="plan-btn" onclick="planReset()">↺</button>
-        </div>
-        <input type="file" id="planYukleyici" accept="image/*" onchange="planYukle(this)">
-    </div>
-    <div id="icerikNot" class="alt-icerik">
-        <textarea id="notDefteri" placeholder="Ölçüleri, fikirleri veya yapılacakları buraya yaz..." oninput="notKaydet()"></textarea>
-    </div>
-</div>
+
 <div class="seo-metni" id="lbl_seo_text">
     <strong style="color:var(--ana-renk); font-size:15px;">Ölçekmatik Nedir?</strong><br><br>
     Ölçekmatik; mimarlar, iç mimarlar, mühendisler ve tasarım öğrencileri için geliştirilmiş ücretsiz ve pratik bir <b>mimari ölçek hesaplama aracıdır</b>. Projelerinizde kağıt üzerindeki ölçüleri gerçek ölçülere veya gerçek ölçüleri plan ölçeklerine (1/20, 1/50, 1/100 vb.) hızlıca çevirebilirsiniz. Ayrıca merdiven rıht/basamak analizi, kot farkı (eğim) hesaplaması ve seramik, parke gibi yapı malzemeleri için hızlı metraj çıkarma işlemlerini saniyeler içinde yapmanızı sağlar.
@@ -471,7 +589,7 @@
     var curLang = 'tr';
     const t = {
         tr: {
-            btn1: "PROJE", btn2: "GERÇEK", btn3: "EĞİM", btn4: "OYUN", btn5: "MERDİVEN", btn6: "MALZEME", btn7: "ALTIN ORAN", btn8: "ÇEVİR", btn9: "HESAP", btn10: "SORU",
+            btn1: "PROJE", btn2: "GERÇEK", btn3: "EĞİM", btn4: "OYUN", btn5: "MERDİVEN", btn6: "MALZEME", btn7: "ALTIN ORAN", btn8: "UZUNLUK", btn9: "HESAP", btn10: "SORU", btn11: "VERİ", btn12: "ALAN", btn13: "AĞIRLIK", btn14: "SICAKLIK",
             lbl_real: "Gerçek Ölçü:", lbl_scale_sel: "Ölçek Seçimi:", btn_calc1: "HESAPLA >>",
             lbl_ruler: "Cetvel Ölçüsü (CM):", lbl_p_scale: "Proje Ölçeği:", btn_conv1: "ÇEVİR >>",
             lbl_kot: "Kot Farkı (h):", lbl_dist: "Mesafe (L):", btn_analyse: "ANALİZ ET >>",
@@ -488,13 +606,20 @@
             btnPlan: "📐 PLAN MASASI", btnNot: "📝 NOTLAR", btn_ekstrem_on: "🔥 EKSTREM MOD: AÇIK", btn_ekstrem_off: "🔥 EKSTREM MOD: KAPALI", lbl_time: "Kalan Süre:", btn_gec: "GEÇ", btn_cevapla: "CEVAPLA",
             lbl_bg_title: "🎨 Arkaplan Seçimi", btn_hazir: "🖼️ Hazır Görseller", btn_galeri: "📂 Galeriden Yükle", btn_geri: "⬅ Geri Dön",
             lbl_cookie: "🍪 Bu site, deneyiminizi geliştirmek ve size kişiselleştirilmiş içerik/reklam sunmak için çerezler (cookies) kullanır. Siteyi kullanmaya devam ederek bunu kabul etmiş olursunuz.", btn_cookie_ok: "Anladım",
-            lbl_pomodoro_title: "⏱️ MOLA ZAMANI!", lbl_pomodoro_text: "25 dakika boyunca aralıksız çalıştın.<br>Verimini korumak için şimdi 5 dakika gözlerini dinlendir.", btn_pomodoro_ok: "TAMAM",
+            lbl_pomodoro_title: "⏱️ MOLA VAKTİ!", lbl_pomodoro_text: "25 dakika boyunca aralıksız çalıştın.<br>Verimini korumak için şimdi 5 dakika gözlerini dinlendir.", btn_pomodoro_ok: "TAMAM",
+            lbl_pomo_title_joke: "🛠️ KOLAY GELSİN PATRON!", lbl_pomo_text_joke: "3 saattir buradasın, kira ödemeyi düşünüyor musun?",
             lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>Ölçekmatik Nedir?</strong><br><br>Ölçekmatik; mimarlar, iç mimarlar, mühendisler ve tasarım öğrencileri için geliştirilmiş ücretsiz ve pratik bir <b>mimari ölçek hesaplama aracıdır</b>. Projelerinizde kağıt üzerindeki ölçüleri gerçek ölçülere veya gerçek ölçüleri plan ölçeklerine (1/20, 1/50, 1/100 vb.) hızlıca çevirebilirsiniz.",
             lbl_footer_about: "Hakkımızda & İletişim", lbl_footer_privacy: "Gizlilik Politikası", lbl_footer_terms: "Kullanım Koşulları", lbl_footer_rights: "© 2026 Bedir Design. Tüm Hakları Saklıdır.",
-            lbl_history_btn: "Geçmiş Sorular", lbl_ipucu_hizli: "💡 İpucu: Hız için virgül yerine boşluk bırakabilirsiniz (Örn: 2 5 = 2.5)"
+            lbl_history_btn: "Geçmiş Sorular", lbl_ipucu_hizli: "💡 İpucu: Hız için virgül yerine boşluk bırakabilirsiniz (Örn: 2 5 = 2.5)",
+            lbl_history_calc: "Geçmiş İşlemler",
+            lbl_cat_arch: "📐 Mimari", lbl_cat_calc: "🧮 Hesap", lbl_cat_game: "🎮 Eğlence", lbl_cat_conv: "🔄 Dönüştürücü",
+            lbl_ds_title: "Veri Depolama Çevirici:", btn_clear: "SİL", btn_calc3: "HESAPLA", btn_clear_text: "SİL", btn_calc_text: "HESAPLA",
+            lbl_bit: "Bit (b):", lbl_byte: "Byte (B):", lbl_kb: "KB:", lbl_mb: "MB:", lbl_gb: "GB:", lbl_tb: "TB:",
+            lbl_area_title: "Alan Çevirici:", lbl_weight_title: "Ağırlık Çevirici:", lbl_temp_title: "Sıcaklık Çevirici:", lbl_len_title: "Uzunluk Çevirici:",
+            lbl_select_game: "Oyun Seçin:"
         },
         en: {
-            btn1: "PROJECT", btn2: "REAL", btn3: "SLOPE", btn4: "GAME", btn5: "STAIRS", btn6: "MATERIAL", btn7: "GOLDEN RATIO", btn8: "CONVERT", btn9: "CALC", btn10: "QUIZ",
+            btn1: "PROJECT", btn2: "REAL", btn3: "SLOPE", btn4: "GAME", btn5: "STAIRS", btn6: "MATERIAL", btn7: "GOLDEN RATIO", btn8: "LENGTH", btn9: "CALC", btn10: "QUIZ", btn11: "DATA", btn12: "AREA", btn13: "WEIGHT", btn14: "TEMP",
             lbl_real: "Real Size:", lbl_scale_sel: "Select Scale:", btn_calc1: "CALCULATE >>",
             lbl_ruler: "Ruler Size (CM):", lbl_p_scale: "Project Scale:", btn_conv1: "CONVERT >>",
             lbl_kot: "Height Diff (h):", lbl_dist: "Distance (L):", btn_analyse: "ANALYZE >>",
@@ -512,12 +637,19 @@
             lbl_bg_title: "🎨 Background Selection", btn_hazir: "🖼️ Preset Images", btn_galeri: "📂 Load from Gallery", btn_geri: "⬅ Go Back",
             lbl_cookie: "🍪 This site uses cookies to improve your experience and provide personalized content/ads. By continuing to use the site, you accept this.", btn_cookie_ok: "Got it",
             lbl_pomodoro_title: "⏱️ BREAK TIME!", lbl_pomodoro_text: "You have worked for 25 minutes straight.<br>Rest your eyes for 5 minutes to maintain productivity.", btn_pomodoro_ok: "OK",
+            lbl_pomo_title_joke: "🛠️ TAKE IT EASY BOSS!", lbl_pomo_text_joke: "You've been here for 3 hours, thinking of paying rent?",
             lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>What is Ölçekmatik?</strong><br><br>It is a free and practical <b>architectural scale calculator</b> developed for architects, interior designers, and students. Quickly convert paper dimensions to real dimensions or vice versa.",
             lbl_footer_about: "About Us & Contact", lbl_footer_privacy: "Privacy Policy", lbl_footer_terms: "Terms of Use", lbl_footer_rights: "© 2026 Bedir Design. All Rights Reserved.",
-            lbl_history_btn: "Question History", lbl_ipucu_hizli: "💡 Tip: For speed, you can use space instead of dot (e.g. 2 5 = 2.5)"
+            lbl_history_btn: "Question History", lbl_ipucu_hizli: "💡 Tip: For speed, you can use space instead of dot (e.g. 2 5 = 2.5)",
+            lbl_history_calc: "History",
+            lbl_cat_arch: "📐 Architecture", lbl_cat_calc: "🧮 Calculator", lbl_cat_game: "🎮 Entertainment", lbl_cat_conv: "🔄 Converter",
+            lbl_ds_title: "Data Storage Converter:", btn_clear: "CLEAR", btn_calc3: "CALCULATE", btn_clear_text: "CLEAR", btn_calc_text: "CALCULATE",
+            lbl_bit: "Bit (b):", lbl_byte: "Byte (B):", lbl_kb: "KB:", lbl_mb: "MB:", lbl_gb: "GB:", lbl_tb: "TB:",
+            lbl_area_title: "Area Converter:", lbl_weight_title: "Weight Converter:", lbl_temp_title: "Temperature Converter:", lbl_len_title: "Length Converter:",
+            lbl_select_game: "Select Game:"
         },
         zh: {
-            btn1: "项目", btn2: "实际", btn3: "坡度", btn4: "游戏", btn5: "楼梯", btn6: "材料", btn7: "黄金比例", btn8: "转换", btn9: "计算器", btn10: "测验",
+            btn1: "项目", btn2: "实际", btn3: "坡度", btn4: "游戏", btn5: "楼梯", btn6: "材料", btn7: "黄金比例", btn8: "长度", btn9: "计算器", btn10: "测验", btn11: "数据", btn12: "面积", btn13: "重量", btn14: "温度",
             lbl_real: "实际尺寸:", lbl_scale_sel: "选择比例:", btn_calc1: "计算 >>",
             lbl_ruler: "尺子尺寸 (CM):", lbl_p_scale: "项目比例:", btn_conv1: "转换 >>",
             lbl_kot: "高度差 (h):", lbl_dist: "距离 (L):", btn_analyse: "分析 >>",
@@ -535,12 +667,19 @@
             lbl_bg_title: "🎨 背景选择", btn_hazir: "🖼️ 预设图片", btn_galeri: "📂 从相册加载", btn_geri: "⬅ 返回",
             lbl_cookie: "🍪 本网站使用 cookie 来改善您的体验并提供个性化内容。继续使用本网站即表示您接受此条款。", btn_cookie_ok: "知道了",
             lbl_pomodoro_title: "⏱️ 休息时间！", lbl_pomodoro_text: "您已经连续工作了 25 分钟。<br>请休息 5 分钟以保持工作效率。", btn_pomodoro_ok: "确定",
+            lbl_pomo_title_joke: "🛠️ 辛苦了老板！", lbl_pomo_text_joke: "你已经在这里3个小时了，考虑付房租吗？",
             lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>什么是 Ölçekmatik？</strong><br><br>它是为建筑师和设计学生开发的免费且实用的<b>建筑比例计算器</b>。可以快速将图纸尺寸转换为实际尺寸。",
             lbl_footer_about: "关于我们 & 联系方式", lbl_footer_privacy: "隐私政策", lbl_footer_terms: "使用条款", lbl_footer_rights: "© 2026 Bedir Design. 保留所有权利。",
-            lbl_history_btn: "问题历史", lbl_ipucu_hizli: "💡 提示: 为了速度，您可以使用空格代替小数点 (如 2 5 = 2.5)"
+            lbl_history_btn: "问题历史", lbl_ipucu_hizli: "💡 提示: 为了速度，您可以使用空格代替小数点 (如 2 5 = 2.5)",
+            lbl_history_calc: "历史记录",
+            lbl_cat_arch: "📐 建筑", lbl_cat_calc: "🧮 计算器", lbl_cat_game: "🎮 娱乐", lbl_cat_conv: "🔄 转换器",
+            lbl_ds_title: "数据存储转换器:", btn_clear: "清除", btn_calc3: "计算", btn_clear_text: "清除", btn_calc_text: "计算",
+            lbl_bit: "比特 (b):", lbl_byte: "字节 (B):", lbl_kb: "KB:", lbl_mb: "MB:", lbl_gb: "GB:", lbl_tb: "TB:",
+            lbl_area_title: "面积转换器:", lbl_weight_title: "重量转换器:", lbl_temp_title: "温度转换器:", lbl_len_title: "长度转换器:",
+            lbl_select_game: "选择游戏:"
         },
         ku: {
-            btn1: "PROJE", btn2: "RASTÎ", btn3: "ŞÎV", btn4: "LÎSTIK", btn5: "PÊLIK", btn6: "KELÛPEL", btn7: "RÊJEYA ZÊRÎN", btn8: "VEGERÎNE", btn9: "HESAB", btn10: "PIRS",
+            btn1: "PROJE", btn2: "RASTÎ", btn3: "ŞÎV", btn4: "LÎSTIK", btn5: "PÊLIK", btn6: "KELÛPEL", btn7: "RÊJEYA ZÊRÎN", btn8: "DIRÊJAHÎ", btn9: "HESAB", btn10: "PIRS", btn11: "DANE", btn12: "QAD", btn13: "GIRANÎ", btn14: "GERMAHÎ",
             lbl_real: "Pîvana Rastî:", lbl_scale_sel: "Pîvan Hilbijêre:", btn_calc1: "BIJIMÊRE >>",
             lbl_ruler: "Pîvana Rastekê (CM):", lbl_p_scale: "Pîvana Projeyê:", btn_conv1: "VEGERÎNE >>",
             lbl_kot: "Cûdahîya Kotê (h):", lbl_dist: "Mesafe (L):", btn_analyse: "ANALÎZ KE >>",
@@ -558,12 +697,19 @@
             lbl_bg_title: "🎨 Hilbijartina Paşnavê", btn_hazir: "🖼️ Wêneyên Amade", btn_galeri: "📂 Ji Galeriyê Bar Bike", btn_geri: "⬅ Vegere",
             lbl_cookie: "🍪 Ev malper çerezan bikar tîne. Bi karanîna malperê hûn vê qebûl dikin.", btn_cookie_ok: "Fêm kir",
             lbl_pomodoro_title: "⏱️ DEMA BÊHNDANÊ!", lbl_pomodoro_text: "We 25 deqe bê navber xebitî.<br>Niha 5 deqe çavên xwe bêhn bikin.", btn_pomodoro_ok: "TEMAM",
+            lbl_pomo_title_joke: "🛠️ XEBATA TE XWEŞ BE PATRON!", lbl_pomo_text_joke: "3 saet in tu li vir î, tu difikirî ku kirê bidî?",
             lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>Ölçekmatik Çi Ye?</strong><br><br>Amûrek belaş e ji bo mîmaran.",
             lbl_footer_about: "Derbarê Me", lbl_footer_privacy: "Polîtîkaya Nepenîtiyê", lbl_footer_terms: "Mercên Bikaranînê", lbl_footer_rights: "© 2026 Bedir Design.",
-            lbl_history_btn: "Pirsên Berê", lbl_ipucu_hizli: "💡 Têbînî: Hûn dikarin li şûna xalê valahiyê bikar bînin (Wekî: 2 5 = 2.5)"
+            lbl_history_btn: "Pirsên Berê", lbl_ipucu_hizli: "💡 Têbînî: Hûn dikarin li şûna xalê valahiyê bikar bînin (Wekî: 2 5 = 2.5)",
+            lbl_history_calc: "Karên Berê",
+            lbl_cat_arch: "📐 Mîmarî", lbl_cat_calc: "🧮 Hesab", lbl_cat_game: "🎮 Lîstik", lbl_cat_conv: "🔄 Veguherîner",
+            lbl_ds_title: "Veguherînerê Daneyê:", btn_clear: "PAQIJ KE", btn_calc3: "HESAB", btn_clear_text: "PAQIJ", btn_calc_text: "HESAB",
+            lbl_bit: "Bit (b):", lbl_byte: "Byte (B):", lbl_kb: "KB:", lbl_mb: "MB:", lbl_gb: "GB:", lbl_tb: "TB:",
+            lbl_area_title: "Veguherînera Qadê:", lbl_weight_title: "Veguherînera Giranî:", lbl_temp_title: "Veguherînera Germahiyê:", lbl_len_title: "Veguherînera Dirêjahî:",
+            lbl_select_game: "Lîstik Hilbijêre:"
         },
         ar: {
-            btn1: "مشروع", btn2: "حقيقي", btn3: "انحدار", btn4: "لعبة", btn5: "درج", btn6: "مواد", btn7: "النسبة الذهبية", btn8: "تحويل", btn9: "حساب", btn10: "سؤال",
+            btn1: "مشروع", btn2: "حقيقي", btn3: "انحدار", btn4: "لعبة", btn5: "درج", btn6: "مواد", btn7: "النسبة الذهبية", btn8: "طول", btn9: "حساب", btn10: "سؤال", btn11: "بيانات", btn12: "مساحة", btn13: "وزن", btn14: "حرارة",
             lbl_real: "الحجم الحقيقي:", lbl_scale_sel: "اختيار المقياس:", btn_calc1: "احسب >>",
             lbl_ruler: "قياس المسطرة (سم):", lbl_p_scale: "مقياس المشروع:", btn_conv1: "تحويل >>",
             lbl_kot: "فرق الارتفاع (h):", lbl_dist: "المسافة (L):", btn_analyse: "تحليل >>",
@@ -581,13 +727,30 @@
             lbl_bg_title: "🎨 اختيار الخلفية", btn_hazir: "🖼️ صور جاهزة", btn_galeri: "📂 تحميل من المعرض", btn_geri: "⬅ العودة",
             lbl_cookie: "🍪 يستخدم هذا الموقع ملفات تعريف الارتباط. بالاستمرار في الاستخدام، فإنك توافق على ذلك.", btn_cookie_ok: "موافق",
             lbl_pomodoro_title: "⏱️ وقت الاستراحة!", lbl_pomodoro_text: "لقد عملت لمدة 25 دقيقة متواصلة.<br>أرح عينيك لمدة 5 دقائق.", btn_pomodoro_ok: "حسنا",
+            lbl_pomo_title_joke: "🛠️ يعطيك العافية يا زعيم!", lbl_pomo_text_joke: "أنت هنا منذ 3 ساعات، هل تفكر في دفع الإيجار؟",
             lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>ما هو Ölçekmatik؟</strong><br><br>أداة حساب معمارية مجانية.",
             lbl_footer_about: "معلومات عنا", lbl_footer_privacy: "سياسة الخصوصية", lbl_footer_terms: "شروط الاستخدام", lbl_footer_rights: "© 2026 Bedir Design. جميع الحقوق محفوظة.",
-            lbl_history_btn: "تاريخ السؤال", lbl_ipucu_hizli: "💡 تلميح: للسرعة، يمكنك استخدام مسافة بدلاً من النقطة (مثل 2 5 = 2.5)"
+            lbl_history_btn: "تاريخ السؤال", lbl_ipucu_hizli: "💡 تلميح: للسرعة، يمكنك استخدام مسافة بدلاً من النقطة (مثل 2 5 = 2.5)",
+            lbl_history_calc: "السجل",
+            lbl_cat_arch: "📐 هندسة معمارية", lbl_cat_calc: "🧮 حساب", lbl_cat_game: "🎮 ترفيه", lbl_cat_conv: "🔄 محول",
+            lbl_ds_title: "محول تخزين البيانات:", btn_clear: "مسح", btn_calc3: "احسب", btn_clear_text: "مسح", btn_calc_text: "احسب",
+            lbl_bit: "بت (b):", lbl_byte: "بايت (B):", lbl_kb: "KB:", lbl_mb: "MB:", lbl_gb: "GB:", lbl_tb: "TB:",
+            lbl_area_title: "محول المساحة:", lbl_weight_title: "محول الوزن:", lbl_temp_title: "محول الحرارة:", lbl_len_title: "محول الطول:",
+            lbl_select_game: "اختر اللعبة:"
         }
     };
     
     const hazirGorsellerListesi = ["atakoy ustgecit.jpg", "kedi2.jpg", "kedisi.jpg", "sanat eseri.jpg", "aslan.jpg", "modern-sanat.jpg", "fiyakali.jpg"];
+    
+    const hazirRenkler = {
+        "atakoy ustgecit.jpg": {r: 30, g: 45, b: 65},
+        "kedi2.jpg": {r: 110, g: 70, b: 90},
+        "kedisi.jpg": {r: 25, g: 75, b: 100},
+        "sanat eseri.jpg": {r: 60, g: 90, b: 80},
+        "aslan.jpg": {r: 140, g: 90, b: 40},
+        "modern-sanat.jpg": {r: 140, g: 25, b: 25},
+        "fiyakali.jpg": {r: 220, g: 130, b: 10}
+    };
     
     var planScale = 1; var planX = 0; var planY = 0; var isDragging = false; var startX, startY;
     var activeGameLoop = null;
@@ -600,20 +763,45 @@
     let kalanSaniye = 17;
     let ekstremSoruSayaci = 0;
     let soruGecmisiListesi = [];
+    let olcekGecmisiListesiMod1 = [];
+    let olcekGecmisiListesiMod2 = [];
+    let makineGecmisiListesi = [];
+
+    const urlHashMap = {
+        'proje': 1, 'gercek': 2, 'egim': 3, 'oyun-salonu': 4, 'merdiven': 5, 
+        'malzeme': 6, 'altin-oran': 7, 'cevirici': 8, 'hesap-makinesi': 9, 'soru': 10, 'veri': 11,
+        'alan': 12, 'agirlik': 13, 'sicaklik': 14
+    };
+    const modToKatMap = {
+        1: 'mimari', 2: 'mimari', 3: 'mimari', 5: 'mimari', 6: 'mimari', 7: 'mimari', 10: 'mimari',
+        9: 'hesap',
+        8: 'donusturucu', 11: 'donusturucu', 12: 'donusturucu', 13: 'donusturucu', 14: 'donusturucu',
+        4: 'oyun'
+    };
 
     window.onload = function() {
         if(!localStorage.getItem('bedir_cerez_onay')) { document.getElementById('cerezUyarisi').style.display = 'block'; }
-        var kayitli = localStorage.getItem('bedir_arkaplan_v410'); if(kayitli) { resmiUygula(kayitli); }
         var savedLang = localStorage.getItem('bedir_lang'); 
         if(savedLang) { curLang = savedLang; document.getElementById('langSelect').value = curLang; }
         var kayitliNot = localStorage.getItem('bedir_notlar'); if(kayitliNot) { document.getElementById('notDefteri').value = kayitliNot; }
+        
+        var kayitli = localStorage.getItem('bedir_arkaplan_v410'); if(kayitli) { resmiUygula(kayitli); }
+        
         updateLanguageUI(); sayaciCalistir();
         var sahne = document.getElementById('sahneContainer');
         sahne.addEventListener('mousedown', baslaSurukle); sahne.addEventListener('touchstart', baslaSurukle, {passive: false});
         window.addEventListener('mousemove', surukle); window.addEventListener('touchmove', surukle, {passive: false});
         window.addEventListener('mouseup', bitirSurukle); window.addEventListener('touchend', bitirSurukle);
         setupEnterKeys(); oyunuBaslat(); setupSnakeControls(); setupCalcKeys(); setup2048Swipe();
+        
+        let hash = window.location.hash.replace('#', '');
+        if(hash && urlHashMap[hash]) {
+            let modNo = urlHashMap[hash];
+            kategoriDegis(modToKatMap[modNo]);
+            modDegis(modNo, hash);
+        }
     };
+    
     function kurumsalAc(tip) {
         document.getElementById('kurumsalModal').style.display = 'flex';
         let baslik = "", icerik = "";
@@ -624,16 +812,72 @@
     }
     function cerezKabul() { localStorage.setItem('bedir_cerez_onay', 'true'); document.getElementById('cerezUyarisi').style.display = 'none'; }
     
-    function gecmisiCiz() {
-        let k = document.getElementById('gecmisListesi');
+    // GÜNCELLENEN KISIM: Kategori değiştirildiğinde Sağ Panel Tab Mantığı Akıllandırıldı
+    function kategoriDegis(kat) {
+        document.querySelectorAll('.kat-btn').forEach(b => b.classList.remove('aktif'));
+        document.querySelectorAll('.alt-menu-container').forEach(c => c.classList.remove('aktif'));
+        document.getElementById('btn-kat-' + kat).classList.add('aktif');
+        document.getElementById('kat-' + kat).classList.add('aktif');
+        
+        let sekmeler = document.getElementById('sagSekmeler');
+        
+        if(kat === 'mimari') {
+            sekmeler.style.display = 'flex';
+            modDegis(1, 'proje');
+            altSekmeDegis('plan');
+        }
+        else if(kat === 'hesap') {
+            sekmeler.style.display = 'flex';
+            modDegis(9, 'hesap-makinesi');
+            altSekmeDegis('not');
+        }
+        else if(kat === 'donusturucu') {
+            sekmeler.style.display = 'flex';
+            modDegis(11, 'veri');
+            altSekmeDegis('not');
+        }
+        else if(kat === 'oyun') {
+            sekmeler.style.display = 'none';
+            modDegis(4, 'oyun-salonu');
+            altSekmeDegis('oyun');
+        }
+    }
+
+    function gecmisiCizSoru() {
+        let k = document.getElementById('gecmisListesiSoru');
         if(soruGecmisiListesi.length === 0) { k.innerHTML = "<div style='opacity:0.5; text-align:center;'>Geçmiş henüz boş.</div>"; return; }
         k.innerHTML = soruGecmisiListesi.map(s => `<div class="gecmis-item">${s}</div>`).join('');
     }
-    function gecmisGosterGizle() {
+    function gecmisGosterGizleSoru() {
         let k = document.getElementById('gecmisKutusuMain');
         k.style.display = k.style.display === 'none' ? 'block' : 'none';
-        if(k.style.display === 'block') gecmisiCiz();
+        if(k.style.display === 'block') gecmisiCizSoru();
     }
+    
+    function gecmisiCizOlcek(modId) {
+        let k = document.getElementById('gecmisListesi' + modId);
+        if(!k) return;
+        let liste = (modId === 'Mod1') ? olcekGecmisiListesiMod1 : olcekGecmisiListesiMod2;
+        if(liste.length === 0) { k.innerHTML = "<div style='opacity:0.5; text-align:center;'>Geçmiş henüz boş.</div>"; return; }
+        k.innerHTML = liste.map(s => `<div class="gecmis-item">${s}</div>`).join('');
+    }
+    function gecmisGosterGizleOlcek(modId) {
+        let k = document.getElementById('gecmisKutusu' + modId);
+        k.style.display = k.style.display === 'none' ? 'block' : 'none';
+        if(k.style.display === 'block') gecmisiCizOlcek(modId);
+    }
+    
+    function gecmisiCizMakine() {
+        let k = document.getElementById('gecmisListesiMakine');
+        if(makineGecmisiListesi.length === 0) { k.innerHTML = "<div style='opacity:0.5; text-align:center;'>Geçmiş henüz boş.</div>"; return; }
+        k.innerHTML = makineGecmisiListesi.map(s => `<div class="gecmis-item">${s}</div>`).join('');
+    }
+    function gecmisGosterGizleMakine() {
+        let k = document.getElementById('gecmisKutusuMakine');
+        k.style.display = k.style.display === 'none' ? 'block' : 'none';
+        if(k.style.display === 'block') gecmisiCizMakine();
+    }
+
     function zamanlayiciDurdur() { if(soruZamanlayici) clearInterval(soruZamanlayici); }
     function zamanlayiciBaslat(sure) {
         zamanlayiciDurdur(); if(!ekstremModAktif) return;
@@ -647,7 +891,7 @@
         soruSkor -= 5; document.getElementById('soruSkor').innerText = soruSkor;
         let dTxt = {tr: "⏳ Süre Bitti", en: "⏳ Time Out", zh: "⏳ 时间到", ku: "⏳ Dema Qediya", ar: "⏳ انتهى الوقت"};
         soruGecmisiListesi.unshift(`<b>${dTxt[curLang] || dTxt['tr']}</b> | ${guncelSoruMetni} <br> ${t[curLang].res_result}: ${soruDogruCevap}`);
-        if(soruGecmisiListesi.length > 20) soruGecmisiListesi.pop(); gecmisiCiz();
+        if(soruGecmisiListesi.length > 20) soruGecmisiListesi.pop(); gecmisiCizSoru();
         let msg = { tr: 'SÜRE BİTTİ! ⏰ (-5 Puan)', en: 'TIME OUT! ⏰ (-5 Pts)', zh: '时间到！⏰ (-5 分)', ku: 'DEMA QEDIYA! ⏰ (-5 Puan)', ar: 'انتهى الوقت! ⏰ (-5 نقاط)' };
         let ans = { tr: 'Doğru Cevap', en: 'Correct Answer', zh: '正确答案', ku: 'Bersiva Rast', ar: 'الجواب الصحيح' };
         goster('soruSonuc', `<span style='color:red'>${msg[curLang] || msg['tr']}<br><small>${ans[curLang] || ans['tr']}: ${soruDogruCevap}</small></span>`);
@@ -670,7 +914,7 @@
             let dTxt = {tr: "⏭️ Geçildi", en: "⏭️ Skipped", zh: "⏭️ 跳过", ku: "⏭️ Derbas Bû", ar: "⏭️ تم التخطي"};
             let q_str = {tr: "Cevapsız", en: "No Answer", zh: "未回答", ku: "Bêbersiv", ar: "لا اجابة"}[curLang] || "Cevapsız";
             soruGecmisiListesi.unshift(`<b>${dTxt[curLang] || dTxt['tr']}</b> | ${guncelSoruMetni} <br> Senin Cevabın: ${q_str} | ${t[curLang].res_result}: ${soruDogruCevap}`);
-            if(soruGecmisiListesi.length > 20) soruGecmisiListesi.pop(); gecmisiCiz();
+            if(soruGecmisiListesi.length > 20) soruGecmisiListesi.pop(); gecmisiCizSoru();
         }
         zamanlayiciDurdur(); yeniSoruUret();
     }
@@ -719,7 +963,7 @@
         let isCorrect = Math.abs(cvp - soruDogruCevap) < 0.01;
         let durumIkon = isCorrect ? "✅" : "❌";
         soruGecmisiListesi.unshift(`<b>${durumIkon}</b> | ${guncelSoruMetni} <br> Senin Cevabın: ${cvp} | ${t[curLang].res_result}: ${soruDogruCevap}`);
-        if(soruGecmisiListesi.length > 20) soruGecmisiListesi.pop(); gecmisiCiz();
+        if(soruGecmisiListesi.length > 20) soruGecmisiListesi.pop(); gecmisiCizSoru();
 
         if (isCorrect) { 
             soruSkor += 10; let msg = { tr: 'DOĞRU! 🎉 (+10 Puan)', en: 'CORRECT! 🎉 (+10 Pts)', zh: '正确！🎉 (+10 分)', ku: 'RAST E! 🎉 (+10 Puan)', ar: 'صحيح! 🎉 (+10 نقاط)' }; 
@@ -731,54 +975,261 @@
         }
     }
     
-    function modDegis(no) { 
-        for(let i=1; i<=10; i++) { if(document.getElementById('mod'+i)) { document.getElementById('mod'+i).style.display = 'none'; if(document.getElementById('btn'+i)) document.getElementById('btn'+i).className = ''; } } 
-        document.getElementById('mod'+no).style.display = 'block'; if(document.getElementById('btn'+no)) document.getElementById('btn'+no).className = 'aktif'; 
+    function modDegis(no, hash = '') { 
+        for(let i=1; i<=14; i++) { 
+            if(document.getElementById('mod'+i)) { 
+                document.getElementById('mod'+i).style.display = 'none'; 
+                if(document.getElementById('btn'+i)) document.getElementById('btn'+i).className = ''; 
+            } 
+        } 
+        document.getElementById('mod'+no).style.display = 'block'; 
+        if(document.getElementById('btn'+no)) document.getElementById('btn'+no).className = 'aktif'; 
         var s = document.getElementsByClassName('sonuc'); for(let k of s) k.style.display = 'none'; 
         if(no !== 4) { oyunAktif = false; if(activeGameLoop) { cancelAnimationFrame(activeGameLoop); activeGameLoop = null; } } 
         if(no !== 10) { zamanlayiciDurdur(); } 
         if(no === 10 && document.getElementById('soruMetni').innerText === "Soru yükleniyor...") { yeniSoruUret(); } 
+        
+        if (hash) {
+            window.location.hash = hash;
+            if (typeof gtag === 'function') {
+                gtag('config', 'G-EHXDFLKGR6', {'page_path': '/' + hash});
+            }
+        }
     }
-    function altSekmeDegis(sekme) { document.getElementById('btnPlan').classList.remove('aktif'); document.getElementById('btnNot').classList.remove('aktif'); document.getElementById('icerikPlan').classList.remove('aktif'); document.getElementById('icerikNot').classList.remove('aktif'); if(sekme === 'plan') { document.getElementById('btnPlan').classList.add('aktif'); document.getElementById('icerikPlan').classList.add('aktif'); } else { document.getElementById('btnNot').classList.add('aktif'); document.getElementById('icerikNot').classList.add('aktif'); } }
+    
+    // GÜNCELLENEN KISIM: altSekmeDegis sadece alt bölümleri günceller
+    function altSekmeDegis(sekme) { 
+        document.getElementById('btnPlan').classList.remove('aktif'); 
+        document.getElementById('btnNot').classList.remove('aktif'); 
+        document.getElementById('icerikPlan').classList.remove('aktif'); 
+        document.getElementById('icerikNot').classList.remove('aktif'); 
+        document.getElementById('icerikOyun').classList.remove('aktif'); 
+        
+        if(sekme === 'plan') { 
+            document.getElementById('btnPlan').classList.add('aktif'); 
+            document.getElementById('icerikPlan').classList.add('aktif'); 
+        } else if(sekme === 'not') { 
+            document.getElementById('btnNot').classList.add('aktif'); 
+            document.getElementById('icerikNot').classList.add('aktif'); 
+        } else if(sekme === 'oyun') {
+            document.getElementById('icerikOyun').classList.add('aktif'); 
+        }
+    }
+    
     function notKaydet() { var notIcerik = document.getElementById('notDefteri').value; localStorage.setItem('bedir_notlar', notIcerik); }
     function degisDil(val) { curLang = val; localStorage.setItem('bedir_lang', val); updateLanguageUI(); if(document.getElementById('mod10').style.display === 'block'){ yeniSoruUret(); } }
     function updateLanguageUI() { 
         var d = t[curLang]; 
-        for (const [key, value] of Object.entries(d)) { var el = document.getElementById(key); if(el) { if(el.tagName === 'INPUT') el.placeholder = value; else el.innerHTML = value; } } 
+        for (const [key, value] of Object.entries(d)) { 
+            var el = document.getElementById(key); 
+            if(el) { 
+                if(el.tagName === 'INPUT') el.placeholder = value; 
+                else if (key !== 'btn_clear_text' && key !== 'btn_calc_text') el.innerHTML = value; 
+            } 
+        } 
         document.getElementById('btnEkstrem').innerHTML = ekstremModAktif ? d.btn_ekstrem_on : d.btn_ekstrem_off;
+        document.querySelectorAll('.lbl_history_calc').forEach(el => el.innerText = d.lbl_history_calc);
+        document.querySelectorAll('.btn_clear_text').forEach(el => el.innerText = d.btn_clear_text || d.btn_clear);
+        document.querySelectorAll('.btn_calc_text').forEach(el => el.innerText = d.btn_calc_text || d.btn_calc3);
     }
     function bgModalAc() { document.getElementById('bgModal').style.display = 'flex'; document.getElementById('bgSecenekler').style.display = 'block'; document.getElementById('bgHazirlar').style.display = 'none'; }
     function bgModalKapat() { document.getElementById('bgModal').style.display = 'none'; }
     function galeridenYukle() { bgModalKapat(); document.getElementById('resimYukleyici').click(); }
+    
     function hazirGorselGoster() {
         document.getElementById('bgSecenekler').style.display = 'none'; document.getElementById('bgHazirlar').style.display = 'block'; let grid = document.getElementById('bgGridContainer'); grid.innerHTML = ''; var suankiUrl = localStorage.getItem('bedir_arkaplan_v410');
         if(hazirGorsellerListesi.length === 0) { grid.innerHTML = "<div style='grid-column: span 3; text-align: center; opacity: 0.7;'>Hazır görsel bulunamadı. Galeriden yükleyebilirsiniz.</div>"; }
         hazirGorsellerListesi.forEach(src => { let item = document.createElement('div'); item.className = 'bg-item'; if (suankiUrl === src) { item.classList.add('selected'); } item.onclick = () => hazirGorselSec(src); let box = document.createElement('div'); box.className = 'bg-thumb-box'; box.style.backgroundImage = "url('" + src + "')"; item.appendChild(box); grid.appendChild(item); });
     }
     function bgGeri() { document.getElementById('bgSecenekler').style.display = 'block'; document.getElementById('bgHazirlar').style.display = 'none'; }
-    function hazirGorselSec(src) { bgModalKapat(); resmiUygula(src); localStorage.setItem('bedir_arkaplan_v410', src); }
-    function arkaplanDegistir(input) { if(input.files && input.files[0]) { var r = new FileReader(); r.onload = function(e) { try { localStorage.setItem('bedir_arkaplan_v410', e.target.result); } catch(e){} resmiUygula(e.target.result); }; r.readAsDataURL(input.files[0]); } }
-    function resmiUygula(url) { document.body.style.backgroundImage = "url('" + url + "')"; var i = new Image(); i.src = url; i.onload = function() { temaGuncelle(renkAnaliz(i)); } }
+    
+    function hazirGorselSec(src) { 
+        bgModalKapat(); 
+        resmiUygula(src); 
+        localStorage.setItem('bedir_arkaplan_v410', src); 
+    }
+    
+    function arkaplanDegistir(input) { 
+        if(input.files && input.files[0]) { 
+            var r = new FileReader(); 
+            r.onload = function(e) { 
+                try { localStorage.setItem('bedir_arkaplan_v410', e.target.result); } catch(err){} 
+                resmiUygula(e.target.result); 
+            }; 
+            r.readAsDataURL(input.files[0]); 
+        } 
+    }
+    
+    function resmiUygula(url) { 
+        document.body.style.backgroundImage = "url('" + url + "')"; 
+        for(let key in hazirRenkler) {
+            if(url === key || url.endsWith("/" + key)) {
+                temaGuncelle(hazirRenkler[key]);
+                return;
+            }
+        }
+        var i = new Image(); i.src = url; 
+        i.onload = function() { 
+            try { temaGuncelle(renkAnaliz(i)); } catch(e) { console.log("CORS Hatası: Renk analizi güvenlik duvarına takıldı."); }
+        } 
+    }
+    
     function renkAnaliz(i) { var c = document.createElement('canvas'); var x = c.getContext('2d'); c.width = 50; c.height = 50; x.drawImage(i,0,0,50,50); try { var d = x.getImageData(0,0,50,50).data; var r = 0, g = 0, b = 0, k = 0; for(var j = 0; j < d.length; j += 4) { r += d[j]; g += d[j+1]; b += d[j+2]; k++; } return { r:Math.floor(r/k), g:Math.floor(g/k), b:Math.floor(b/k) }; } catch(e) { return { r:140, g:106, b:84 }; } }
-    function temaGuncelle(rgb) { var root = document.documentElement.style; var ana = `rgb(${rgb.r},${rgb.g},${rgb.b})`; root.setProperty('--ana-renk', ana); var p = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000; if(p > 140) { root.setProperty('--yazi-renk', '#000'); root.setProperty('--kutu-bg', 'rgba(255,255,255,0.85)'); root.setProperty('--sekme-pasif', 'rgba(0,0,0,0.1)'); } else { root.setProperty('--yazi-renk', '#fff'); root.setProperty('--kutu-bg', 'rgba(0,0,0,0.5)'); root.setProperty('--sekme-pasif', 'rgba(255,255,255,0.2)'); if(p < 40) root.setProperty('--ana-renk', `rgb(${rgb.r+50},${rgb.g+50},${rgb.b+50})`); } }
+    function temaGuncelle(rgb) { var root = document.documentElement.style; var ana = `rgb(${rgb.r},${rgb.g},${rgb.b})`; root.setProperty('--ana-renk', ana); var p = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000; if(p > 140) { root.setProperty('--yazi-renk', '#000'); root.setProperty('--kutu-bg', 'rgba(255,255,255,0.85)'); root.setProperty('--sekme-pasif', 'rgba(0,0,0,0.1)'); } else { root.setProperty('--yazi-renk', '#fff'); root.setProperty('--kutu-bg', 'rgba(0,0,0,0.5)'); root.setProperty('--sekme-pasif', 'rgba(255,255,255,0.2)'); if(p < 40) root.setProperty('--ana-renk', `rgb(${rgb.r+60},${rgb.g+60},${rgb.b+60})`); } }
     function sifirla() { localStorage.removeItem('bedir_arkaplan_v410'); localStorage.removeItem('bedir_lang'); localStorage.removeItem('bedir_notlar'); location.reload(); }
-    function setupEnterKeys() { const bind = (inIds, btnId) => { if(!Array.isArray(inIds)) inIds = [inIds]; inIds.forEach(id => { let el = document.getElementById(id); if(el) { el.addEventListener("keyup", function(e) { if(e.key === "Enter") document.getElementById(btnId).click(); }); } }); }; bind("g_sayi", "btn_calc1"); bind("c_sayi", "btn_conv1"); bind(["e_h", "e_l"], "btn_analyse"); bind(["m_h", "m_b"], "btn_calc2"); bind(["mal_en", "mal_boy", "mz_en", "mz_boy"], "btn_quant"); bind("ao_val", "btn_ratio"); bind("cv_val", "btn_conv2"); bind("soruCevap", "btn_cevapla"); }
+    function setupEnterKeys() { const bind = (inIds, btnId) => { if(!Array.isArray(inIds)) inIds = [inIds]; inIds.forEach(id => { let el = document.getElementById(id); if(el) { el.addEventListener("keyup", function(e) { if(e.key === "Enter") document.getElementById(btnId).click(); }); } }); }; bind("g_sayi", "btn_calc1"); bind("c_sayi", "btn_conv1"); bind(["e_h", "e_l"], "btn_analyse"); bind(["m_h", "m_b"], "btn_calc2"); bind(["mal_en", "mal_boy", "mz_en", "mz_boy"], "btn_quant"); bind("ao_val", "btn_ratio"); bind("cv_val", "btn_conv2"); bind("soruCevap", "btn_cevapla"); bind(["ds_bit", "ds_byte", "ds_kb", "ds_mb", "ds_gb", "ds_tb"], "btn_calc3"); bind(["ds_m2", "ds_ar", "ds_donum", "ds_hektar", "ds_km2"], "btn_calc4"); bind(["ds_g", "ds_kg", "ds_ton", "ds_lb", "ds_oz"], "btn_calc5"); bind(["ds_c", "ds_f", "ds_k"], "btn_calc6"); }
     function temizle(v) { return parseFloat(v.replace(',', '.')); }
     function goster(id, t) { var k = document.getElementById(id); k.style.display = 'block'; k.innerHTML = t; }
     
     let oturumBaslangic = Date.now();
     let sonPomodoro = 0;
-    function sayaciCalistir() { setInterval(function() { let gecenSaniye = Math.floor((Date.now() - oturumBaslangic) / 1000); let sa = Math.floor(gecenSaniye/3600); let dk = Math.floor((gecenSaniye%3600)/60); let sn = gecenSaniye%60; document.getElementById('oturumSayaci').innerText = (sa<10?"0"+sa:sa) + ":" + (dk<10?"0"+dk:dk) + ":" + (sn<10?"0"+sn:sn); if (gecenSaniye >= sonPomodoro + 1500) { document.getElementById('pomodoroToast').style.display = 'block'; sonPomodoro += 1500; } }, 1000); }
+    function sayaciCalistir() { 
+        setInterval(function() { 
+            let gecenSaniye = Math.floor((Date.now() - oturumBaslangic) / 1000); 
+            let sa = Math.floor(gecenSaniye/3600); let dk = Math.floor((gecenSaniye%3600)/60); let sn = gecenSaniye%60; 
+            document.getElementById('oturumSayaci').innerText = (sa<10?"0"+sa:sa) + ":" + (dk<10?"0"+dk:dk) + ":" + (sn<10?"0"+sn:sn); 
+            if (gecenSaniye >= sonPomodoro + 1500) { 
+                if(gecenSaniye >= 10800) {
+                    document.getElementById('lbl_pomodoro_title').innerText = t[curLang].lbl_pomo_title_joke;
+                    document.getElementById('lbl_pomodoro_text').innerHTML = t[curLang].lbl_pomo_text_joke;
+                } else {
+                    document.getElementById('lbl_pomodoro_title').innerText = t[curLang].lbl_pomodoro_title;
+                    document.getElementById('lbl_pomodoro_text').innerHTML = t[curLang].lbl_pomodoro_text;
+                }
+                document.getElementById('pomodoroToast').style.display = 'block'; 
+                sonPomodoro += 1500; 
+            } 
+        }, 1000); 
+    }
     
-    function hesaplaCizim() { var v = temizle(document.getElementById('g_sayi').value); var o = parseInt(document.getElementById('g_olcek').value); var cm = (document.getElementById('g_birim').value == 'm') ? v*100 : ((document.getElementById('g_birim').value == 'mm') ? v/10 : v); goster('sonuc1', `${t[curLang].res_drawn}: ${(cm/o).toFixed(2)} CM`); }
-    function hesaplaGercek() { var v = temizle(document.getElementById('c_sayi').value); var o = parseInt(document.getElementById('c_olcek').value); goster('sonuc2', `${t[curLang].res_real}: ${((v*o)/100).toFixed(2)} M`); }
+    function hesaplaCizim() { 
+        var v = temizle(document.getElementById('g_sayi').value); 
+        var o = parseInt(document.getElementById('g_olcek').value); 
+        var cm = (document.getElementById('g_birim').value == 'm') ? v*100 : ((document.getElementById('g_birim').value == 'mm') ? v/10 : v); 
+        let calcRes = (cm/o).toFixed(2);
+        goster('sonuc1', `${t[curLang].res_drawn}: ${calcRes} CM`); 
+        
+        olcekGecmisiListesiMod1.unshift(`<b>PROJE (1/${o}):</b> ${v} ${document.getElementById('g_birim').value.toUpperCase()} ➔ ${calcRes} CM`);
+        if(olcekGecmisiListesiMod1.length > 20) olcekGecmisiListesiMod1.pop();
+        gecmisiCizOlcek('Mod1');
+    }
+    
+    function hesaplaGercek() { 
+        var v = temizle(document.getElementById('c_sayi').value); 
+        var o = parseInt(document.getElementById('c_olcek').value); 
+        let calcRes = ((v*o)/100).toFixed(2);
+        goster('sonuc2', `${t[curLang].res_real}: ${calcRes} M`); 
+        
+        olcekGecmisiListesiMod2.unshift(`<b>GERÇEK (1/${o}):</b> ${v} CM ➔ ${calcRes} M`);
+        if(olcekGecmisiListesiMod2.length > 20) olcekGecmisiListesiMod2.pop();
+        gecmisiCizOlcek('Mod2');
+    }
+    
     function hesaplaEgim() { var h = temizle(document.getElementById('e_h').value); var l = temizle(document.getElementById('e_l').value); var e = (h/l) * 100; goster('sonuc3', `${t[curLang].res_slope}: %${e.toFixed(1)}`); }
     function hesaplaMerdiven() { var h = temizle(document.getElementById('m_h').value); var b_input = document.getElementById('m_b').value; var b = temizle(b_input); if(isNaN(h)) return; var idealRiht, basamakEni, gercekRiht, adet; if (!isNaN(b) && b > 0) { idealRiht = (63-b)/2; adet = Math.round(h/idealRiht); if(adet < 1) adet = 1; gercekRiht = h/adet; basamakEni = b; } else { idealRiht = 17.5; adet = Math.round(h/idealRiht); if(adet < 1) adet = 1; gercekRiht = h/adet; basamakEni = 63 - (2*gercekRiht); } var d = t[curLang]; var txt = `${d.res_riser}: <span style='font-size:24px'>${gercekRiht.toFixed(2)}</span> cm<br>${d.res_count}: <span style='font-size:24px'>${adet}</span> ${d.res_step}<br><small>${d.res_step}: ${basamakEni.toFixed(1)} cm</small>`; if(gercekRiht > 18.5) txt += `<br><span style='color:red'>[${d.res_warn_steep}]</span>`; if(gercekRiht < 15) txt += `<br><span style='color:orange'>[${d.res_warn_low}]</span>`; if(basamakEni < 25) txt += `<br><span style='color:red'>[${d.res_warn_foot}]</span>`; goster('sonuc5', txt); }
     function hesaplaMalzeme() { var en = temizle(document.getElementById('mal_en').value); var boy = temizle(document.getElementById('mal_boy').value); var men = temizle(document.getElementById('mz_en').value); var mboy = temizle(document.getElementById('mz_boy').value); if(isNaN(en) || isNaN(boy) || isNaN(men) || isNaN(mboy)) return; var alan = en * boy; var mal = men * mboy; var adet = alan / mal; var fire = Math.ceil(adet * 1.1); var d = t[curLang]; goster('sonuc6', `${d.res_area}: ${(alan/10000).toFixed(2)} m²<br>${d.res_need}: ${fire} ${d.res_count}<br><small>(${d.res_fire})</small>`); }
     function hesaplaAltinOran() { var v = temizle(document.getElementById('ao_val').value); goster('sonuc7', `${t[curLang].res_long}: ${(v*1.618).toFixed(1)} cm`); }
     function cevirBirim() { var v = temizle(document.getElementById('cv_val').value); var r = (document.getElementById('cv_tip').value == 'ft') ? v * 30.48 : v * 2.54; goster('sonuc8', `${t[curLang].res_result}: ${r.toFixed(2)} cm`); }
+    
+    function hesaplaVeri() {
+        let fields = ['ds_bit', 'ds_byte', 'ds_kb', 'ds_mb', 'ds_gb', 'ds_tb'];
+        let multipliers = [1/8, 1, 1024, Math.pow(1024,2), Math.pow(1024,3), Math.pow(1024,4)];
+        let baseBytes = null;
+
+        for(let i=0; i<fields.length; i++) {
+            let el = document.getElementById(fields[i]);
+            let val = parseFloat(el.value.replace(',', '.').replace(/ /g, ''));
+            if(!isNaN(val) && baseBytes === null && el.value.trim() !== '') {
+                baseBytes = val * multipliers[i];
+                break;
+            }
+        }
+
+        if(baseBytes !== null) {
+            document.getElementById('ds_bit').value = +(baseBytes * 8).toFixed(4);
+            document.getElementById('ds_byte').value = +(baseBytes).toFixed(4);
+            document.getElementById('ds_kb').value = +(baseBytes / 1024).toFixed(4);
+            document.getElementById('ds_mb').value = +(baseBytes / Math.pow(1024,2)).toFixed(4);
+            document.getElementById('ds_gb').value = +(baseBytes / Math.pow(1024,3)).toFixed(4);
+            document.getElementById('ds_tb').value = +(baseBytes / Math.pow(1024,4)).toFixed(8);
+        }
+    }
+    function temizleVeri() { ['ds_bit', 'ds_byte', 'ds_kb', 'ds_mb', 'ds_gb', 'ds_tb'].forEach(f => document.getElementById(f).value = ''); }
+
+    function hesaplaAlanConv() {
+        let fields = ['ds_m2', 'ds_ar', 'ds_donum', 'ds_hektar', 'ds_km2'];
+        let multipliers = [1, 100, 1000, 10000, 1000000];
+        let baseM = null;
+        for(let i=0; i<fields.length; i++) {
+            let v = document.getElementById(fields[i]).value.replace(',', '.').replace(/ /g, '');
+            if(v !== '') { baseM = parseFloat(v) * multipliers[i]; break; }
+        }
+        if(baseM !== null && !isNaN(baseM)) {
+            document.getElementById('ds_m2').value = +(baseM).toFixed(4);
+            document.getElementById('ds_ar').value = +(baseM / 100).toFixed(4);
+            document.getElementById('ds_donum').value = +(baseM / 1000).toFixed(4);
+            document.getElementById('ds_hektar').value = +(baseM / 10000).toFixed(4);
+            document.getElementById('ds_km2').value = +(baseM / 1000000).toFixed(6);
+        }
+    }
+    function temizleAlanConv() { ['ds_m2', 'ds_ar', 'ds_donum', 'ds_hektar', 'ds_km2'].forEach(f => document.getElementById(f).value = ''); }
+
+    function hesaplaAgirlik() {
+        let fields = ['ds_g', 'ds_kg', 'ds_ton', 'ds_lb', 'ds_oz'];
+        let multipliers = [1, 1000, 1000000, 453.59237, 28.34952];
+        let baseG = null;
+        for(let i=0; i<fields.length; i++) {
+            let v = document.getElementById(fields[i]).value.replace(',', '.').replace(/ /g, '');
+            if(v !== '') { baseG = parseFloat(v) * multipliers[i]; break; }
+        }
+        if(baseG !== null && !isNaN(baseG)) {
+            document.getElementById('ds_g').value = +(baseG).toFixed(4);
+            document.getElementById('ds_kg').value = +(baseG / 1000).toFixed(4);
+            document.getElementById('ds_ton').value = +(baseG / 1000000).toFixed(6);
+            document.getElementById('ds_lb').value = +(baseG / 453.59237).toFixed(4);
+            document.getElementById('ds_oz').value = +(baseG / 28.34952).toFixed(4);
+        }
+    }
+    function temizleAgirlik() { ['ds_g', 'ds_kg', 'ds_ton', 'ds_lb', 'ds_oz'].forEach(f => document.getElementById(f).value = ''); }
+
+    function hesaplaSicaklik() {
+        let c = document.getElementById('ds_c').value;
+        let f = document.getElementById('ds_f').value;
+        let k = document.getElementById('ds_k').value;
+        let baseC = null;
+        
+        if(c !== '') baseC = parseFloat(c.replace(',', '.'));
+        else if(f !== '') baseC = (parseFloat(f.replace(',', '.')) - 32) * 5/9;
+        else if(k !== '') baseC = parseFloat(k.replace(',', '.')) - 273.15;
+        
+        if(baseC !== null && !isNaN(baseC)) {
+            document.getElementById('ds_c').value = +(baseC).toFixed(2);
+            document.getElementById('ds_f').value = +((baseC * 9/5) + 32).toFixed(2);
+            document.getElementById('ds_k').value = +(baseC + 273.15).toFixed(2);
+        }
+    }
+    function temizleSicaklik() { ['ds_c','ds_f','ds_k'].forEach(id=>document.getElementById(id).value=''); }
+
     function setupCalcKeys() { document.addEventListener('keydown', function(event) { if(document.getElementById('mod9').style.display === 'block') { const key = event.key; if(/[0-9]/.test(key)) calcAppend(key); if(['+', '-', '*', '/'].includes(key)) calcAppend(key); if(key === '.' || key === ',') calcAppend('.'); if(key === 'Enter' || key === '=') calcResult(); if(key === 'Backspace' || key === 'Escape' || key.toLowerCase() === 'c') calcClear(); } }); }
-    var currentCalc = ""; function calcAppend(v) { currentCalc += v; document.getElementById('calc-screen').value = currentCalc; } function calcClear() { currentCalc = ""; document.getElementById('calc-screen').value = ""; } function calcResult() { try { var r = new Function('return ' + currentCalc)(); if(!isFinite(r)) r = "Hata"; document.getElementById('calc-screen').value = r; currentCalc = r.toString(); } catch(e) { document.getElementById('calc-screen').value = "Hata"; currentCalc = ""; } } function calcPercent() { try { var v = parseFloat(currentCalc); if(!isNaN(v)) { v = v/100; currentCalc = v.toString(); document.getElementById('calc-screen').value = currentCalc; } } catch(e) {} }
+    
+    var currentCalc = ""; 
+    function calcAppend(v) { currentCalc += v; document.getElementById('calc-screen').value = currentCalc; } 
+    function calcClear() { currentCalc = ""; document.getElementById('calc-screen').value = ""; } 
+    function calcResult() { 
+        try { 
+            var r = new Function('return ' + currentCalc)(); 
+            if(!isFinite(r)) r = "Hata"; 
+            
+            makineGecmisiListesi.unshift(`<b>HESAP:</b> ${currentCalc} = ${r}`);
+            if(makineGecmisiListesi.length > 20) makineGecmisiListesi.pop();
+            gecmisiCizMakine();
+            
+            document.getElementById('calc-screen').value = r; 
+            currentCalc = r.toString(); 
+        } catch(e) { document.getElementById('calc-screen').value = "Hata"; currentCalc = ""; } 
+    } 
+    function calcPercent() { try { var v = parseFloat(currentCalc); if(!isNaN(v)) { v = v/100; currentCalc = v.toString(); document.getElementById('calc-screen').value = currentCalc; } } catch(e) {} }
+    
     function planSec() { document.getElementById('planYukleyici').click(); } function planYukle(input) { if(input.files && input.files[0]) { var r = new FileReader(); r.onload = function(e) { var h = '<img id="gercekPlan" src="'+e.target.result+'" style="max-width:100%; transform: scale(1) translate(0px, 0px);">'; document.getElementById('planGorsel').innerHTML = h; planReset(); }; r.readAsDataURL(input.files[0]); } } function gorselGuncelle() { var i = document.getElementById('gercekPlan'); if(i) i.style.transform = `translate(${planX}px, ${planY}px) scale(${planScale})`; } function planZoom(v) { planScale += v; if(planScale < 0.5) planScale = 0.5; gorselGuncelle(); } function planReset() { planScale = 1; planX = 0; planY = 0; gorselGuncelle(); } function baslaSurukle(e) { if(!document.getElementById('gercekPlan')) return; isDragging = true; var cx = e.clientX || e.touches[0].clientX; var cy = e.clientY || e.touches[0].clientY; startX = cx - planX; startY = cy - planY; e.preventDefault(); } function surukle(e) { if(!isDragging) return; var cx = e.clientX || e.touches[0].clientX; var cy = e.clientY || e.touches[0].clientY; planX = cx - startX; planY = cy - startY; gorselGuncelle(); e.preventDefault(); } function bitirSurukle() { isDragging = false; }
     
     function switchGame(game) { 
@@ -790,10 +1241,8 @@
         if(game === 'mine') oyunuBaslat(); 
         if(game === 'snake') document.getElementById('snakeOverlay').style.display = 'flex'; 
         if(game === '2048') baslat2048();
-        if(game === 'sudoku') baslatSudoku();
     }
     
-    // OYUN: YILAN
     const sc = document.getElementById('snakeCanvas'); const sCtx = sc.getContext('2d'); let snake = [], food = {}, dir = 'RIGHT', nextDir = 'RIGHT', snakeScore = 0; const box = 15;
     function startSnake() { document.getElementById('snakeOverlay').style.display = 'none'; snake = [{x: 9*box, y: 10*box}]; dir = 'RIGHT'; nextDir = 'RIGHT'; snakeScore = 0; document.getElementById('snakeScore').innerText = 0; placeFood(); if(activeGameLoop) cancelAnimationFrame(activeGameLoop); snakeLoop(); }
     function placeFood() { food = { x: Math.floor(Math.random() * (sc.width/box)) * box, y: Math.floor(Math.random() * (sc.height/box)) * box } } let lastTime = 0;
@@ -810,7 +1259,6 @@
         let tsX, tsY; sc.addEventListener('touchstart', function(e) { tsX = e.touches[0].clientX; tsY = e.touches[0].clientY; e.preventDefault(); }, {passive: false}); sc.addEventListener('touchmove', function(e) { e.preventDefault(); }, {passive: false}); sc.addEventListener('touchend', function(e) { let teX = e.changedTouches[0].clientX; let teY = e.changedTouches[0].clientY; let dx = teX - tsX; let dy = teY - tsY; if(Math.abs(dx) > Math.abs(dy)) { if(dx > 0 && dir!='LEFT') nextDir='RIGHT'; else if(dx < 0 && dir!='RIGHT') nextDir='LEFT'; } else { if(dy > 0 && dir!='UP') nextDir='DOWN'; else if(dy < 0 && dir!='DOWN') nextDir='UP'; } }); 
     }
     
-    // OYUN: BLACKJACK
     const bj_suits = ['♥', '♦', '♣', '♠']; const bj_values = ['2', '3', '4', '5', '6', '7', '8', '9', '10', 'J', 'Q', 'K', 'A']; let deck = [], playerHand = [], dealerHand = [], bjGameActive = false;
     function createDeck() { deck = []; for (let s of bj_suits) { for (let v of bj_values) { deck.push({ suit: s, value: v }); } } for (let i = deck.length - 1; i > 0; i--) { const j = Math.floor(Math.random() * (i + 1)); [deck[i], deck[j]] = [deck[j], deck[i]]; } }
     function getCardValue(card) { if (['J', 'Q', 'K'].includes(card.value)) return 10; if (card.value === 'A') return 11; return parseInt(card.value); }
@@ -822,7 +1270,6 @@
     function bjStand() { if (!bjGameActive) return; let dScore = getHandScore(dealerHand); while (dScore < 17) { dealerHand.push(deck.pop()); dScore = getHandScore(dealerHand); } updateBJUI(true); let pScore = getHandScore(playerHand); if (dScore > 21) bjEnd(true, t[curLang].gm_dealer_bust + " " + t[curLang].gm_win); else if (pScore > dScore) bjEnd(true, t[curLang].gm_win); else if (pScore < dScore) bjEnd(false, t[curLang].gm_lose); else bjEnd(true, t[curLang].gm_draw); }
     function bjEnd(win, msg) { bjGameActive = false; document.getElementById('bjHit').disabled = true; document.getElementById('bjStand').disabled = true; document.getElementById('bjNew').disabled = false; updateBJUI(true); let color = win ? "green" : "red"; if(msg.includes(t[curLang].gm_draw)) color = "orange"; document.getElementById('bjMessage').innerHTML = `<span style='color:${color}'>${msg}</span>`; }
     
-    // OYUN: MAYIN
     const SATIR=10, SUTUN=10, MAYIN_SAYISI=15; let oyunGrid=[], oyunAktif=false, kazmaModu=true;
     function modDegistirOyun(kaz) { kazmaModu=kaz; document.getElementById('btnKaz').className = kaz ? 'oyun-btn aktif-mod' : 'oyun-btn'; document.getElementById('btnBayrak').className = !kaz ? 'oyun-btn aktif-mod' : 'oyun-btn'; }
     function oyunuBaslat() { 
@@ -837,7 +1284,6 @@
     function oyunBitir(k){ oyunAktif = false; let s = document.getElementById('oyunSonuc'); s.style.display = 'block'; if(k) { s.innerHTML = "<span style='color:green'>"+t[curLang].gm_win+" 🎉</span>"; } else { s.innerHTML = "<span style='color:red'>"+t[curLang].gm_lose+" 💥</span>"; for(let i=0; i<SATIR; i++) { for(let j=0; j<SUTUN; j++) { if(oyunGrid[i][j].mayin){ oyunGrid[i][j].el.innerText = '💣'; if(!oyunGrid[i][j].bayrak) oyunGrid[i][j].el.style.color = 'white'; } } } } }
     function kazanmaKontrol(){ let k=0; for(let i=0; i<SATIR; i++) for(let j=0; j<SUTUN; j++) if(!oyunGrid[i][j].acik) k++; if(k === MAYIN_SAYISI) oyunBitir(true); }
 
-    // OYUN: TAŞ KAĞIT MAKAS
     const rpsEmoji = {tas:'✊', kagit:'✋', makas:'✌️'};
     function oynaRPS(secim) {
         let pc = ['tas','kagit','makas'][Math.floor(Math.random()*3)];
@@ -848,7 +1294,6 @@
         else s.innerHTML = `<span style="color:red">${t[curLang].gm_lose}</span>`;
     }
 
-    // OYUN: 2048
     let b2048=[], s2048=0;
     function baslat2048(){ b2048=[[0,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]; s2048=0; add2048(); add2048(); ciz2048(); }
     function add2048(){
@@ -862,10 +1307,11 @@
             d.className='cell-2048'+(v?' c2048-'+v:''); d.innerText=v||''; g.appendChild(d);
         }
     }
+    
     function move2048(dir){
         let moved=false;
         let rotate = (b) => b[0].map((val, index) => b.map(row => row[index]).reverse());
-        let rots = {37:0, 38:1, 39:2, 40:3}[dir];
+        let rots = {37:0, 38:3, 39:2, 40:1}[dir]; 
         for(let i=0;i<rots;i++) b2048 = rotate(b2048);
         for(let r=0;r<4;r++){
             let row = b2048[r].filter(v=>v);
@@ -877,47 +1323,20 @@
         for(let i=0;i<(4-rots)%4;i++) b2048 = rotate(b2048);
         if(moved){ add2048(); ciz2048(); }
     }
+    
     function setup2048Swipe(){
         let tsX2, tsY2, grid = document.getElementById('grid-2048');
         grid.addEventListener('touchstart', e => { tsX2=e.touches[0].clientX; tsY2=e.touches[0].clientY; e.preventDefault(); }, {passive:false});
         grid.addEventListener('touchend', e => {
             let dx = e.changedTouches[0].clientX - tsX2, dy = e.changedTouches[0].clientY - tsY2;
-            if(Math.abs(dx)>Math.abs(dy)) { if(dx>0) move2048(39); else move2048(37); } else { if(dy>0) move2048(40); else move2048(38); }
+            if(Math.abs(dx)>Math.abs(dy)) { 
+                if(dx>0) move2048(39); else move2048(37); 
+            } else { 
+                if(dy>0) move2048(40); else move2048(38); 
+            }
         });
     }
 
-    // OYUN: SUDOKU
-    let sdkSol=[], sdkGrid=[], sdkSel=null;
-    function baslatSudoku(){
-        let b=[[1,2,3,4,5,6,7,8,9],[4,5,6,7,8,9,1,2,3],[7,8,9,1,2,3,4,5,6],[2,3,1,5,6,4,8,9,7],[5,6,4,8,9,7,2,3,1],[8,9,7,2,3,1,5,6,4],[3,1,2,6,4,5,9,7,8],[6,4,5,9,7,8,3,1,2],[9,7,8,3,1,2,6,4,5]];
-        let nums = [1,2,3,4,5,6,7,8,9].sort(()=>Math.random()-0.5);
-        sdkSol = b.map(row => row.map(v => nums[v-1]));
-        sdkGrid = JSON.parse(JSON.stringify(sdkSol));
-        for(let i=0;i<40;i++) sdkGrid[Math.floor(Math.random()*9)][Math.floor(Math.random()*9)] = 0;
-        sdkSel = null; cizSudoku();
-    }
-    function cizSudoku(){
-        let g = document.getElementById('board-sudoku'); g.innerHTML='';
-        for(let r=0;r<9;r++){
-            for(let c=0;c<9;c++){
-                let d = document.createElement('div');
-                d.className = 'sudoku-cell' + (sdkGrid[r][c]!==0?' fixed':'') + (sdkSel&&sdkSel[0]==r&&sdkSel[1]==c?' selected':'');
-                if(sdkGrid[r][c]!==0) d.innerText = sdkGrid[r][c];
-                else d.onclick = () => { sdkSel=[r,c]; cizSudoku(); };
-                g.appendChild(d);
-            }
-        }
-    }
-    function girSudoku(n){
-        if(!sdkSel || sdkGrid[sdkSel[0]][sdkSel[1]]!==0) return;
-        let r=sdkSel[0], c=sdkSel[1];
-        let divs = document.getElementById('board-sudoku').children;
-        let d = divs[r*9+c];
-        if(n===0){ d.innerText=''; d.classList.remove('error'); return; }
-        d.innerText = n;
-        if(n !== sdkSol[r][c]) d.classList.add('error');
-        else { d.classList.remove('error'); sdkGrid[r][c]=n; sdkSel=null; cizSudoku(); }
-    }
 </script>
 </body>
 </html>
