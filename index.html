@@ -3,9 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>Ölçekmatik - Ölçek Hesaplama Aracı</title>
-<meta name="description" content="Mimarlar, iç mimarlar ve tasarımcılar için hızlı ölçek hesaplama aracı. Proje ölçeği, gerçek ölçü, merdiven hesabı ve metraj çıkarma işlemlerini anında yapın.">
-<meta name="keywords" content="ölçekmatik, ölçek hesaplama, mimari ölçek, 1/50 ölçek, merdiven hesabı, kot farkı hesaplama, altın oran, bedir design, iç mimarlık, ölçek çevirici">
+<title>Ölçekmatik - Mimari Ölçek, Metraj ve Tasarım Hesaplama Aracı</title>
+<meta name="description" content="Mimarlar, iç mimarlar ve tasarımcılar için hızlı ölçek hesaplama aracı. Proje ölçeği, gerçek ölçü, merdiven hesabı, aydınlatma lümen hesabı, boya metrajı, ergonomi rehberi ve dijital plan cetveli.">
+<meta name="keywords" content="ölçekmatik, ölçek hesaplama, mimari ölçek, 1/50 ölçek, merdiven hesabı, kot farkı hesaplama, altın oran, aydınlatma hesabı, lümen hesabı, boya metraj, neufert ölçüler, bedir design, iç mimarlık, ölçek çevirici">
 <meta name="author" content="Bedirhan - Bedir Design">
 <meta name="robots" content="index, follow">
 <link rel="manifest" href="manifest.json">
@@ -20,7 +20,17 @@
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8466515091566751" crossorigin="anonymous"></script>
 <style>
-    :root { --arkaplan: #F2E8DC; --ana-renk: #8C6A54; --yazi-renk: #3E2C22; --kutu-bg: rgba(196, 176, 163, 0.95); --input-bg: #FFFDF9; --input-border: #D9C6B8; --input-yazi: #3E2C22; --sekme-aktif: #ffffff; --sekme-pasif: rgba(62, 44, 34, 0.15); }
+    :root {
+        --arkaplan: #F2E8DC;
+        --ana-renk: #8C6A54;
+        --yazi-renk: #3E2C22;
+        --kutu-bg: rgba(196, 176, 163, 0.95);
+        --input-bg: #FFFDF9;
+        --input-border: #D9C6B8;
+        --input-yazi: #3E2C22;
+        --sekme-aktif: #ffffff;
+        --sekme-pasif: rgba(62, 44, 34, 0.15);
+    }
     
     html::-webkit-scrollbar { width: 8px; }
     html::-webkit-scrollbar-track { background: var(--arkaplan); }
@@ -28,65 +38,80 @@
     html { scrollbar-width: thin; scrollbar-color: var(--ana-renk) var(--arkaplan); }
 
     body { font-family: 'Courier New', Courier, monospace; margin: 0; padding: 20px; display: flex; flex-direction: column; align-items: center; min-height: 100vh; color: var(--yazi-renk); background-color: var(--arkaplan); background-size: cover; background-position: center; background-attachment: fixed; transition: background 0.5s ease, color 0.5s ease; overscroll-behavior: none; }
+    
     .ig-link { position: fixed; bottom: 20px; left: 20px; z-index: 50; background: var(--kutu-bg); padding: 10px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 5px 15px rgba(0,0,0,0.3); transition: all 0.3s ease; border: 2px solid var(--ana-renk); color: var(--ana-renk); backdrop-filter: blur(5px); }
     .ig-link:hover { transform: scale(1.15) rotate(5deg); background: var(--ana-renk); color: #fff; }
     .ig-link svg { width: 28px; height: 28px; fill: currentColor; }
     
-    .apk-link { position: fixed; bottom: 20px; right: 20px; z-index: 50; background: var(--ana-renk); color: #fff; padding: 12px 20px; border-radius: 30px; display: flex; align-items: center; justify-content: gap: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: all 0.3s ease; font-weight: 900; font-size: 14px; text-decoration: none; border: 2px solid #fff; cursor: pointer; }
+    .apk-link { position: fixed; bottom: 20px; right: 20px; z-index: 50; background: var(--ana-renk); color: #fff; padding: 12px 20px; border-radius: 30px; display: flex; align-items: center; gap: 8px; box-shadow: 0 5px 15px rgba(0,0,0,0.4); transition: all 0.3s ease; font-weight: 900; font-size: 14px; text-decoration: none; border: 2px solid #fff; cursor: pointer; }
     .apk-link:hover { transform: scale(1.05); background: var(--yazi-renk); }
     
-    .ana-tasiyici { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 1100px; gap: 20px; z-index: 10; position: relative; margin-bottom: 20px; }
+    .ana-tasiyici { display: flex; flex-direction: column; align-items: center; width: 100%; max-width: 1180px; gap: 20px; z-index: 10; position: relative; margin-bottom: 20px; }
     
-    .kutu { background-color: var(--kutu-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); width: 100%; max-width: 420px; border-radius: 16px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2); border-top: 6px solid var(--ana-renk); overflow: visible; padding-bottom: 35px; position: relative; transition: all 0.5s ease; margin-bottom: 0; }
-    .alt-modul { background-color: var(--kutu-bg); backdrop-filter: blur(12px); width: 100%; max-width: 420px; border-radius: 16px; border: 2px dashed var(--ana-renk); padding: 15px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; position: relative; margin-bottom: 0; }
+    .kutu { background-color: var(--kutu-bg); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px); width: 100%; max-width: 460px; border-radius: 16px; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.2); border-top: 6px solid var(--ana-renk); overflow: visible; padding-bottom: 35px; position: relative; transition: all 0.5s ease; margin-bottom: 0; }
+    .alt-modul { background-color: var(--kutu-bg); backdrop-filter: blur(12px); width: 100%; max-width: 460px; border-radius: 16px; border: 2px dashed var(--ana-renk); padding: 15px; box-sizing: border-box; display: flex; flex-direction: column; align-items: center; position: relative; margin-bottom: 0; }
     
     @media (min-width: 950px) {
         .ana-tasiyici { flex-direction: row; align-items: flex-start; justify-content: center; gap: 30px; }
-        .kutu { flex: 1; max-width: 420px; }
-        .alt-modul { flex: 1.5; max-width: 650px; }
-        .plan-sahne { height: 600px !important; }
-        #notDefteri { height: 600px !important; }
-        .seo-metni, .footer-linkler { max-width: 1100px !important; }
+        .kutu { flex: 1.05; max-width: 460px; }
+        .alt-modul { flex: 1.5; max-width: 680px; }
+        .plan-sahne { height: 580px !important; }
+        #notDefteri { height: 530px !important; }
+        .seo-metni, .footer-linkler { max-width: 1180px !important; }
     }
     
     .ayarlar { position: absolute; top: 15px; right: 15px; display: flex; gap: 8px; z-index: 20; align-items: center; }
-    .ayar-btn { background: rgba(255,255,255,0.3); border: 1px solid var(--yazi-renk); border-radius: 12px; width: 38px; height: 38px; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; transition: 0.3s; color: var(--yazi-renk); }
+    .ayar-btn { background: rgba(255,255,255,0.3); border: 1px solid var(--yazi-renk); border-radius: 12px; width: 38px; height: 38px; cursor: pointer; font-size: 18px; display: flex; align-items: center; justify-content: center; transition: 0.3s; color: var(--yazi-renk); }
     .ayar-btn:hover { background: var(--yazi-renk); color: var(--ana-renk); }
     #langSelect { height: 38px; border-radius: 10px; border: 1px solid var(--yazi-renk); background: rgba(255,255,255,0.3); color: var(--yazi-renk); font-weight: bold; font-family: 'Courier New', monospace; padding: 0 5px; cursor: pointer; }
-    h2 { text-align: center; color: var(--yazi-renk); margin-top: 80px; margin-bottom: 5px; font-size: 34px; font-weight: 900; letter-spacing: -1px; text-shadow: 2px 2px 0px var(--ana-renk); border-bottom: 3px solid var(--ana-renk); display: inline-block; position: relative; left: 50%; transform: translateX(-50%); padding-bottom: 5px; width: 90%; }
+    
+    h2 { text-align: center; color: var(--yazi-renk); margin-top: 75px; margin-bottom: 5px; font-size: 34px; font-weight: 900; letter-spacing: -1px; text-shadow: 2px 2px 0px var(--ana-renk); border-bottom: 3px solid var(--ana-renk); display: inline-block; position: relative; left: 50%; transform: translateX(-50%); padding-bottom: 5px; width: 90%; }
     .imza { text-align: center; font-size: 13px; opacity: 0.9; margin-bottom: 15px; font-weight: bold; letter-spacing: 2px; color: var(--yazi-renk); }
     
-    .bilgi-panosu { background: rgba(211, 47, 47, 0.1); border: 2px dashed #d32f2f; color: var(--yazi-renk); padding: 12px 15px; border-radius: 10px; margin: 0 15px 20px 15px; font-size: 13px; text-align: center; position: relative; line-height: 1.4; font-family: sans-serif; }
+    .bilgi-panosu { background: rgba(211, 47, 47, 0.1); border: 2px dashed #d32f2f; color: var(--yazi-renk); padding: 12px 15px; border-radius: 10px; margin: 0 15px 15px 15px; font-size: 12.5px; text-align: center; position: relative; line-height: 1.4; font-family: sans-serif; }
     .bilgi-panosu b { color: #d32f2f; }
     .bilgi-kapat { position: absolute; top: -10px; right: -10px; background: #fff; border: 2px solid #d32f2f; color: #d32f2f; font-weight: bold; cursor: pointer; font-size: 14px; width: 24px; height: 24px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.2); transition: 0.2s; }
     .bilgi-kapat:hover { transform: scale(1.1); background: #d32f2f; color: #fff; }
 
-    .kategori-menu { display: flex; flex-wrap: wrap; width: auto; gap: 5px; margin: 0 15px 10px 15px; }
+    .kategori-menu { display: flex; flex-wrap: wrap; width: auto; gap: 6px; margin: 0 15px 10px 15px; }
     .kat-btn { flex: 1; min-width: 45%; padding: 10px 5px; font-weight: 900; background: var(--sekme-pasif); color: var(--yazi-renk); border: 1px solid transparent; border-radius: 10px; cursor: pointer; transition: 0.3s; font-family: 'Courier New', monospace; font-size: 13px; }
     .kat-btn.aktif { background: var(--ana-renk); color: #fff; box-shadow: 0 4px 10px rgba(0,0,0,0.2); border-color: rgba(255,255,255,0.5); }
     
-    .alt-menu-container { display: none; overflow-x: auto; white-space: nowrap; margin: 0 15px 15px 15px; padding-bottom: 5px; scrollbar-width: none; -ms-overflow-style: none; }
-    .alt-menu-container::-webkit-scrollbar { display: none; }
+    .alt-menu-container { display: none; overflow-x: auto; white-space: nowrap; margin: 0 15px 15px 15px; padding-bottom: 6px; scrollbar-width: thin; }
+    .alt-menu-container::-webkit-scrollbar { height: 5px; }
+    .alt-menu-container::-webkit-scrollbar-thumb { background: var(--ana-renk); border-radius: 5px; }
     .alt-menu-container.aktif { display: block; animation: fadeIn 0.3s; }
-    .menu { display: inline-flex; gap: 8px; }
-    .menu button { padding: 10px 14px; border: 1px solid var(--ana-renk); border-radius: 8px; background: transparent; font-weight: 900; cursor: pointer; font-family: 'Courier New', Courier, monospace; font-size: 13px; color: var(--yazi-renk); transition: 0.3s; flex-shrink: 0; }
-    .menu button.aktif { background: var(--ana-renk); color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.1); }
+    .menu { display: inline-flex; gap: 6px; }
+    .menu button { padding: 9px 12px; border: 1px solid var(--ana-renk); border-radius: 8px; background: transparent; font-weight: 900; cursor: pointer; font-family: 'Courier New', Courier, monospace; font-size: 12.5px; color: var(--yazi-renk); transition: 0.3s; flex-shrink: 0; }
+    .menu button.aktif { background: var(--ana-renk); color: #fff; box-shadow: 0 2px 8px rgba(0,0,0,0.15); }
     
     .reklam-alani { width: calc(100% - 30px); min-height: 50px; background: rgba(0,0,0,0.05); border: 1px dashed var(--ana-renk); margin: 0 15px 15px 15px; border-radius: 8px; display: flex; align-items: center; justify-content: center; font-size: 11px; opacity: 0.6; font-weight: bold; font-family: sans-serif; box-sizing: border-box;}
     body.ekstrem-tema .reklam-alani { border-color: #ff3333; background: rgba(255,0,0,0.1); color: #ffcccc; }
 
-    .mod { padding: 0 25px; display: none; animation: fadeIn 0.4s; }
+    .mod { padding: 0 22px; display: none; animation: fadeIn 0.4s; }
     @keyframes fadeIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
-    label { display: block; font-weight: 900; font-size: 13px; margin-top: 15px; opacity: 1; text-transform: uppercase; }
-    input, select { width: 100%; padding: 14px; margin-top: 5px; border: 2px solid var(--input-border); border-radius: 10px; font-size: 16px; font-family: 'Courier New', Courier, monospace; box-sizing: border-box; background: var(--input-bg); color: var(--input-yazi) !important; font-weight: bold; transition: 0.3s; }
+    label { display: block; font-weight: 900; font-size: 12.5px; margin-top: 12px; opacity: 1; text-transform: uppercase; }
+    input, select { width: 100%; padding: 12px 14px; margin-top: 5px; border: 2px solid var(--input-border); border-radius: 10px; font-size: 15px; font-family: 'Courier New', Courier, monospace; box-sizing: border-box; background: var(--input-bg); color: var(--input-yazi) !important; font-weight: bold; transition: 0.3s; }
     input:focus, select:focus { border-color: var(--ana-renk); outline: none; }
-    button.hesapla { width: 100%; padding: 16px; background: var(--ana-renk); color: #fff; border: none; border-radius: 10px; font-weight: 900; cursor: pointer; font-family: 'Courier New', Courier, monospace; font-size: 18px; margin-top: 20px; transition: 0.2s; box-shadow: 0 5px 15px rgba(0,0,0,0.15); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
+    
+    button.hesapla { width: 100%; padding: 15px; background: var(--ana-renk); color: #fff; border: none; border-radius: 10px; font-weight: 900; cursor: pointer; font-family: 'Courier New', Courier, monospace; font-size: 17px; margin-top: 18px; transition: 0.2s; box-shadow: 0 5px 15px rgba(0,0,0,0.15); text-shadow: 0 1px 1px rgba(0,0,0,0.3); }
     button.hesapla:active { transform: scale(0.98); }
-    .sonuc { background: #fff; padding: 15px; text-align: center; border-radius: 10px; border: 3px solid var(--ana-renk); margin-top: 20px; display: none; font-weight: bold; color: #000; font-size: 20px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); }
+    
+    .sonuc { background: #fff; padding: 15px; text-align: center; border-radius: 10px; border: 3px solid var(--ana-renk); margin-top: 18px; display: none; font-weight: bold; color: #111; font-size: 17px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); line-height: 1.5; }
+    .sonuc-alt-detay { font-size: 12.5px; color: #555; margin-top: 8px; padding-top: 8px; border-top: 1px dashed #ccc; }
+    .nota-ekle-btn { display: inline-block; margin-top: 10px; padding: 6px 12px; font-size: 12px; font-family: 'Courier New', monospace; font-weight: bold; background: var(--ana-renk); color: #fff; border: none; border-radius: 6px; cursor: pointer; transition: 0.2s; }
+    .nota-ekle-btn:hover { opacity: 0.85; transform: scale(1.03); }
+
     .sayac-alani { margin-top: 20px; padding: 10px; border-top: 2px dashed var(--ana-renk); text-align: center; font-family: 'Courier New', monospace; font-weight: 900; color: var(--yazi-renk); font-size: 16px; }
     .versiyon { position: absolute; bottom: 5px; right: 10px; font-size: 11px; font-weight: bold; opacity: 0.6; font-family: sans-serif; color: var(--yazi-renk); }
-    #resimYukleyici { display: none; }
+    #resimYukleyici, #planYukleyici { display: none; }
     
+    /* Ergonomi Rehberi */
+    .ergo-kart-liste { max-height: 320px; overflow-y: auto; margin-top: 10px; display: flex; flex-direction: column; gap: 8px; padding-right: 4px; }
+    .ergo-kart { background: var(--input-bg); color: var(--input-yazi); border-left: 4px solid var(--ana-renk); padding: 10px 12px; border-radius: 8px; font-size: 13px; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+    .ergo-kart b { color: var(--ana-renk); display: block; font-size: 14px; margin-bottom: 3px; }
+
+    /* Oyunlar */
     .gm-btn { padding: 12px 15px; border: 1px solid var(--yazi-renk); border-radius: 10px; background: rgba(255,255,255,0.4); color: var(--yazi-renk); font-weight: bold; cursor: pointer; font-family: inherit; font-size: 14px; transition: 0.2s; text-align: left; }
     .gm-btn.aktif { background: var(--ana-renk); color: #fff; border-color: rgba(255,255,255,0.5); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
     .gm-btn:hover { background: var(--yazi-renk); color: #fff; }
@@ -108,13 +133,13 @@
     .c1 { color: #1976D2; } .c2 { color: #388E3C; } .c3 { color: #D32F2F; } .c4 { color: #7B1FA2; }
     
     .calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-top: 15px; }
-    .calc-btn { padding: 15px; border-radius: 8px; border: none; font-size: 18px; font-weight: bold; cursor: pointer; background: rgba(255,255,255,0.5); color: var(--yazi-renk); }
+    .calc-btn { padding: 15px; border-radius: 8px; border: none; font-size: 18px; font-weight: bold; cursor: pointer; background: rgba(255,255,255,0.5); color: var(--yazi-renk); font-family: inherit; }
     .calc-btn:active { background: var(--ana-renk); color: #fff; }
     .calc-btn.op { background: var(--ana-renk); color: #fff; }
     .calc-btn.c { background: #d32f2f; color: #fff; }
     #calc-screen { width: 100%; padding: 15px; font-size: 24px; text-align: right; background: var(--input-bg); border: 2px solid var(--ana-renk); border-radius: 8px; margin-bottom: 5px; color: var(--input-yazi); font-weight: bold; box-sizing: border-box; }
     
-    .bj-masa { background: rgba(0,0,0,0.05); border-radius: 12px; padding: 20px; text-align: center; border: 2px dashed var(--ana-renk); width: 100%; max-width: 450px; }
+    .bj-masa { background: rgba(0,0,0,0.05); border-radius: 12px; padding: 20px; text-align: center; border: 2px dashed var(--ana-renk); width: 100%; max-width: 450px; box-sizing: border-box; }
     .bj-alan { margin-bottom: 20px; min-height: 120px; }
     .bj-isim { font-weight: bold; font-size: 16px; margin-bottom: 10px; text-transform: uppercase; border-bottom: 1px solid var(--ana-renk); display: inline-block; padding-bottom: 5px; }
     .bj-el { display: flex; justify-content: center; gap: 8px; flex-wrap: wrap; }
@@ -131,7 +156,7 @@
     .game-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; background: rgba(0,0,0,0.6); border-radius: 8px; z-index: 5; color: #fff; font-weight: bold; }
     .start-btn { padding: 12px 25px; background: var(--ana-renk); color: #fff; border: 2px solid #fff; border-radius: 8px; font-size: 18px; cursor: pointer; margin-top: 15px; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
     
-    .grid-2048 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: rgba(0,0,0,0.1); padding: 8px; border-radius: 12px; margin: 0 auto; width: 100%; max-width: 450px; touch-action: none; aspect-ratio: 1;}
+    .grid-2048 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; background: rgba(0,0,0,0.1); padding: 8px; border-radius: 12px; margin: 0 auto; width: 100%; max-width: 450px; touch-action: none; aspect-ratio: 1; box-sizing: border-box;}
     .cell-2048 { aspect-ratio: 1; background: rgba(255,255,255,0.6); display: flex; align-items: center; justify-content: center; font-size: 26px; font-weight: 900; border-radius: 8px; color: var(--yazi-renk); transition: 0.1s; box-shadow: inset 0 0 10px rgba(255,255,255,0.5);}
     @media (min-width: 950px) { .cell-2048 { font-size: 36px; } }
     .c2048-2 { background: #eee4da; color:#776e65; } .c2048-4 { background: #ede0c8; color:#776e65; }
@@ -141,42 +166,59 @@
     .c2048-512 { background: #edc850; color:#fff; font-size:22px;} .c2048-1024 { background: #edc53f; color:#fff; font-size:18px;}
     .c2048-2048 { background: #edc22e; color:#fff; font-size:18px;}
     
-    .alt-sekmeler { display: flex; gap: 10px; width: 100%; margin-bottom: 15px; }
+    /* Sağ Panel & Plan Masası 2.0 */
+    .alt-sekmeler { display: flex; gap: 10px; width: 100%; margin-bottom: 12px; }
     .alt-sekme { flex: 1; padding: 10px; border: 2px solid transparent; border-radius: 8px; background: rgba(0,0,0,0.1); color: var(--yazi-renk); font-weight: 900; cursor: pointer; font-family: 'Courier New', monospace; font-size: 14px; transition: 0.3s; }
     .alt-sekme.aktif { background: var(--ana-renk); color: #fff; border-color: rgba(255,255,255,0.5); box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
     .alt-icerik { width: 100%; display: none; animation: fadeIn 0.4s; flex-direction: column; align-items: center; height: 100%; }
     .alt-icerik.aktif { display: flex; }
     
-    .plan-sahne { width: 100%; height: 350px; background: #fff; border-radius: 8px; overflow: hidden; position: relative; border: 1px solid var(--input-border); touch-action: none; cursor: grab; }
+    .plan-sahne { width: 100%; height: 360px; background: #fff; border-radius: 8px; overflow: hidden; position: relative; border: 2px solid var(--input-border); touch-action: none; cursor: grab; display: flex; align-items: center; justify-content: center; }
     .plan-sahne:active { cursor: grabbing; }
-    #planGorsel { max-width: 100%; transform-origin: center center; transition: transform 0.1s ease-out; pointer-events: none; }
-    .plan-kontroller { display: flex; gap: 10px; margin-top: 10px; width: 100%; }
-    .plan-btn { flex: 1; padding: 12px; border: none; border-radius: 8px; background: var(--yazi-renk); color: var(--arkaplan); font-weight: bold; cursor: pointer; font-family: 'Courier New', monospace; font-size: 16px; transition: 0.3s; box-shadow: 0 4px 10px rgba(0,0,0,0.2); }
-    #notDefteri { width: 100%; height: 350px; padding: 15px; border-radius: 8px; border: 2px solid var(--input-border); background: var(--input-bg); color: var(--input-yazi) !important; font-family: 'Courier New', Courier, monospace; font-size: 15px; font-weight: bold; resize: vertical; box-sizing: border-box; transition: 0.3s; }
+    .plan-sahne.olcum-aktif { cursor: crosshair !important; border-color: #d32f2f; }
+    .plan-sahne.grid-aktif::after { content: ""; position: absolute; inset: 0; background-image: linear-gradient(to right, rgba(0,120,215,0.18) 1px, transparent 1px), linear-gradient(to bottom, rgba(0,120,215,0.18) 1px, transparent 1px); background-size: 25px 25px; pointer-events: none; z-index: 3; }
+    #planGorsel { width: 100%; height: 100%; display: flex; align-items: center; justify-content: center; transform-origin: center center; transition: transform 0.08s ease-out; pointer-events: none; position: relative; }
+    #olcumKatmani { position: absolute; inset: 0; pointer-events: none; z-index: 4; width: 100%; height: 100%; }
+    .plan-bilgi-cubugu { width: 100%; background: rgba(0,0,0,0.08); padding: 8px 10px; border-radius: 6px; margin-bottom: 8px; font-size: 12px; font-weight: bold; display: flex; justify-content: space-between; align-items: center; box-sizing: border-box; flex-wrap: wrap; gap: 6px; }
+    .plan-kontroller { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 10px; width: 100%; }
+    .plan-btn { flex: 1; min-width: 48px; padding: 10px 6px; border: none; border-radius: 8px; background: var(--yazi-renk); color: var(--arkaplan); font-weight: bold; cursor: pointer; font-family: 'Courier New', monospace; font-size: 14px; transition: 0.2s; box-shadow: 0 3px 8px rgba(0,0,0,0.15); }
+    .plan-btn:hover { background: var(--ana-renk); color: #fff; }
+    .plan-btn.aktif-olcum { background: #d32f2f; color: #fff; }
+
+    #notDefteri { width: 100%; height: 350px; padding: 15px; border-radius: 8px; border: 2px solid var(--input-border); background: var(--input-bg); color: var(--input-yazi) !important; font-family: 'Courier New', Courier, monospace; font-size: 14.5px; font-weight: bold; resize: vertical; box-sizing: border-box; transition: 0.3s; line-height: 1.5; }
     #notDefteri:focus { border-color: var(--ana-renk); outline: none; }
+    .not-aksiyonlar { display: flex; gap: 8px; width: 100%; margin-top: 10px; }
     
+    /* Modallar */
     .bg-modal { display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:999; align-items:center; justify-content:center; backdrop-filter:blur(5px); }
-    .bg-modal-content { background:var(--kutu-bg); padding:20px; border-radius:15px; width:90%; max-width:350px; border:2px solid var(--ana-renk); box-shadow:0 10px 30px rgba(0,0,0,0.3); color: var(--yazi-renk); overflow: visible; }
+    .bg-modal-content { background:var(--kutu-bg); padding:20px; border-radius:15px; width:90%; max-width:370px; border:2px solid var(--ana-renk); box-shadow:0 10px 30px rgba(0,0,0,0.3); color: var(--yazi-renk); position: relative; overflow: visible; }
     .bg-modal-header { display:flex; justify-content:space-between; margin-bottom:15px; font-size:18px; align-items: center; border-bottom: 2px dashed var(--ana-renk); padding-bottom: 10px;}
-    .bg-close { background:none; border:none; color:var(--yazi-renk); font-size:24px; cursor:pointer; font-weight:bold; transition: 0.2s; position: absolute; top: -10px; right: -10px; background: #fff; color: #222; width: 30px; height: 30px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.3);}
+    .bg-close { background:#fff; border:none; color:#222; font-size:18px; cursor:pointer; font-weight:bold; transition: 0.2s; position: absolute; top: -12px; right: -12px; width: 32px; height: 32px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.3);}
     .bg-close:hover { transform: scale(1.15) rotate(90deg); color: #d32f2f; }
-    .bg-btn { width:100%; padding:15px; margin-bottom:10px; border-radius:10px; border:2px solid var(--ana-renk); background:var(--input-bg); color:var(--input-yazi); font-weight:bold; font-size:16px; cursor:pointer; font-family:inherit; transition:0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
+    .bg-btn { width:100%; padding:13px; margin-bottom:10px; border-radius:10px; border:2px solid var(--ana-renk); background:var(--input-bg); color:var(--input-yazi); font-weight:bold; font-size:15px; cursor:pointer; font-family:inherit; transition:0.3s; box-shadow: 0 4px 6px rgba(0,0,0,0.1); }
     .bg-btn:hover { background:var(--ana-renk); color:#fff; }
-    .bg-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; max-height: 350px; overflow-y: auto; padding-right: 5px; padding-bottom: 10px;}
+    .bg-grid { display:grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin-top: 10px; max-height: 320px; overflow-y: auto; padding-right: 5px; padding-bottom: 10px;}
     .bg-geri { background:none; border:none; color:var(--yazi-renk); font-weight:bold; cursor:pointer; padding:5px 0; font-family:inherit; font-size: 14px; margin-bottom: 10px; display: flex; align-items: center; gap: 5px;}
     .bg-item { width: 100%; display: flex; flex-direction: column; align-items: center; gap: 5px; cursor: pointer; transition: 0.2s; }
     .bg-item:hover { transform: scale(1.05); }
     .bg-thumb-box { width: 100%; aspect-ratio: 1; border-radius: 8px; border: 2px solid transparent; background-color: rgba(0,0,0,0.1); background-size: cover; background-position: center; box-shadow: 0 4px 8px rgba(0,0,0,0.2); }
     .bg-item.selected .bg-thumb-box { border-color: var(--ana-renk); border-width: 4px;}
+    
+    .tema-palet-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 12px; }
+    .tema-kutu { padding: 10px; border-radius: 8px; border: 2px solid rgba(0,0,0,0.2); cursor: pointer; font-weight: bold; font-size: 12px; text-align: center; transition: 0.2s; }
+    .tema-kutu:hover { transform: scale(1.03); }
+
     #pomodoroToast { display: none; position: fixed; top: 20px; left: 50%; transform: translateX(-50%); background: var(--ana-renk); color: #fff; padding: 20px 30px; border-radius: 15px; font-weight: 900; box-shadow: 0 10px 40px rgba(0,0,0,0.5); z-index: 9999; text-align: center; font-family: 'Courier New', Courier, monospace; border: 3px solid #fff; animation: asagiKay 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
     #pomodoroToast h3 { margin: 0 0 10px 0; font-size: 22px; text-shadow: 1px 1px 2px rgba(0,0,0,0.3); }
     #pomodoroToast button { display: block; margin: 15px auto 0 auto; background: #fff; color: var(--ana-renk); border: none; padding: 8px 20px; border-radius: 8px; cursor: pointer; font-weight: 900; font-family: inherit; font-size: 16px; transition: 0.2s; }
     #pomodoroToast button:hover { transform: scale(1.05); background: #f0f0f0; }
     @keyframes asagiKay { from { top: -100px; opacity: 0; } to { top: 20px; opacity: 1; } }
-    .seo-metni { max-width: 420px; width: 100%; color: var(--yazi-renk); background: rgba(255,255,255,0.6); backdrop-filter: blur(5px); padding: 15px; border-radius: 10px; font-size: 13px; text-align: center; margin-bottom: 15px; box-sizing: border-box; line-height: 1.4; border: 1px dashed var(--ana-renk); }
-    .footer-linkler { max-width: 420px; width: 100%; text-align: center; font-size: 12px; font-weight: bold; color: var(--yazi-renk); margin-bottom: 80px; }
+    
+    .seo-metni { max-width: 460px; width: 100%; color: var(--yazi-renk); background: rgba(255,255,255,0.6); backdrop-filter: blur(5px); padding: 15px; border-radius: 10px; font-size: 13px; text-align: center; margin-bottom: 15px; box-sizing: border-box; line-height: 1.5; border: 1px dashed var(--ana-renk); }
+    .footer-linkler { max-width: 460px; width: 100%; text-align: center; font-size: 12px; font-weight: bold; color: var(--yazi-renk); margin-bottom: 80px; }
     .footer-linkler span { cursor: pointer; text-decoration: none; margin: 0 8px; border-bottom: 1px solid transparent; transition: 0.2s; }
     .footer-linkler span:hover { border-bottom: 1px solid var(--ana-renk); color: var(--ana-renk); }
+    
     .cerez-kutusu { position: fixed; bottom: 0; left: 0; width: 100%; background: rgba(0,0,0,0.85); color: white; padding: 15px; text-align: center; z-index: 1000; font-family: sans-serif; font-size: 13px; display: none; box-sizing: border-box; border-top: 3px solid var(--ana-renk);}
     .cerez-kutusu button { background: var(--ana-renk); color: white; border: 1px solid #fff; padding: 6px 20px; margin-left: 10px; border-radius: 5px; cursor: pointer; font-weight: bold; transition: 0.2s; }
     .cerez-kutusu button:hover { background: #fff; color: var(--ana-renk); }
@@ -191,7 +233,7 @@
     body.ekstrem-tema .menu button { color: #ff9999 !important; background: rgba(255,0,0,0.1) !important;}
     body.ekstrem-tema .ayar-btn { color: #ffcccc !important; border-color:#ffcccc !important; }
     
-    .gecmis-btn { width: 100%; padding: 12px; margin-top: 20px; border-radius: 8px; border: 2px dashed var(--ana-renk); background: transparent; color: var(--yazi-renk); font-weight: bold; cursor: pointer; font-family: inherit; font-size: 14px; transition: 0.3s; }
+    .gecmis-btn { width: 100%; padding: 11px; margin-top: 15px; border-radius: 8px; border: 2px dashed var(--ana-renk); background: transparent; color: var(--yazi-renk); font-weight: bold; cursor: pointer; font-family: inherit; font-size: 13.5px; transition: 0.3s; }
     .gecmis-btn:hover { background: rgba(0,0,0,0.05); }
     .gecmis-kutusu { background: rgba(0,0,0,0.03); border: 2px solid var(--input-border); border-radius: 8px; padding: 10px; margin-top: 10px; max-height: 180px; overflow-y: auto; font-size: 12px; text-align: left; display: none; line-height: 1.4; }
     .gecmis-item { border-bottom: 1px solid rgba(0,0,0,0.1); padding: 8px 0; color: var(--yazi-renk); }
@@ -201,31 +243,34 @@
     body.ekstrem-tema .gecmis-kutusu { border-color: #ff0000 !important; background: rgba(255,0,0,0.05) !important; }
     body.ekstrem-tema .gecmis-item { color: #ffcccc !important; border-bottom: 1px solid rgba(255,0,0,0.2) !important; }
     
-    .veri-grid { display: grid; grid-template-columns: 80px 1fr; gap: 8px; align-items: center; margin-bottom: 5px; }
+    .veri-grid { display: grid; grid-template-columns: 95px 1fr; gap: 8px; align-items: center; margin-bottom: 6px; }
     .veri-grid span { font-weight: bold; font-size: 13px; text-align: right; padding-right: 5px;}
     .veri-grid input { margin-top: 0; padding: 10px; font-size: 14px; }
-    @media (max-width: 400px) { .veri-grid { grid-template-columns: 60px 1fr; } }
+    @media (max-width: 400px) { .veri-grid { grid-template-columns: 75px 1fr; } }
 
+    .iki-kolon { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
 </style>
 </head>
 <body>
+
 <div id="cerezUyarisi" class="cerez-kutusu">
     <span id="lbl_cookie">🍪 Bu site, deneyiminizi geliştirmek ve size kişiselleştirilmiş içerik/reklam sunmak için çerezler (cookies) kullanır. Siteyi kullanmaya devam ederek bunu kabul etmiş olursunuz.</span>
     <button id="btn_cookie_ok" onclick="cerezKabul()">Anladım</button>
 </div>
+
 <div id="kurumsalModal" class="bg-modal">
-    <div class="bg-modal-content" style="max-width: 400px; text-align: left; font-family: sans-serif; font-size: 13px;">
+    <div class="bg-modal-content" style="max-width: 420px; text-align: left; font-family: sans-serif; font-size: 13px;">
         <div class="bg-modal-header" style="margin-bottom: 15px; border-bottom: 2px dashed var(--ana-renk);">
             <span id="kurumsalBaslik" style="font-weight:900; font-size:16px;">Başlık</span>
             <button class="bg-close" onclick="document.getElementById('kurumsalModal').style.display='none'">✖</button>
         </div>
-        <div id="kurumsalIcerik" style="max-height: 350px; overflow-y: auto; padding-right: 10px; line-height: 1.6;">
-        </div>
+        <div id="kurumsalIcerik" style="max-height: 350px; overflow-y: auto; padding-right: 10px; line-height: 1.6;"></div>
     </div>
 </div>
+
 <a href="https://www.instagram.com/ergul.bedirhan/" target="_blank" class="ig-link" title="Instagram Profilim">
     <svg viewBox="0 0 24 24">
-        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+        <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014-3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
     </svg>
 </a>
 
@@ -238,13 +283,21 @@
     <span id="lbl_pomodoro_text">25 dakika boyunca aralıksız çalıştın.<br>Verimini korumak için şimdi 5 dakika gözlerini dinlendir.</span>
     <button id="btn_pomodoro_ok" onclick="document.getElementById('pomodoroToast').style.display='none'">TAMAM</button>
 </div>
+
 <div id="bgModal" class="bg-modal">
     <div class="bg-modal-content">
         <div class="bg-modal-header">
-            <span style="font-weight:900;" id="lbl_bg_title">🎨 Arkaplan Seçimi</span>
+            <span style="font-weight:900;" id="lbl_bg_title">🎨 Tema & Arkaplan Seçimi</span>
             <button class="bg-close" onclick="bgModalKapat()">✖</button>
         </div>
         <div id="bgSecenekler">
+            <div style="font-size:12px; font-weight:bold; margin-bottom:6px;">🏛️ Mimari Renk Temaları:</div>
+            <div class="tema-palet-grid">
+                <div class="tema-kutu" style="background:#F2E8DC; color:#3E2C22; border-color:#8C6A54;" onclick="mimariTemaUygula('kraft')">📜 Kraft Toprak</div>
+                <div class="tema-kutu" style="background:#1A1D24; color:#E2E8F0; border-color:#38BDF8;" onclick="mimariTemaUygula('cad')">💻 AutoCAD Dark</div>
+                <div class="tema-kutu" style="background:#0B3C78; color:#FFFFFF; border-color:#60A5FA;" onclick="mimariTemaUygula('blueprint')">📐 Ozolit Blueprint</div>
+                <div class="tema-kutu" style="background:#E5E5E5; color:#1F2937; border-color:#52525B;" onclick="mimariTemaUygula('beton')">🧱 Minimal Beton</div>
+            </div>
             <button id="btn_hazir" class="bg-btn" onclick="hazirGorselGoster()">🖼️ Hazır Görseller</button>
             <button id="btn_galeri" class="bg-btn" onclick="galeridenYukle()">📂 Galeriden Yükle</button>
         </div>
@@ -266,16 +319,16 @@
                 <option value="ku">KU</option>
                 <option value="ar">AR</option>
             </select>
-            <button class="ayar-btn" onclick="bgModalAc()">📷</button>
-            <button class="ayar-btn" onclick="sifirla()">↺</button>
+            <button class="ayar-btn" onclick="bgModalAc()" title="Tema ve Arkaplan">📷</button>
+            <button class="ayar-btn" onclick="sifirla()" title="Varsayılana Sıfırla">↺</button>
         </div>
         <input type="file" id="resimYukleyici" accept="image/*" onchange="arkaplanDegistir(this)">
         <h2 id="lbl_title">ÖLÇEKMATİK</h2>
-        <div class="imza">BEDIR DESIGN</div>
+        <div class="imza">BEDIR DESIGN PRO</div>
         
         <div class="bilgi-panosu" id="yeniSiteBilgi">
             <button class="bilgi-kapat" onclick="document.getElementById('yeniSiteBilgi').style.display='none'">✖</button>
-            🛠️ <b>Bilgilendirme:</b><br>Ölçekmatik yepyeni altyapısıyla yayında! Sistemimiz henüz çok taze olduğu için geçiş sürecinde ufak tefek teknik aksaklıklar yaşanabilir. Olası kesintiler için şimdiden özür diler, anlayışınız ve sabrınız için teşekkür ederiz. 🙏
+            🛠️ <b>v5.0 PRO Güncellemesi:</b><br>Pafta Çevirici, Aydınlatma (Lümen/Lüks), Boya & Süpürgelik Metrajı, Neufert Ergonomi Rehberi ve Plan Masası Kalibrasyonlu Dijital Cetvel yayında! 🚀
         </div>
         
         <div class="reklam-alani">
@@ -283,7 +336,7 @@
         </div>
 
         <div class="kategori-menu">
-            <button id="btn-kat-mimari" onclick="kategoriDegis('mimari')" class="kat-btn aktif"><span id="lbl_cat_arch">📐 Mimari</span></button>
+            <button id="btn-kat-mimari" onclick="kategoriDegis('mimari')" class="kat-btn aktif"><span id="lbl_cat_arch">📐 Mimari & İç Mekan</span></button>
             <button id="btn-kat-hesap" onclick="kategoriDegis('hesap')" class="kat-btn"><span id="lbl_cat_calc">🧮 Hesap</span></button>
             <button id="btn-kat-donusturucu" onclick="kategoriDegis('donusturucu')" class="kat-btn"><span id="lbl_cat_conv">🔄 Dönüştürücü</span></button>
             <button id="btn-kat-oyun" onclick="kategoriDegis('oyun')" class="kat-btn"><span id="lbl_cat_game">🎮 Eğlence</span></button>
@@ -293,17 +346,21 @@
             <div class="menu">
                 <button id="btn1" onclick="modDegis(1, 'proje')" class="aktif">PROJE</button>
                 <button id="btn2" onclick="modDegis(2, 'gercek')">GERÇEK</button>
-                <button id="btn10" onclick="modDegis(10, 'soru')">SORU</button>
-                <button id="btn3" onclick="modDegis(3, 'egim')">EĞİM</button>
+                <button id="btn15" onclick="modDegis(15, 'pafta')">PAFTA⇄PAFTA</button>
                 <button id="btn5" onclick="modDegis(5, 'merdiven')">MERDİVEN</button>
-                <button id="btn6" onclick="modDegis(6, 'malzeme')">MALZEME</button>
+                <button id="btn3" onclick="modDegis(3, 'egim')">EĞİM/RAMPA</button>
+                <button id="btn6" onclick="modDegis(6, 'malzeme')">SERAMİK/PARKE</button>
+                <button id="btn17" onclick="modDegis(17, 'boya')">BOYA/DUVAR</button>
+                <button id="btn16" onclick="modDegis(16, 'aydinlatma')">AYDINLATMA</button>
                 <button id="btn7" onclick="modDegis(7, 'altin-oran')">ALTIN ORAN</button>
+                <button id="btn18" onclick="modDegis(18, 'ergonomi')">ERGONOMİ</button>
+                <button id="btn10" onclick="modDegis(10, 'soru')">SORU MODU</button>
             </div>
         </div>
 
         <div id="kat-hesap" class="alt-menu-container">
             <div class="menu">
-                <button id="btn9" onclick="modDegis(9, 'hesap-makinesi')" class="aktif">HESAP</button>
+                <button id="btn9" onclick="modDegis(9, 'hesap-makinesi')" class="aktif">HESAP MAKİNESİ</button>
             </div>
         </div>
         
@@ -330,56 +387,215 @@
             </div>
         </div>
 
+        <!-- MOD 1: GERÇEKTEN PROJEYE -->
         <div id="mod1" class="mod" style="display:block;">
             <label id="lbl_real">Gerçek Ölçü:</label>
-            <div style="display:flex; gap:5px;"><input type="text" inputmode="decimal" id="g_sayi" placeholder="300"><select id="g_birim" style="width:100px;"><option value="cm">CM</option><option value="m">M</option><option value="mm">MM</option></select></div>
+            <div style="display:flex; gap:5px;">
+                <input type="text" inputmode="decimal" id="g_sayi" placeholder="300">
+                <select id="g_birim" style="width:105px;">
+                    <option value="cm">CM</option>
+                    <option value="m">M</option>
+                    <option value="mm">MM</option>
+                </select>
+            </div>
             <label id="lbl_scale_sel">Ölçek Seçimi:</label>
-            <select id="g_olcek">
-                <option value="2">1/2</option><option value="5">1/5</option><option value="10">1/10</option><option value="20">1/20</option>
-                <option value="50" selected>1/50</option><option value="100">1/100</option><option value="200">1/200</option><option value="500">1/500</option>
-            </select>
-            <button id="btn_calc1" class="hesapla" onclick="hesaplaCizim()">HESAPLA >></button><div id="sonuc1" class="sonuc"></div>
+            <div style="display:flex; gap:5px;">
+                <select id="g_olcek" onchange="ozelOlcekKontrol('g_olcek', 'g_ozel_olcek')">
+                    <option value="1">1/1</option><option value="2">1/2</option><option value="5">1/5</option><option value="10">1/10</option><option value="20">1/20</option>
+                    <option value="25">1/25</option><option value="50" selected>1/50</option><option value="75">1/75</option><option value="100">1/100</option>
+                    <option value="150">1/150</option><option value="200">1/200</option><option value="250">1/250</option><option value="500">1/500</option><option value="1000">1/1000</option>
+                    <option value="custom">Özel (1/X)</option>
+                </select>
+                <input type="text" inputmode="decimal" id="g_ozel_olcek" placeholder="Örn: 40" style="display:none; width:120px;">
+            </div>
+            <button id="btn_calc1" class="hesapla" onclick="hesaplaCizim()">HESAPLA >></button>
+            <div id="sonuc1" class="sonuc"></div>
             <button class="gecmis-btn" onclick="gecmisGosterGizleOlcek('Mod1')">📜 <span class="lbl_history_calc">Geçmiş İşlemler</span></button>
             <div id="gecmisKutusuMod1" class="gecmis-kutusu"><div id="gecmisListesiMod1"></div></div>
         </div>
+
+        <!-- MOD 2: PROJEDEN GERÇEĞE -->
         <div id="mod2" class="mod">
-            <label id="lbl_ruler">Cetvel Ölçüsü (CM):</label><input type="text" inputmode="decimal" id="c_sayi" placeholder="4.5">
-            <label id="lbl_p_scale">Proje Ölçeği:</label><select id="c_olcek"><option value="2">1/2</option><option value="5">1/5</option><option value="10">1/10</option><option value="20">1/20</option><option value="50" selected>1/50</option><option value="100">1/100</option><option value="200">1/200</option><option value="500">1/500</option></select>
-            <button id="btn_conv1" class="hesapla" onclick="hesaplaGercek()">ÇEVİR >></button><div id="sonuc2" class="sonuc"></div>
+            <label id="lbl_ruler">Cetvel / Pafta Ölçüsü:</label>
+            <div style="display:flex; gap:5px;">
+                <input type="text" inputmode="decimal" id="c_sayi" placeholder="4.5">
+                <select id="c_birim" style="width:105px;">
+                    <option value="cm">CM</option>
+                    <option value="mm">MM</option>
+                </select>
+            </div>
+            <label id="lbl_p_scale">Proje Ölçeği:</label>
+            <div style="display:flex; gap:5px;">
+                <select id="c_olcek" onchange="ozelOlcekKontrol('c_olcek', 'c_ozel_olcek')">
+                    <option value="1">1/1</option><option value="2">1/2</option><option value="5">1/5</option><option value="10">1/10</option><option value="20">1/20</option>
+                    <option value="25">1/25</option><option value="50" selected>1/50</option><option value="75">1/75</option><option value="100">1/100</option>
+                    <option value="150">1/150</option><option value="200">1/200</option><option value="250">1/250</option><option value="500">1/500</option><option value="1000">1/1000</option>
+                    <option value="custom">Özel (1/X)</option>
+                </select>
+                <input type="text" inputmode="decimal" id="c_ozel_olcek" placeholder="Örn: 40" style="display:none; width:120px;">
+            </div>
+            <button id="btn_conv1" class="hesapla" onclick="hesaplaGercek()">ÇEVİR >></button>
+            <div id="sonuc2" class="sonuc"></div>
             <button class="gecmis-btn" onclick="gecmisGosterGizleOlcek('Mod2')">📜 <span class="lbl_history_calc">Geçmiş İşlemler</span></button>
             <div id="gecmisKutusuMod2" class="gecmis-kutusu"><div id="gecmisListesiMod2"></div></div>
         </div>
+
+        <!-- MOD 15: PAFTADAN PAFTAYA (ÖLÇEKTEN ÖLÇEĞE) -->
+        <div id="mod15" class="mod">
+            <label>Mevcut Paftadaki Ölçü (CM):</label>
+            <input type="text" inputmode="decimal" id="p_olcu" placeholder="Örn: 6">
+            <div class="iki-kolon">
+                <div>
+                    <label>Mevcut Ölçek (1/X):</label>
+                    <input type="text" inputmode="decimal" id="p_eski" placeholder="50" value="50">
+                </div>
+                <div>
+                    <label>Yeni Ölçek (1/Y):</label>
+                    <input type="text" inputmode="decimal" id="p_yeni" placeholder="20" value="20">
+                </div>
+            </div>
+            <button class="hesapla" onclick="hesaplaPafta()">DÖNÜŞTÜR >></button>
+            <div id="sonuc15" class="sonuc"></div>
+        </div>
+
+        <!-- MOD 3: EĞİM & RAMPA ANALİZİ -->
         <div id="mod3" class="mod">
-            <label id="lbl_kot">Kot Farkı (h):</label><input type="text" id="e_h" placeholder="20">
-            <label id="lbl_dist">Mesafe (L):</label><input type="text" id="e_l" placeholder="200">
-            <button id="btn_analyse" class="hesapla" onclick="hesaplaEgim()">ANALİZ ET >></button><div id="sonuc3" class="sonuc"></div>
+            <label id="lbl_kot">Kot Farkı / Yükseklik (h - cm):</label>
+            <input type="text" inputmode="decimal" id="e_h" placeholder="20">
+            <label id="lbl_dist">Yatay Mesafe (L - cm):</label>
+            <input type="text" inputmode="decimal" id="e_l" placeholder="250">
+            <button id="btn_analyse" class="hesapla" onclick="hesaplaEgim()">ANALİZ ET >></button>
+            <div id="sonuc3" class="sonuc"></div>
         </div>
+
+        <!-- MOD 5: MERDİVEN HESABI + SVG KESİT -->
         <div id="mod5" class="mod">
-            <label id="lbl_h">Kat Yüksekliği (h):</label><input type="text" inputmode="decimal" id="m_h" placeholder="300">
-            <label id="lbl_b">Basamak Derinliği (b):</label><input type="text" inputmode="decimal" id="m_b" placeholder="">
-            <button id="btn_calc2" class="hesapla" onclick="hesaplaMerdiven()">HESAPLA >></button><div id="sonuc5" class="sonuc"></div>
+            <label id="lbl_h">Kat Yüksekliği (h - cm):</label>
+            <input type="text" inputmode="decimal" id="m_h" placeholder="300">
+            <label id="lbl_b">Basamak Genişliği (b - cm) [Opsiyonel]:</label>
+            <input type="text" inputmode="decimal" id="m_b" placeholder="Boş bırakılırsa 2r+b=63'ten bulunur">
+            <button id="btn_calc2" class="hesapla" onclick="hesaplaMerdiven()">HESAPLA & ÇİZ >></button>
+            <div id="sonuc5" class="sonuc"></div>
         </div>
+
+        <!-- MOD 6: SERAMİK / PARKE METRAJI -->
         <div id="mod6" class="mod">
-            <label id="lbl_area">Oda / Alan (cm):</label><div style="display:flex; gap:10px; align-items:center;"><input type="text" inputmode="decimal" id="mal_en" placeholder="En"><span style="font-weight:bold">x</span><input type="text" inputmode="decimal" id="mal_boy" placeholder="Boy"></div>
-            <label id="lbl_mat">Malzeme Ölçüsü (cm):</label><div style="display:flex; gap:10px; align-items:center;"><input type="text" inputmode="decimal" id="mz_en" placeholder="En"><span style="font-weight:bold">x</span><input type="text" inputmode="decimal" id="mz_boy" placeholder="Boy"></div>
-            <button id="btn_quant" class="hesapla" onclick="hesaplaMalzeme()">METRAJ ÇIKAR >></button><div id="sonuc6" class="sonuc"></div>
+            <label id="lbl_area">Mekan Ölçüsü (cm):</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <input type="text" inputmode="decimal" id="mal_en" placeholder="En (örn: 400)">
+                <span style="font-weight:bold">x</span>
+                <input type="text" inputmode="decimal" id="mal_boy" placeholder="Boy (örn: 500)">
+            </div>
+            <label id="lbl_mat">Seramik / Parke Ebadı (cm):</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <input type="text" inputmode="decimal" id="mz_en" placeholder="En (örn: 60)">
+                <span style="font-weight:bold">x</span>
+                <input type="text" inputmode="decimal" id="mz_boy" placeholder="Boy (örn: 60)">
+            </div>
+            <div class="iki-kolon">
+                <div>
+                    <label>Fire Oranı:</label>
+                    <select id="mz_fire">
+                        <option value="1.05">%5 Fire</option>
+                        <option value="1.10" selected>%10 Fire (Standart)</option>
+                        <option value="1.15">%15 Fire (Açılı/Desenli)</option>
+                        <option value="1.00">%0 Firesiz</option>
+                    </select>
+                </div>
+                <div>
+                    <label>Derz Payı (mm):</label>
+                    <input type="text" inputmode="decimal" id="mz_derz" value="2" placeholder="2">
+                </div>
+            </div>
+            <button id="btn_quant" class="hesapla" onclick="hesaplaMalzeme()">METRAJ ÇIKAR >></button>
+            <div id="sonuc6" class="sonuc"></div>
         </div>
+
+        <!-- MOD 17: BOYA, DUVAR & SÜPÜRGELİK -->
+        <div id="mod17" class="mod">
+            <label>Oda Taban Ölçüleri (cm):</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <input type="text" inputmode="decimal" id="by_en" placeholder="En (örn: 350)">
+                <span style="font-weight:bold">x</span>
+                <input type="text" inputmode="decimal" id="by_boy" placeholder="Boy (örn: 450)">
+            </div>
+            <div class="iki-kolon">
+                <div>
+                    <label>Tavan Yüksekliği (cm):</label>
+                    <input type="text" inputmode="decimal" id="by_h" value="280" placeholder="280">
+                </div>
+                <div>
+                    <label>Kapı + Pencere Adedi:</label>
+                    <input type="text" inputmode="decimal" id="by_bosluk" value="3" placeholder="3">
+                </div>
+            </div>
+            <button class="hesapla" onclick="hesaplaBoya()">BOYA & SÜPÜRGELİK HESAPLA >></button>
+            <div id="sonuc17" class="sonuc"></div>
+        </div>
+
+        <!-- MOD 16: MEKANSAL AYDINLATMA (LÜMEN & LÜKS) -->
+        <div id="mod16" class="mod">
+            <label>Mekan En x Boy (cm):</label>
+            <div style="display:flex; gap:8px; align-items:center;">
+                <input type="text" inputmode="decimal" id="ayd_en" placeholder="En (örn: 400)">
+                <span style="font-weight:bold">x</span>
+                <input type="text" inputmode="decimal" id="ayd_boy" placeholder="Boy (örn: 500)">
+            </div>
+            <label>Mekan Fonksiyonu (Hedef Lüks):</label>
+            <select id="ayd_tip">
+                <option value="150|2700K - 3000K (Sıcak Beyaz)">🛋️ Salon / Oturma Odası (150 lx)</option>
+                <option value="150|2700K (Günışığı / Dinlendirici)">🛏️ Yatak Odası (150 lx)</option>
+                <option value="300|4000K (Doğal Beyaz)">🍳 Mutfak / Yemek Alanı (300 lx)</option>
+                <option value="500|4000K - 5000K (Odaklayıcı Beyaz)">💻 Çalışma Odası / Ofis (500 lx)</option>
+                <option value="750|5000K - 6500K (Teknik / Günışığı)">📐 Çizim Stüdyosu / Atölye (750 lx)</option>
+                <option value="250|4000K (Doğal Netlik)">🚿 Banyo / Makyaj Alanı (250 lx)</option>
+                <option value="100|3000K (Sıcak Beyaz)">🚪 Antre / Koridor / Hol (100 lx)</option>
+            </select>
+            <label>Tek Ampul / Spot Gücü (Lümen):</label>
+            <input type="text" inputmode="decimal" id="ayd_lumen" value="800" placeholder="800 (Standart 9W LED ≈ 800 lm)">
+            <button class="hesapla" onclick="hesaplaAydinlatma()">AYDINLATMA ANALİZİ >></button>
+            <div id="sonuc16" class="sonuc"></div>
+        </div>
+
+        <!-- MOD 7: ALTIN ORAN (PHI = 1.618) -->
         <div id="mod7" class="mod">
-            <label id="lbl_edge">Bilinen Kenar (cm):</label>
-            <div id="lbl_golden_desc" style="font-size: 12px; opacity: 0.8; text-align: center; margin-bottom: 10px;">Doğadaki kusursuz estetik oranı projelerinize yansıtmak için.</div>
-            <input type="text" id="ao_val" placeholder="100">
-            <button id="btn_ratio" class="hesapla" onclick="hesaplaAltinOran()">ORANLA >></button><div id="sonuc7" class="sonuc"></div>
+            <label id="lbl_edge">Bilinen Ölçü / Kenar (cm):</label>
+            <div id="lbl_golden_desc" style="font-size: 12px; opacity: 0.8; text-align: center; margin-bottom: 10px;">Doğadaki kusursuz estetik oranı (Φ = 1.618) projelerinize yansıtmak için.</div>
+            <input type="text" inputmode="decimal" id="ao_val" placeholder="100">
+            <button id="btn_ratio" class="hesapla" onclick="hesaplaAltinOran()">ORANLA >></button>
+            <div id="sonuc7" class="sonuc"></div>
+        </div>
+
+        <!-- MOD 18: ERGONOMİ & NEUFERT CEP REHBERİ -->
+        <div id="mod18" class="mod">
+            <label>Ergonomi & Standart Ölçü Ara:</label>
+            <input type="text" id="ergoArama" placeholder="Örn: mutfak, tezgah, kapı, masa, yatak..." oninput="ergoFiltrele()">
+            <div id="ergoListe" class="ergo-kart-liste"></div>
         </div>
         
+        <!-- MOD 8: ÇOKLU UZUNLUK ÇEVİRİCİ -->
         <div id="mod8" class="mod">
             <label id="lbl_val" class="lbl_len_title">Uzunluk Çevirici:</label>
-            <div style="display:flex; gap:5px;"><input type="text" id="cv_val" placeholder="5"><select id="cv_tip" style="width:100px;"><option value="ft">Feet</option><option value="in">Inch</option></select></div>
-            <button id="btn_conv2" class="hesapla" onclick="cevirBirim()">ÇEVİR (CM) >></button><div id="sonuc8" class="sonuc"></div>
+            <div style="opacity:0.8; font-size:12px; margin-bottom:12px; text-align:center;">Herhangi bir birime değer girip HESAPLA'ya basın.</div>
+            <div class="veri-grid">
+                <span>MM:</span><input type="text" inputmode="decimal" id="ln_mm" placeholder="Örn: 1000">
+                <span>CM:</span><input type="text" inputmode="decimal" id="ln_cm" placeholder="Örn: 100">
+                <span>Metre (m):</span><input type="text" inputmode="decimal" id="ln_m" placeholder="Örn: 1">
+                <span>KM:</span><input type="text" inputmode="decimal" id="ln_km" placeholder="Örn: 0.001">
+                <span>Inch (in):</span><input type="text" inputmode="decimal" id="ln_in" placeholder="Örn: 39.37">
+                <span>Feet (ft):</span><input type="text" inputmode="decimal" id="ln_ft" placeholder="Örn: 3.28">
+                <span>Yard (yd):</span><input type="text" inputmode="decimal" id="ln_yd" placeholder="Örn: 1.09">
+            </div>
+            <div style="display:flex; gap:10px; margin-top:15px;">
+                <button class="hesapla" style="margin-top:0; background:var(--yazi-renk);" onclick="temizleUzunluk()"><span class="btn_clear_text">SİL</span></button>
+                <button id="btn_conv2" class="hesapla" style="margin-top:0;" onclick="cevirBirim()"><span class="btn_calc_text">HESAPLA</span></button>
+            </div>
         </div>
         
+        <!-- MOD 11: VERİ ÇEVİRİCİ -->
         <div id="mod11" class="mod">
             <label id="lbl_ds_title">Veri Depolama Çevirici:</label>
-            <div style="opacity:0.8; font-size:12px; margin-bottom:15px; text-align:center;">Herhangi bir kutucuğa bir değer girin ve HESAPLA düğmesine tıklayın.</div>
+            <div style="opacity:0.8; font-size:12px; margin-bottom:12px; text-align:center;">Herhangi bir kutucuğa bir değer girin ve HESAPLA düğmesine tıklayın.</div>
             <div class="veri-grid">
                 <span id="lbl_bit">Bit (b):</span><input type="text" inputmode="decimal" id="ds_bit" placeholder="Örn: 8589934592">
                 <span id="lbl_byte">Byte (B):</span><input type="text" inputmode="decimal" id="ds_byte" placeholder="Örn: 1073741824">
@@ -388,27 +604,30 @@
                 <span id="lbl_gb">GB:</span><input type="text" inputmode="decimal" id="ds_gb" placeholder="Örn: 1">
                 <span id="lbl_tb">TB:</span><input type="text" inputmode="decimal" id="ds_tb" placeholder="Örn: 0.00097">
             </div>
-            <div style="display:flex; gap:10px; margin-top:20px;">
+            <div style="display:flex; gap:10px; margin-top:15px;">
                 <button id="btn_clear" class="hesapla" style="margin-top:0; background:var(--yazi-renk);" onclick="temizleVeri()"><span class="btn_clear_text">SİL</span></button>
                 <button id="btn_calc3" class="hesapla" style="margin-top:0;" onclick="hesaplaVeri()"><span class="btn_calc_text">HESAPLA</span></button>
             </div>
         </div>
 
+        <!-- MOD 12: ALAN ÇEVİRİCİ -->
         <div id="mod12" class="mod">
             <label id="lbl_area_title">Alan Çevirici:</label>
             <div class="veri-grid">
-                <span>m²:</span><input type="text" inputmode="decimal" id="ds_m2" placeholder="Örn: 10000">
-                <span>Ar:</span><input type="text" inputmode="decimal" id="ds_ar" placeholder="Örn: 100">
-                <span>Dönüm:</span><input type="text" inputmode="decimal" id="ds_donum" placeholder="Örn: 10">
-                <span>Hektar:</span><input type="text" inputmode="decimal" id="ds_hektar" placeholder="Örn: 1">
-                <span>km²:</span><input type="text" inputmode="decimal" id="ds_km2" placeholder="Örn: 0.01">
+                <span>cm²:</span><input type="text" inputmode="decimal" id="ds_cm2" placeholder="Örn: 10000">
+                <span>m²:</span><input type="text" inputmode="decimal" id="ds_m2" placeholder="Örn: 1">
+                <span>Ar:</span><input type="text" inputmode="decimal" id="ds_ar" placeholder="Örn: 0.01">
+                <span>Dönüm:</span><input type="text" inputmode="decimal" id="ds_donum" placeholder="Örn: 0.001">
+                <span>Hektar:</span><input type="text" inputmode="decimal" id="ds_hektar" placeholder="Örn: 0.0001">
+                <span>km²:</span><input type="text" inputmode="decimal" id="ds_km2" placeholder="Örn: 0.000001">
             </div>
-            <div style="display:flex; gap:10px; margin-top:20px;">
+            <div style="display:flex; gap:10px; margin-top:15px;">
                 <button class="hesapla" style="margin-top:0; background:var(--yazi-renk);" onclick="temizleAlanConv()"><span class="btn_clear_text">SİL</span></button>
                 <button id="btn_calc4" class="hesapla" style="margin-top:0;" onclick="hesaplaAlanConv()"><span class="btn_calc_text">HESAPLA</span></button>
             </div>
         </div>
 
+        <!-- MOD 13: AĞIRLIK ÇEVİRİCİ -->
         <div id="mod13" class="mod">
             <label id="lbl_weight_title">Ağırlık Çevirici:</label>
             <div class="veri-grid">
@@ -418,12 +637,13 @@
                 <span>Libre (lb):</span><input type="text" inputmode="decimal" id="ds_lb" placeholder="Örn: 2.204">
                 <span>Ons (oz):</span><input type="text" inputmode="decimal" id="ds_oz" placeholder="Örn: 35.274">
             </div>
-            <div style="display:flex; gap:10px; margin-top:20px;">
+            <div style="display:flex; gap:10px; margin-top:15px;">
                 <button class="hesapla" style="margin-top:0; background:var(--yazi-renk);" onclick="temizleAgirlik()"><span class="btn_clear_text">SİL</span></button>
                 <button id="btn_calc5" class="hesapla" style="margin-top:0;" onclick="hesaplaAgirlik()"><span class="btn_calc_text">HESAPLA</span></button>
             </div>
         </div>
 
+        <!-- MOD 14: SICAKLIK ÇEVİRİCİ -->
         <div id="mod14" class="mod">
             <label id="lbl_temp_title">Sıcaklık Çevirici:</label>
             <div class="veri-grid">
@@ -431,12 +651,13 @@
                 <span>Fahrenheit (°F):</span><input type="text" inputmode="decimal" id="ds_f" placeholder="Örn: 77">
                 <span>Kelvin (K):</span><input type="text" inputmode="decimal" id="ds_k" placeholder="Örn: 298.15">
             </div>
-            <div style="display:flex; gap:10px; margin-top:20px;">
+            <div style="display:flex; gap:10px; margin-top:15px;">
                 <button class="hesapla" style="margin-top:0; background:var(--yazi-renk);" onclick="temizleSicaklik()"><span class="btn_clear_text">SİL</span></button>
                 <button id="btn_calc6" class="hesapla" style="margin-top:0;" onclick="hesaplaSicaklik()"><span class="btn_calc_text">HESAPLA</span></button>
             </div>
         </div>
         
+        <!-- MOD 9: HESAP MAKİNESİ -->
         <div id="mod9" class="mod">
             <input type="text" id="calc-screen" readonly value="">
             <div class="calc-grid">
@@ -446,28 +667,25 @@
                 <button class="calc-btn" onclick="calcAppend('1')">1</button><button class="calc-btn" onclick="calcAppend('2')">2</button><button class="calc-btn" onclick="calcAppend('3')">3</button><button class="calc-btn op" style="grid-row: span 2;" onclick="calcResult()">=</button>
                 <button class="calc-btn" onclick="calcAppend('0')" style="grid-column: span 2;">0</button><button class="calc-btn" onclick="calcAppend('.')">.</button>
             </div>
-            
             <button class="gecmis-btn" onclick="gecmisGosterGizleMakine()">📜 <span class="lbl_history_calc">Geçmiş İşlemler</span></button>
             <div id="gecmisKutusuMakine" class="gecmis-kutusu"><div id="gecmisListesiMakine"></div></div>
         </div>
         
+        <!-- MOD 10: SORU & EKSTREM MOD -->
         <div id="mod10" class="mod">
             <div class="sayac-alani" style="margin-top:0; border:none; padding-bottom:5px;"><span id="lbl_score_text">SKOR:</span> <span id="soruSkor" style="color:var(--ana-renk)">0</span></div>
             <button id="btnEkstrem" class="btn-ekstrem" onclick="toggleEkstremMod()">🔥 EKSTREM MOD: KAPALI</button>
-            <div id="ekstremGosterge" style="display:none; color:#d32f2f; font-weight:bold; font-size:18px; margin-bottom:15px; text-align:center; animation: pulse 1s infinite alternate;">
+            <div id="ekstremGosterge" style="display:none; color:#d32f2f; font-weight:bold; font-size:18px; margin-bottom:15px; text-align:center;">
                 ⏳ <span id="lbl_time">Kalan Süre:</span> <span id="soruSure">17</span>
             </div>
             <div id="soruMetni" style="font-weight:bold; font-size:16px; margin-bottom:15px; text-align:center; color:var(--yazi-renk); min-height: 60px; display: flex; align-items: center; justify-content: center;">Soru yükleniyor...</div>
-            
             <div style="font-size:11px; opacity:0.7; text-align:center; margin-bottom:5px;" id="lbl_ipucu_hizli">💡 İpucu: Hız için virgül yerine boşluk bırakabilirsiniz (Örn: 2 5 = 2.5)</div>
-            
             <input type="text" inputmode="decimal" id="soruCevap" placeholder="Cevabı gir (Sadece sayı)">
             <div style="display:flex; gap:10px; margin-top:20px;">
                 <button id="btn_gec" class="hesapla" style="margin-top:0; background:var(--yazi-renk);" onclick="soruGec()">GEÇ</button>
                 <button id="btn_cevapla" class="hesapla" style="margin-top:0;" onclick="soruCevapla()">CEVAPLA</button>
             </div>
             <div id="soruSonuc" class="sonuc"></div>
-            
             <button class="gecmis-btn" onclick="gecmisGosterGizleSoru()">📜 <span id="lbl_history_btn">Geçmiş Sorular</span></button>
             <div id="gecmisKutusuMain" class="gecmis-kutusu">
                 <div id="gecmisListesiSoru"></div>
@@ -479,30 +697,46 @@
         </div>
         
         <div class="sayac-alani"><span id="oturumSayaci">00:00:00</span></div>
-        <div class="versiyon">v4.39.0</div>
+        <div class="versiyon">v5.0 PRO</div>
     </div>
     
+    <!-- SAĞ PANEL (PLAN MASASI 2.0, NOTLAR, OYUNLAR) -->
     <div class="alt-modul">
         <div class="alt-sekmeler" id="sagSekmeler">
-            <button id="btnPlan" class="alt-sekme aktif" onclick="altSekmeDegis('plan')">📐 PLAN MASASI</button>
-            <button id="btnNot" class="alt-sekme" onclick="altSekmeDegis('not')">📝 NOTLAR</button>
+            <button id="btnPlan" class="alt-sekme aktif" onclick="altSekmeDegis('plan')">📐 PLAN MASASI 2.0</button>
+            <button id="btnNot" class="alt-sekme" onclick="altSekmeDegis('not')">📝 PROJE NOTLARI</button>
         </div>
         
         <div id="icerikPlan" class="alt-icerik aktif">
+            <div class="plan-bilgi-cubugu">
+                <span id="planOlcumBilgi">📏 Cetvel: Kapalı (Plan yükleyip ölçüm açın)</span>
+                <button onclick="kalibrasyonSifirla()" style="background:var(--ana-renk); color:#fff; border:none; border-radius:4px; padding:3px 8px; cursor:pointer; font-family:inherit; font-size:11px; font-weight:bold;">Kalibre Et</button>
+            </div>
             <div class="plan-sahne" id="sahneContainer">
-                <div id="planGorsel" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center; color:#888;">...</div>
+                <div id="planGorsel" style="color:#888; text-align:center; padding:15px; font-size:13px;">
+                    📂 <b>Plan Görseli Yükleyin</b><br><small>Mouse tekerleği ile yakınlaşabilir, sürükleyebilir ve 📏 Cetvel ile plan üzerinden gerçek ölçü alabilirsiniz.</small>
+                </div>
+                <svg id="olcumKatmani"></svg>
             </div>
             <div class="plan-kontroller">
-                <button id="btn_load" class="plan-btn" onclick="planSec()">📂</button>
-                <button class="plan-btn" onclick="planZoom(0.1)">➕</button>
-                <button class="plan-btn" onclick="planZoom(-0.1)">➖</button>
-                <button id="btn_reset" class="plan-btn" onclick="planReset()">↺</button>
+                <button id="btn_load" class="plan-btn" onclick="planSec()" title="Plan Görseli Yükle">📂 Yükle</button>
+                <button class="plan-btn" onclick="planZoom(0.15)" title="Yakınlaştır">➕</button>
+                <button class="plan-btn" onclick="planZoom(-0.15)" title="Uzaklaştır">➖</button>
+                <button class="plan-btn" onclick="planDondur()" title="90 Derece Döndür">🔄 90°</button>
+                <button id="btnGrid" class="plan-btn" onclick="planGridToggle()" title="Mimari Izgara Aç/Kapat">⊞ Grid</button>
+                <button id="btnOlcumModu" class="plan-btn" onclick="olcumModuToggle()" title="Plan Üzerinde Dijital Cetvel">📏 Cetvel</button>
+                <button id="btn_reset" class="plan-btn" onclick="planReset()" title="Görünümü Sıfırla">↺</button>
             </div>
             <input type="file" id="planYukleyici" accept="image/*" onchange="planYukle(this)">
         </div>
         
         <div id="icerikNot" class="alt-icerik">
-            <textarea id="notDefteri" placeholder="Ölçüleri, fikirleri veya yapılacakları buraya yaz..." oninput="notKaydet()"></textarea>
+            <textarea id="notDefteri" placeholder="Ölçüleri, şantiye notlarını, malzeme listesini veya fikirleri buraya yaz... (Hesaplama sonuçlarındaki 'Nota Ekle' butonuyla buraya otomatik kayıt yapabilirsin)" oninput="notKaydet()"></textarea>
+            <div class="not-aksiyonlar">
+                <button class="plan-btn" onclick="notKopyala()">📋 Kopyala</button>
+                <button class="plan-btn" onclick="notIndir()">💾 .TXT İndir</button>
+                <button class="plan-btn" style="background:#d32f2f; color:#fff;" onclick="notTemizle()">🗑️ Temizle</button>
+            </div>
         </div>
 
         <div id="icerikOyun" class="alt-icerik">
@@ -576,43 +810,44 @@
 </div>
 
 <div class="seo-metni" id="lbl_seo_text">
-    <strong style="color:var(--ana-renk); font-size:15px;">Ölçekmatik Nedir?</strong><br><br>
-    Ölçekmatik; mimarlar, iç mimarlar, mühendisler ve tasarım öğrencileri için geliştirilmiş ücretsiz ve pratik bir <b>mimari ölçek hesaplama aracıdır</b>. Projelerinizde kağıt üzerindeki ölçüleri gerçek ölçülere veya gerçek ölçüleri plan ölçeklerine (1/20, 1/50, 1/100 vb.) hızlıca çevirebilirsiniz. Ayrıca merdiven rıht/basamak analizi, kot farkı (eğim) hesaplaması ve seramik, parke gibi yapı malzemeleri için hızlı metraj çıkarma işlemlerini saniyeler içinde yapmanızı sağlar.
+    <strong style="color:var(--ana-renk); font-size:15px;">Ölçekmatik PRO Nedir?</strong><br><br>
+    Ölçekmatik; mimarlar, iç mimarlar, mühendisler ve tasarım öğrencileri için geliştirilmiş ücretsiz ve kapsamlı bir <b>mimari ölçek, metraj ve iç mekan hesaplama aracıdır</b>. Projelerinizde kağıt üzerindeki ölçüleri gerçek ölçülere, gerçek ölçüleri plan ölçeklerine (1/20, 1/50, 1/100 ve özel ölçekler) veya paftadan paftaya hızlıca çevirebilirsiniz. Ayrıca dinamik kesitli merdiven rıht/basamak analizi, TS 9111 engelli rampası eğim kontrolü, iç mekan aydınlatma (Lümen/Lüks) hesabı, boya/süpürgelik/seramik metrajı, Neufert ergonomi standartları ve kalibrasyonlu dijital plan cetveli özelliklerini tek ekranda sunar.
 </div>
+
 <div class="footer-linkler">
     <span id="lbl_footer_about" onclick="kurumsalAc('hakkimizda')">Hakkımızda & İletişim</span> | 
     <span id="lbl_footer_privacy" onclick="kurumsalAc('gizlilik')">Gizlilik Politikası</span> | 
     <span id="lbl_footer_terms" onclick="kurumsalAc('kullanim')">Kullanım Koşulları</span><br><br>
     <div id="lbl_footer_rights" style="font-weight:normal; opacity:0.7;">© 2026 Bedir Design. Tüm Hakları Saklıdır.</div>
 </div>
+
 <script>
     var curLang = 'tr';
     const t = {
         tr: {
-            btn1: "PROJE", btn2: "GERÇEK", btn3: "EĞİM", btn4: "OYUN", btn5: "MERDİVEN", btn6: "MALZEME", btn7: "ALTIN ORAN", btn8: "UZUNLUK", btn9: "HESAP", btn10: "SORU", btn11: "VERİ", btn12: "ALAN", btn13: "AĞIRLIK", btn14: "SICAKLIK",
+            btn1: "PROJE", btn2: "GERÇEK", btn3: "EĞİM/RAMPA", btn4: "OYUN", btn5: "MERDİVEN", btn6: "SERAMİK/PARKE", btn7: "ALTIN ORAN", btn8: "UZUNLUK", btn9: "HESAP", btn10: "SORU MODU", btn11: "VERİ", btn12: "ALAN", btn13: "AĞIRLIK", btn14: "SICAKLIK",
             lbl_real: "Gerçek Ölçü:", lbl_scale_sel: "Ölçek Seçimi:", btn_calc1: "HESAPLA >>",
-            lbl_ruler: "Cetvel Ölçüsü (CM):", lbl_p_scale: "Proje Ölçeği:", btn_conv1: "ÇEVİR >>",
-            lbl_kot: "Kot Farkı (h):", lbl_dist: "Mesafe (L):", btn_analyse: "ANALİZ ET >>",
-            lbl_h: "Kat Yüksekliği (h):", lbl_b: "Basamak (b) [Opsiyonel]:", btn_calc2: "HESAPLA >>",
-            lbl_area: "Oda / Alan (cm):", lbl_mat: "Malzeme (cm):", btn_quant: "METRAJ ÇIKAR >>",
-            lbl_edge: "Bilinen Kenar (cm):", btn_ratio: "ORANLA >>", lbl_golden_desc: "Doğadaki kusursuz estetik oranı projelerinize yansıtmak için.",
-            lbl_val: "Değer Gir:", btn_conv2: "ÇEVİR (CM) >>",
+            lbl_ruler: "Cetvel / Pafta Ölçüsü:", lbl_p_scale: "Proje Ölçeği:", btn_conv1: "ÇEVİR >>",
+            lbl_kot: "Kot Farkı (h - cm):", lbl_dist: "Yatay Mesafe (L - cm):", btn_analyse: "ANALİZ ET >>",
+            lbl_h: "Kat Yüksekliği (h - cm):", lbl_b: "Basamak (b - cm) [Opsiyonel]:", btn_calc2: "HESAPLA & ÇİZ >>",
+            lbl_area: "Mekan Ölçüsü (cm):", lbl_mat: "Malzeme Ebadı (cm):", btn_quant: "METRAJ ÇIKAR >>",
+            lbl_edge: "Bilinen Kenar (cm):", btn_ratio: "ORANLA >>", lbl_golden_desc: "Doğadaki kusursuz estetik oranı (Φ = 1.618) projelerinize yansıtmak için.",
+            lbl_val: "Uzunluk Çevirici:", btn_conv2: "HESAPLA",
             lbl_score_text: "SKOR:", lbl_score_snake: "SKOR", lbl_snake_title: "YILAN", btn_start_snake: "BAŞLA",
             lbl_dealer: "KASA", lbl_player: "SEN", bj_start_msg: "BAŞLAMAK İÇİN OYNA",
             res_drawn: "ÇİZİLECEK", res_real: "GERÇEK", res_slope: "EĞİM", res_riser: "RIHT", res_count: "ADET", res_step: "Basamak", res_warn_steep: "ÇOK DİK!", res_warn_low: "ALÇAK RIHT", res_warn_foot: "AYAK SIĞMAZ",
-            res_area: "ALAN", res_need: "GEREKEN", res_fire: "%10 Fire Dahil",
-            res_long: "UZUN", res_short: "KISA", res_result: "SONUÇ",
+            res_area: "ALAN", res_need: "GEREKEN", res_fire: "Fire Dahil",
+            res_long: "UZUN KENAR", res_short: "KISA KENAR", res_result: "SONUÇ",
             gm_win: "KAZANDIN!", gm_lose: "KAYBETTİN!", gm_draw: "BERABERE", gm_bust: "PATLADIN!", gm_dealer_bust: "KASA PATLADI!",
-            btnPlan: "📐 PLAN MASASI", btnNot: "📝 NOTLAR", btn_ekstrem_on: "🔥 EKSTREM MOD: AÇIK", btn_ekstrem_off: "🔥 EKSTREM MOD: KAPALI", lbl_time: "Kalan Süre:", btn_gec: "GEÇ", btn_cevapla: "CEVAPLA",
-            lbl_bg_title: "🎨 Arkaplan Seçimi", btn_hazir: "🖼️ Hazır Görseller", btn_galeri: "📂 Galeriden Yükle", btn_geri: "⬅ Geri Dön",
+            btnPlan: "📐 PLAN MASASI 2.0", btnNot: "📝 PROJE NOTLARI", btn_ekstrem_on: "🔥 EKSTREM MOD: AÇIK", btn_ekstrem_off: "🔥 EKSTREM MOD: KAPALI", lbl_time: "Kalan Süre:", btn_gec: "GEÇ", btn_cevapla: "CEVAPLA",
+            lbl_bg_title: "🎨 Tema & Arkaplan Seçimi", btn_hazir: "🖼️ Hazır Görseller", btn_galeri: "📂 Galeriden Yükle", btn_geri: "⬅ Geri Dön",
             lbl_cookie: "🍪 Bu site, deneyiminizi geliştirmek ve size kişiselleştirilmiş içerik/reklam sunmak için çerezler (cookies) kullanır. Siteyi kullanmaya devam ederek bunu kabul etmiş olursunuz.", btn_cookie_ok: "Anladım",
             lbl_pomodoro_title: "⏱️ MOLA VAKTİ!", lbl_pomodoro_text: "25 dakika boyunca aralıksız çalıştın.<br>Verimini korumak için şimdi 5 dakika gözlerini dinlendir.", btn_pomodoro_ok: "TAMAM",
             lbl_pomo_title_joke: "🛠️ KOLAY GELSİN PATRON!", lbl_pomo_text_joke: "3 saattir buradasın, kira ödemeyi düşünüyor musun?",
-            lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>Ölçekmatik Nedir?</strong><br><br>Ölçekmatik; mimarlar, iç mimarlar, mühendisler ve tasarım öğrencileri için geliştirilmiş ücretsiz ve pratik bir <b>mimari ölçek hesaplama aracıdır</b>. Projelerinizde kağıt üzerindeki ölçüleri gerçek ölçülere veya gerçek ölçüleri plan ölçeklerine (1/20, 1/50, 1/100 vb.) hızlıca çevirebilirsiniz.",
             lbl_footer_about: "Hakkımızda & İletişim", lbl_footer_privacy: "Gizlilik Politikası", lbl_footer_terms: "Kullanım Koşulları", lbl_footer_rights: "© 2026 Bedir Design. Tüm Hakları Saklıdır.",
             lbl_history_btn: "Geçmiş Sorular", lbl_ipucu_hizli: "💡 İpucu: Hız için virgül yerine boşluk bırakabilirsiniz (Örn: 2 5 = 2.5)",
             lbl_history_calc: "Geçmiş İşlemler",
-            lbl_cat_arch: "📐 Mimari", lbl_cat_calc: "🧮 Hesap", lbl_cat_game: "🎮 Eğlence", lbl_cat_conv: "🔄 Dönüştürücü",
+            lbl_cat_arch: "📐 Mimari & İç Mekan", lbl_cat_calc: "🧮 Hesap", lbl_cat_game: "🎮 Eğlence", lbl_cat_conv: "🔄 Dönüştürücü",
             lbl_ds_title: "Veri Depolama Çevirici:", btn_clear: "SİL", btn_calc3: "HESAPLA", btn_clear_text: "SİL", btn_calc_text: "HESAPLA",
             lbl_bit: "Bit (b):", lbl_byte: "Byte (B):", lbl_kb: "KB:", lbl_mb: "MB:", lbl_gb: "GB:", lbl_tb: "TB:",
             lbl_area_title: "Alan Çevirici:", lbl_weight_title: "Ağırlık Çevirici:", lbl_temp_title: "Sıcaklık Çevirici:", lbl_len_title: "Uzunluk Çevirici:",
@@ -621,24 +856,23 @@
         en: {
             btn1: "PROJECT", btn2: "REAL", btn3: "SLOPE", btn4: "GAME", btn5: "STAIRS", btn6: "MATERIAL", btn7: "GOLDEN RATIO", btn8: "LENGTH", btn9: "CALC", btn10: "QUIZ", btn11: "DATA", btn12: "AREA", btn13: "WEIGHT", btn14: "TEMP",
             lbl_real: "Real Size:", lbl_scale_sel: "Select Scale:", btn_calc1: "CALCULATE >>",
-            lbl_ruler: "Ruler Size (CM):", lbl_p_scale: "Project Scale:", btn_conv1: "CONVERT >>",
-            lbl_kot: "Height Diff (h):", lbl_dist: "Distance (L):", btn_analyse: "ANALYZE >>",
-            lbl_h: "Floor Height (h):", lbl_b: "Tread (b) [Optional]:", btn_calc2: "CALCULATE >>",
+            lbl_ruler: "Ruler Size:", lbl_p_scale: "Project Scale:", btn_conv1: "CONVERT >>",
+            lbl_kot: "Height Diff (h - cm):", lbl_dist: "Distance (L - cm):", btn_analyse: "ANALYZE >>",
+            lbl_h: "Floor Height (h - cm):", lbl_b: "Tread (b) [Optional]:", btn_calc2: "CALCULATE >>",
             lbl_area: "Area / Room (cm):", lbl_mat: "Material (cm):", btn_quant: "CALCULATE QTY >>",
             lbl_edge: "Known Edge (cm):", btn_ratio: "RATIO >>", lbl_golden_desc: "Use to reflect nature's perfect aesthetic ratio in your projects.",
-            lbl_val: "Enter Value:", btn_conv2: "CONVERT (CM) >>",
+            lbl_val: "Length Converter:", btn_conv2: "CALCULATE",
             lbl_score_text: "SCORE:", lbl_score_snake: "SCORE", lbl_snake_title: "SNAKE", btn_start_snake: "START",
             lbl_dealer: "DEALER", lbl_player: "YOU", bj_start_msg: "PRESS PLAY TO START",
             res_drawn: "DRAW", res_real: "REAL", res_slope: "SLOPE", res_riser: "RISER", res_count: "COUNT", res_step: "Tread", res_warn_steep: "TOO STEEP!", res_warn_low: "LOW RISER", res_warn_foot: "TOO NARROW",
-            res_area: "AREA", res_need: "NEEDED", res_fire: "Incl. 10% Waste",
+            res_area: "AREA", res_need: "NEEDED", res_fire: "Incl. Waste",
             res_long: "LONG", res_short: "SHORT", res_result: "RESULT",
             gm_win: "YOU WON!", gm_lose: "GAME OVER!", gm_draw: "PUSH", gm_bust: "BUSTED!", gm_dealer_bust: "DEALER BUSTED!",
-            btnPlan: "📐 PLAN DESK", btnNot: "📝 NOTES", btn_ekstrem_on: "🔥 EXTREME MODE: ON", btn_ekstrem_off: "🔥 EXTREME MODE: OFF", lbl_time: "Time Left:", btn_gec: "PASS", btn_cevapla: "ANSWER",
-            lbl_bg_title: "🎨 Background Selection", btn_hazir: "🖼️ Preset Images", btn_galeri: "📂 Load from Gallery", btn_geri: "⬅ Go Back",
+            btnPlan: "📐 PLAN DESK 2.0", btnNot: "📝 NOTES", btn_ekstrem_on: "🔥 EXTREME MODE: ON", btn_ekstrem_off: "🔥 EXTREME MODE: OFF", lbl_time: "Time Left:", btn_gec: "PASS", btn_cevapla: "ANSWER",
+            lbl_bg_title: "🎨 Theme & Background", btn_hazir: "🖼️ Preset Images", btn_galeri: "📂 Load from Gallery", btn_geri: "⬅ Go Back",
             lbl_cookie: "🍪 This site uses cookies to improve your experience and provide personalized content/ads. By continuing to use the site, you accept this.", btn_cookie_ok: "Got it",
             lbl_pomodoro_title: "⏱️ BREAK TIME!", lbl_pomodoro_text: "You have worked for 25 minutes straight.<br>Rest your eyes for 5 minutes to maintain productivity.", btn_pomodoro_ok: "OK",
             lbl_pomo_title_joke: "🛠️ TAKE IT EASY BOSS!", lbl_pomo_text_joke: "You've been here for 3 hours, thinking of paying rent?",
-            lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>What is Ölçekmatik?</strong><br><br>It is a free and practical <b>architectural scale calculator</b> developed for architects, interior designers, and students. Quickly convert paper dimensions to real dimensions or vice versa.",
             lbl_footer_about: "About Us & Contact", lbl_footer_privacy: "Privacy Policy", lbl_footer_terms: "Terms of Use", lbl_footer_rights: "© 2026 Bedir Design. All Rights Reserved.",
             lbl_history_btn: "Question History", lbl_ipucu_hizli: "💡 Tip: For speed, you can use space instead of dot (e.g. 2 5 = 2.5)",
             lbl_history_calc: "History",
@@ -651,24 +885,23 @@
         zh: {
             btn1: "项目", btn2: "实际", btn3: "坡度", btn4: "游戏", btn5: "楼梯", btn6: "材料", btn7: "黄金比例", btn8: "长度", btn9: "计算器", btn10: "测验", btn11: "数据", btn12: "面积", btn13: "重量", btn14: "温度",
             lbl_real: "实际尺寸:", lbl_scale_sel: "选择比例:", btn_calc1: "计算 >>",
-            lbl_ruler: "尺子尺寸 (CM):", lbl_p_scale: "项目比例:", btn_conv1: "转换 >>",
+            lbl_ruler: "尺子尺寸:", lbl_p_scale: "项目比例:", btn_conv1: "转换 >>",
             lbl_kot: "高度差 (h):", lbl_dist: "距离 (L):", btn_analyse: "分析 >>",
             lbl_h: "层高 (h):", lbl_b: "踏步 (b) [可选]:", btn_calc2: "计算 >>",
             lbl_area: "房间/面积 (cm):", lbl_mat: "材料 (cm):", btn_quant: "计算数量 >>",
             lbl_edge: "已知边长 (cm):", btn_ratio: "计算比例 >>", lbl_golden_desc: "用于在您的项目中体现大自然完美的审美比例。",
-            lbl_val: "输入值:", btn_conv2: "转换 (CM) >>",
+            lbl_val: "长度转换器:", btn_conv2: "计算",
             lbl_score_text: "得分:", lbl_score_snake: "得分", lbl_snake_title: "贪吃蛇", btn_start_snake: "开始",
             lbl_dealer: "庄家", lbl_player: "你", bj_start_msg: "点击开始游戏",
             res_drawn: "图纸尺寸", res_real: "实际尺寸", res_slope: "坡度", res_riser: "踢步高度", res_count: "数量", res_step: "踏步", res_warn_steep: "太陡！", res_warn_low: "踢步太低", res_warn_foot: "踏步太窄",
-            res_area: "总面积", res_need: "所需材料", res_fire: "含10%损耗",
+            res_area: "总面积", res_need: "所需材料", res_fire: "含损耗",
             res_long: "长边", res_short: "短边", res_result: "结果",
             gm_win: "你赢了！", gm_lose: "游戏结束！", gm_draw: "平局", gm_bust: "爆牌！", gm_dealer_bust: "庄家爆牌！",
-            btnPlan: "📐 平面图桌", btnNot: "📝 笔记", btn_ekstrem_on: "🔥 极限模式: 开", btn_ekstrem_off: "🔥 极限模式: 关", lbl_time: "剩余时间:", btn_gec: "跳过", btn_cevapla: "回答",
+            btnPlan: "📐 平面图桌 2.0", btnNot: "📝 笔记", btn_ekstrem_on: "🔥 极限模式: 开", btn_ekstrem_off: "🔥 极限模式: 关", lbl_time: "剩余时间:", btn_gec: "跳过", btn_cevapla: "回答",
             lbl_bg_title: "🎨 背景选择", btn_hazir: "🖼️ 预设图片", btn_galeri: "📂 从相册加载", btn_geri: "⬅ 返回",
             lbl_cookie: "🍪 本网站使用 cookie 来改善您的体验并提供个性化内容。继续使用本网站即表示您接受此条款。", btn_cookie_ok: "知道了",
             lbl_pomodoro_title: "⏱️ 休息时间！", lbl_pomodoro_text: "您已经连续工作了 25 分钟。<br>请休息 5 分钟以保持工作效率。", btn_pomodoro_ok: "确定",
             lbl_pomo_title_joke: "🛠️ 辛苦了老板！", lbl_pomo_text_joke: "你已经在这里3个小时了，考虑付房租吗？",
-            lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>什么是 Ölçekmatik？</strong><br><br>它是为建筑师和设计学生开发的免费且实用的<b>建筑比例计算器</b>。可以快速将图纸尺寸转换为实际尺寸。",
             lbl_footer_about: "关于我们 & 联系方式", lbl_footer_privacy: "隐私政策", lbl_footer_terms: "使用条款", lbl_footer_rights: "© 2026 Bedir Design. 保留所有权利。",
             lbl_history_btn: "问题历史", lbl_ipucu_hizli: "💡 提示: 为了速度，您可以使用空格代替小数点 (如 2 5 = 2.5)",
             lbl_history_calc: "历史记录",
@@ -681,24 +914,23 @@
         ku: {
             btn1: "PROJE", btn2: "RASTÎ", btn3: "ŞÎV", btn4: "LÎSTIK", btn5: "PÊLIK", btn6: "KELÛPEL", btn7: "RÊJEYA ZÊRÎN", btn8: "DIRÊJAHÎ", btn9: "HESAB", btn10: "PIRS", btn11: "DANE", btn12: "QAD", btn13: "GIRANÎ", btn14: "GERMAHÎ",
             lbl_real: "Pîvana Rastî:", lbl_scale_sel: "Pîvan Hilbijêre:", btn_calc1: "BIJIMÊRE >>",
-            lbl_ruler: "Pîvana Rastekê (CM):", lbl_p_scale: "Pîvana Projeyê:", btn_conv1: "VEGERÎNE >>",
+            lbl_ruler: "Pîvana Rastekê:", lbl_p_scale: "Pîvana Projeyê:", btn_conv1: "VEGERÎNE >>",
             lbl_kot: "Cûdahîya Kotê (h):", lbl_dist: "Mesafe (L):", btn_analyse: "ANALÎZ KE >>",
             lbl_h: "Bilindahiya Qatê (h):", lbl_b: "Pêlik (b) [Opsiyonel]:", btn_calc2: "BIJIMÊRE >>",
             lbl_area: "Ode / Qad (cm):", lbl_mat: "Materyal (cm):", btn_quant: "METRAJ >>",
             lbl_edge: "Aliyê Zanîn (cm):", btn_ratio: "RÊJE >>", lbl_golden_desc: "Ji bo nîşandana rêjeya estetîk a bêkêmasî ya xwezayê di projeyên we de.",
-            lbl_val: "Nirx Binivîse:", btn_conv2: "VEGERÎNE (CM) >>",
+            lbl_val: "Veguherînera Dirêjahî:", btn_conv2: "HESAB",
             lbl_score_text: "SKOR:", lbl_score_snake: "SKOR", lbl_snake_title: "MAR", btn_start_snake: "DESTPÊKE",
             lbl_dealer: "KASA", lbl_player: "TU", bj_start_msg: "JI BO DESTPÊKÊ BİLÎZE",
             res_drawn: "TÊ XÊZKIRIN", res_real: "RASTÎ", res_slope: "ŞÎV", res_riser: "BILINDAHÎ", res_count: "HEJMAR", res_step: "Pêlik", res_warn_steep: "ZEF TÎK E!", res_warn_low: "NIZM E", res_warn_foot: "PIYÊ MROV NAÇÊ",
-            res_area: "QAD", res_need: "PÊWÎST E", res_fire: "%10 Zêde",
+            res_area: "QAD", res_need: "PÊWÎST E", res_fire: "Zêde Dahil",
             res_long: "DIRÊJ", res_short: "KIN", res_result: "ENCAM",
             gm_win: "TE QEZENC KIR!", gm_lose: "TE WNDA KIR!", gm_draw: "WEKHEV", gm_bust: "TEQÎYA!", gm_dealer_bust: "KASA TEQÎYA!",
-            btnPlan: "📐 MASA PLAN", btnNot: "📝 NÎŞE", btn_ekstrem_on: "🔥 MODA EKSTREM: VEKIRÎ", btn_ekstrem_off: "🔥 MODA EKSTREM: GIRTÎ", lbl_time: "Dema Mayî:", btn_gec: "DERBAS BE", btn_cevapla: "BERSIV",
+            btnPlan: "📐 MASA PLAN 2.0", btnNot: "📝 NÎŞE", btn_ekstrem_on: "🔥 MODA EKSTREM: VEKIRÎ", btn_ekstrem_off: "🔥 MODA EKSTREM: GIRTÎ", lbl_time: "Dema Mayî:", btn_gec: "DERBAS BE", btn_cevapla: "BERSIV",
             lbl_bg_title: "🎨 Hilbijartina Paşnavê", btn_hazir: "🖼️ Wêneyên Amade", btn_galeri: "📂 Ji Galeriyê Bar Bike", btn_geri: "⬅ Vegere",
             lbl_cookie: "🍪 Ev malper çerezan bikar tîne. Bi karanîna malperê hûn vê qebûl dikin.", btn_cookie_ok: "Fêm kir",
             lbl_pomodoro_title: "⏱️ DEMA BÊHNDANÊ!", lbl_pomodoro_text: "We 25 deqe bê navber xebitî.<br>Niha 5 deqe çavên xwe bêhn bikin.", btn_pomodoro_ok: "TEMAM",
             lbl_pomo_title_joke: "🛠️ XEBATA TE XWEŞ BE PATRON!", lbl_pomo_text_joke: "3 saet in tu li vir î, tu difikirî ku kirê bidî?",
-            lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>Ölçekmatik Çi Ye?</strong><br><br>Amûrek belaş e ji bo mîmaran.",
             lbl_footer_about: "Derbarê Me", lbl_footer_privacy: "Polîtîkaya Nepenîtiyê", lbl_footer_terms: "Mercên Bikaranînê", lbl_footer_rights: "© 2026 Bedir Design.",
             lbl_history_btn: "Pirsên Berê", lbl_ipucu_hizli: "💡 Têbînî: Hûn dikarin li şûna xalê valahiyê bikar bînin (Wekî: 2 5 = 2.5)",
             lbl_history_calc: "Karên Berê",
@@ -711,24 +943,23 @@
         ar: {
             btn1: "مشروع", btn2: "حقيقي", btn3: "انحدار", btn4: "لعبة", btn5: "درج", btn6: "مواد", btn7: "النسبة الذهبية", btn8: "طول", btn9: "حساب", btn10: "سؤال", btn11: "بيانات", btn12: "مساحة", btn13: "وزن", btn14: "حرارة",
             lbl_real: "الحجم الحقيقي:", lbl_scale_sel: "اختيار المقياس:", btn_calc1: "احسب >>",
-            lbl_ruler: "قياس المسطرة (سم):", lbl_p_scale: "مقياس المشروع:", btn_conv1: "تحويل >>",
+            lbl_ruler: "قياس المسطرة:", lbl_p_scale: "مقياس المشروع:", btn_conv1: "تحويل >>",
             lbl_kot: "فرق الارتفاع (h):", lbl_dist: "المسافة (L):", btn_analyse: "تحليل >>",
             lbl_h: "ارتفاع الطابق (h):", lbl_b: "درجة (b) [اختياري]:", btn_calc2: "احسب >>",
             lbl_area: "غرفة / مساحة (سم):", lbl_mat: "مادة (سم):", btn_quant: "حساب الكمية >>",
             lbl_edge: "الحافة المعروفة (سم):", btn_ratio: "نسبة >>", lbl_golden_desc: "تُستخدم لتعكس النسبة الجمالية المثالية للطبيعة في مشاريعك.",
-            lbl_val: "أدخل القيمة:", btn_conv2: "تحويل (سم) >>",
+            lbl_val: "محول الطول:", btn_conv2: "احسب",
             lbl_score_text: "النتيجة:", lbl_score_snake: "النتيجة", lbl_snake_title: "ثعبان", btn_start_snake: "ابدأ",
             lbl_dealer: "الموزع", lbl_player: "أنت", bj_start_msg: "العب للبدء",
             res_drawn: "للرسم", res_real: "حقيقي", res_slope: "انحدار", res_riser: "قائمة الدرج", res_count: "عدد", res_step: "درجة", res_warn_steep: "شديد الانحدار!", res_warn_low: "قائمة منخفضة", res_warn_foot: "ضيق جداً",
-            res_area: "مساحة", res_need: "مطلوب", res_fire: "شامل 10٪ هدر",
+            res_area: "مساحة", res_need: "مطلوب", res_fire: "شامل هدر",
             res_long: "طويل", res_short: "قصير", res_result: "نتيجة",
             gm_win: "لقد فزت!", gm_lose: "لقد خسرت!", gm_draw: "تعادل", gm_bust: "خسارة!", gm_dealer_bust: "خسارة الموزع!",
-            btnPlan: "📐 طاولة الخطة", btnNot: "📝 ملاحظات", btn_ekstrem_on: "🔥 الوضع الصعب: مشغل", btn_ekstrem_off: "🔥 الوضع الصعب: مغلق", lbl_time: "الوقت المتبقي:", btn_gec: "تخطى", btn_cevapla: "أجب",
+            btnPlan: "📐 طاولة الخطة 2.0", btnNot: "📝 ملاحظات", btn_ekstrem_on: "🔥 الوضع الصعب: مشغل", btn_ekstrem_off: "🔥 الوضع الصعب: مغلق", lbl_time: "الوقت المتبقي:", btn_gec: "تخطى", btn_cevapla: "أجب",
             lbl_bg_title: "🎨 اختيار الخلفية", btn_hazir: "🖼️ صور جاهزة", btn_galeri: "📂 تحميل من المعرض", btn_geri: "⬅ العودة",
             lbl_cookie: "🍪 يستخدم هذا الموقع ملفات تعريف الارتباط. بالاستمرار في الاستخدام، فإنك توافق على ذلك.", btn_cookie_ok: "موافق",
             lbl_pomodoro_title: "⏱️ وقت الاستراحة!", lbl_pomodoro_text: "لقد عملت لمدة 25 دقيقة متواصلة.<br>أرح عينيك لمدة 5 دقائق.", btn_pomodoro_ok: "حسنا",
             lbl_pomo_title_joke: "🛠️ يعطيك العافية يا زعيم!", lbl_pomo_text_joke: "أنت هنا منذ 3 ساعات، هل تفكر في دفع الإيجار؟",
-            lbl_seo_text: "<strong style='color:var(--ana-renk); font-size:15px;'>ما هو Ölçekmatik؟</strong><br><br>أداة حساب معمارية مجانية.",
             lbl_footer_about: "معلومات عنا", lbl_footer_privacy: "سياسة الخصوصية", lbl_footer_terms: "شروط الاستخدام", lbl_footer_rights: "© 2026 Bedir Design. جميع الحقوق محفوظة.",
             lbl_history_btn: "تاريخ السؤال", lbl_ipucu_hizli: "💡 تلميح: للسرعة، يمكنك استخدام مسافة بدلاً من النقطة (مثل 2 5 = 2.5)",
             lbl_history_calc: "السجل",
@@ -739,9 +970,19 @@
             lbl_select_game: "اختر اللعبة:"
         }
     };
+
+    const ergonomiVerileri = [
+        { baslik: "🍳 Mutfak Tezgahı Standartları", icerik: "Yükseklik: <b>85 - 90 cm</b> | Derinlik: <b>60 cm</b> | Tezgah - Üst Dolap Arası: <b>55 - 60 cm</b> | Üst Dolap Derinliği: <b>32 - 35 cm</b> | Ada Mutfak Geçiş Mesafesi: <b>Min. 100 - 120 cm</b>" },
+        { baslik: "🍽️ Yemek Masası & Sandalye", icerik: "Masa Yüksekliği: <b>75 - 78 cm</b> | Kişi Başı Genişlik: <b>60 cm</b> | Sandalye Oturma Yüksekliği: <b>45 cm</b> | Masa Arkası Geçiş Payı: <b>Min. 80 - 90 cm</b>" },
+        { baslik: "🛋️ Salon & Oturma Grubu", icerik: "Koltuk Oturma Yüksekliği: <b>40 - 45 cm</b> | Koltuk Derinliği: <b>85 - 95 cm</b> | Koltuk - Orta Sehpa Arası: <b>40 - 45 cm</b> | TV İzleme Mesafesi: <b>Ekran Köşegeni x 1.5 - 2.5</b>" },
+        { baslik: "🛏️ Yatak Odası & Gardırop", icerik: "Çift Kişilik Yatak: <b>160x200 / 180x200 cm</b> | Tek Kişilik: <b>90x190 / 100x200 cm</b> | Gardırop Derinliği: <b>60 cm (Sürgülü: 65 cm)</b> | Yatak Etrafı Geçiş: <b>Min. 60 - 70 cm</b>" },
+        { baslik: "💻 Çalışma Masası & Ofis", icerik: "Masa Yüksekliği: <b>72 - 75 cm</b> | Masa Derinliği: <b>Min. 60 - 80 cm</b> | Monitör Göz Mesafesi: <b>50 - 70 cm</b> | Diz Boşluğu Yüksekliği: <b>Min. 62 cm</b>" },
+        { baslik: "🚿 Banyo & Islak Hacim", icerik: "Lavabo Yüksekliği: <b>85 cm</b> | Klozet Ekseni Yan Duvar Mesafesi: <b>Min. 40 - 45 cm</b> | Duşakabin Minimum Ölçü: <b>80x80 cm (İdeal: 90x120 cm)</b>" },
+        { baslik: "🚪 Kapı & Koridor Geçişleri", icerik: "Oda Kapısı: <b>80 - 90 x 210 cm</b> | Banyo Kapısı: <b>70 - 80 x 210 cm</b> | Daire Giriş Kapısı: <b>100 - 110 x 210 cm</b> | Konut İçi Koridor Genişliği: <b>Min. 110 - 120 cm</b>" },
+        { baslik: "♿ TS 9111 Engelli Erişilebilirlik", icerik: "Tekerlekli Sandalye Dönüş Çapı: <b>150 x 150 cm</b> | Minimum Kapı Net Açıklığı: <b>90 cm</b> | İdeal Rampa Eğimi: <b>%5 - %8 (Maks. %8)</b> | Rampa Genişliği: <b>Min. 100 cm</b>" }
+    ];
     
     const hazirGorsellerListesi = ["atakoy ustgecit.jpg", "kedi2.jpg", "kedisi.jpg", "sanat eseri.jpg", "aslan.jpg", "modern-sanat.jpg", "fiyakali.jpg"];
-    
     const hazirRenkler = {
         "atakoy ustgecit.jpg": {r: 30, g: 45, b: 65},
         "kedi2.jpg": {r: 110, g: 70, b: 90},
@@ -752,28 +993,20 @@
         "fiyakali.jpg": {r: 220, g: 130, b: 10}
     };
     
-    var planScale = 1; var planX = 0; var planY = 0; var isDragging = false; var startX, startY;
+    var planScale = 1; var planX = 0; var planY = 0; var planRot = 0; var isDragging = false; var startX, startY;
+    var olcumModuAktif = false; var olcumNoktalari = []; var pikselBasinaCm = null;
     var activeGameLoop = null;
-    let soruDogruCevap = 0; 
-    let soruSkor = 0;
-    let guncelSoruMetni = "";
-    
-    let ekstremModAktif = false;
-    let soruZamanlayici = null;
-    let kalanSaniye = 17;
-    let ekstremSoruSayaci = 0;
-    let soruGecmisiListesi = [];
-    let olcekGecmisiListesiMod1 = [];
-    let olcekGecmisiListesiMod2 = [];
-    let makineGecmisiListesi = [];
+    let soruDogruCevap = 0; let soruSkor = 0; let guncelSoruMetni = "";
+    let ekstremModAktif = false; let soruZamanlayici = null; let kalanSaniye = 17; let ekstremSoruSayaci = 0;
+    let soruGecmisiListesi = []; let olcekGecmisiListesiMod1 = []; let olcekGecmisiListesiMod2 = []; let makineGecmisiListesi = [];
 
     const urlHashMap = {
         'proje': 1, 'gercek': 2, 'egim': 3, 'oyun-salonu': 4, 'merdiven': 5, 
         'malzeme': 6, 'altin-oran': 7, 'cevirici': 8, 'hesap-makinesi': 9, 'soru': 10, 'veri': 11,
-        'alan': 12, 'agirlik': 13, 'sicaklik': 14
+        'alan': 12, 'agirlik': 13, 'sicaklik': 14, 'pafta': 15, 'aydinlatma': 16, 'boya': 17, 'ergonomi': 18
     };
     const modToKatMap = {
-        1: 'mimari', 2: 'mimari', 3: 'mimari', 5: 'mimari', 6: 'mimari', 7: 'mimari', 10: 'mimari',
+        1: 'mimari', 2: 'mimari', 3: 'mimari', 5: 'mimari', 6: 'mimari', 7: 'mimari', 10: 'mimari', 15: 'mimari', 16: 'mimari', 17: 'mimari', 18: 'mimari',
         9: 'hesap',
         8: 'donusturucu', 11: 'donusturucu', 12: 'donusturucu', 13: 'donusturucu', 14: 'donusturucu',
         4: 'oyun'
@@ -784,14 +1017,20 @@
         var savedLang = localStorage.getItem('bedir_lang'); 
         if(savedLang) { curLang = savedLang; document.getElementById('langSelect').value = curLang; }
         var kayitliNot = localStorage.getItem('bedir_notlar'); if(kayitliNot) { document.getElementById('notDefteri').value = kayitliNot; }
-        
         var kayitli = localStorage.getItem('bedir_arkaplan_v410'); if(kayitli) { resmiUygula(kayitli); }
+        var kayitliTema = localStorage.getItem('bedir_mimari_tema'); if(kayitliTema && !kayitli) { mimariTemaUygula(kayitliTema, false); }
         
-        updateLanguageUI(); sayaciCalistir();
+        updateLanguageUI(); sayaciCalistir(); ergoFiltrele();
         var sahne = document.getElementById('sahneContainer');
         sahne.addEventListener('mousedown', baslaSurukle); sahne.addEventListener('touchstart', baslaSurukle, {passive: false});
         window.addEventListener('mousemove', surukle); window.addEventListener('touchmove', surukle, {passive: false});
         window.addEventListener('mouseup', bitirSurukle); window.addEventListener('touchend', bitirSurukle);
+        sahne.addEventListener('wheel', function(e) {
+            if(!document.getElementById('gercekPlan')) return;
+            e.preventDefault();
+            planZoom(e.deltaY < 0 ? 0.12 : -0.12);
+        }, {passive: false});
+
         setupEnterKeys(); oyunuBaslat(); setupSnakeControls(); setupCalcKeys(); setup2048Swipe();
         
         let hash = window.location.hash.replace('#', '');
@@ -801,18 +1040,82 @@
             modDegis(modNo, hash);
         }
     };
+
+    function ozelOlcekKontrol(selId, inpId) {
+        let s = document.getElementById(selId).value;
+        document.getElementById(inpId).style.display = (s === 'custom') ? 'block' : 'none';
+    }
+
+    function seciliOlcegiAl(selId, inpId) {
+        let s = document.getElementById(selId).value;
+        if(s === 'custom') {
+            return temizle(document.getElementById(inpId).value);
+        }
+        return parseFloat(s);
+    }
+
+    function notaAktar(metin) {
+        let nd = document.getElementById('notDefteri');
+        let saat = new Date().toLocaleTimeString('tr-TR', {hour:'2-digit', minute:'2-digit'});
+        let yeniSatir = `[${saat}] ${metin}\n`;
+        nd.value = yeniSatir + nd.value;
+        notKaydet();
+        altSekmeDegis('not');
+    }
+
+    function notKopyala() {
+        let nd = document.getElementById('notDefteri');
+        nd.select();
+        navigator.clipboard.writeText(nd.value);
+    }
+
+    function notIndir() {
+        let icerik = document.getElementById('notDefteri').value;
+        let blob = new Blob([icerik], {type: "text/plain;charset=utf-8"});
+        let a = document.createElement('a');
+        a.href = URL.createObjectURL(blob);
+        a.download = "olcekmatik-proje-notlari.txt";
+        a.click();
+    }
+
+    function notTemizle() {
+        if(confirm("Not defterindeki tüm yazıları silmek istediğinize emin misiniz?")) {
+            document.getElementById('notDefteri').value = "";
+            notKaydet();
+        }
+    }
+
+    function mimariTemaUygula(temaAdi, kapat = true) {
+        localStorage.removeItem('bedir_arkaplan_v410');
+        localStorage.setItem('bedir_mimari_tema', temaAdi);
+        document.body.style.backgroundImage = 'none';
+        let r = document.documentElement.style;
+        if(temaAdi === 'kraft') {
+            r.setProperty('--arkaplan', '#F2E8DC'); r.setProperty('--ana-renk', '#8C6A54'); r.setProperty('--yazi-renk', '#3E2C22');
+            r.setProperty('--kutu-bg', 'rgba(196, 176, 163, 0.95)'); r.setProperty('--input-bg', '#FFFDF9'); r.setProperty('--input-yazi', '#3E2C22');
+        } else if(temaAdi === 'cad') {
+            r.setProperty('--arkaplan', '#12151C'); r.setProperty('--ana-renk', '#0284C7'); r.setProperty('--yazi-renk', '#F1F5F9');
+            r.setProperty('--kutu-bg', 'rgba(30, 36, 48, 0.95)'); r.setProperty('--input-bg', '#1E293B'); r.setProperty('--input-yazi', '#F8FAFC');
+        } else if(temaAdi === 'blueprint') {
+            r.setProperty('--arkaplan', '#0A3161'); r.setProperty('--ana-renk', '#38BDF8'); r.setProperty('--yazi-renk', '#FFFFFF');
+            r.setProperty('--kutu-bg', 'rgba(13, 60, 117, 0.92)'); r.setProperty('--input-bg', '#0F4C92'); r.setProperty('--input-yazi', '#FFFFFF');
+        } else if(temaAdi === 'beton') {
+            r.setProperty('--arkaplan', '#E5E7EB'); r.setProperty('--ana-renk', '#4B5563'); r.setProperty('--yazi-renk', '#111827');
+            r.setProperty('--kutu-bg', 'rgba(209, 213, 219, 0.95)'); r.setProperty('--input-bg', '#FFFFFF'); r.setProperty('--input-yazi', '#111827');
+        }
+        if(kapat) bgModalKapat();
+    }
     
     function kurumsalAc(tip) {
         document.getElementById('kurumsalModal').style.display = 'flex';
         let baslik = "", icerik = "";
-        if(tip === 'hakkimizda') { baslik = "Hakkımızda & İletişim"; icerik = "<b>Bedir Design</b> tarafından geliştirilen Ölçekmatik, mimarlık öğrencileri ve tasarım profesyonellerinin hayatını kolaylaştırmak amacıyla üretilmiş ücretsiz, mobil uyumlu bir hesaplama aracıdır.<br><br><b>İletişim & İşbirlikleri:</b><br>Projeyle ilgili görüş, öneri veya reklam seçenekleri için Instagram üzerinden tasarımcımız Bedirhan Ergül'e ulaşabilirsiniz:<br><br>👉 <a href='https://www.instagram.com/ergul.bedirhan/' target='_blank' style='color:var(--ana-renk); font-weight:bold; font-size:15px; text-decoration:none;'>@ergul.bedirhan</a>"; } 
-        else if(tip === 'gizlilik') { baslik = "Gizlilik Politikası (Privacy Policy)"; icerik = "Ölçekmatik, kullanıcılarının gizliliğine ve kişisel verilerine büyük önem verir. Şeffaflık ilkemiz gereği uygulamamızın veri kullanım şartları aşağıdadır:<br><br><b>1. Kişisel Veriler:</b> Sitemiz üzerinden hiçbir kişisel veri toplanmaz, işlenmez ve 3. şahıslarla paylaşılmaz.<br><b>2. Tarayıcı Hafızası:</b> Notlarınız ve dil tercihleriniz cihazınızda tutulur.<br><b>3. Çerezler ve Reklamlar:</b> Sitemizde Google AdSense ağı kullanılmaktadır."; } 
-        else if(tip === 'kullanim') { baslik = "Kullanım Koşulları (Terms of Use)"; icerik = "<b>1. Hizmetin Doğası:</b> Ölçekmatik tarafından sağlanan hesaplamalar pratiklik sağlamak amacıyla sunulan yardımcı araçlar niteliğindedir.<br><br><b>2. Sorumluluk Reddi:</b> Profesyonel ve yasal kesinlik gerektiren projelerde detaylı kontrol yapılması kullanıcının sorumluluğundadır.<br><br><b>3. Fikri Mülkiyet:</b> Sitenin arayüz tasarımı, kod altyapısı ve 'Ölçekmatik' markası Bedir Design'a aittir."; }
+        if(tip === 'hakkimizda') { baslik = "Hakkımızda & İletişim"; icerik = "<b>Bedir Design</b> tarafından geliştirilen Ölçekmatik, mimarlık öğrencileri, iç mimarlar ve tasarım profesyonellerinin hayatını kolaylaştırmak amacıyla üretilmiş ücretsiz, mobil uyumlu bir hesaplama ve tasarım aracıdır.<br><br><b>İletişim & İşbirlikleri:</b><br>Projeyle ilgili görüş, öneri veya reklam seçenekleri için Instagram üzerinden tasarımcımız Bedirhan Ergül'e ulaşabilirsiniz:<br><br>👉 <a href='https://www.instagram.com/ergul.bedirhan/' target='_blank' style='color:var(--ana-renk); font-weight:bold; font-size:15px; text-decoration:none;'>@ergul.bedirhan</a>"; } 
+        else if(tip === 'gizlilik') { baslik = "Gizlilik Politikası (Privacy Policy)"; icerik = "Ölçekmatik, kullanıcılarının gizliliğine ve kişisel verilerine büyük önem verir. Şeffaflık ilkemiz gereği uygulamamızın veri kullanım şartları aşağıdadır:<br><br><b>1. Kişisel Veriler:</b> Sitemiz üzerinden hiçbir kişisel veri toplanmaz, işlenmez ve 3. şahıslarla paylaşılmaz.<br><b>2. Tarayıcı Hafızası:</b> Notlarınız, tema ve dil tercihleriniz yalnızca sizin cihazınızda (LocalStorage) tutulur.<br><b>3. Çerezler ve Reklamlar:</b> Sitemizde Google AdSense ağı kullanılmaktadır."; } 
+        else if(tip === 'kullanim') { baslik = "Kullanım Koşulları (Terms of Use)"; icerik = "<b>1. Hizmetin Doğası:</b> Ölçekmatik tarafından sağlanan hesaplamalar pratiklik sağlamak amacıyla sunulan yardımcı araçlar niteliğindedir.<br><br><b>2. Sorumluluk Reddi:</b> Profesyonel, uygulama ve yasal kesinlik gerektiren şantiye projelerinde detaylı kontrol yapılması kullanıcının sorumluluğundadır.<br><br><b>3. Fikri Mülkiyet:</b> Sitenin arayüz tasarımı, kod altyapısı ve 'Ölçekmatik' markası Bedir Design'a aittir."; }
         document.getElementById('kurumsalBaslik').innerText = baslik; document.getElementById('kurumsalIcerik').innerHTML = icerik;
     }
     function cerezKabul() { localStorage.setItem('bedir_cerez_onay', 'true'); document.getElementById('cerezUyarisi').style.display = 'none'; }
     
-    // GÜNCELLENEN KISIM: Kategori değiştirildiğinde Sağ Panel Tab Mantığı Akıllandırıldı
     function kategoriDegis(kat) {
         document.querySelectorAll('.kat-btn').forEach(b => b.classList.remove('aktif'));
         document.querySelectorAll('.alt-menu-container').forEach(c => c.classList.remove('aktif'));
@@ -820,27 +1123,10 @@
         document.getElementById('kat-' + kat).classList.add('aktif');
         
         let sekmeler = document.getElementById('sagSekmeler');
-        
-        if(kat === 'mimari') {
-            sekmeler.style.display = 'flex';
-            modDegis(1, 'proje');
-            altSekmeDegis('plan');
-        }
-        else if(kat === 'hesap') {
-            sekmeler.style.display = 'flex';
-            modDegis(9, 'hesap-makinesi');
-            altSekmeDegis('not');
-        }
-        else if(kat === 'donusturucu') {
-            sekmeler.style.display = 'flex';
-            modDegis(11, 'veri');
-            altSekmeDegis('not');
-        }
-        else if(kat === 'oyun') {
-            sekmeler.style.display = 'none';
-            modDegis(4, 'oyun-salonu');
-            altSekmeDegis('oyun');
-        }
+        if(kat === 'mimari') { sekmeler.style.display = 'flex'; modDegis(1, 'proje'); altSekmeDegis('plan'); }
+        else if(kat === 'hesap') { sekmeler.style.display = 'flex'; modDegis(9, 'hesap-makinesi'); altSekmeDegis('not'); }
+        else if(kat === 'donusturucu') { sekmeler.style.display = 'flex'; modDegis(8, 'cevirici'); altSekmeDegis('not'); }
+        else if(kat === 'oyun') { sekmeler.style.display = 'none'; modDegis(4, 'oyun-salonu'); altSekmeDegis('oyun'); }
     }
 
     function gecmisiCizSoru() {
@@ -976,7 +1262,7 @@
     }
     
     function modDegis(no, hash = '') { 
-        for(let i=1; i<=14; i++) { 
+        for(let i=1; i<=18; i++) { 
             if(document.getElementById('mod'+i)) { 
                 document.getElementById('mod'+i).style.display = 'none'; 
                 if(document.getElementById('btn'+i)) document.getElementById('btn'+i).className = ''; 
@@ -997,7 +1283,6 @@
         }
     }
     
-    // GÜNCELLENEN KISIM: altSekmeDegis sadece alt bölümleri günceller
     function altSekmeDegis(sekme) { 
         document.getElementById('btnPlan').classList.remove('aktif'); 
         document.getElementById('btnNot').classList.remove('aktif'); 
@@ -1042,12 +1327,7 @@
         hazirGorsellerListesi.forEach(src => { let item = document.createElement('div'); item.className = 'bg-item'; if (suankiUrl === src) { item.classList.add('selected'); } item.onclick = () => hazirGorselSec(src); let box = document.createElement('div'); box.className = 'bg-thumb-box'; box.style.backgroundImage = "url('" + src + "')"; item.appendChild(box); grid.appendChild(item); });
     }
     function bgGeri() { document.getElementById('bgSecenekler').style.display = 'block'; document.getElementById('bgHazirlar').style.display = 'none'; }
-    
-    function hazirGorselSec(src) { 
-        bgModalKapat(); 
-        resmiUygula(src); 
-        localStorage.setItem('bedir_arkaplan_v410', src); 
-    }
+    function hazirGorselSec(src) { bgModalKapat(); resmiUygula(src); localStorage.setItem('bedir_arkaplan_v410', src); }
     
     function arkaplanDegistir(input) { 
         if(input.files && input.files[0]) { 
@@ -1070,16 +1350,46 @@
         }
         var i = new Image(); i.src = url; 
         i.onload = function() { 
-            try { temaGuncelle(renkAnaliz(i)); } catch(e) { console.log("CORS Hatası: Renk analizi güvenlik duvarına takıldı."); }
+            try { temaGuncelle(renkAnaliz(i)); } catch(e) {}
         } 
     }
     
     function renkAnaliz(i) { var c = document.createElement('canvas'); var x = c.getContext('2d'); c.width = 50; c.height = 50; x.drawImage(i,0,0,50,50); try { var d = x.getImageData(0,0,50,50).data; var r = 0, g = 0, b = 0, k = 0; for(var j = 0; j < d.length; j += 4) { r += d[j]; g += d[j+1]; b += d[j+2]; k++; } return { r:Math.floor(r/k), g:Math.floor(g/k), b:Math.floor(b/k) }; } catch(e) { return { r:140, g:106, b:84 }; } }
     function temaGuncelle(rgb) { var root = document.documentElement.style; var ana = `rgb(${rgb.r},${rgb.g},${rgb.b})`; root.setProperty('--ana-renk', ana); var p = (rgb.r * 299 + rgb.g * 587 + rgb.b * 114) / 1000; if(p > 140) { root.setProperty('--yazi-renk', '#000'); root.setProperty('--kutu-bg', 'rgba(255,255,255,0.85)'); root.setProperty('--sekme-pasif', 'rgba(0,0,0,0.1)'); } else { root.setProperty('--yazi-renk', '#fff'); root.setProperty('--kutu-bg', 'rgba(0,0,0,0.5)'); root.setProperty('--sekme-pasif', 'rgba(255,255,255,0.2)'); if(p < 40) root.setProperty('--ana-renk', `rgb(${rgb.r+60},${rgb.g+60},${rgb.b+60})`); } }
-    function sifirla() { localStorage.removeItem('bedir_arkaplan_v410'); localStorage.removeItem('bedir_lang'); localStorage.removeItem('bedir_notlar'); location.reload(); }
-    function setupEnterKeys() { const bind = (inIds, btnId) => { if(!Array.isArray(inIds)) inIds = [inIds]; inIds.forEach(id => { let el = document.getElementById(id); if(el) { el.addEventListener("keyup", function(e) { if(e.key === "Enter") document.getElementById(btnId).click(); }); } }); }; bind("g_sayi", "btn_calc1"); bind("c_sayi", "btn_conv1"); bind(["e_h", "e_l"], "btn_analyse"); bind(["m_h", "m_b"], "btn_calc2"); bind(["mal_en", "mal_boy", "mz_en", "mz_boy"], "btn_quant"); bind("ao_val", "btn_ratio"); bind("cv_val", "btn_conv2"); bind("soruCevap", "btn_cevapla"); bind(["ds_bit", "ds_byte", "ds_kb", "ds_mb", "ds_gb", "ds_tb"], "btn_calc3"); bind(["ds_m2", "ds_ar", "ds_donum", "ds_hektar", "ds_km2"], "btn_calc4"); bind(["ds_g", "ds_kg", "ds_ton", "ds_lb", "ds_oz"], "btn_calc5"); bind(["ds_c", "ds_f", "ds_k"], "btn_calc6"); }
-    function temizle(v) { return parseFloat(v.replace(',', '.')); }
-    function goster(id, t) { var k = document.getElementById(id); k.style.display = 'block'; k.innerHTML = t; }
+    function sifirla() { localStorage.removeItem('bedir_arkaplan_v410'); localStorage.removeItem('bedir_mimari_tema'); localStorage.removeItem('bedir_lang'); location.reload(); }
+    
+    function setupEnterKeys() { 
+        const bind = (inIds, btnFn) => { 
+            if(!Array.isArray(inIds)) inIds = [inIds]; 
+            inIds.forEach(id => { 
+                let el = document.getElementById(id); 
+                if(el) { el.addEventListener("keyup", function(e) { if(e.key === "Enter") btnFn(); }); } 
+            }); 
+        }; 
+        bind(["g_sayi", "g_ozel_olcek"], hesaplaCizim); 
+        bind(["c_sayi", "c_ozel_olcek"], hesaplaGercek); 
+        bind(["p_olcu", "p_eski", "p_yeni"], hesaplaPafta);
+        bind(["e_h", "e_l"], hesaplaEgim); 
+        bind(["m_h", "m_b"], hesaplaMerdiven); 
+        bind(["mal_en", "mal_boy", "mz_en", "mz_boy", "mz_derz"], hesaplaMalzeme); 
+        bind(["by_en", "by_boy", "by_h", "by_bosluk"], hesaplaBoya);
+        bind(["ayd_en", "ayd_boy", "ayd_lumen"], hesaplaAydinlatma);
+        bind("ao_val", hesaplaAltinOran); 
+        bind(["ln_mm", "ln_cm", "ln_m", "ln_km", "ln_in", "ln_ft", "ln_yd"], cevirBirim); 
+        bind("soruCevap", soruCevapla); 
+        bind(["ds_bit", "ds_byte", "ds_kb", "ds_mb", "ds_gb", "ds_tb"], hesaplaVeri); 
+        bind(["ds_cm2", "ds_m2", "ds_ar", "ds_donum", "ds_hektar", "ds_km2"], hesaplaAlanConv); 
+        bind(["ds_g", "ds_kg", "ds_ton", "ds_lb", "ds_oz"], hesaplaAgirlik); 
+        bind(["ds_c", "ds_f", "ds_k"], hesaplaSicaklik); 
+    }
+
+    function temizle(v) { if(!v) return NaN; return parseFloat(v.toString().replace(',', '.').trim()); }
+    function goster(id, htmlIcerik, notMetni = '') { 
+        var k = document.getElementById(id); 
+        k.style.display = 'block'; 
+        let ekBtn = notMetni ? `<br><button class="nota-ekle-btn" onclick="notaAktar('${notMetni.replace(/'/g, "\\'")}')">📝 Nota Ekle</button>` : '';
+        k.innerHTML = htmlIcerik + ekBtn; 
+    }
     
     let oturumBaslangic = Date.now();
     let sonPomodoro = 0;
@@ -1102,40 +1412,272 @@
         }, 1000); 
     }
     
+    // MOD 1: GERÇEKTEN PROJEYE
     function hesaplaCizim() { 
         var v = temizle(document.getElementById('g_sayi').value); 
-        var o = parseInt(document.getElementById('g_olcek').value); 
-        var cm = (document.getElementById('g_birim').value == 'm') ? v*100 : ((document.getElementById('g_birim').value == 'mm') ? v/10 : v); 
-        let calcRes = (cm/o).toFixed(2);
-        goster('sonuc1', `${t[curLang].res_drawn}: ${calcRes} CM`); 
+        var o = seciliOlcegiAl('g_olcek', 'g_ozel_olcek'); 
+        if(isNaN(v) || isNaN(o) || o <= 0) return;
+        var birim = document.getElementById('g_birim').value;
+        var cm = (birim == 'm') ? v*100 : ((birim == 'mm') ? v/10 : v); 
+        let cizimCm = (cm / o);
+        let cizimMm = cizimCm * 10;
+        let cadFactor = (1 / o).toFixed(4);
         
-        olcekGecmisiListesiMod1.unshift(`<b>PROJE (1/${o}):</b> ${v} ${document.getElementById('g_birim').value.toUpperCase()} ➔ ${calcRes} CM`);
+        let detay = `<div class="sonuc-alt-detay">📏 <b>${cizimMm.toFixed(1)} mm</b> | <b>${(cizimCm/100).toFixed(4)} m</b><br>💻 AutoCAD Scale Katsayısı: <b>${cadFactor}</b></div>`;
+        let notStr = `PROJE (1/${o}): Gerçek ${v} ${birim.toUpperCase()} -> Paftada ${cizimCm.toFixed(2)} cm (${cizimMm.toFixed(1)} mm)`;
+        goster('sonuc1', `${t[curLang].res_drawn}: <span style="font-size:24px; color:var(--ana-renk);">${cizimCm.toFixed(2)} CM</span>${detay}`, notStr); 
+        
+        olcekGecmisiListesiMod1.unshift(`<b>PROJE (1/${o}):</b> ${v} ${birim.toUpperCase()} ➔ ${cizimCm.toFixed(2)} CM (${cizimMm.toFixed(1)} MM)`);
         if(olcekGecmisiListesiMod1.length > 20) olcekGecmisiListesiMod1.pop();
         gecmisiCizOlcek('Mod1');
     }
     
+    // MOD 2: PROJEDEN GERÇEĞE
     function hesaplaGercek() { 
         var v = temizle(document.getElementById('c_sayi').value); 
-        var o = parseInt(document.getElementById('c_olcek').value); 
-        let calcRes = ((v*o)/100).toFixed(2);
-        goster('sonuc2', `${t[curLang].res_real}: ${calcRes} M`); 
+        var o = seciliOlcegiAl('c_olcek', 'c_ozel_olcek');
+        if(isNaN(v) || isNaN(o) || o <= 0) return;
+        var birim = document.getElementById('c_birim').value;
+        var cetvelCm = (birim === 'mm') ? v / 10 : v;
+        let gercekCm = cetvelCm * o;
+        let gercekM = gercekCm / 100;
+        let gercekMm = gercekCm * 10;
+
+        let detay = `<div class="sonuc-alt-detay">📏 <b>${gercekCm.toFixed(1)} cm</b> | <b>${gercekMm.toFixed(0)} mm</b></div>`;
+        let notStr = `GERÇEK (1/${o}): Cetvelde ${v} ${birim.toUpperCase()} -> Gerçekte ${gercekM.toFixed(2)} m (${gercekCm.toFixed(0)} cm)`;
+        goster('sonuc2', `${t[curLang].res_real}: <span style="font-size:24px; color:var(--ana-renk);">${gercekM.toFixed(2)} M</span>${detay}`, notStr); 
         
-        olcekGecmisiListesiMod2.unshift(`<b>GERÇEK (1/${o}):</b> ${v} CM ➔ ${calcRes} M`);
+        olcekGecmisiListesiMod2.unshift(`<b>GERÇEK (1/${o}):</b> ${v} ${birim.toUpperCase()} ➔ ${gercekM.toFixed(2)} M (${gercekCm.toFixed(0)} CM)`);
         if(olcekGecmisiListesiMod2.length > 20) olcekGecmisiListesiMod2.pop();
         gecmisiCizOlcek('Mod2');
     }
+
+    // MOD 15: PAFTADAN PAFTAYA
+    function hesaplaPafta() {
+        let olcu = temizle(document.getElementById('p_olcu').value);
+        let eski = temizle(document.getElementById('p_eski').value);
+        let yeni = temizle(document.getElementById('p_yeni').value);
+        if(isNaN(olcu) || isNaN(eski) || isNaN(yeni) || eski <= 0 || yeni <= 0) return;
+
+        let gercekCm = olcu * eski;
+        let yeniCizimCm = gercekCm / yeni;
+        let cadScale = eski / yeni;
+
+        let html = `1/${yeni} Paftada: <span style="font-size:24px; color:var(--ana-renk);">${yeniCizimCm.toFixed(2)} CM</span>
+        <div class="sonuc-alt-detay">
+            📏 Gerçek Uzunluk: <b>${(gercekCm/100).toFixed(2)} m (${gercekCm.toFixed(0)} cm)</b><br>
+            💻 AutoCAD SCALE Çarpanı: <b>${cadScale.toFixed(3)}</b>
+        </div>`;
+        goster('sonuc15', html, `Pafta Dönüşümü (1/${eski} -> 1/${yeni}): ${olcu} cm -> ${yeniCizimCm.toFixed(2)} cm`);
+    }
     
-    function hesaplaEgim() { var h = temizle(document.getElementById('e_h').value); var l = temizle(document.getElementById('e_l').value); var e = (h/l) * 100; goster('sonuc3', `${t[curLang].res_slope}: %${e.toFixed(1)}`); }
-    function hesaplaMerdiven() { var h = temizle(document.getElementById('m_h').value); var b_input = document.getElementById('m_b').value; var b = temizle(b_input); if(isNaN(h)) return; var idealRiht, basamakEni, gercekRiht, adet; if (!isNaN(b) && b > 0) { idealRiht = (63-b)/2; adet = Math.round(h/idealRiht); if(adet < 1) adet = 1; gercekRiht = h/adet; basamakEni = b; } else { idealRiht = 17.5; adet = Math.round(h/idealRiht); if(adet < 1) adet = 1; gercekRiht = h/adet; basamakEni = 63 - (2*gercekRiht); } var d = t[curLang]; var txt = `${d.res_riser}: <span style='font-size:24px'>${gercekRiht.toFixed(2)}</span> cm<br>${d.res_count}: <span style='font-size:24px'>${adet}</span> ${d.res_step}<br><small>${d.res_step}: ${basamakEni.toFixed(1)} cm</small>`; if(gercekRiht > 18.5) txt += `<br><span style='color:red'>[${d.res_warn_steep}]</span>`; if(gercekRiht < 15) txt += `<br><span style='color:orange'>[${d.res_warn_low}]</span>`; if(basamakEni < 25) txt += `<br><span style='color:red'>[${d.res_warn_foot}]</span>`; goster('sonuc5', txt); }
-    function hesaplaMalzeme() { var en = temizle(document.getElementById('mal_en').value); var boy = temizle(document.getElementById('mal_boy').value); var men = temizle(document.getElementById('mz_en').value); var mboy = temizle(document.getElementById('mz_boy').value); if(isNaN(en) || isNaN(boy) || isNaN(men) || isNaN(mboy)) return; var alan = en * boy; var mal = men * mboy; var adet = alan / mal; var fire = Math.ceil(adet * 1.1); var d = t[curLang]; goster('sonuc6', `${d.res_area}: ${(alan/10000).toFixed(2)} m²<br>${d.res_need}: ${fire} ${d.res_count}<br><small>(${d.res_fire})</small>`); }
-    function hesaplaAltinOran() { var v = temizle(document.getElementById('ao_val').value); goster('sonuc7', `${t[curLang].res_long}: ${(v*1.618).toFixed(1)} cm`); }
-    function cevirBirim() { var v = temizle(document.getElementById('cv_val').value); var r = (document.getElementById('cv_tip').value == 'ft') ? v * 30.48 : v * 2.54; goster('sonuc8', `${t[curLang].res_result}: ${r.toFixed(2)} cm`); }
+    // MOD 3: EĞİM & RAMPA ANALİZİ
+    function hesaplaEgim() { 
+        var h = temizle(document.getElementById('e_h').value); 
+        var l = temizle(document.getElementById('e_l').value); 
+        if(isNaN(h) || isNaN(l) || l <= 0) return;
+        var egimYuzde = (h/l) * 100; 
+        var aciDerece = Math.atan(h/l) * (180 / Math.PI);
+        var rampaBoyu = Math.sqrt(h*h + l*l);
+        let standartUyari = "";
+        if(egimYuzde <= 8) standartUyari = `<span style="color:green;">✅ TS 9111 Engelli Rampasına Uygun (≤%8)</span>`;
+        else if(egimYuzde <= 12) standartUyari = `<span style="color:orange;">⚠️ Engelli Rampası İçin Dik! (İdeal maks %8, gereken boy: ${(h/0.08).toFixed(0)} cm)</span>`;
+        else standartUyari = `<span style="color:#d32f2f;">❌ Rampa Çok Dik! (%8 eğim için yatayda ${(h/0.08).toFixed(0)} cm gerekir)</span>`;
+
+        let html = `${t[curLang].res_slope}: <span style="font-size:24px; color:var(--ana-renk);">%${egimYuzde.toFixed(1)}</span>
+        <div class="sonuc-alt-detay">
+            📐 Eğim Açısı: <b>${aciDerece.toFixed(1)}°</b> | Rampa Uzunluğu: <b>${rampaBoyu.toFixed(1)} cm</b><br>
+            ${standartUyari}
+        </div>`;
+        goster('sonuc3', html, `Eğim Analizi (h:${h}cm, L:${l}cm): %${egimYuzde.toFixed(1)} (${aciDerece.toFixed(1)}°)`); 
+    }
+
+    // MOD 5: MERDİVEN + SVG KESİT
+    function hesaplaMerdiven() { 
+        var h = temizle(document.getElementById('m_h').value); 
+        var b_input = document.getElementById('m_b').value; 
+        var b = temizle(b_input); 
+        if(isNaN(h) || h <= 0) return; 
+        var idealRiht, basamakEni, gercekRiht, adet; 
+        if (!isNaN(b) && b > 0) { 
+            idealRiht = (63-b)/2; 
+            if(idealRiht < 12) idealRiht = 17;
+            adet = Math.round(h/idealRiht); 
+            if(adet < 1) adet = 1; 
+            gercekRiht = h/adet; 
+            basamakEni = b; 
+        } else { 
+            idealRiht = 17.5; 
+            adet = Math.round(h/idealRiht); 
+            if(adet < 1) adet = 1; 
+            gercekRiht = h/adet; 
+            basamakEni = 63 - (2*gercekRiht); 
+        } 
+        var d = t[curLang]; 
+        let kolBoyuCm = (adet - 1) * basamakEni;
+        let aci = Math.atan(gercekRiht / basamakEni) * (180 / Math.PI);
+        let konforFormulu = (2 * gercekRiht + basamakEni).toFixed(1);
+
+        var txt = `${d.res_riser} (r): <span style='font-size:22px; color:var(--ana-renk);'>${gercekRiht.toFixed(2)} cm</span> | ${d.res_step} (b): <span style='font-size:22px; color:var(--ana-renk);'>${basamakEni.toFixed(1)} cm</span><br>
+        ${d.res_count}: <b>${adet} Rıht</b> (${Math.max(1, adet-1)} Basamak)`;
+        
+        if(gercekRiht > 18.5) txt += `<br><span style='color:#d32f2f; font-size:13px;'>[${d.res_warn_steep} > 18.5cm]</span>`; 
+        if(gercekRiht < 15) txt += `<br><span style='color:orange; font-size:13px;'>[${d.res_warn_low} < 15cm]</span>`; 
+        if(basamakEni < 26) txt += `<br><span style='color:#d32f2f; font-size:13px;'>[${d.res_warn_foot} < 26cm]</span>`; 
+
+        // Canlı Merdiven Kesiti SVG
+        let cizimAdet = Math.min(adet, 7);
+        let pathD = "M 15 95 ";
+        let stepW = 180 / cizimAdet;
+        let stepH = 75 / cizimAdet;
+        for(let i=0; i<cizimAdet; i++) {
+            let curX = 15 + i * stepW;
+            let curY = 95 - i * stepH;
+            pathD += `L ${curX} ${curY - stepH} L ${curX + stepW} ${curY - stepH} `;
+        }
+        pathD += `L ${15 + cizimAdet*stepW} 95 Z`;
+
+        let svg = `<svg viewBox="0 0 220 105" style="width:100%; max-width:240px; height:95px; margin-top:8px; background:#f9f6f2; border-radius:6px; border:1px solid #ddd;">
+            <path d="${pathD}" fill="rgba(140,106,84,0.25)" stroke="#8C6A54" stroke-width="2.5"/>
+            <text x="12" y="20" font-size="10" fill="#3E2C22" font-weight="bold">r=${gercekRiht.toFixed(1)} | b=${basamakEni.toFixed(1)} | α=${aci.toFixed(1)}°</text>
+        </svg>`;
+
+        txt += `<div class="sonuc-alt-detay">
+            📏 Merdiven Kolu Yatay Boyu: <b>${(kolBoyuCm/100).toFixed(2)} m (${kolBoyuCm.toFixed(0)} cm)</b><br>
+            📐 Eğim: <b>${aci.toFixed(1)}°</b> | Konfor (2r+b): <b>${konforFormulu} cm</b>
+            ${svg}
+        </div>`;
+
+        goster('sonuc5', txt, `Merdiven (h:${h}cm): ${adet} Rıht x ${gercekRiht.toFixed(2)}cm, Basamak:${basamakEni.toFixed(1)}cm, Kol Boyu:${(kolBoyuCm/100).toFixed(2)}m`); 
+    }
+
+    // MOD 6: SERAMİK / PARKE METRAJI
+    function hesaplaMalzeme() { 
+        var en = temizle(document.getElementById('mal_en').value); 
+        var boy = temizle(document.getElementById('mal_boy').value); 
+        var men = temizle(document.getElementById('mz_en').value); 
+        var mboy = temizle(document.getElementById('mz_boy').value); 
+        var fireOran = parseFloat(document.getElementById('mz_fire').value);
+        var derzMm = temizle(document.getElementById('mz_derz').value) || 0;
+        if(isNaN(en) || isNaN(boy) || isNaN(men) || isNaN(mboy) || men <= 0 || mboy <= 0) return; 
+        
+        var derzCm = derzMm / 10;
+        var alanCm2 = en * boy; 
+        var malCm2 = (men + derzCm) * (mboy + derzCm); 
+        var netAdet = Math.ceil(alanCm2 / malCm2); 
+        var fireliAdet = Math.ceil((alanCm2 / malCm2) * fireOran); 
+        var alanM2 = alanCm2 / 10000;
+        var fireliM2 = alanM2 * fireOran;
+        var d = t[curLang]; 
+
+        let html = `${d.res_area}: <b>${alanM2.toFixed(2)} m²</b> (Fireli: ${fireliM2.toFixed(2)} m²)<br>
+        ${d.res_need}: <span style="font-size:24px; color:var(--ana-renk);">${fireliAdet} ${d.res_count}</span>
+        <div class="sonuc-alt-detay">
+            📦 Net Adet: <b>${netAdet}</b> | Derz: <b>${derzMm} mm</b> | Fire: <b>%${Math.round((fireOran-1)*100)}</b>
+        </div>`;
+        goster('sonuc6', html, `Metraj (${en}x${boy}cm, ${men}x${mboy}cm seramik): ${alanM2.toFixed(2)} m² -> ${fireliAdet} Adet`); 
+    }
+
+    // MOD 17: BOYA & SÜPÜRGELİK METRAJI
+    function hesaplaBoya() {
+        let en = temizle(document.getElementById('by_en').value);
+        let boy = temizle(document.getElementById('by_boy').value);
+        let h = temizle(document.getElementById('by_h').value);
+        let boslukAdet = temizle(document.getElementById('by_bosluk').value) || 0;
+        if(isNaN(en) || isNaN(boy) || isNaN(h)) return;
+
+        let cevreM = ((en + boy) * 2) / 100;
+        let brutDuvarM2 = cevreM * (h / 100);
+        let tavanM2 = (en * boy) / 10000;
+        let boslukM2 = boslukAdet * 1.8; // Kapı/pencere ortalama 1.8 m2 düşüm
+        let netDuvarM2 = Math.max(0, brutDuvarM2 - boslukM2);
+        let boyaLitre = (netDuvarM2 / 7); // 2 kat uygulama için ortalama 1 Lt = 7 m2
+        let supurgelikMt = Math.max(0, cevreM - 0.9) * 1.10; // Kapı ağzı düşülmüş + %10 fireli
+
+        let html = `Net Duvar: <b>${netDuvarM2.toFixed(1)} m²</b> | Tavan: <b>${tavanM2.toFixed(1)} m²</b><br>
+        Gereken Boya (2 Kat): <span style="font-size:22px; color:var(--ana-renk);">${boyaLitre.toFixed(1)} Litre</span>
+        <div class="sonuc-alt-detay">
+            📏 Süpürgelik İhtiyacı (%10 Fireli): <b>${supurgelikMt.toFixed(1)} mt</b> (${Math.ceil(supurgelikMt / 2.4)} Boy - 240cm)
+        </div>`;
+        goster('sonuc17', html, `Boya & Süpürgelik (${en}x${boy}cm): Duvar ${netDuvarM2.toFixed(1)}m² (${boyaLitre.toFixed(1)} Lt Boya), Süpürgelik ${supurgelikMt.toFixed(1)} mt`);
+    }
+
+    // MOD 16: MEKANSAL AYDINLATMA (LÜMEN & LÜKS)
+    function hesaplaAydinlatma() {
+        let en = temizle(document.getElementById('ayd_en').value);
+        let boy = temizle(document.getElementById('ayd_boy').value);
+        let secim = document.getElementById('ayd_tip').value.split('|');
+        let hedefLux = parseFloat(secim[0]);
+        let kelvinOneri = secim[1];
+        let ampulLumen = temizle(document.getElementById('ayd_lumen').value) || 800;
+        if(isNaN(en) || isNaN(boy) || en <= 0 || boy <= 0) return;
+
+        let alanM2 = (en * boy) / 10000;
+        // Bakım ve yansıma kaybı katsayısı (0.8) ile efektif lümen hesabı
+        let toplamLumen = Math.ceil((alanM2 * hedefLux) / 0.8);
+        let ampulAdet = Math.ceil(toplamLumen / ampulLumen);
+
+        let html = `Gereken Işık Akısı: <span style="font-size:22px; color:var(--ana-renk);">${toplamLumen} Lümen</span><br>
+        Önerilen Kaynak: <b>${ampulAdet} Adet</b> (${ampulLumen} lm ampul/spot)
+        <div class="sonuc-alt-detay">
+            📐 Alan: <b>${alanM2.toFixed(2)} m²</b> | Hedef Aydınlık: <b>${hedefLux} Lux</b><br>
+            🌡️ İdeal Renk Sıcaklığı: <b>${kelvinOneri}</b>
+        </div>`;
+        goster('sonuc16', html, `Aydınlatma (${alanM2.toFixed(1)}m² - ${hedefLux}lx): Toplam ${toplamLumen} lm (${ampulAdet} adet x ${ampulLumen}lm, ${kelvinOneri})`);
+    }
+
+    // MOD 7: ALTIN ORAN
+    function hesaplaAltinOran() { 
+        var v = temizle(document.getElementById('ao_val').value); 
+        if(isNaN(v) || v <= 0) return;
+        let uzun = (v * 1.618034).toFixed(2);
+        let kisa = (v / 1.618034).toFixed(2);
+        let toplam = (parseFloat(v) + parseFloat(uzun)).toFixed(2);
+
+        let html = `🔼 ${t[curLang].res_long} (x1.618): <span style="color:var(--ana-renk); font-size:21px;">${uzun} cm</span><br>
+        🔽 ${t[curLang].res_short} (/1.618): <span style="color:var(--ana-renk); font-size:21px;">${kisa} cm</span>
+        <div class="sonuc-alt-detay">
+            ✨ Bütün Uzunluk (a + b): <b>${toplam} cm</b>
+        </div>`;
+        goster('sonuc7', html, `Altın Oran (${v} cm): Uzun=${uzun} cm, Kısa=${kisa} cm`); 
+    }
+
+    // MOD 18: ERGONOMİ FİLTRELEME
+    function ergoFiltrele() {
+        let q = (document.getElementById('ergoArama').value || "").toLowerCase();
+        let l = document.getElementById('ergoListe');
+        let sonuc = ergonomiVerileri.filter(item => item.baslik.toLowerCase().includes(q) || item.icerik.toLowerCase().includes(q));
+        l.innerHTML = sonuc.map(item => `<div class="ergo-kart"><b>${item.baslik}</b>${item.icerik}</div>`).join('');
+    }
+
+    // MOD 8: UZUNLUK ÇEVİRİCİ
+    function cevirBirim() { 
+        let fields = ['ln_mm', 'ln_cm', 'ln_m', 'ln_km', 'ln_in', 'ln_ft', 'ln_yd'];
+        let multToCm = [0.1, 1, 100, 100000, 2.54, 30.48, 91.44];
+        let baseCm = null;
+        for(let i=0; i<fields.length; i++) {
+            let v = document.getElementById(fields[i]).value.replace(',', '.').trim();
+            if(v !== '' && !isNaN(parseFloat(v))) {
+                baseCm = parseFloat(v) * multToCm[i];
+                break;
+            }
+        }
+        if(baseCm !== null) {
+            document.getElementById('ln_mm').value = +(baseCm * 10).toFixed(4);
+            document.getElementById('ln_cm').value = +(baseCm).toFixed(4);
+            document.getElementById('ln_m').value = +(baseCm / 100).toFixed(4);
+            document.getElementById('ln_km').value = +(baseCm / 100000).toFixed(6);
+            document.getElementById('ln_in').value = +(baseCm / 2.54).toFixed(4);
+            document.getElementById('ln_ft').value = +(baseCm / 30.48).toFixed(4);
+            document.getElementById('ln_yd').value = +(baseCm / 91.44).toFixed(4);
+        }
+    }
+    function temizleUzunluk() { ['ln_mm', 'ln_cm', 'ln_m', 'ln_km', 'ln_in', 'ln_ft', 'ln_yd'].forEach(f => document.getElementById(f).value = ''); }
     
     function hesaplaVeri() {
         let fields = ['ds_bit', 'ds_byte', 'ds_kb', 'ds_mb', 'ds_gb', 'ds_tb'];
         let multipliers = [1/8, 1, 1024, Math.pow(1024,2), Math.pow(1024,3), Math.pow(1024,4)];
         let baseBytes = null;
-
         for(let i=0; i<fields.length; i++) {
             let el = document.getElementById(fields[i]);
             let val = parseFloat(el.value.replace(',', '.').replace(/ /g, ''));
@@ -1144,7 +1686,6 @@
                 break;
             }
         }
-
         if(baseBytes !== null) {
             document.getElementById('ds_bit').value = +(baseBytes * 8).toFixed(4);
             document.getElementById('ds_byte').value = +(baseBytes).toFixed(4);
@@ -1157,14 +1698,15 @@
     function temizleVeri() { ['ds_bit', 'ds_byte', 'ds_kb', 'ds_mb', 'ds_gb', 'ds_tb'].forEach(f => document.getElementById(f).value = ''); }
 
     function hesaplaAlanConv() {
-        let fields = ['ds_m2', 'ds_ar', 'ds_donum', 'ds_hektar', 'ds_km2'];
-        let multipliers = [1, 100, 1000, 10000, 1000000];
+        let fields = ['ds_cm2', 'ds_m2', 'ds_ar', 'ds_donum', 'ds_hektar', 'ds_km2'];
+        let multipliers = [0.0001, 1, 100, 1000, 10000, 1000000];
         let baseM = null;
         for(let i=0; i<fields.length; i++) {
             let v = document.getElementById(fields[i]).value.replace(',', '.').replace(/ /g, '');
             if(v !== '') { baseM = parseFloat(v) * multipliers[i]; break; }
         }
         if(baseM !== null && !isNaN(baseM)) {
+            document.getElementById('ds_cm2').value = +(baseM * 10000).toFixed(2);
             document.getElementById('ds_m2').value = +(baseM).toFixed(4);
             document.getElementById('ds_ar').value = +(baseM / 100).toFixed(4);
             document.getElementById('ds_donum').value = +(baseM / 1000).toFixed(4);
@@ -1172,7 +1714,7 @@
             document.getElementById('ds_km2').value = +(baseM / 1000000).toFixed(6);
         }
     }
-    function temizleAlanConv() { ['ds_m2', 'ds_ar', 'ds_donum', 'ds_hektar', 'ds_km2'].forEach(f => document.getElementById(f).value = ''); }
+    function temizleAlanConv() { ['ds_cm2', 'ds_m2', 'ds_ar', 'ds_donum', 'ds_hektar', 'ds_km2'].forEach(f => document.getElementById(f).value = ''); }
 
     function hesaplaAgirlik() {
         let fields = ['ds_g', 'ds_kg', 'ds_ton', 'ds_lb', 'ds_oz'];
@@ -1197,11 +1739,9 @@
         let f = document.getElementById('ds_f').value;
         let k = document.getElementById('ds_k').value;
         let baseC = null;
-        
         if(c !== '') baseC = parseFloat(c.replace(',', '.'));
         else if(f !== '') baseC = (parseFloat(f.replace(',', '.')) - 32) * 5/9;
         else if(k !== '') baseC = parseFloat(k.replace(',', '.')) - 273.15;
-        
         if(baseC !== null && !isNaN(baseC)) {
             document.getElementById('ds_c').value = +(baseC).toFixed(2);
             document.getElementById('ds_f').value = +((baseC * 9/5) + 32).toFixed(2);
@@ -1219,19 +1759,120 @@
         try { 
             var r = new Function('return ' + currentCalc)(); 
             if(!isFinite(r)) r = "Hata"; 
-            
             makineGecmisiListesi.unshift(`<b>HESAP:</b> ${currentCalc} = ${r}`);
             if(makineGecmisiListesi.length > 20) makineGecmisiListesi.pop();
             gecmisiCizMakine();
-            
             document.getElementById('calc-screen').value = r; 
             currentCalc = r.toString(); 
         } catch(e) { document.getElementById('calc-screen').value = "Hata"; currentCalc = ""; } 
     } 
     function calcPercent() { try { var v = parseFloat(currentCalc); if(!isNaN(v)) { v = v/100; currentCalc = v.toString(); document.getElementById('calc-screen').value = currentCalc; } } catch(e) {} }
     
-    function planSec() { document.getElementById('planYukleyici').click(); } function planYukle(input) { if(input.files && input.files[0]) { var r = new FileReader(); r.onload = function(e) { var h = '<img id="gercekPlan" src="'+e.target.result+'" style="max-width:100%; transform: scale(1) translate(0px, 0px);">'; document.getElementById('planGorsel').innerHTML = h; planReset(); }; r.readAsDataURL(input.files[0]); } } function gorselGuncelle() { var i = document.getElementById('gercekPlan'); if(i) i.style.transform = `translate(${planX}px, ${planY}px) scale(${planScale})`; } function planZoom(v) { planScale += v; if(planScale < 0.5) planScale = 0.5; gorselGuncelle(); } function planReset() { planScale = 1; planX = 0; planY = 0; gorselGuncelle(); } function baslaSurukle(e) { if(!document.getElementById('gercekPlan')) return; isDragging = true; var cx = e.clientX || e.touches[0].clientX; var cy = e.clientY || e.touches[0].clientY; startX = cx - planX; startY = cy - planY; e.preventDefault(); } function surukle(e) { if(!isDragging) return; var cx = e.clientX || e.touches[0].clientX; var cy = e.clientY || e.touches[0].clientY; planX = cx - startX; planY = cy - startY; gorselGuncelle(); e.preventDefault(); } function bitirSurukle() { isDragging = false; }
+    // PLAN MASASI 2.0 & KALİBRASYONLU DİJİTAL CETVEL
+    function planSec() { document.getElementById('planYukleyici').click(); } 
+    function planYukle(input) { 
+        if(input.files && input.files[0]) { 
+            var r = new FileReader(); 
+            r.onload = function(e) { 
+                var h = '<img id="gercekPlan" src="'+e.target.result+'" style="max-width:100%; max-height:100%; transform: translate(0px, 0px) scale(1) rotate(0deg);">'; 
+                document.getElementById('planGorsel').innerHTML = h; 
+                planReset(); 
+            }; 
+            r.readAsDataURL(input.files[0]); 
+        } 
+    } 
+    function gorselGuncelle() { 
+        var i = document.getElementById('gercekPlan'); 
+        if(i) i.style.transform = `translate(${planX}px, ${planY}px) scale(${planScale}) rotate(${planRot}deg)`; 
+    } 
+    function planZoom(v) { planScale += v; if(planScale < 0.3) planScale = 0.3; if(planScale > 6) planScale = 6; gorselGuncelle(); } 
+    function planDondur() { planRot = (planRot + 90) % 360; gorselGuncelle(); }
+    function planGridToggle() {
+        let s = document.getElementById('sahneContainer');
+        s.classList.toggle('grid-aktif');
+        document.getElementById('btnGrid').classList.toggle('aktif-olcum');
+    }
+    function planReset() { 
+        planScale = 1; planX = 0; planY = 0; planRot = 0; 
+        olcumNoktalari = []; olcumCiz(); gorselGuncelle(); 
+    } 
+
+    function olcumModuToggle() {
+        olcumModuAktif = !olcumModuAktif;
+        let sahne = document.getElementById('sahneContainer');
+        let btn = document.getElementById('btnOlcumModu');
+        let bilgi = document.getElementById('planOlcumBilgi');
+        if(olcumModuAktif) {
+            sahne.classList.add('olcum-aktif');
+            btn.classList.add('aktif-olcum');
+            bilgi.innerText = pikselBasinaCm ? "📏 Ölçüm için 2 noktaya tıklayın" : "📏 Kalibrasyon: Planda bildiğiniz 2 noktaya tıklayın";
+        } else {
+            sahne.classList.remove('olcum-aktif');
+            btn.classList.remove('aktif-olcum');
+            olcumNoktalari = [];
+            olcumCiz();
+            bilgi.innerText = "📏 Cetvel: Kapalı";
+        }
+    }
+
+    function kalibrasyonSifirla() {
+        pikselBasinaCm = null;
+        olcumNoktalari = [];
+        olcumCiz();
+        if(!olcumModuAktif) olcumModuToggle();
+        else document.getElementById('planOlcumBilgi').innerText = "📏 Kalibrasyon: Planda bildiğiniz 2 noktaya tıklayın";
+    }
+
+    function olcumCiz() {
+        let svg = document.getElementById('olcumKatmani');
+        svg.innerHTML = '';
+        olcumNoktalari.forEach(p => {
+            svg.innerHTML += `<circle cx="${p.x}" cy="${p.y}" r="5" fill="#d32f2f" stroke="#fff" stroke-width="2"/>`;
+        });
+        if(olcumNoktalari.length === 2) {
+            let p1 = olcumNoktalari[0], p2 = olcumNoktalari[1];
+            svg.innerHTML += `<line x1="${p1.x}" y1="${p1.y}" x2="${p2.x}" y2="${p2.y}" stroke="#d32f2f" stroke-width="2.5" stroke-dasharray="5,3"/>`;
+        }
+    }
+
+    function baslaSurukle(e) { 
+        var cx = e.clientX || (e.touches && e.touches[0].clientX); 
+        var cy = e.clientY || (e.touches && e.touches[0].clientY);
+        if(olcumModuAktif) {
+            let rect = document.getElementById('sahneContainer').getBoundingClientRect();
+            let x = cx - rect.left;
+            let y = cy - rect.top;
+            if(olcumNoktalari.length >= 2) olcumNoktalari = [];
+            olcumNoktalari.push({x, y});
+            olcumCiz();
+            if(olcumNoktalari.length === 2) {
+                let dx = olcumNoktalari[1].x - olcumNoktalari[0].x;
+                let dy = olcumNoktalari[1].y - olcumNoktalari[0].y;
+                let distPx = Math.sqrt(dx*dx + dy*dy) / planScale;
+                if(!pikselBasinaCm) {
+                    let girilenCm = prompt("Seçtiğiniz bu iki nokta arasındaki GERÇEK uzunluk kaç CM? (Örn: Kapı genişliği için 90):", "100");
+                    let gercekCm = temizle(girilenCm);
+                    if(!isNaN(gercekCm) && gercekCm > 0) {
+                        pikselBasinaCm = gercekCm / distPx;
+                        document.getElementById('planOlcumBilgi').innerText = `✅ Kalibre Edildi! Ölçüm: ${gercekCm.toFixed(1)} cm`;
+                    }
+                } else {
+                    let olculenCm = distPx * pikselBasinaCm;
+                    document.getElementById('planOlcumBilgi').innerText = `📏 Ölçülen: ${olculenCm.toFixed(1)} cm (${(olculenCm/100).toFixed(2)} m)`;
+                }
+            }
+            e.preventDefault();
+            return;
+        }
+        if(!document.getElementById('gercekPlan')) return; 
+        isDragging = true; 
+        startX = cx - planX; startY = cy - planY; 
+        e.preventDefault(); 
+    } 
+    function surukle(e) { if(!isDragging || olcumModuAktif) return; var cx = e.clientX || (e.touches && e.touches[0].clientX); var cy = e.clientY || (e.touches && e.touches[0].clientY); planX = cx - startX; planY = cy - startY; gorselGuncelle(); e.preventDefault(); } 
+    function bitirSurukle() { isDragging = false; }
     
+    // OYUN MOTORLARI
     function switchGame(game) { 
         if(activeGameLoop) { cancelAnimationFrame(activeGameLoop); activeGameLoop = null; } 
         document.querySelectorAll('.game-wrapper').forEach(el => el.classList.remove('active')); 
@@ -1307,7 +1948,6 @@
             d.className='cell-2048'+(v?' c2048-'+v:''); d.innerText=v||''; g.appendChild(d);
         }
     }
-    
     function move2048(dir){
         let moved=false;
         let rotate = (b) => b[0].map((val, index) => b.map(row => row[index]).reverse());
@@ -1323,7 +1963,6 @@
         for(let i=0;i<(4-rots)%4;i++) b2048 = rotate(b2048);
         if(moved){ add2048(); ciz2048(); }
     }
-    
     function setup2048Swipe(){
         let tsX2, tsY2, grid = document.getElementById('grid-2048');
         grid.addEventListener('touchstart', e => { tsX2=e.touches[0].clientX; tsY2=e.touches[0].clientY; e.preventDefault(); }, {passive:false});
@@ -1336,7 +1975,6 @@
             }
         });
     }
-
 </script>
 </body>
 </html>
